@@ -1,6 +1,6 @@
 package rainbow.inner.coordinate.system;
 
-import rainbow.inner.point.MyPoint;
+import rainbow.inner.coordinate.point.MyPoint;
 
 import java.awt.*;
 

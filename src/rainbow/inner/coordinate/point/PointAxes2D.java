@@ -1,4 +1,4 @@
-package rainbow.inner.point;
+package rainbow.inner.coordinate.point;
 
 import static java.lang.Math.sin;
 import static java.lang.Math.cos;

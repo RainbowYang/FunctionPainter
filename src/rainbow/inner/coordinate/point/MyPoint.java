@@ -1,4 +1,4 @@
-package rainbow.inner.point;
+package rainbow.inner.coordinate.point;
 
 /**
  * 这里是所有的点的借口,定义一些可能用的方法.
