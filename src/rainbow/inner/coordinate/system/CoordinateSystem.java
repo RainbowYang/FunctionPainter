@@ -1,20 +1,22 @@
 package rainbow.inner.coordinate.system;
 
-import rainbow.inner.coordinate.point.MyPoint;
+import rainbow.inner.coordinate.system.comp.Colors;
+import rainbow.inner.coordinate.system.comp.Values;
 
-import java.awt.*;
 
 /**
  * @author Rainbow Yang
  * @date 2017/4/4
  */
-public interface CoordinateSystem {
+public abstract class CoordinateSystem {
+    protected Colors colors;
+    protected Values values;
 
-    public LocationChanger getLocationChanger();
+    public Colors getColors() {
+        return colors;
+    }
 
-    interface LocationChanger {
-        public <P extends MyPoint> P toSystem(Point.Double p);
-
-        public <P extends MyPoint> Point.Double toReal(P p);
+    public Values getValues() {
+        return values;
     }
 }

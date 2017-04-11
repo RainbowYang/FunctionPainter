@@ -59,7 +59,7 @@
     - 20170402 初始化
 
 
-本文博客地址 http://rainbow-yang.moe/201703/18/introduction-of-FunctionPainter.html
+本文博客地址 http://http://rainbow-yang.moe/201704/04/introduction-of-FunctionPainter.html
 （未完）
 
 [贝塞尔曲线]: https://zh.wikipedia.org/wiki/%E8%B2%9D%E8%8C%B2%E6%9B%B2%E7%B7%9A "Wiki链接"
