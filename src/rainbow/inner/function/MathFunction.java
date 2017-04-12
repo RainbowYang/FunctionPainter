@@ -18,6 +18,10 @@ public class MathFunction extends MyFunction {
         this.lists = new ArrayList<>();
     }
 
+    public MathFunction() {
+        super();
+    }
+
     public List<ArrayList<? extends MyPoint>> getPoints() {
         return lists;
     }

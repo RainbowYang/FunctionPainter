@@ -53,12 +53,6 @@
 + 翻折
 + 放大和缩小
 
-## 历史版本
-
-### V2.0
-    - 20170402 初始化
-
-
 本文博客地址 http://http://rainbow-yang.moe/201704/04/introduction-of-FunctionPainter.html
 （未完）
 

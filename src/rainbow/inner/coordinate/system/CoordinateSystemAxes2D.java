@@ -1,46 +1,53 @@
 package rainbow.inner.coordinate.system;
 
-import com.sun.org.apache.xpath.internal.functions.WrongNumberArgsException;
-import rainbow.inner.coordinate.point.MyPoint;
+import rainbow.inner.coordinate.system.comp.Values;
 import rainbow.inner.exception.FailedSetException;
-
-import java.awt.geom.Point2D;
 
 /**
  * @author Rainbow Yang
  * @date 2017/4/4
  */
 public class CoordinateSystemAxes2D extends CoordinateSystem {
-    //原点的坐标
-    private double x, y;
-    //x轴和y轴的角度
+    //x轴和y轴的角度(与三点钟方向逆时针的方向)
     private double xAngle, yAngle;
+
+    public CoordinateSystemAxes2D() {
+        init();
+    }
+
+    public void init() {
+        xAngle = 0;
+        yAngle = Math.PI / 2;
+    }
 
     @Override
     public void setChanged() {
-
+        initValues();
     }
 
-    public double getX() {
-        return x;
+    @Override
+    protected void initValues() {
+        values = new Values();
     }
 
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
+    @Override
+    public String toString() {
+        return "CoordinateSystemAxes2D{" +
+                "xAngle=" + xAngle +
+                ", yAngle=" + yAngle +
+                '}';
     }
 
     public double getxAngle() {
         return xAngle;
     }
 
+    /**
+     * 如果设置的角度与另一轴相同，则抛出FailedSetException
+     *
+     * @param xAngle 需要设置的x轴的角度
+     * @see FailedSetException
+     */
     public void setxAngle(double xAngle) {
         if (xAngle == yAngle) {
             throw new FailedSetException("The set of xAnger was failed,because the value of xAngle" +
@@ -51,15 +58,21 @@ public class CoordinateSystemAxes2D extends CoordinateSystem {
     }
 
     public double getyAngle() {
+        return yAngle;
+    }
+
+    /**
+     * 如果设置的角度与另一轴相同，则抛出FailedSetException
+     *
+     * @param yAngle 需要设置的y轴的角度
+     * @see FailedSetException
+     */
+    public void setyAngle(double yAngle) {
         if (xAngle == yAngle) {
             throw new FailedSetException("The set of yAnger was failed,because the value of yAngle" +
                     yAngle + "is equals to the value of xAngle");
         } else {
-            return yAngle;
+            this.yAngle = yAngle;
         }
-    }
-
-    public void setyAngle(double yAngle) {
-        this.yAngle = yAngle;
     }
 }

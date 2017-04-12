@@ -1,7 +1,5 @@
 package rainbow.inner.coordinate.system.comp;
 
-import sun.plugin.dom.exception.WrongDocumentException;
-
 import java.util.ArrayList;
 import java.util.function.BiFunction;
 import java.util.function.Function;

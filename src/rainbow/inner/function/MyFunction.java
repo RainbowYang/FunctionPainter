@@ -15,6 +15,10 @@ public abstract class MyFunction {
         this.clazz = clazz;
     }
 
+    public MyFunction() {
+
+    }
+
     public abstract void paintBefore(Graphics g);
 
     public abstract void paintAfter(Graphics g);

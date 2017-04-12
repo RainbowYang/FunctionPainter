@@ -1,6 +1,7 @@
 package rainbow.inner.coordinate.system;
 
 import rainbow.inner.coordinate.system.comp.Colors;
+import rainbow.inner.coordinate.system.comp.Functions;
 import rainbow.inner.coordinate.system.comp.Values;
 
 
@@ -11,6 +12,17 @@ import rainbow.inner.coordinate.system.comp.Values;
 public abstract class CoordinateSystem {
     protected Colors colors;
     protected Values values;
+    protected Functions functions;
+
+    public CoordinateSystem() {
+        colors = new Colors();
+        functions = new Functions();
+        initValues();
+    }
+
+    protected abstract void initValues();
+
+    public abstract void setChanged();
 
     public Colors getColors() {
         return colors;
@@ -20,5 +32,7 @@ public abstract class CoordinateSystem {
         return values;
     }
 
-    public abstract void setChanged();
+    public Functions getFunctions() {
+        return functions;
+    }
 }
