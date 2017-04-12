@@ -19,4 +19,6 @@ public abstract class CoordinateSystem {
     public Values getValues() {
         return values;
     }
+
+    public abstract void setChanged();
 }
