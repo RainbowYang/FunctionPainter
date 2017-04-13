@@ -1,6 +1,5 @@
 package rainbow.inner.coordinate.system;
 
-import rainbow.inner.coordinate.system.comp.Values;
 import rainbow.inner.exception.FailedSetException;
 
 /**
@@ -27,7 +26,7 @@ public class CoordinateSystemAxes2D extends CoordinateSystem {
 
     @Override
     protected void initValues() {
-        values = new Values();
+        // values = new Values();
     }
 
     @Override
