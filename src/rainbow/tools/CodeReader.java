@@ -102,7 +102,7 @@ public class CodeReader {
                 System.out.println("\tcode lines : " + fileNode.count);
                 return;
         }
-        System.out.println();
+        System.out.println("---------------------------------------------------------");
         System.out.println("Files : " + fileNode.fileCount);
         System.out.println("Code lines : " + fileNode.count);
         System.out.println("Blank lines : " + fileNode.blankCount);
@@ -114,11 +114,18 @@ public class CodeReader {
         if (isDetailed) indent(node.level);
 
         if (node.isFile()) {
-            System.out.println(node.name + " : " + node.count);
+            System.out.println(node.name + " : " + node.count + "(" + node.annotation + ")");
         } else {
-            if (isDetailed) System.out.println(node.name + " : files " + node.fileCount + ",lines " + node.count);
+            if (isDetailed) {
+                System.out.println(node.name + " : " + node.count + " line" + (node.count == 1 ? "" : "s") +
+                        " in " + node.fileCount + " file" + (node.fileCount == 1 ? "" : "s") + " {");
+            }
             for (FileNode f : node.map.values()) {
                 print(f, isDetailed);
+            }
+            if (isDetailed) {
+                indent(node.level);
+                System.out.println("}");
             }
         }
     }
