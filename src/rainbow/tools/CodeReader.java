@@ -98,27 +98,27 @@ public class CodeReader {
                 print(fileNode, false);
                 break;
             case SIMPLE:
-                System.out.print("files : " + fileNode.fileCount);
-                System.out.println("\tcode lines : " + fileNode.count);
+                System.out.print("files : " + numTo(fileNode.fileCount));
+                System.out.println("\tcode lines : " + numTo(fileNode.count));
                 return;
         }
         System.out.println("---------------------------------------------------------");
-        System.out.println("Files : " + fileNode.fileCount);
-        System.out.println("Code lines : " + fileNode.count);
-        System.out.println("Blank lines : " + fileNode.blankCount);
-        System.out.println("Annotation lines : " + fileNode.annotation);
-        System.out.println("Lines per file : " + (fileNode.count * 100 / fileNode.fileCount + 5) / 100.0);
+        System.out.println("Files : " + numTo(fileNode.fileCount));
+        System.out.println("Code lines : " + numTo(fileNode.count));
+        System.out.println("Blank lines : " + numTo(fileNode.blankCount));
+        System.out.println("Annotation lines : " + numTo(fileNode.annotation));
+        System.out.println("Lines per file : " + numTo((fileNode.count * 100 / fileNode.fileCount + 5) / 100.0));
     }
 
     private void print(FileNode node, boolean isDetailed) {
         if (isDetailed) indent(node.level);
 
         if (node.isFile()) {
-            System.out.println(node.name + " : " + node.count + "(" + node.annotation + ")");
+            System.out.println(fileTo(node.name) + " : " + numTo(node.count) + "(" + numTo(node.annotation) + ")");
         } else {
             if (isDetailed) {
-                System.out.println(node.name + " : " + node.count + " line" + (node.count == 1 ? "" : "s") +
-                        " in " + node.fileCount + " file" + (node.fileCount == 1 ? "" : "s") + " {");
+                System.out.println(packageTo(node.name) + " : " + numTo(node.count) + " line" + (node.count == 1 ? "" : "s") +
+                        " in " + numTo(node.fileCount) + " file" + (node.fileCount == 1 ? "" : "s") + " {");
             }
             for (FileNode f : node.map.values()) {
                 print(f, isDetailed);
@@ -128,6 +128,48 @@ public class CodeReader {
                 System.out.println("}");
             }
         }
+    }
+
+    public String numTo(Number n) {
+        return setColor(n.toString(), "blue", true);
+    }
+
+    public String fileTo(String s) {
+        return setColor(s, "yellow", false);
+    }
+
+    public String packageTo(String s) {
+        return setColor(s, "green", true);
+    }
+
+    public String setColor(String s, String color, boolean bright) {
+        switch (color) {
+            case "black":
+                if (bright) return ("\u001B[90m" + s + "\u001B[0m");
+                else return ("\u001B[30m" + s + "\u001B[0m");
+            case "red":
+                if (bright) return ("\u001B[91m" + s + "\u001B[0m");
+                else return ("\u001B[31m" + s + "\u001B[0m");
+            case "green":
+                if (bright) return ("\u001B[92m" + s + "\u001B[0m");
+                else return ("\u001B[32m" + s + "\u001B[0m");
+            case "yellow":
+                if (bright) return ("\u001B[93m" + s + "\u001B[0m");
+                else return ("\u001B[33m" + s + "\u001B[0m");
+            case "blue":
+                if (bright) return ("\u001B[94m" + s + "\u001B[0m");
+                else return ("\u001B[34m" + s + "\u001B[0m");
+            case "magenta":
+                if (bright) return ("\u001B[95m" + s + "\u001B[0m");
+                else return ("\u001B[35m" + s + "\u001B[0m");
+            case "cyan":
+                if (bright) return ("\u001B[96m" + s + "\u001B[0m");
+                else return ("\u001B[36m" + s + "\u001B[0m");
+            case "white":
+                if (bright) return ("\u001B[97m" + s + "\u001B[0m");
+                else return ("\u001B[37m" + s + "\u001B[0m");
+        }
+        return null;
     }
 
     // 缩进
