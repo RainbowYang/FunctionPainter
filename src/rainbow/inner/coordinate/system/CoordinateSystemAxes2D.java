@@ -1,5 +1,8 @@
 package rainbow.inner.coordinate.system;
 
+import rainbow.inner.coordinate.point.MyPoint;
+import rainbow.inner.coordinate.point.PointDouble;
+import rainbow.inner.coordinate.system.comp.LocationCalculator;
 import rainbow.inner.exception.FailedSetException;
 
 /**
@@ -27,6 +30,32 @@ public class CoordinateSystemAxes2D extends CoordinateSystem {
     @Override
     protected void initValues() {
         // values = new Values();
+    }
+
+    //todo
+    @Override
+    protected void initLocationCalculator() {
+        location = new LocationCalculator(this) {
+            @Override
+            public PointDouble[] toReal(MyPoint<? extends MyPoint>[] ps) {
+                return new PointDouble[0];
+            }
+
+            @Override
+            public PointDouble toReal(MyPoint<? extends MyPoint> p) {
+                return null;
+            }
+
+            @Override
+            public MyPoint<? extends MyPoint>[] toSystem(PointDouble... ps) {
+                return new MyPoint[0];
+            }
+
+            @Override
+            public MyPoint<? extends MyPoint> toReal(PointDouble p) {
+                return null;
+            }
+        };
     }
 
     @Override

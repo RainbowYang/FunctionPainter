@@ -1,4 +1,4 @@
-package rainbow.inner.coordinate.system.comp;
+package rainbow.inner.system.comp;
 
 import java.awt.*;
 import java.util.HashMap;
