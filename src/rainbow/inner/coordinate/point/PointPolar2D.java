@@ -50,15 +50,27 @@ public class PointPolar2D implements MyPoint<PointPolar2D> {
         return add(r, angle + PI);
     }
 
-    @Override
+    /**
+     * 将一个点[逆时针]绕原点旋转一定角度
+     *
+     * @param angle 需要旋转的角度(单位为弧度)
+     * @return 旋转之后得到的点
+     */
     public PointPolar2D spin(double angle) {
         return new PointPolar2D(r, this.angle + angle);
     }
 
-    @Override
+    /**
+     * 将一个点[逆时针]绕所给定的点旋转一定角度
+     *
+     * @param center 旋转中心
+     * @param angle  需要旋转的角度(单位为弧度)
+     * @return 旋转之后得到的点
+     */
     public PointPolar2D spin(PointPolar2D center, double angle) {
         return reduce(center).spin(angle).add(center);
     }
+
 
     @Override
     public PointPolar2D times(double times) {

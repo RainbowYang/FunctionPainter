@@ -31,27 +31,6 @@ public interface MyPoint<P extends MyPoint> {
     }
 
     /**
-     * 将一个点[逆时针]绕原点旋转一定角度
-     *
-     * @param angle 需要旋转的角度(单位为弧度)
-     * @return 旋转之后得到的点
-     */
-    public default P spin(double angle) {
-        throw new UnsupportedOperationException(getDescription("Spin"));
-    }
-
-    /**
-     * 将一个点[逆时针]绕所给定的点旋转一定角度
-     *
-     * @param center 旋转中心
-     * @param angle  需要旋转的角度(单位为弧度)
-     * @return 旋转之后得到的点
-     */
-    public default P spin(P center, double angle) {
-        throw new UnsupportedOperationException(getDescription("Spin"));
-    }
-
-    /**
      * 将一个点进行缩放
      *
      * @param times 需要缩放的倍数

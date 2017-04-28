@@ -43,12 +43,24 @@ public class PointAxes2D implements MyPoint<PointAxes2D> {
         return add(-x, -y);
     }
 
-    @Override
+    /**
+     * 将一个点[逆时针]绕原点旋转一定角度
+     *
+     * @param angle 需要旋转的角度(单位为弧度)
+     * @return 旋转之后得到的点
+     */
     public PointAxes2D spin(double angle) {
         return new PointAxes2D(x * cos(angle) - y * sin(angle), x * sin(angle) + y * cos(angle));
+
     }
 
-    @Override
+    /**
+     * 将一个点[逆时针]绕所给定的点旋转一定角度
+     *
+     * @param center 旋转中心
+     * @param angle  需要旋转的角度(单位为弧度)
+     * @return 旋转之后得到的点
+     */
     public PointAxes2D spin(PointAxes2D center, double angle) {
         return reduce(center).spin(angle).add(center);
     }
