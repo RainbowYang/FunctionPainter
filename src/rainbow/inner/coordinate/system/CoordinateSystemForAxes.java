@@ -8,6 +8,9 @@ import rainbow.inner.system.MySystem;
 import java.util.Arrays;
 
 /**
+ * 任意维度的轴坐标系
+ * todo 待加强
+ *
  * @author Rainbow Yang
  */
 public class CoordinateSystemForAxes extends CoordinateSystem {

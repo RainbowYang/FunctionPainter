@@ -5,6 +5,9 @@ import rainbow.inner.coordinate.point.PointDouble;
 
 
 /**
+ * 坐标系
+ * 主要负责坐标的换算
+ *
  * @author Rainbow Yang
  */
 public abstract class CoordinateSystem {
@@ -59,10 +62,10 @@ public abstract class CoordinateSystem {
         public abstract PointDouble toReal(MyPoint p);
 
         /**
-         * 把坐标点转换为屏幕上的位置
+         * 把屏幕上的位置转换为坐标点
          *
-         * @param ps 坐标点
-         * @return 屏幕上的位置
+         * @param ps 屏幕上的位置
+         * @return 坐标点
          */
         public MyPoint<? extends MyPoint>[] toSystem(PointDouble... ps) {
             throw new UnsupportedOperationException("The toSystem has not supported by" + system.getClass().getSimpleName());

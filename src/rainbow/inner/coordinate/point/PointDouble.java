@@ -1,6 +1,8 @@
 package rainbow.inner.coordinate.point;
 
 /**
+ * 用于表示屏幕上的位置
+ *
  * @author Rainbow Yang
  */
 public class PointDouble {

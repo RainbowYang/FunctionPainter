@@ -9,6 +9,7 @@ package rainbow.inner.coordinate.point;
  * @author Rainbow Yang
  */
 public class PointForAxes implements MyPoint<PointForAxes> {
+    //所有维度上的值
     private double[] values;
 
     public PointForAxes(double... values) {
