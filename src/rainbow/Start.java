@@ -7,7 +7,6 @@ import rainbow.tools.CodeReader;
  * 没错，之前的版本最终被我放弃了
  *
  * @author Rainbow Yang
- * @date 2017/4/2
  */
 public class Start {
     public static void main(String[] args) {

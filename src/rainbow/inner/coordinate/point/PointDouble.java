@@ -2,7 +2,6 @@ package rainbow.inner.coordinate.point;
 
 /**
  * @author Rainbow Yang
- * @date 2017/4/11
  */
 public class PointDouble {
     private double x;

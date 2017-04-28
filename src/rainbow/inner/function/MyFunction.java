@@ -6,7 +6,6 @@ import java.awt.*;
 
 /**
  * @author Rainbow Yang
- * @date 2017/4/4
  */
 public abstract class MyFunction {
     public static Class<? extends CoordinateSystem> clazz;

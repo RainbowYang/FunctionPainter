@@ -9,7 +9,6 @@ import rainbow.inner.coordinate.system.CoordinateSystem;
  * 屏幕上的位置 和 在坐标中的位置
  *
  * @author Rainbow Yang
- * @date 2017/4/23
  */
 public abstract class LocationChanger {
     private CoordinateSystem system;

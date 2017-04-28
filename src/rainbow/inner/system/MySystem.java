@@ -11,7 +11,6 @@ import java.util.ArrayList;
  * 单例模式。
  *
  * @author Rainbow Yang
- * @date 2017/4/11
  */
 public class MySystem {
 

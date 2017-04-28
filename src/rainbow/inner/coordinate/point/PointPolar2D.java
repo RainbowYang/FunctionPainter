@@ -6,7 +6,6 @@ import static java.lang.Math.*;
  * 这是二维的极坐标点,用于平面极坐标系
  *
  * @author Rainbow Yang
- * @date 2017/4/3
  */
 public class PointPolar2D implements MyPoint<PointPolar2D> {
     private double r;

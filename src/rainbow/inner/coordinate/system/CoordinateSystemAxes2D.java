@@ -7,7 +7,6 @@ import rainbow.inner.exception.FailedSetException;
 
 /**
  * @author Rainbow Yang
- * @date 2017/4/4
  */
 public class CoordinateSystemAxes2D extends CoordinateSystem {
     //x轴和y轴的角度(与三点钟方向逆时针的方向)

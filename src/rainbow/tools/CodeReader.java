@@ -11,7 +11,6 @@ import java.util.Map;
  * 数行数
  *
  * @author Rainbow Yang
- * @date 2017/4/13
  */
 public class CodeReader {
     //模式

@@ -6,7 +6,6 @@ import rainbow.inner.coordinate.system.comp.Values;
 
 /**
  * @author Rainbow Yang
- * @date 2017/4/4
  */
 public abstract class CoordinateSystem {
     protected Values values;

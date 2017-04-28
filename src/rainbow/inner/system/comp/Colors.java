@@ -10,7 +10,6 @@ import java.util.NoSuchElementException;
  * 默认为黑色
  *
  * @author Rainbow Yang
- * @date 2017/4/10
  */
 public class Colors {
     private Map<String, Color> colorMap = new HashMap<>();

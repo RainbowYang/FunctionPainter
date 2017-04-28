@@ -7,7 +7,6 @@ import static java.lang.Math.cos;
  * 这是二维的轴坐标点,用于平面直角坐标系
  *
  * @author Rainbow Yang
- * @date 2017/4/2
  */
 public class PointAxes2D implements MyPoint<PointAxes2D> {
     private double x;

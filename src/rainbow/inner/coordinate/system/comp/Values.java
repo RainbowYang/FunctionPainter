@@ -8,7 +8,6 @@ import java.util.function.Function;
  * 用于管理函数的取值。
  *
  * @author Rainbow Yang
- * @date 2017/4/10
  */
 public class Values {
 

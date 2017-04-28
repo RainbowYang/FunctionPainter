@@ -8,7 +8,6 @@ import java.util.List;
 
 /**
  * @author Rainbow Yang
- * @date 2017/4/4
  */
 public class MathFunction extends MyFunction {
     protected List<ArrayList<? extends MyPoint>> lists;

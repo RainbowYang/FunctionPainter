@@ -5,7 +5,6 @@ package rainbow.inner.coordinate.point;
  * 所有方法默认给出UnsupportedOperationException
  *
  * @author Rainbow Yang
- * @date 2017/4/2
  * @see UnsupportedOperationException
  */
 public interface MyPoint<P extends MyPoint> {
