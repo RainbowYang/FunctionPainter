@@ -2,6 +2,9 @@ package rainbow.inner.system;
 
 import rainbow.inner.coordinate.system.CoordinateSystem;
 import rainbow.inner.coordinate.system.CoordinateSystemAxes2D;
+import rainbow.inner.system.comp.Functions;
+
+import java.util.ArrayList;
 
 /**
  * 本类用于管理本系统中的大部分变量。
@@ -12,49 +15,46 @@ import rainbow.inner.coordinate.system.CoordinateSystemAxes2D;
  */
 public class MySystem {
 
-    private static MySystem mySystem = new MySystem();
-
-    private CoordinateSystem coordinateSystem;
-
     public static final double DEFAULT_WIDTH = 1300, DEFAULT_HEIGHT = 500;
+
+    private static ArrayList<MySystem> systems = new ArrayList<>();
+    private static MySystem system = new MySystem();
 
     private double width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT;
 
-    private double x, y;
+    private CoordinateSystem cs;
+    private Functions fs;
 
-    private double step = 0.01;
-
-
-    public MySystem() {
-        init();
+    private MySystem() {
     }
 
     public void init() {
-        x = width / 2;
-        y = height / 2;
+        setCoordinateSystem();
+        fs = new Functions();
     }
 
-    public void setChanged() {
-        coordinateSystem.setChanged();
+    public static void createSystem() {
+        systems.add(system = new MySystem());
+        system.init();
     }
 
     public static MySystem getSystem() {
-        return mySystem;
+        return system;
     }
 
     public CoordinateSystem getCoordinateSystem() {
-        return coordinateSystem;
-    }
-
-    public void setCoordinateSystem(CoordinateSystem coordinateSystem) {
-        this.coordinateSystem = coordinateSystem;
+        return cs;
     }
 
     /**
      * 默认设置为平面轴坐标系
      */
     public void setCoordinateSystem() {
-        this.coordinateSystem = new CoordinateSystemAxes2D();
+        this.cs = new CoordinateSystemAxes2D();
+    }
+
+    public void setCoordinateSystem(CoordinateSystem coordinateSystem) {
+        this.cs = coordinateSystem;
     }
 
     public double getWidth() {
@@ -73,27 +73,4 @@ public class MySystem {
         this.height = height;
     }
 
-    public double getX() {
-        return x;
-    }
-
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
-    }
-
-    public double getStep() {
-        return step;
-    }
-
-    public void setStep(double step) {
-        this.step = step;
-    }
 }
