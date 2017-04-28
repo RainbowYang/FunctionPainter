@@ -1,6 +1,6 @@
 package rainbow.inner.coordinate.system;
 
-import rainbow.inner.coordinate.system.comp.LocationCalculator;
+import rainbow.inner.coordinate.system.comp.LocationChanger;
 import rainbow.inner.coordinate.system.comp.Values;
 
 
@@ -10,7 +10,7 @@ import rainbow.inner.coordinate.system.comp.Values;
  */
 public abstract class CoordinateSystem {
     protected Values values;
-    protected LocationCalculator location;
+    protected LocationChanger location;
 
     public CoordinateSystem() {
         initValues();
@@ -23,7 +23,7 @@ public abstract class CoordinateSystem {
 
     public abstract void setChanged();
 
-    public LocationCalculator getLocationCalculator() {
+    public LocationChanger getLocationCalculator() {
         return location;
     }
 

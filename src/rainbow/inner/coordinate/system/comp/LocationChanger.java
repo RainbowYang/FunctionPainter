@@ -11,10 +11,10 @@ import rainbow.inner.coordinate.system.CoordinateSystem;
  * @author Rainbow Yang
  * @date 2017/4/23
  */
-public abstract class LocationCalculator {
+public abstract class LocationChanger {
     private CoordinateSystem system;
 
-    public LocationCalculator(CoordinateSystem system) {
+    public LocationChanger(CoordinateSystem system) {
         this.system = system;
     }
 
