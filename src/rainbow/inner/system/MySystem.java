@@ -1,7 +1,7 @@
 package rainbow.inner.system;
 
 import rainbow.inner.coordinate.system.CoordinateSystem;
-import rainbow.inner.coordinate.system.CoordinateSystemAxes2D;
+import rainbow.inner.coordinate.system.CoordinateSystemForAxes;
 import rainbow.inner.system.comp.Functions;
 
 import java.util.ArrayList;
@@ -49,7 +49,7 @@ public class MySystem {
      * 默认设置为平面轴坐标系
      */
     public void setCoordinateSystem() {
-        this.cs = new CoordinateSystemAxes2D();
+        this.cs = new CoordinateSystemForAxes(2);
     }
 
     public void setCoordinateSystem(CoordinateSystem coordinateSystem) {
