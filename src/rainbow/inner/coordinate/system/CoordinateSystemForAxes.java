@@ -7,7 +7,6 @@ import rainbow.inner.coordinate.system.comp.LocationChanger;
 import rainbow.inner.system.MySystem;
 
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * 任意维度的轴坐标系
@@ -56,21 +55,9 @@ public class CoordinateSystemForAxes extends CoordinateSystem {
     protected void initLocationChanger() {
         changer = new LocationChanger(this) {
             @Override
-            public PointDouble[] toReal(MyPoint<? extends MyPoint>... ps) {
-                return new PointDouble[0];
-                //todo
-            }
-
-            @Override
-            public PointDouble[] toReal(List<MyPoint> ps) {
-                return new PointDouble[0];
-                // TODO: 2017/4/29
-            }
-
-            @Override
             public PointDouble toReal(MyPoint p) {
                 PointForAxes pa = (PointForAxes) p;
-                double px = x, py = y;
+                double px = x, py = y;//x,y是原点的在屏幕上的坐标
                 for (int i = 0; i < size(); i++) {
                     px += Math.cos(angles[i]) * lengthes[i] * pa.get(i);
                     py -= Math.sin(angles[i]) * lengthes[i] * pa.get(i);

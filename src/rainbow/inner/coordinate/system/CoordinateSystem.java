@@ -12,7 +12,7 @@ public abstract class CoordinateSystem {
     protected LocationChanger changer;
     protected double x, y;
 
-    public CoordinateSystem() {
+    CoordinateSystem() {
         initLocationChanger();
     }
 
@@ -22,6 +22,14 @@ public abstract class CoordinateSystem {
 
     public double getY() {
         return y;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
     }
 
     public LocationChanger getLocationChanger() {

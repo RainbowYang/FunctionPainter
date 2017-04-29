@@ -31,4 +31,8 @@ public class PointFunction implements MyFunction {
     public void addPoint(MyPoint p) {
         points.get(index).add(p);
     }
+
+    public List<List<MyPoint>> getPoints() {
+        return points;
+    }
 }
