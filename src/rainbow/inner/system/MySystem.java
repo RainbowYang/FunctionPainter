@@ -41,6 +41,10 @@ public class MySystem {
         return system;
     }
 
+    public Functions getFunctions() {
+        return fs;
+    }
+
     public CoordinateSystem getCoordinateSystem() {
         return cs;
     }
