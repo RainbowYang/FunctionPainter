@@ -13,13 +13,16 @@ import java.util.ArrayList;
  * @author Rainbow Yang
  */
 public class MySystem {
+    public static final String name = "FunctionPrinter";
+    public static final String version = "V2.0";
+    public static final String author = "Rainbow Yang";
 
-    public static final double DEFAULT_WIDTH = 1300, DEFAULT_HEIGHT = 500;
+    public static final double DEFAULT_WIDTH = 1300, DEFAULT_HEIGHT = 800;
 
     private static ArrayList<MySystem> systems = new ArrayList<>();
     private static MySystem system = new MySystem();
 
-    private double width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT;
+    private static double width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT;
 
     private CoordinateSystem cs;
     private Functions fs;
@@ -60,20 +63,20 @@ public class MySystem {
         this.cs = coordinateSystem;
     }
 
-    public double getWidth() {
+    public static double getWidth() {
         return width;
     }
 
-    public void setWidth(double width) {
-        this.width = width;
+    public static void setWidth(double newWidth) {
+        width = newWidth;
     }
 
-    public double getHeight() {
+    public static double getHeight() {
         return height;
     }
 
-    public void setHeight(double height) {
-        this.height = height;
+    public static void setHeight(double newHeight) {
+        height = newHeight;
     }
 
 }

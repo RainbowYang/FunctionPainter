@@ -29,4 +29,12 @@ public class PointDouble {
     public double getY() {
         return y;
     }
+
+    @Override
+    public String toString() {
+        return "PointDouble{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
 }

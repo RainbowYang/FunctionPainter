@@ -2,6 +2,7 @@ package rainbow;
 
 import rainbow.inner.function.MathFunction;
 import rainbow.inner.system.MySystem;
+import rainbow.outer.frame.MainFrame;
 import rainbow.tools.CodeReader;
 
 import java.util.Arrays;
@@ -16,6 +17,8 @@ import java.util.Arrays;
 public class Start {
     public static void main(String[] args) {
         System.out.println("这里只是一个暂置的Start类");
+        functionTest();
+        new MainFrame();
     }
 
     public static void functionTest() {
