@@ -1,5 +1,7 @@
 package rainbow;
 
+import rainbow.inner.function.MathFunction;
+import rainbow.inner.system.MySystem;
 import rainbow.tools.CodeReader;
 
 /**
@@ -11,6 +13,14 @@ import rainbow.tools.CodeReader;
 public class Start {
     public static void main(String[] args) {
         System.out.println("这里只是一个暂置的Start类");
+
+        MySystem.createSystem();
+        MySystem.getSystem().getFunctions().add(new MathFunction(x -> x));
+        MathFunction mf = (MathFunction) MySystem.getSystem()
+                .getFunctions().getFunctions().get(0);
+        mf.calcPoint();
+        System.out.println(mf);
+
     }
 
     static {

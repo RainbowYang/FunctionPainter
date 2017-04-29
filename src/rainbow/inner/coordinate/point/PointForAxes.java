@@ -1,5 +1,7 @@
 package rainbow.inner.coordinate.point;
 
+import java.util.Arrays;
+
 /**
  * 轴坐标点
  * <p>
@@ -84,5 +86,12 @@ public class PointForAxes implements MyPoint<PointForAxes> {
         }
         ds[index] = ds[index] + value;
         return new PointForAxes(ds);
+    }
+
+    @Override
+    public String toString() {
+        return "PointForAxes{" +
+                "values=" + Arrays.toString(values) +
+                '}';
     }
 }

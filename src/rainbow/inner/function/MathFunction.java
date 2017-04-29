@@ -1,35 +1,35 @@
 package rainbow.inner.function;
 
-import rainbow.inner.coordinate.point.MyPoint;
+import rainbow.inner.coordinate.point.PointForAxes;
 
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.function.Function;
 
 /**
  * @author Rainbow Yang
  */
-public class MathFunction extends MyFunction {
-    protected List<ArrayList<? extends MyPoint>> lists;
+public class MathFunction extends PointFunction {
+    private Function<Double, Double> function;
 
-    public MathFunction(Class clazz) {
-        super(clazz);
-        this.lists = new ArrayList<>();
+    public MathFunction(Function<Double, Double> function) {
+        this.function = function;
     }
 
-    public MathFunction() {
-        super();
+    {
+        newPoints();
     }
 
-    public List<ArrayList<? extends MyPoint>> getPoints() {
-        return lists;
+    //todo 范围未定
+    public void calcPoint() {
+        for (double i = 0; i < 10; i++) {
+            addPoint(new PointForAxes(i, function.apply(i)));
+        }
     }
 
     @Override
-    public void paintBefore(Graphics g) {
-    }
-
-    @Override
-    public void paintAfter(Graphics g) {
+    public String toString() {
+        return "MathFunction{" +
+                "function=" + function +
+                ", points=" + points +
+                '}';
     }
 }

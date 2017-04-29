@@ -3,9 +3,11 @@ package rainbow.inner.coordinate.system;
 import rainbow.inner.coordinate.point.MyPoint;
 import rainbow.inner.coordinate.point.PointDouble;
 import rainbow.inner.coordinate.point.PointForAxes;
+import rainbow.inner.coordinate.system.comp.LocationChanger;
 import rainbow.inner.system.MySystem;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * 任意维度的轴坐标系
@@ -52,10 +54,17 @@ public class CoordinateSystemForAxes extends CoordinateSystem {
 
     @Override
     protected void initLocationChanger() {
-        changer = new CoordinateSystem.LocationChanger(this) {
+        changer = new LocationChanger(this) {
             @Override
             public PointDouble[] toReal(MyPoint<? extends MyPoint>... ps) {
                 return new PointDouble[0];
+                //todo
+            }
+
+            @Override
+            public PointDouble[] toReal(List<MyPoint> ps) {
+                return new PointDouble[0];
+                // TODO: 2017/4/29
             }
 
             @Override
