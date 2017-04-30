@@ -23,7 +23,7 @@ public class Start {
 
     public static void functionTest() {
         MySystem.createSystem();
-        MySystem.getSystem().getFunctions().add(new MathFunction(x -> x));
+        MySystem.getSystem().getFunctions().add(new MathFunction(x -> Math.sin(x)));
         MathFunction mf = (MathFunction) MySystem.getSystem()
                 .getFunctions().getFunctions().get(0);
         mf.calcPoint();

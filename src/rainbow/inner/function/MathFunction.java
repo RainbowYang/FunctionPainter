@@ -20,7 +20,7 @@ public class MathFunction extends PointFunction {
 
     //todo 范围未定
     public void calcPoint() {
-        for (double i = 0; i < 10; i++) {
+        for (double i = 0; i < 10; i+=0.01) {
             addPoint(new PointForAxes(i, function.apply(i)));
         }
     }

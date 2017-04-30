@@ -88,6 +88,16 @@ public class PointForAxes implements MyPoint<PointForAxes> {
         return new PointForAxes(ds);
     }
 
+    /**
+     * 将某一维度设置为0
+     *
+     * @param index 维度
+     * @return 生成的点
+     */
+    public PointForAxes clear(int index) {
+        return add(index, -get(index));
+    }
+
     @Override
     public String toString() {
         return "PointForAxes{" +
