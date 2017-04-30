@@ -11,10 +11,14 @@ import java.util.List;
  *
  * @author Rainbow Yang
  */
-public class PointFunction implements MyFunction {
+public class PointFunction extends MyFunction {
     //所有点集的集合
     protected List<List<MyPoint>> points = new ArrayList<>();
     private int index = -1;
+
+    PointFunction() {
+        super();
+    }
 
     @Override
     public void paintMain(MyGraphics mg) {

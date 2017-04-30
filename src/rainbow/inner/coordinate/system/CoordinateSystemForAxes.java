@@ -135,12 +135,12 @@ public class CoordinateSystemForAxes extends CoordinateSystem {
 
             @Override
             public double getStep() {
-                return -20;
+                return 0.01;
             }
 
             @Override
             public double getEnd() {
-                return 0.01;
+                return 20;
             }
         };
     }

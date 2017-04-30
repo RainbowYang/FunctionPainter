@@ -7,14 +7,17 @@ import rainbow.outer.painter.tool.MyGraphics;
  *
  * @author Rainbow Yang
  */
-public interface MyFunction {
-    default void paintBefore(MyGraphics mg) {
+public abstract class MyFunction {
+    MyFunction() {
     }
 
-    default void paintMain(MyGraphics mg) {
+    public void paintBefore(MyGraphics mg) {
     }
 
-    default void paintAfter(MyGraphics mg) {
+    public void paintMain(MyGraphics mg) {
+    }
+
+    public void paintAfter(MyGraphics mg) {
     }
 }
 

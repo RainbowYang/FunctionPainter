@@ -19,6 +19,7 @@ public abstract class CoordinateSystem {
     CoordinateSystem() {
         initLocationChanger();
         initSystemPainter();
+        initRange();
     }
 
     public double getX() {

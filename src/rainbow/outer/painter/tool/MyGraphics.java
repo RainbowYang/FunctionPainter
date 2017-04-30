@@ -52,10 +52,7 @@ public class MyGraphics {
     }
 
     public MyGraphics paintPoints(List<MyPoint> ps) {
-        Polygon p = new Polygon();
-        for (PointDouble point : changer.toReal(ps)) {
-            p.addPoint((int) point.getX(), (int) point.getY());
-        }
+        Polygon p = toPolygon(ps);
         g.drawPolyline(p.xpoints, p.ypoints, p.npoints);
         return this;
     }
@@ -65,12 +62,18 @@ public class MyGraphics {
     }
 
     public MyGraphics fillPoint(List<MyPoint> ps) {
+        g.fillPolygon(toPolygon(ps));
+        return this;
+    }
+
+    private Polygon toPolygon(List<MyPoint> ps) {
         Polygon p = new Polygon();
         for (PointDouble point : changer.toReal(ps)) {
-            p.addPoint((int) point.getX(), (int) point.getY());
+            if (!(Double.isNaN(point.getY()) || Double.isNaN(point.getX()))) {
+                p.addPoint((int) point.getX(), (int) point.getY());
+            }
         }
-        g.fillPolygon(p);
-        return this;
+        return p;
     }
 
     /**

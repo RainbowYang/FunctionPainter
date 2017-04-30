@@ -10,22 +10,30 @@ import java.util.function.Function;
  * @author Rainbow Yang
  */
 public class MathFunction extends PointFunction {
-    private Function<Double, Double> function;
+    protected Function<Double, Double> function;
 
     public MathFunction(Function<Double, Double> function) {
+        super();
         this.function = function;
+    }
+
+    public MathFunction() {
+        super();
     }
 
     {
         newPoints();
     }
 
-    //todo 范围未定
     public void calcPoint() {
         Range range = MySystem.getSystem().getCoordinateSystem().getRange();
         for (double i = range.getStart(); i < range.getEnd(); i += range.getStep()) {
             addPoint(new PointForAxes(i, function.apply(i)));
         }
+    }
+
+    public Function<Double, Double> getFunction() {
+        return function;
     }
 
     @Override
