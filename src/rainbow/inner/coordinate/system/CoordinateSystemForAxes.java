@@ -4,6 +4,7 @@ import rainbow.inner.coordinate.point.MyPoint;
 import rainbow.inner.coordinate.point.PointDouble;
 import rainbow.inner.coordinate.point.PointForAxes;
 import rainbow.inner.coordinate.system.comp.LocationChanger;
+import rainbow.inner.coordinate.system.comp.Range;
 import rainbow.inner.coordinate.system.comp.SystemPainter;
 import rainbow.inner.system.MySystem;
 import rainbow.outer.painter.tool.MyGraphics;
@@ -123,6 +124,27 @@ public class CoordinateSystemForAxes extends CoordinateSystem {
         };
     }
 
+    @Override
+    protected void initRange() {
+        //todo 暂时
+        range = new Range(this) {
+            @Override
+            public double getStart() {
+                return -20;
+            }
+
+            @Override
+            public double getStep() {
+                return -20;
+            }
+
+            @Override
+            public double getEnd() {
+                return 0.01;
+            }
+        };
+    }
+
     public int size() {
         return angles.length;
     }
@@ -141,6 +163,20 @@ public class CoordinateSystemForAxes extends CoordinateSystem {
 
     public void setLength(int index, double length) {
         this.lengthes[index] = length;
+    }
+
+    /**
+     * 对调两个维度的位置
+     *
+     * @param index1 维度1
+     * @param index2 维度2
+     */
+    public void change(int index1, int index2) {
+        double a = angles[index1], l = lengthes[index1];
+        angles[index1] = angles[index2];
+        lengthes[index1] = lengthes[index2];
+        angles[index2] = a;
+        lengthes[index2] = l;
     }
 
     @Override

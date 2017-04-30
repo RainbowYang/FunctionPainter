@@ -1,6 +1,8 @@
 package rainbow.inner.function;
 
 import rainbow.inner.coordinate.point.PointForAxes;
+import rainbow.inner.coordinate.system.comp.Range;
+import rainbow.inner.system.MySystem;
 
 import java.util.function.Function;
 
@@ -20,7 +22,8 @@ public class MathFunction extends PointFunction {
 
     //todo 范围未定
     public void calcPoint() {
-        for (double i = 0; i < 10; i+=0.01) {
+        Range range = MySystem.getSystem().getCoordinateSystem().getRange();
+        for (double i = range.getStart(); i < range.getEnd(); i += range.getStep()) {
             addPoint(new PointForAxes(i, function.apply(i)));
         }
     }
