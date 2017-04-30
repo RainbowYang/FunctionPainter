@@ -9,6 +9,8 @@ package rainbow.inner.coordinate.point;
  */
 public interface MyPoint<P extends MyPoint> {
 
+    PointForAxes toPointForAxes();
+
     /**
      * 用于两个点的叠加
      *

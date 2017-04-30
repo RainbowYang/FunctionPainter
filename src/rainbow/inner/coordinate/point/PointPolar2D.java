@@ -24,6 +24,11 @@ public class PointPolar2D implements MyPoint<PointPolar2D> {
         return angle;
     }
 
+    @Override
+    public PointForAxes toPointForAxes() {
+        return new PointForAxes(r * Math.cos(angle), r * Math.sin(angle));
+    }
+
     /**
      * 极坐标相加后,角度的取值范围是(-PI,PI]
      *

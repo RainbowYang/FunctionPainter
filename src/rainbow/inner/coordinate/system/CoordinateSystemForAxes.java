@@ -66,7 +66,7 @@ public class CoordinateSystemForAxes extends CoordinateSystem {
         changer = new LocationChanger(this) {
             @Override
             public PointDouble toReal(MyPoint p) {
-                PointForAxes pa = (PointForAxes) p;
+                PointForAxes pa = p.toPointForAxes();
                 double px = x, py = y;//x,y是原点的在屏幕上的坐标
                 for (int i = 0; i < size(); i++) {
                     px += Math.cos(angles[i]) * lengthes[i] * pa.get(i);

@@ -35,6 +35,11 @@ public class PointForAxes implements MyPoint<PointForAxes> {
     }
 
     @Override
+    public PointForAxes toPointForAxes() {
+        return this;
+    }
+
+    @Override
     public PointForAxes add(PointForAxes pt) {
         int size = this.getBigger(pt).size();
         double[] ds = new double[size];

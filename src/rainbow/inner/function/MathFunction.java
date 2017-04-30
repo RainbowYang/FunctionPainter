@@ -25,6 +25,7 @@ public class MathFunction extends PointFunction {
         newPoints();
     }
 
+    @Override
     public void calcPoint() {
         Range range = MySystem.getSystem().getCoordinateSystem().getRange();
         for (double i = range.getStart(); i < range.getEnd(); i += range.getStep()) {

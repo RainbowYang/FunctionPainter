@@ -16,7 +16,7 @@ public class PointFunction extends MyFunction {
     protected List<List<MyPoint>> points = new ArrayList<>();
     private int index = -1;
 
-    PointFunction() {
+    protected PointFunction() {
         super();
     }
 
@@ -27,9 +27,17 @@ public class PointFunction extends MyFunction {
         }
     }
 
+    public void calcPoint() {
+    }
+
     public void newPoints() {
         points.add(new ArrayList<>());
         index++;
+    }
+
+    public void clear() {
+        points.clear();
+        newPoints();
     }
 
     public void addPoint(MyPoint p) {

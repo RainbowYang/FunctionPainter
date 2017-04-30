@@ -1,7 +1,7 @@
 package rainbow.inner.coordinate.point;
 
-import static java.lang.Math.sin;
 import static java.lang.Math.cos;
+import static java.lang.Math.sin;
 
 /**
  * 这是二维的轴坐标点,用于平面直角坐标系
@@ -24,6 +24,11 @@ public class PointAxes2D implements MyPoint<PointAxes2D> {
 
     public double getY() {
         return y;
+    }
+
+    @Override
+    public PointForAxes toPointForAxes() {
+        return null;
     }
 
     @Override
