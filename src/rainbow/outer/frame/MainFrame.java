@@ -8,6 +8,7 @@ import rainbow.outer.painter.MyPainter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 import static rainbow.outer.frame.tool.FrameLocationSetter.center;
@@ -16,13 +17,39 @@ import static rainbow.outer.frame.tool.FrameLocationSetter.center;
  * @author Rainbow Yang
  */
 public class MainFrame extends JFrame {
+    private int x;
+    private int y;
+
+    public static MainFrame mainFrame;
+
     public MainFrame() throws HeadlessException {
+        mainFrame = this;
         setTitle(MySystem.name + MySystem.version + "  Author:Rainbow Yang");
         setSize((int) MySystem.getWidth(), (int) MySystem.getHeight());
         center(this);
 
         add(new AllPainter());
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                x = (int) MySystem.getSystem().getCoordinateSystem().getX() - e.getX();
+                y = (int) MySystem.getSystem().getCoordinateSystem().getY() - e.getY();
+            }
+        });
+        addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                MySystem.getSystem().getCoordinateSystem().setX(e.getX() + x);
+                MySystem.getSystem().getCoordinateSystem().setY(e.getY() + y);
+                mainFrame.repaint();
+            }
+        });
+        addMouseWheelListener(e -> {
+
+        });
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         setVisible(true);
     }
 
