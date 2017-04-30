@@ -35,9 +35,19 @@ public class MySystem {
         fs = new Functions();
     }
 
+    public void init(CoordinateSystem coordinateSystem) {
+        setCoordinateSystem(coordinateSystem);
+        fs = new Functions();
+    }
+
     public static void createSystem() {
         systems.add(system = new MySystem());
         system.init();
+    }
+
+    public static void createSystem(CoordinateSystem coordinateSystem) {
+        systems.add(system = new MySystem());
+        system.init(coordinateSystem);
     }
 
     public static MySystem getSystem() {

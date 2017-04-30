@@ -4,8 +4,11 @@ import rainbow.inner.coordinate.point.MyPoint;
 import rainbow.inner.coordinate.point.PointDouble;
 import rainbow.inner.coordinate.point.PointForAxes;
 import rainbow.inner.coordinate.system.comp.LocationChanger;
+import rainbow.inner.coordinate.system.comp.SystemPainter;
 import rainbow.inner.system.MySystem;
+import rainbow.outer.painter.tool.MyGraphics;
 
+import java.awt.*;
 import java.util.Arrays;
 
 /**
@@ -15,6 +18,9 @@ import java.util.Arrays;
  * @author Rainbow Yang
  */
 public class CoordinateSystemForAxes extends CoordinateSystem {
+
+    public PointForAxes p0;
+
     //每个维度与三点钟方向沿逆时针方向的夹角
     private double[] angles;
     //每个维度的单位长度
@@ -38,6 +44,9 @@ public class CoordinateSystemForAxes extends CoordinateSystem {
     }
 
     public void init() {
+
+        p0 = new PointForAxes(0, size(), true);
+
         for (int i = 0; i < size(); i++) {
             lengthes[i] = 40;
         }
@@ -67,8 +76,71 @@ public class CoordinateSystemForAxes extends CoordinateSystem {
         };
     }
 
+    @Override
+    protected void initSystemPainter() {
+        //todo 更多参数
+        painter = new SystemPainter(this) {
+            @Override
+            public void paintNum(MyGraphics mg) {
+                //todo Test
+                for (int s = 0; s < size(); s++) {
+                    for (int i = -0; i < 30; i++) {
+                        if (i == 0)
+                            continue;
+                        mg.paintString(i + "", p0.add(s, i));
+                    }
+                }
+            }
+
+            @Override
+            public void paintOrigin(MyGraphics mg) {
+                mg.paintString("O", p0);
+            }
+
+            @Override
+            public void paintAxes(MyGraphics mg) {
+                mg.setColor(Color.RED);
+                for (int i = 0; i < size(); i++) {
+                    mg.paintLine(p0, p0.add(i, 1), MyGraphics.MODE_STRAIGHT_LINE);
+                }
+            }
+
+            @Override
+            public void paintGrid(MyGraphics mg) {
+                //维度遍历
+                for (int s = 0; s < size(); s++) {
+                    //值遍历
+                    //todo test
+                    for (int i = -0; i < 30; i++) {
+                        PointForAxes p = p0.add(s, i);
+                        PointForAxes p1 = p.add(s == size() - 1 ? 0 : s + 1, 1);
+                        PointForAxes p2 = p.add(s == 0 ? size() - 1 : s - 1, 1);
+                        mg.paintLine(p, p1, MyGraphics.MODE_RAY_LINE);
+                        mg.paintLine(p, p2, MyGraphics.MODE_RAY_LINE);
+                    }
+                }
+            }
+        };
+    }
+
     public int size() {
         return angles.length;
+    }
+
+    public void setAngles(double[] angles) {
+        this.angles = angles;
+    }
+
+    public void setAngle(int index, double angle) {
+        this.angles[index] = angle;
+    }
+
+    public void setLengthes(double[] lengthes) {
+        this.lengthes = lengthes;
+    }
+
+    public void setLength(int index, double length) {
+        this.lengthes[index] = length;
     }
 
     @Override

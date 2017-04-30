@@ -36,6 +36,17 @@ public class MyGraphics {
         return g;
     }
 
+    public MyGraphics setColor(Color color) {
+        g.setColor(color);
+        return this;
+    }
+
+    public MyGraphics paintString(String string, MyPoint p) {
+        PointDouble pd = changer.toReal(p);
+        g.drawString(string, (int) pd.getX(), (int) pd.getY());
+        return this;
+    }
+
     public MyGraphics paintPoints(MyPoint... ps) {
         return paintPoints(Arrays.asList(ps));
     }

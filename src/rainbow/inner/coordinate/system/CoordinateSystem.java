@@ -1,6 +1,7 @@
 package rainbow.inner.coordinate.system;
 
 import rainbow.inner.coordinate.system.comp.LocationChanger;
+import rainbow.inner.coordinate.system.comp.SystemPainter;
 
 /**
  * 坐标系
@@ -10,10 +11,12 @@ import rainbow.inner.coordinate.system.comp.LocationChanger;
  */
 public abstract class CoordinateSystem {
     protected LocationChanger changer;
+    protected SystemPainter painter;
     protected double x, y;
 
     CoordinateSystem() {
         initLocationChanger();
+        initSystemPainter();
     }
 
     public double getX() {
@@ -36,6 +39,12 @@ public abstract class CoordinateSystem {
         return changer;
     }
 
+    public SystemPainter getPainter() {
+        return painter;
+    }
+
     protected abstract void initLocationChanger();
+
+    protected abstract void initSystemPainter();
 
 }

@@ -18,6 +18,22 @@ public class PointForAxes implements MyPoint<PointForAxes> {
         this.values = values;
     }
 
+    /**
+     * 生成size维的值均为value的点
+     *
+     * @param value 值
+     * @param size  维度
+     * @param same  用于区分PointForAxes(double... values)
+     */
+    //same仅用于区分
+    public PointForAxes(double value, int size, boolean same) {
+        double[] values = new double[size];
+        for (int i = 0; i < size; i++) {
+            values[i] = value;
+        }
+        this.values = values;
+    }
+
     @Override
     public PointForAxes add(PointForAxes pt) {
         int size = this.getBigger(pt).size();
@@ -103,5 +119,20 @@ public class PointForAxes implements MyPoint<PointForAxes> {
         return "PointForAxes{" +
                 "values=" + Arrays.toString(values) +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PointForAxes that = (PointForAxes) o;
+
+        return Arrays.equals(values, that.values);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(values);
     }
 }

@@ -1,6 +1,7 @@
 package rainbow.outer.painter;
 
-import rainbow.inner.coordinate.point.PointForAxes;
+import rainbow.inner.coordinate.system.comp.SystemPainter;
+import rainbow.inner.system.MySystem;
 import rainbow.outer.painter.tool.MyGraphics;
 
 import java.awt.*;
@@ -9,11 +10,17 @@ import java.awt.*;
  * @author Rainbow Yang
  */
 public class CoordinateSystemPainter implements MyPainter {
+    private Color color = Color.black;
+
     @Override
     public void paint(Graphics g) {
-        //todo MyGraphics Test
+        g.setColor(color);
         MyGraphics mg = new MyGraphics(g);
-        g.setColor(Color.BLACK);
-        mg.paintLine(new PointForAxes(-1, -1), new PointForAxes(1, 1),MyGraphics.MODE_STRAIGHT_LINE);
+        SystemPainter painter = MySystem.getSystem().getCoordinateSystem().getPainter();
+        painter.paintOrigin(mg);
+        painter.paintGrid(mg);
+        painter.paintAxes(mg);
+        painter.paintNum(mg);
+
     }
 }
