@@ -38,6 +38,8 @@ public class MainFrame extends JFrame {
 
         @Override
         protected void paintComponent(Graphics g) {
+            //抗锯齿
+            ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             painters.forEach(painters -> painters.paint(g));
         }
     }
