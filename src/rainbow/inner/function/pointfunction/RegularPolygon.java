@@ -40,21 +40,27 @@ public class RegularPolygon extends PointFunction {
         clear();
         boolean[] has = new boolean[sides];
         for (int s = 0; s < sides; s++) {
+            if (has[s]) {
+                continue;
+            }
             newPoints();
-            int i = s;
+            addPoint(get(s));
+            has[s] = true;
+            int i = (s + step) % sides;
             while (true) {
                 addPoint(get(i));
                 has[i] = true;
                 i += step;
                 i %= sides;
-                if (i == s && has[s] == true) {
+                if (i == s) {
+                    addPoint(get(s));
                     break;
                 }
             }
         }
     }
 
-    public PointPolar2D get(int i) {
+    private PointPolar2D get(int i) {
         i = i % sides;
         double stepAngle = Math.PI * 2 / sides;
         return new PointPolar2D(r, startAngle + i * stepAngle);
