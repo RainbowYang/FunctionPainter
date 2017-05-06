@@ -8,6 +8,8 @@ import static java.lang.Math.sin;
  *
  * @author Rainbow Yang
  * @see PointForAxes
+ * <p>
+ * 此类暂时已由PointForAxes代替，所以废弃。
  */
 public class PointAxes2D implements MyPoint<PointAxes2D> {
     private double x;

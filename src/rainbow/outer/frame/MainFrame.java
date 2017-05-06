@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import static rainbow.outer.frame.tool.FrameLocationSetter.center;
 
 /**
+ * 主界面
+ *
  * @author Rainbow Yang
  */
 public class MainFrame extends JFrame {

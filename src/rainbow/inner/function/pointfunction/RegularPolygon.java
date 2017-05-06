@@ -9,9 +9,13 @@ import rainbow.inner.function.PointFunction;
  * @author Rainbow Yang
  */
 public class RegularPolygon extends PointFunction {
+    //边数
     private int sides;
+    //半径
     private double r = 5;
+    //取点间隔
     private int step = 1;
+    //第一个点的方向
     private double startAngle = Math.PI / 2;
 
     public RegularPolygon(int sides) {
@@ -40,12 +44,12 @@ public class RegularPolygon extends PointFunction {
         clear();
         boolean[] has = new boolean[sides];
         for (int s = 0; s < sides; s++) {
-            if (has[s]) {
-                continue;
-            }
+            if (has[s]) continue;
+
             newPoints();
             addPoint(get(s));
             has[s] = true;
+
             int i = (s + step) % sides;
             while (true) {
                 addPoint(get(i));
@@ -53,13 +57,15 @@ public class RegularPolygon extends PointFunction {
                 i += step;
                 i %= sides;
                 if (i == s) {
-                    addPoint(get(s));
                     break;
                 }
             }
+
+            addPoint(get(s));
         }
     }
 
+    //获取第i个点
     private PointPolar2D get(int i) {
         i = i % sides;
         double stepAngle = Math.PI * 2 / sides;
