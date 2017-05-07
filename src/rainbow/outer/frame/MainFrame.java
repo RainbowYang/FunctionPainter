@@ -8,6 +8,9 @@ import rainbow.outer.painter.MyPainter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 
 import static rainbow.outer.frame.tool.FrameLocationSetter.center;
@@ -30,12 +33,25 @@ public class MainFrame extends JFrame {
         center(this);
 
         add(new AllPainter());
-        addMouseListener(MySystem.getSystem().getCoordinateSystem().getListeners().getMouseAdapter());
-        addMouseMotionListener(MySystem.getSystem().getCoordinateSystem().getListeners().getMouseAdapter());
-        addMouseWheelListener(MySystem.getSystem().getCoordinateSystem().getListeners().getMouseAdapter());
+
+        MouseAdapter mouseAdapter = MySystem.getSystem().getCoordinateSystem().getListeners().getMouseAdapter();
+        addMouseListener(mouseAdapter);
+        addMouseMotionListener(mouseAdapter);
+        addMouseWheelListener(mouseAdapter);
+
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                Dimension d = e.getComponent().getSize();
+
+                MySystem.setWidth(d.getWidth());
+                MySystem.setHeight(d.getHeight());
+
+                repaint();
+            }
+        });
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         setVisible(true);
     }
 

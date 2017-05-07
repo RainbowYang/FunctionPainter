@@ -166,7 +166,6 @@ public class CoordinateSystemForAxes extends CoordinateSystem {
                         if (e.getButton() == MouseEvent.BUTTON1) {
                             dx = getX() - e.getX();
                             dy = getY() - e.getY();
-
                         }
                     }
 
