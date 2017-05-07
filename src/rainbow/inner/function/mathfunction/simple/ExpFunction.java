@@ -1,6 +1,4 @@
-package rainbow.inner.function.mathfunction;
-
-import rainbow.inner.function.MathFunction;
+package rainbow.inner.function.mathfunction.simple;
 
 /**
  * 指数函数
@@ -8,7 +6,7 @@ import rainbow.inner.function.MathFunction;
  *
  * @author Rainbow Yang
  */
-public class ExpFunction extends MathFunction {
+public class ExpFunction extends SimpleMathFunction {
     private double times;
     private double base;
 
@@ -16,7 +14,7 @@ public class ExpFunction extends MathFunction {
         super();
         this.times = times;
         this.base = base;
-        function = x -> times * Math.pow(base, x);
+        setFunction(x -> times * Math.pow(base, x));
     }
 
     @Override

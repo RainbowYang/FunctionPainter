@@ -1,6 +1,4 @@
-package rainbow.inner.function.mathfunction;
-
-import rainbow.inner.function.MathFunction;
+package rainbow.inner.function.mathfunction.simple;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -13,18 +11,18 @@ import java.util.function.Function;
  *
  * @author Rainbow Yang
  */
-public class PowerFunction extends MathFunction {
+public class PowerFunction extends SimpleMathFunction {
     //K=指数，V=值
     private Map<Double, Double> map;
 
     public PowerFunction(Map<Double, Double> map) {
         this.map = map;
-        function = toFunction(map);
+        setFunction(toFunction(map));
     }
 
     public PowerFunction(String strFun) {
         this.map = toMap(strFun);
-        function = toFunction(map);
+        setFunction(toFunction(map));
     }
 
     public static Map<Double, Double> toMap(String strFun) {

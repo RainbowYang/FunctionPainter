@@ -2,6 +2,7 @@ package rainbow;
 
 import rainbow.inner.coordinate.system.CoordinateSystemForAxes;
 import rainbow.inner.function.PointFunction;
+import rainbow.inner.function.mathfunction.simple.TrigonometricFunction;
 import rainbow.inner.function.pointfunction.RegularPolygon;
 import rainbow.inner.system.MySystem;
 import rainbow.outer.frame.MainFrame;
@@ -26,7 +27,7 @@ public class Start {
         // cs.change(1, 2);
         // MySystem.getSystem().getFunctions().add(new LogFunction(1, Math.E));
         // MySystem.getSystem().getFunctions().add(new PowerFunction("1*x^4+2*x^3"));
-        // MySystem.getSystem().getFunctions().add(new TrigonometricFunction(1, 1, 0, TrigonometricFunction.MODE_SEC));
+        MySystem.getSystem().getFunctions().add(new TrigonometricFunction(1, 1, 0, TrigonometricFunction.MODE_SEC));
         MySystem.getSystem().getFunctions().add(new RegularPolygon(1024, 100, 566));
         MySystem.getSystem().getFunctions().getFunctions().forEach(f -> {
             ((PointFunction) f).calcPoint();

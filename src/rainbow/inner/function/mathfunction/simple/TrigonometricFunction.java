@@ -1,6 +1,4 @@
-package rainbow.inner.function.mathfunction;
-
-import rainbow.inner.function.MathFunction;
+package rainbow.inner.function.mathfunction.simple;
 
 /**
  * 三角函数
@@ -8,7 +6,7 @@ import rainbow.inner.function.MathFunction;
  *
  * @author Rainbow Yang
  */
-public class TrigonometricFunction extends MathFunction {
+public class TrigonometricFunction extends SimpleMathFunction {
     public static final String MODE_SIN = "Sin";
     public static final String MODE_COS = "Cos";
     public static final String MODE_TAN = "Tan";
@@ -30,22 +28,22 @@ public class TrigonometricFunction extends MathFunction {
 
         switch (mode) {
             case MODE_SIN:
-                function = x -> a * Math.sin(w * x + f);
+                setFunction(x -> a * Math.sin(w * x + f));
                 break;
             case MODE_COS:
-                function = x -> a * Math.cos(w * x + f);
+                setFunction(x -> a * Math.cos(w * x + f));
                 break;
             case MODE_TAN:
-                function = x -> a * Math.tan(w * x + f);
+                setFunction(x -> a * Math.tan(w * x + f));
                 break;
             case MODE_COT:
-                function = x -> a / Math.tan(w * x + f);
+                setFunction(x -> a / Math.tan(w * x + f));
                 break;
             case MODE_SEC:
-                function = x -> a / Math.cos(w * x + f);
+                setFunction(x -> a / Math.cos(w * x + f));
                 break;
             case MODE_CSC:
-                function = x -> a / Math.sin(w * x + f);
+                setFunction(x -> a / Math.sin(w * x + f));
                 break;
         }
     }

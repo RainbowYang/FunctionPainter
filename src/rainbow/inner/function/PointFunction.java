@@ -11,8 +11,9 @@ import java.util.List;
  *
  * @author Rainbow Yang
  */
-public class PointFunction extends MyFunction {
+public abstract class PointFunction extends MyFunction {
     //所有点集的集合
+    //当图像并不是一笔完成，则需要放在不同的List中。
     protected List<List<MyPoint>> points = new ArrayList<>();
     private int index = -1;
 
@@ -27,8 +28,7 @@ public class PointFunction extends MyFunction {
         }
     }
 
-    public void calcPoint() {
-    }
+    public abstract void calcPoint();
 
     public void newPoints() {
         points.add(new ArrayList<>());

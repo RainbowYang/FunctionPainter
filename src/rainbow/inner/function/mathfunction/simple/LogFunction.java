@@ -1,6 +1,4 @@
-package rainbow.inner.function.mathfunction;
-
-import rainbow.inner.function.MathFunction;
+package rainbow.inner.function.mathfunction.simple;
 
 /**
  * 对数函数
@@ -8,7 +6,7 @@ import rainbow.inner.function.MathFunction;
  *
  * @author Rainbow Yang
  */
-public class LogFunction extends MathFunction {
+public class LogFunction extends SimpleMathFunction {
     private double times;
     private double base;
 
@@ -16,7 +14,7 @@ public class LogFunction extends MathFunction {
         super();
         this.times = times;
         this.base = base;
-        function = x -> times * (Math.log10(x) / Math.log10(base));
+        setFunction(x -> times * (Math.log10(x) / Math.log10(base)));
     }
 
     @Override
