@@ -7,12 +7,11 @@ import java.util.ArrayList;
 
 /**
  * 本类用于管理本系统中的大部分变量。
- * 单例模式。
  *
  * @author Rainbow Yang
  */
 public class MySystem {
-    public static final String name = "FunctionPrinter";
+    public static final String name = "FunctionPainter";
     public static final String version = "V2.0";
     public static final String author = "Rainbow Yang";
 
@@ -41,6 +40,10 @@ public class MySystem {
 
     public static MySystem getSystem() {
         return system;
+    }
+
+    public static void setSystem(int index) {
+        system = systems.get(index);
     }
 
     public Functions getFunctions() {
