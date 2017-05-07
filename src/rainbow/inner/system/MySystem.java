@@ -1,7 +1,6 @@
 package rainbow.inner.system;
 
 import rainbow.inner.coordinate.system.CoordinateSystem;
-import rainbow.inner.coordinate.system.CoordinateSystemForAxes;
 import rainbow.inner.system.comp.Functions;
 
 import java.util.ArrayList;
@@ -30,23 +29,13 @@ public class MySystem {
     private MySystem() {
     }
 
-    public static void createSystem() {
-        system.init();
-    }
-
     public static void createSystem(CoordinateSystem coordinateSystem) {
+        systems.add(system = new MySystem());
         system.init(coordinateSystem);
     }
 
-    public void init() {
-        systems.add(system = new MySystem());
-        setCoordinateSystem();
-        fs = new Functions();
-    }
-
     public void init(CoordinateSystem coordinateSystem) {
-        systems.add(system = new MySystem());
-        setCoordinateSystem(coordinateSystem);
+        cs = coordinateSystem;
         fs = new Functions();
     }
 
@@ -60,13 +49,6 @@ public class MySystem {
 
     public CoordinateSystem getCoordinateSystem() {
         return cs;
-    }
-
-    /**
-     * 默认设置为平面轴坐标系
-     */
-    public void setCoordinateSystem() {
-        this.cs = new CoordinateSystemForAxes(2);
     }
 
     public void setCoordinateSystem(CoordinateSystem coordinateSystem) {
