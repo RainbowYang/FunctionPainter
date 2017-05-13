@@ -7,7 +7,6 @@ import rainbow.inner.coordinate.system.comp.Listeners;
 import rainbow.inner.coordinate.system.comp.LocationChanger;
 import rainbow.inner.coordinate.system.comp.Range;
 import rainbow.inner.coordinate.system.comp.SystemPainter;
-import rainbow.inner.system.MySystem;
 import rainbow.outer.frame.MainFrame;
 import rainbow.outer.painter.tool.MyGraphics;
 
@@ -30,38 +29,36 @@ public class CoordinateSystemForAxes extends CoordinateSystem {
     //每个维度与三点钟方向沿逆时针方向的夹角
     private double[] angles;
     //每个维度的单位长度
-    private double[] lengthes;
+    private double[] lengths;
 
     public CoordinateSystemForAxes(int size) {
         angles = new double[size];
-        lengthes = new double[size];
+        lengths = new double[size];
         init();
     }
 
     public CoordinateSystemForAxes(double... angles) {
         this.angles = angles;
-        this.lengthes = new double[angles.length];
+        this.lengths = new double[angles.length];
         init();
-    }
-
-    {
-        x = MySystem.getSystem().getWidth() / 2;
-        y = MySystem.getSystem().getHeight() / 2;
     }
 
     public void init() {
         p0 = new PointForAxes(0, size(), true);
 
         for (int i = 0; i < size(); i++) {
-            lengthes[i] = 40;
+            lengths[i] = 40;
         }
         switch (angles.length) {
             case 3:
-                angles[2] = Math.PI * 5 / 4;
+                setAngles(0, Math.PI * 5 / 4, Math.PI / 2);
+                break;
             case 2:
-                angles[1] = Math.PI / 2;
+                setAngles(0, Math.PI / 2);
+                break;
             case 1:
-                angles[0] = 0;
+                setAngles(0);
+                break;
         }
     }
 
@@ -73,8 +70,8 @@ public class CoordinateSystemForAxes extends CoordinateSystem {
                 PointForAxes pa = p.toPointForAxes();
                 double px = x, py = y;//x,y是原点的在屏幕上的坐标
                 for (int i = 0; i < size(); i++) {
-                    px += Math.cos(angles[i]) * lengthes[i] * pa.get(i);
-                    py -= Math.sin(angles[i]) * lengthes[i] * pa.get(i);
+                    px += Math.cos(angles[i]) * lengths[i] * pa.get(i);
+                    py -= Math.sin(angles[i]) * lengths[i] * pa.get(i);
                 }
                 return new PointDouble(px, py);
             }
@@ -181,9 +178,9 @@ public class CoordinateSystemForAxes extends CoordinateSystem {
                     @Override
                     public void mouseWheelMoved(MouseWheelEvent e) {
                         if (e.getWheelRotation() > 0) {
-                            setLengthes(times);
+                            setLengths(times);
                         } else {
-                            setLengthes(1 / times);
+                            setLengths(1 / times);
                         }
                         MainFrame.mainFrame.repaint();
                     }
@@ -196,7 +193,7 @@ public class CoordinateSystemForAxes extends CoordinateSystem {
         return angles.length;
     }
 
-    public void setAngles(double[] angles) {
+    public void setAngles(double... angles) {
         this.angles = angles;
     }
 
@@ -204,17 +201,17 @@ public class CoordinateSystemForAxes extends CoordinateSystem {
         this.angles[index] = angle;
     }
 
-    public void setLengthes(double[] lengthes) {
-        this.lengthes = lengthes;
+    public void setLengths(double[] lengths) {
+        this.lengths = lengths;
     }
 
     public void setLength(int index, double length) {
-        this.lengthes[index] = length;
+        this.lengths[index] = length;
     }
 
-    public void setLengthes(double times) {
+    public void setLengths(double times) {
         for (int i = 0; i < size(); i++) {
-            lengthes[i] = lengthes[i] * times;
+            lengths[i] = lengths[i] * times;
 
         }
     }
@@ -227,18 +224,18 @@ public class CoordinateSystemForAxes extends CoordinateSystem {
      * @param index2 维度2
      */
     public void change(int index1, int index2) {
-        double a = angles[index1], l = lengthes[index1];
+        double a = angles[index1], l = lengths[index1];
         angles[index1] = angles[index2];
-        lengthes[index1] = lengthes[index2];
+        lengths[index1] = lengths[index2];
         angles[index2] = a;
-        lengthes[index2] = l;
+        lengths[index2] = l;
     }
 
     @Override
     public String toString() {
         return "CoordinateSystemForAxes{" +
                 "angles=" + Arrays.toString(angles) +
-                ", lengthes=" + Arrays.toString(lengthes) +
+                ", lengths=" + Arrays.toString(lengths) +
                 '}';
     }
 }

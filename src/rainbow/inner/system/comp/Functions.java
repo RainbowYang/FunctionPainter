@@ -1,6 +1,7 @@
 package rainbow.inner.system.comp;
 
 import rainbow.inner.function.MyFunction;
+import rainbow.inner.system.SystemComponent;
 
 import java.util.ArrayList;
 
@@ -9,7 +10,7 @@ import java.util.ArrayList;
  *
  * @author Rainbow Yang
  */
-public class Functions {
+public class Functions implements SystemComponent {
     private ArrayList<MyFunction> functions = new ArrayList<>();
 
     public Functions() {
@@ -30,5 +31,13 @@ public class Functions {
     @Override
     public String toString() {
         return "Functions{" + functions + '}';
+    }
+
+    public String getKeyName() {
+        return staticGetKeyName();
+    }
+
+    public static String staticGetKeyName() {
+        return "Functions";
     }
 }

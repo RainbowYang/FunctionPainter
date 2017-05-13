@@ -1,6 +1,11 @@
 package rainbow.inner.coordinate.system;
 
-import rainbow.inner.coordinate.system.comp.*;
+import rainbow.inner.coordinate.system.comp.Listeners;
+import rainbow.inner.coordinate.system.comp.LocationChanger;
+import rainbow.inner.coordinate.system.comp.Range;
+import rainbow.inner.coordinate.system.comp.SystemPainter;
+import rainbow.inner.system.MySystem;
+import rainbow.inner.system.SystemComponent;
 
 /**
  * 坐标系
@@ -8,7 +13,7 @@ import rainbow.inner.coordinate.system.comp.*;
  *
  * @author Rainbow Yang
  */
-public abstract class CoordinateSystem {
+public abstract class CoordinateSystem implements SystemComponent {
     protected LocationChanger changer;
     protected SystemPainter painter;
     protected Range range;
@@ -21,6 +26,11 @@ public abstract class CoordinateSystem {
         initSystemPainter();
         initRange();
         initListeners();
+    }
+
+    {
+        x = MySystem.getSystem().getWidth() / 2;
+        y = MySystem.getSystem().getHeight() / 2;
     }
 
     public double getX() {
@@ -63,4 +73,27 @@ public abstract class CoordinateSystem {
 
     protected abstract void initListeners();
 
+    public void setAngles(double[] angles) {
+    }
+
+    public void setAngle(int index, double angle) {
+    }
+
+    public void setLengths(double[] lengths) {
+    }
+
+    public void setLength(int index, double length) {
+    }
+
+    public void setLengths(double times) {
+    }
+
+    @Override
+    public String getKeyName() {
+        return staticGetKeyName();
+    }
+
+    public static String staticGetKeyName() {
+        return "CoordinateSystem";
+    }
 }

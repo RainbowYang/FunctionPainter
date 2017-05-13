@@ -29,9 +29,10 @@ public class ConicSection extends MathFunction {
     public ConicSection(double a, double b, String mode) {
 
         //todo 暂时
-        setStart(0);
-        setEnd(Math.PI * 2);
+        setStart(-Math.PI);
+        setEnd(Math.PI);
         setStep(0.0001);
+
         switch (mode) {
             case MODE_ELLIPSE_X:
                 setFunctions(i -> a * Math.sin(i), i -> b * Math.cos(i));
@@ -53,8 +54,10 @@ public class ConicSection extends MathFunction {
         switch (mode) {
             case MODE_PARABOLA_X:
                 setFunctions(i -> (i * i) / (2 * p), i -> i);
+                return;
             case MODE_PARABOLA_Y:
                 setFunctions(i -> i, i -> (i * i) / (2 * p));
+                return;
         }
     }
 

@@ -34,6 +34,8 @@ public class MainFrame extends JFrame {
 
         add(new AllPainter());
 
+        // CoordinateSystem cs = MySystem.getSystem().getCoordinateSystem();
+
         MouseAdapter mouseAdapter = MySystem.getSystem().getCoordinateSystem().getListeners().getMouseAdapter();
         addMouseListener(mouseAdapter);
         addMouseMotionListener(mouseAdapter);

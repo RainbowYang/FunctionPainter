@@ -1,6 +1,7 @@
 package rainbow.inner.system;
 
 import rainbow.inner.coordinate.system.CoordinateSystem;
+import rainbow.inner.scalable.ComponentScalable;
 import rainbow.inner.system.comp.Functions;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author Rainbow Yang
  */
-public class MySystem {
+public class MySystem extends ComponentScalable<SystemComponent> {
     public static final String name = "FunctionPainter";
     public static final String version = "V2.0";
     public static final String author = "Rainbow Yang";
@@ -22,20 +23,12 @@ public class MySystem {
 
     private static double width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT;
 
-    private CoordinateSystem cs;
-    private Functions fs;
-
     private MySystem() {
     }
 
     public static void createSystem(CoordinateSystem coordinateSystem) {
         systems.add(system = new MySystem());
-        system.init(coordinateSystem);
-    }
-
-    public void init(CoordinateSystem coordinateSystem) {
-        cs = coordinateSystem;
-        fs = new Functions();
+        system.setComp(coordinateSystem, new Functions());
     }
 
     public static MySystem getSystem() {
@@ -47,15 +40,15 @@ public class MySystem {
     }
 
     public Functions getFunctions() {
-        return fs;
+        return (Functions) getComp(Functions.staticGetKeyName());
     }
 
     public CoordinateSystem getCoordinateSystem() {
-        return cs;
+        return (CoordinateSystem) getComp(CoordinateSystem.staticGetKeyName());
     }
 
     public void setCoordinateSystem(CoordinateSystem coordinateSystem) {
-        this.cs = coordinateSystem;
+        setComp(coordinateSystem);
     }
 
     public static double getWidth() {
