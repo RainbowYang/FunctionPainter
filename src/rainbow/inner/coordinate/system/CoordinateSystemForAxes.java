@@ -3,17 +3,12 @@ package rainbow.inner.coordinate.system;
 import rainbow.inner.coordinate.point.MyPoint;
 import rainbow.inner.coordinate.point.PointDouble;
 import rainbow.inner.coordinate.point.PointForAxes;
-import rainbow.inner.coordinate.system.comp.Listeners;
 import rainbow.inner.coordinate.system.comp.LocationChanger;
 import rainbow.inner.coordinate.system.comp.Range;
 import rainbow.inner.coordinate.system.comp.SystemPainter;
-import rainbow.outer.frame.MainFrame;
 import rainbow.outer.painter.tool.MyGraphics;
 
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
 import java.util.Arrays;
 
 /**
@@ -148,45 +143,7 @@ public class CoordinateSystemForAxes extends CoordinateSystem {
 
     @Override
     protected void initListeners() {
-        listeners = new Listeners(this) {
-            //记录点击的点
-            private double dx, dy;
 
-            //缩放倍数
-            private double times = 1.1;
-
-            @Override
-            public MouseAdapter getMouseAdapter() {
-                return new MouseAdapter() {
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                        if (e.getButton() == MouseEvent.BUTTON1) {
-                            dx = getX() - e.getX();
-                            dy = getY() - e.getY();
-                        }
-                    }
-
-                    //坐标系移动
-                    @Override
-                    public void mouseDragged(MouseEvent e) {
-                        setX(e.getX() + dx);
-                        setY(e.getY() + dy);
-                        MainFrame.mainFrame.repaint();
-                    }
-
-                    //缩放效果
-                    @Override
-                    public void mouseWheelMoved(MouseWheelEvent e) {
-                        if (e.getWheelRotation() > 0) {
-                            setLengths(times);
-                        } else {
-                            setLengths(1 / times);
-                        }
-                        MainFrame.mainFrame.repaint();
-                    }
-                };
-            }
-        };
     }
 
     public int size() {
