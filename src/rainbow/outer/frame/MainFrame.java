@@ -10,7 +10,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 
 import static rainbow.outer.frame.tool.FrameLocationSetter.center;
@@ -34,12 +33,7 @@ public class MainFrame extends JFrame {
 
         add(new AllPainter());
 
-        // CoordinateSystem cs = MySystem.getSystem().getCoordinateSystem();
-
-        MouseAdapter mouseAdapter = MySystem.getSystem().getCoordinateSystem().getListeners().getMouseAdapter();
-        addMouseListener(mouseAdapter);
-        addMouseMotionListener(mouseAdapter);
-        addMouseWheelListener(mouseAdapter);
+        MySystem.getSystem().getListeners().setListeners(this);
 
         addComponentListener(new ComponentAdapter() {
             @Override
@@ -53,7 +47,7 @@ public class MainFrame extends JFrame {
             }
         });
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
     }
 

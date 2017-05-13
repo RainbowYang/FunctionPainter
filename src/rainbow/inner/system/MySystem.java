@@ -1,6 +1,7 @@
 package rainbow.inner.system;
 
 import rainbow.inner.coordinate.system.CoordinateSystem;
+import rainbow.inner.listener.Listeners;
 import rainbow.inner.scalable.ComponentScalable;
 import rainbow.inner.system.comp.Functions;
 
@@ -28,7 +29,7 @@ public class MySystem extends ComponentScalable<SystemComponent> {
 
     public static void createSystem(CoordinateSystem coordinateSystem) {
         systems.add(system = new MySystem());
-        system.setComp(coordinateSystem, new Functions());
+        system.setComp(coordinateSystem, new Functions(), new Listeners());
     }
 
     public static MySystem getSystem() {
@@ -47,8 +48,8 @@ public class MySystem extends ComponentScalable<SystemComponent> {
         return (CoordinateSystem) getComp(CoordinateSystem.staticGetKeyName());
     }
 
-    public void setCoordinateSystem(CoordinateSystem coordinateSystem) {
-        setComp(coordinateSystem);
+    public Listeners getListeners() {
+        return (Listeners) getComp(Listeners.staticGetKeyName());
     }
 
     public static double getWidth() {

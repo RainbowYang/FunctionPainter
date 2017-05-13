@@ -10,14 +10,12 @@ import java.util.Map;
 public abstract class ComponentScalable<C extends Component> {
     protected Map<String, C> map = new HashMap<>();
 
-    public ComponentScalable<C> setComp(C comp) {
+    public void setComp(C comp) {
         map.put(comp.getKeyName(), comp);
-        return this;
     }
 
-    public ComponentScalable<C> setComp(C... comps) {
-        Arrays.asList(comps).forEach(comp -> setComp(comp));
-        return this;
+    public void setComp(C... comps) {
+        Arrays.asList(comps).forEach(this::setComp);
     }
 
     public C getComp(String key) {
