@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Rainbow Yang
  */
-public abstract class LocationChanger {
+public abstract class LocationChanger implements CoordinateSystemComponent {
     private CoordinateSystem system;
 
     public LocationChanger(CoordinateSystem system) {
@@ -50,14 +50,29 @@ public abstract class LocationChanger {
      * @return 坐标点
      */
     public MyPoint[] toSystem(PointDouble... ps) {
-        throw new UnsupportedOperationException("The toSystem has not supported by" + system.getClass().getSimpleName());
+        MyPoint[] pds = new MyPoint[ps.length];
+        for (int i = 0; i < ps.length; i++) {
+            pds[i] = toSystem(ps[i]);
+        }
+        return pds;
     }
 
     public MyPoint[] toSystem(List<PointDouble> ps) {
-        return toSystem(ps.toArray(new PointDouble[0]));
+        MyPoint[] pds = new MyPoint[ps.size()];
+        for (int i = 0; i < ps.size(); i++) {
+            pds[i] = toSystem(ps.get(i));
+        }
+        return pds;
     }
 
-    public MyPoint toSystem(PointDouble p) {
-        return toSystem(p, p)[0];
+    public abstract MyPoint toSystem(PointDouble p);
+
+    @Override
+    public String getKeyName() {
+        return staticGetKeyName();
+    }
+
+    public static String staticGetKeyName() {
+        return "LocationChanger";
     }
 }
