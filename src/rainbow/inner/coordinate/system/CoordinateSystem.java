@@ -51,7 +51,15 @@ public abstract class CoordinateSystem extends ComponentScalable<CoordinateSyste
         }
     }
 
+    public void addAngles(double angle) {
+        axes.forEach(axis -> axis.addAngle(angle));
+    }
+
     public void setAngle(int index, double angle) {
+        axes.get(index).setAngle(angle);
+    }
+
+    public void addAngle(int index, double angle) {
         axes.get(index).setAngle(angle);
     }
 

@@ -7,17 +7,32 @@ import rainbow.inner.coordinate.system.CoordinateSystem;
  *
  * @author Rainbow Yang
  */
-public abstract class Range {
+public class Range implements CoordinateSystemComponent {
     private CoordinateSystem system;
 
     public Range(CoordinateSystem system) {
         this.system = system;
     }
 
-    public abstract double getStart();
+    public double getStart() {
+        return -20;
+    }
 
-    public abstract double getStep();
+    public double getStep() {
+        return 0.01;
+    }
 
-    public abstract double getEnd();
+    public double getEnd() {
+        return 20;
+    }
+
+    @Override
+    public String getKeyName() {
+        return staticGetKeyName();
+    }
+
+    public static String staticGetKeyName() {
+        return "Range";
+    }
 
 }

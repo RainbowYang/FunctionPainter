@@ -8,7 +8,7 @@ import rainbow.outer.painter.tool.MyGraphics;
  *
  * @author Rainbow Yang
  */
-public abstract class SystemPainter {
+public abstract class SystemPainter implements CoordinateSystemComponent {
     private CoordinateSystem system;
 
     public SystemPainter(CoordinateSystem system) {
@@ -46,5 +46,14 @@ public abstract class SystemPainter {
      * @param mg 画笔
      */
     public void paintGrid(MyGraphics mg) {
+    }
+
+    @Override
+    public String getKeyName() {
+        return staticGetKeyName();
+    }
+
+    public static String staticGetKeyName() {
+        return "SystemPainter";
     }
 }

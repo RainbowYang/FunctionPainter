@@ -13,10 +13,10 @@ import java.util.List;
  * @author Rainbow Yang
  */
 public abstract class LocationChanger implements CoordinateSystemComponent {
-    private CoordinateSystem system;
+    private CoordinateSystem cs;
 
-    public LocationChanger(CoordinateSystem system) {
-        this.system = system;
+    public LocationChanger(CoordinateSystem cs) {
+        this.cs = cs;
     }
 
     /**
@@ -65,7 +65,9 @@ public abstract class LocationChanger implements CoordinateSystemComponent {
         return pds;
     }
 
-    public abstract MyPoint toSystem(PointDouble p);
+    public MyPoint toSystem(PointDouble p) {
+        return null;
+    }
 
     @Override
     public String getKeyName() {
