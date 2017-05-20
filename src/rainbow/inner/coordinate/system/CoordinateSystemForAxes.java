@@ -35,8 +35,8 @@ public class CoordinateSystemForAxes extends CoordinateSystem {
 
         switch (getAxes().getSize()) {
             case 3:
-                getAxes().setAngle(0, 0);
-                getAxes().setAngle(1, Math.PI * 5 / 4);
+                getAxes().setAngle(0, Math.PI * 5 / 4);
+                getAxes().setAngle(1, 0);
                 getAxes().setAngle(2, Math.PI / 2);
                 break;
             case 2:
@@ -103,7 +103,7 @@ public class CoordinateSystemForAxes extends CoordinateSystem {
                 for (int s = 0; s < getAxes().getSize(); s++) {
                     //值遍历
                     //todo test
-                    for (int i = -0; i < 30; i++) {
+                    for (int i = -0; i < 50; i++) {
                         PointForAxes p = p0.add(s, i);
                         PointForAxes p1 = p.add(s == getAxes().getSize() - 1 ? 0 : s + 1, 1);
                         PointForAxes p2 = p.add(s == 0 ? getAxes().getSize() - 1 : s - 1, 1);
