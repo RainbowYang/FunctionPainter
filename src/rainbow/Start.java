@@ -2,7 +2,6 @@ package rainbow;
 
 import rainbow.inner.coordinate.system.CoordinateSystemForAxes;
 import rainbow.inner.function.PointFunction;
-import rainbow.inner.function.pointfunction.RegularPolygon;
 import rainbow.inner.system.MySystem;
 import rainbow.inner.system.comp.Functions;
 import rainbow.outer.frame.MainFrame;
@@ -27,7 +26,7 @@ public class Start {
         // MySystem.getSystem().getFunctions().add(new PowerFunction("1*x^4+2*x^3"));
         Functions functions = MySystem.getSystem().getFunctions();
         // functions.add(new ConicSection(5, 10, ConicSection.MODE_HYPERBOLA_X));
-        functions.add(new RegularPolygon(100, 100, 24));
+        // functions.add(new RegularPolygon(100, 100, 24));
         functions.getFunctions().forEach(f -> {
             ((PointFunction) f).calcPoint();
             System.out.println(f);

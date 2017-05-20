@@ -6,6 +6,7 @@ import rainbow.inner.coordinate.point.PointForAxes;
 import rainbow.inner.coordinate.system.comp.Axes;
 import rainbow.inner.coordinate.system.comp.LocationChanger;
 import rainbow.inner.coordinate.system.comp.SystemPainter;
+import rainbow.inner.coordinate.system.comp.special.Rotate3DEventListener;
 import rainbow.outer.painter.tool.MyGraphics;
 
 import java.awt.*;
@@ -45,6 +46,10 @@ public class CoordinateSystemForAxes extends CoordinateSystem {
             case 1:
                 getAxes().setAngle(0, 0);
                 break;
+        }
+
+        if (getAxes().getSize() == 3) {
+            setComp(new Rotate3DEventListener(this));
         }
     }
 

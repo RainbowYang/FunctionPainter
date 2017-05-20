@@ -1,5 +1,7 @@
 package rainbow.inner.coordinate.system.comp;
 
+import rainbow.inner.coordinate.point.MyPoint;
+import rainbow.inner.coordinate.point.PointDouble;
 import rainbow.inner.coordinate.system.CoordinateSystem;
 
 /**
@@ -63,6 +65,24 @@ public class Mover implements CoordinateSystemComponent {
         cs.setX(x);
         cs.setY(y);
         return this;
+    }
+
+    /**
+     * 把原点移到pd的位置
+     *
+     * @param pd 要设置的点
+     * @return this 以用于链式调用
+     */
+    public Mover moveTo(PointDouble pd) {
+        return moveTo(pd.getX(), pd.getY());
+    }
+
+    public Mover moveTo(MyPoint p) {
+        return moveTo(cs.getLocationChanger().toReal(p));
+    }
+
+    public Mover moveToOpposite(MyPoint p) {
+        return moveTo(cs.getLocationChanger().toReal(p.times(-1)));
     }
 
     @Override

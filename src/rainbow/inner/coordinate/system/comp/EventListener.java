@@ -11,7 +11,7 @@ import rainbow.outer.frame.MainFrame;
  * @author Rainbow Yang
  */
 public class EventListener implements CoordinateSystemComponent {
-    private CoordinateSystem cs;
+    protected CoordinateSystem cs;
 
     //todo 暂时
     private double zoomSpeed = 1.1;
@@ -44,7 +44,11 @@ public class EventListener implements CoordinateSystemComponent {
     }
 
     public void zoom(ZoomEvent event) {
+        //todo 当实现toSystem之后 可以弄成根据鼠标中心缩放
+        // MyPoint p = cs.getLocationChanger().toSystem(new PointDouble(event.getX(), event.getY()));
+        // cs.getMover().moveTo(p);
         cs.getAxes().timesLengthTimes(Math.pow(zoomSpeed, event.getZoomLevel()));
+        // cs.getMover().moveToOpposite(p);
     }
 
     /**
