@@ -5,6 +5,7 @@ import rainbow.inner.coordinate.system.event.CoordinateSystemEvent;
 import rainbow.inner.coordinate.system.event.MoveEvent;
 import rainbow.inner.coordinate.system.event.RotateEvent;
 import rainbow.inner.coordinate.system.event.ZoomEvent;
+import rainbow.outer.frame.MainFrame;
 
 /**
  * @author Rainbow Yang
@@ -29,19 +30,21 @@ public class EventListener implements CoordinateSystemComponent {
         }
 
         specialAccept(event);
+
+        // todo repaint 需改
+        MainFrame.mainFrame.repaint();
     }
 
     public void move(MoveEvent event) {
-        ((Mover) cs.getComp("Mover")).move(event.getDx(), event.getDy());
+        cs.getMover().move(event.getDx(), event.getDy());
     }
 
     public void rotate(RotateEvent event) {
-        cs.ARotateEvent.getDiffAngle(cs, event);
-
+        cs.getAxes().addStartAngle(-RotateEvent.getDiffAngle(cs, event));
     }
 
     public void zoom(ZoomEvent event) {
-        cs.timesLengths(Math.pow(zoomSpeed, event.getZoomLevel()));
+        cs.getAxes().timesLengthTimes(Math.pow(zoomSpeed, event.getZoomLevel()));
     }
 
     /**

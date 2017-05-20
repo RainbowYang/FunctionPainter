@@ -8,10 +8,10 @@ import rainbow.inner.coordinate.system.CoordinateSystem;
  * @author Rainbow Yang
  */
 public class Range implements CoordinateSystemComponent {
-    private CoordinateSystem system;
+    private CoordinateSystem cs;
 
-    public Range(CoordinateSystem system) {
-        this.system = system;
+    public Range(CoordinateSystem cs) {
+        this.cs = cs;
     }
 
     public double getStart() {
