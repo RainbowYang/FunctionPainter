@@ -3,7 +3,6 @@ package rainbow.inner.coordinate.system.comp;
 import rainbow.inner.coordinate.system.CoordinateSystem;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * CoordinateSystem中的组件
@@ -20,9 +19,13 @@ public class Axes implements CoordinateSystemComponent {
     }
 
     //所有的轴
-    private List<Axis> axes = new ArrayList<>();
+    private ArrayList<Axis> axes = new ArrayList<>();
+
     //所有轴开始算起的角度，用于整体旋转
     private double startAngle = 0;
+
+    //所有轴长度的倍数，用于整体缩放
+    private double allLengthTimes = 1;
 
 
     //Axes-start
@@ -138,7 +141,7 @@ public class Axes implements CoordinateSystemComponent {
      * @return 返回轴的长度
      */
     public double getLength(int index) {
-        return getOriginalLength(index) * getLengthTimes(index);
+        return getOriginalLength(index) * getLengthTimes(index) * allLengthTimes;
     }
 
     /**
@@ -223,6 +226,19 @@ public class Axes implements CoordinateSystemComponent {
     public void timesLengthTimes(double times) {
         axes.forEach(axis -> axis.timesLengthTimes(times));
     }
+
+    public double getAllLengthTimes() {
+        return allLengthTimes;
+    }
+
+    public void setAllLengthTimes(double allLengthTimes) {
+        this.allLengthTimes = allLengthTimes;
+    }
+
+    public void timesAllLengthTimes(double times) {
+        this.allLengthTimes *= times;
+    }
+
     //lengthTimes-end
 
     /**

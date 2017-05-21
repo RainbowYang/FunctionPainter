@@ -8,7 +8,6 @@ import rainbow.inner.system.comp.Functions;
 import rainbow.outer.frame.MainFrame;
 import rainbow.tools.CodeReader;
 
-
 /**
  * 这是FunctionPainter2，一个重新开始的版本
  * 没错，之前的版本最终被我放弃了
@@ -17,12 +16,8 @@ import rainbow.tools.CodeReader;
  */
 public class Start {
     public static void main(String[] args) {
-        functionTest();
-        new MainFrame();
-    }
-
-    public static void functionTest() {
         MySystem.createSystem(new CoordinateSystemForAxes(3));
+
         Functions functions = MySystem.getSystem().getFunctions();
         functions.add(new Ellipsoid(3, 6, 9));
         // MySystem.getSystem().getFunctions().add(new LogFunction(1, Math.E));
@@ -30,6 +25,8 @@ public class Start {
         // functions.add(new ConicSection(10, 10, ConicSection.MODE_ELLIPSE_X));
         // functions.add(new RegularPolygon(100, 100, 24));
         functions.getFunctions().forEach(MyFunction::calc);
+
+        new MainFrame();
     }
 
     static {
