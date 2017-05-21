@@ -3,21 +3,47 @@ package rainbow.inner.function;
 import rainbow.outer.painter.tool.MyGraphics;
 
 /**
- * 函数顶类
+ * 所有能画在坐标系上的东西的父类
  *
  * @author Rainbow Yang
+ * @see PointFunction
  */
 public abstract class MyFunction {
     MyFunction() {
     }
 
+    /**
+     * 钩子
+     * 先画的画面，相当于背景
+     *
+     * @param mg 包装的画笔
+     */
     public void paintBefore(MyGraphics mg) {
     }
 
+    /**
+     * 钩子
+     * 主要画面
+     *
+     * @param mg 包装的画笔
+     */
     public void paintMain(MyGraphics mg) {
     }
 
+    /**
+     * 钩子
+     * 后画的画面，相当于背景
+     *
+     * @param mg 包装的画笔
+     */
     public void paintAfter(MyGraphics mg) {
+    }
+
+
+    /**
+     * 用于初始化
+     */
+    public void calc() {
     }
 }
 

@@ -14,6 +14,7 @@ public class ExpFunction extends SimpleMathFunction {
         super();
         this.times = times;
         this.base = base;
+
         setFunction(x -> times * Math.pow(base, x));
     }
 

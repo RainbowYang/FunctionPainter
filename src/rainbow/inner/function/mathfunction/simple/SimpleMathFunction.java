@@ -15,6 +15,7 @@ public class SimpleMathFunction extends MathFunction {
     }
 
     public SimpleMathFunction() {
+        super();
     }
 
     public void setFunction(Function<Double, Double> function) {

@@ -4,6 +4,7 @@ import rainbow.inner.coordinate.point.PointForAxes;
 import rainbow.inner.coordinate.system.comp.Range;
 import rainbow.inner.system.MySystem;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
@@ -15,18 +16,16 @@ import java.util.function.Function;
  * @author Rainbow Yang
  */
 public class MathFunction extends PointFunction {
-    protected List<Function<Double, Double>> functions;
+    private List<
+            //每组Function都会生成一个点集
+            List<Function<Double, Double>>
+            > functions;
     private double start, end, step;
-
-    public MathFunction(List<Function<Double, Double>> functions) {
-        super();
-        this.functions = functions;
-
-    }
 
     public MathFunction(Function<Double, Double>... functions) {
         super();
-        this.functions = Arrays.asList(functions);
+        this.functions = new ArrayList<>();
+        this.functions.add(Arrays.asList(functions));
     }
 
     public MathFunction() {
@@ -42,37 +41,48 @@ public class MathFunction extends PointFunction {
         step = range.getStep();
     }
 
+    //得到所有的点
     @Override
     public void calcPoint() {
         for (double i = start; i < end; i += step) {
-            double[] ds = new double[functions.size()];
-            for (int j = 0; j < ds.length; j++) {
-                ds[j] = functions.get(j).apply(i);
+            for (List<Function<Double, Double>> functions : this.functions) {
+                double[] ds = new double[functions.size()];
+                for (int j = 0; j < ds.length; j++) {
+                    ds[j] = functions.get(j).apply(i);
+                }
+                addPoint(new PointForAxes(ds));
             }
-            addPoint(new PointForAxes(ds));
         }
     }
 
-    public void setFunctions(List<Function<Double, Double>> functions) {
-        this.functions = functions;
-    }
-    public void setFunctions(Function<Double, Double>... functions) {
-        this.functions = Arrays.asList(functions);
+    protected void setFunctions(List<Function<Double, Double>> functions) {
+        this.functions.add(functions);
     }
 
-    public void setStart(double start) {
+    protected void setFunctions(Function<Double, Double>... functions) {
+        setFunctions(Arrays.asList(functions));
+    }
+
+    protected void setStart(double start) {
         this.start = start;
     }
 
-    public void setEnd(double end) {
+    protected void setEnd(double end) {
         this.end = end;
     }
 
-    public void setStep(double step) {
+    protected void setStep(double step) {
         this.step = step;
     }
 
-    public List<Function<Double, Double>> getFunctions() {
+    protected void setRange(double start, double step, double end) {
+        setStart(start);
+        setStep(step);
+        setEnd(end);
+    }
+
+
+    public List<List<Function<Double, Double>>> getFunctions() {
         return functions;
     }
 

@@ -14,12 +14,13 @@ public class LogFunction extends SimpleMathFunction {
         super();
         this.times = times;
         this.base = base;
+
         setFunction(x -> times * (Math.log10(x) / Math.log10(base)));
     }
 
     @Override
     public String toString() {
-        return "LogFunction{f(x)" + times + "*log(" + base + ")x";
+        return "LogFunction{f(x)=" + times + "*log(" + base + ")x";
     }
 }
 
