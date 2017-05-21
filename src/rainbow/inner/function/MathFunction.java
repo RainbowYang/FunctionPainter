@@ -19,8 +19,11 @@ public class MathFunction extends PointFunction {
     private List<
             //每组Function都会生成一个点集
             List<Function<Double, Double>>
-            > functions;
+            > functions = new ArrayList<>();
     private double start, end, step;
+
+    //每个点的偏移，可用于平移
+    private List<Double> startPlace;
 
     public MathFunction(Function<Double, Double>... functions) {
         super();
@@ -48,11 +51,22 @@ public class MathFunction extends PointFunction {
             for (List<Function<Double, Double>> functions : this.functions) {
                 double[] ds = new double[functions.size()];
                 for (int j = 0; j < ds.length; j++) {
-                    ds[j] = functions.get(j).apply(i);
+                    ds[j] = functions.get(j).apply(i) + getStartPlace(j);
                 }
                 addPoint(new PointForAxes(ds));
             }
         }
+    }
+
+    private double getStartPlace(int index) {
+        if (startPlace == null || index >= startPlace.size()) {
+            return 0;
+        }
+        return startPlace.get(index);
+    }
+
+    protected void setStartPlace(Double... startPlace) {
+        this.startPlace = Arrays.asList(startPlace);
     }
 
     protected void setFunctions(List<Function<Double, Double>> functions) {
