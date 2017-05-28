@@ -2,6 +2,7 @@ package rainbow;
 
 import rainbow.inner.coordinate.system.CoordinateSystemForAxes;
 import rainbow.inner.function.MyFunction;
+import rainbow.inner.function.mathfunction.special.Lissajous;
 import rainbow.inner.system.MySystem;
 import rainbow.inner.system.comp.Functions;
 import rainbow.outer.frame.MainFrame;
@@ -15,9 +16,12 @@ import rainbow.tools.CodeReader;
  */
 public class Start {
     public static void main(String[] args) {
-        MySystem.createSystem(new CoordinateSystemForAxes(4));
+        MySystem.createSystem(new CoordinateSystemForAxes(3));
 
         Functions functions = MySystem.getSystem().getFunctions();
+
+        functions.add(new Lissajous(3, 4, 5));
+
         functions.getFunctions().forEach(MyFunction::calc);
         new MainFrame();
     }

@@ -11,14 +11,13 @@ import static java.lang.Math.*;
  */
 public class Ellipsoid extends MathFunction {
     //三个方向的长度
-    private double a = 10, b = 10, c = 10;
+    private double a, b, c;
 
     //密集程度
     private double denseness = 100;
 
     public Ellipsoid() {
-        setFunctions(i -> a * sqrt(1 - i * i) * sin(i * PI * denseness),
-                i -> b * sqrt(1 - i * i) * cos(i * PI * denseness), i -> c * i);
+        this(10, 10, 10);
     }
 
     public Ellipsoid(double a, double b, double c) {
@@ -38,6 +37,6 @@ public class Ellipsoid extends MathFunction {
     {
         setStart(-1);
         setEnd(1);
-        setStep(0.0001);
+        setStep(0.001);
     }
 }
