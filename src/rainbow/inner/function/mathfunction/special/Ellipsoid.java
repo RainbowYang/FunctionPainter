@@ -1,6 +1,6 @@
-package rainbow.inner.function.mathfunction;
+package rainbow.inner.function.mathfunction.special;
 
-import rainbow.inner.function.MathFunction;
+import rainbow.inner.function.mathfunction.MathFunction;
 
 import static java.lang.Math.*;
 

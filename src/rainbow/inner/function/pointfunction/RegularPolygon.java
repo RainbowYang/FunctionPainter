@@ -114,8 +114,8 @@ public class RegularPolygon extends PointFunction {
                 "sides=" + sides +
                 ", r=" + r +
                 ", step=" + step +
+                ", pointsList=" + pointsList +
                 ", startAngle=" + startAngle +
-                ", points=" + points +
                 '}';
     }
 }

@@ -97,18 +97,18 @@ public class CoordinateSystemForAxes extends CoordinateSystem {
 
             @Override
             public void paintGrid(MyGraphics mg) {
-                //维度遍历
-                for (int s = 0; s < getAxes().getSize(); s++) {
-                    //值遍历
-                    //todo test
-                    for (int i = -0; i < 50; i++) {
-                        PointForAxes p = p0.add(s, i);
-                        PointForAxes p1 = p.add(s == getAxes().getSize() - 1 ? 0 : s + 1, 1);
-                        PointForAxes p2 = p.add(s == 0 ? getAxes().getSize() - 1 : s - 1, 1);
-                        mg.paintLine(p, p1, MyGraphics.MODE_RAY_LINE);
-                        mg.paintLine(p, p2, MyGraphics.MODE_RAY_LINE);
-                    }
-                }
+                // //维度遍历
+                // for (int s = 0; s < getAxes().getSize(); s++) {
+                //     //值遍历
+                //     //todo test
+                //     for (int i = -0; i < 50; i++) {
+                //         PointForAxes p = p0.add(s, i);
+                //         PointForAxes p1 = p.add(s == getAxes().getSize() - 1 ? 0 : s + 1, 1);
+                //         PointForAxes p2 = p.add(s == 0 ? getAxes().getSize() - 1 : s - 1, 1);
+                //         mg.paintLine(p, p1, MyGraphics.MODE_RAY_LINE);
+                //         mg.paintLine(p, p2, MyGraphics.MODE_RAY_LINE);
+                //     }
+                // }
             }
         });
     }

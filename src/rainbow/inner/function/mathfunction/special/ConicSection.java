@@ -1,6 +1,6 @@
-package rainbow.inner.function.mathfunction;
+package rainbow.inner.function.mathfunction.special;
 
-import rainbow.inner.function.MathFunction;
+import rainbow.inner.function.mathfunction.MathFunction;
 
 /**
  * 圆锥曲线

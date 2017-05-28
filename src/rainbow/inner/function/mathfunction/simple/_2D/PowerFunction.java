@@ -1,9 +1,11 @@
-package rainbow.inner.function.mathfunction.simple;
+package rainbow.inner.function.mathfunction.simple._2D;
+
+import rainbow.inner.function.mathfunction.simple.SimpleMathFunction;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
+import java.util.function.DoubleUnaryOperator;
 
 /**
  * 幂指数函数
@@ -38,7 +40,7 @@ public class PowerFunction extends SimpleMathFunction {
         return partMap;
     }
 
-    public static Function<Double, Double> toFunction(Map<Double, Double> map) {
+    public static DoubleUnaryOperator toFunction(Map<Double, Double> map) {
         // return x -> map.keySet().stream().reduce((sum, key) -> sum += map.get(key) * Math.pow(x, key)).get();
         return x -> {
             final double[] sum = {0};

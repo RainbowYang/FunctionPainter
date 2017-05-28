@@ -1,4 +1,6 @@
-package rainbow.inner.function.mathfunction.simple;
+package rainbow.inner.function.mathfunction.simple._2D;
+
+import rainbow.inner.function.mathfunction.simple.SimpleMathFunction;
 
 /**
  * 指数函数

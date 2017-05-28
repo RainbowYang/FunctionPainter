@@ -1,8 +1,10 @@
 package rainbow.inner.function.mathfunction.simple;
 
-import rainbow.inner.function.MathFunction;
+import rainbow.inner.function.mathfunction.MathFunction;
 
-import java.util.function.Function;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.DoubleUnaryOperator;
 
 /**
  * 简化版的MathFunction，对于第一个维度进行线性处理。
@@ -10,15 +12,20 @@ import java.util.function.Function;
  * @author Rainbow Yang
  */
 public class SimpleMathFunction extends MathFunction {
-    public SimpleMathFunction(Function<Double, Double> function) {
-        super(x -> x, function);
+    public SimpleMathFunction(DoubleUnaryOperator... functions) {
+        setFunction(functions);
     }
 
-    public SimpleMathFunction() {
-        super();
+    public SimpleMathFunction(List<DoubleUnaryOperator> functions) {
+        setFunction(functions);
     }
 
-    public void setFunction(Function<Double, Double> function) {
-        setFunctions(x -> x, function);
+    public void setFunction(DoubleUnaryOperator... functions) {
+        setFunction(Arrays.asList(functions));
+    }
+
+    public void setFunction(List<DoubleUnaryOperator> functions) {
+        functions.add(0, SELF);
+        setFunctions(functions);
     }
 }
