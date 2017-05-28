@@ -1,9 +1,11 @@
 # FunctionPainter2 函数绘画师2
 从新开始的FunctionPainter
 
+代码先更新在分支-[dev](https://github.com/RainbowYang/FunctionPainter2/tree/dev)!
+
 Developing!
 
-[来个GitHub的链接吧]（https://github.com/RainbowYang/FunctionPainter2/）
+[来个GitHub的链接吧](https://github.com/RainbowYang/FunctionPainter2/)
 
 ## 简介
 顾名思义，这是一个用来画函数的画板（其实还想可以画点别的好看的几何图形）。

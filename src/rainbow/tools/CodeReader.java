@@ -89,6 +89,9 @@ public class CodeReader {
     }
 
     public void print(String mode) {
+        if (fileNode == null) {
+            return;
+        }
         switch (mode) {
             case DETAILED:
                 print(fileNode, true);

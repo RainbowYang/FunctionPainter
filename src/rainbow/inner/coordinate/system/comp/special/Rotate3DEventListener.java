@@ -28,7 +28,9 @@ public class Rotate3DEventListener extends EventListener {
     }
 
     private void resetAngleAndLength() {
-        cs.getAxes().setLengthTimes(2, Math.cos(Math.toRadians(yAngle)));
+        if (cs.getAxes().getSize() >= 3) {
+            cs.getAxes().setLengthTimes(2, Math.cos(Math.toRadians(yAngle)));
+        }
 
         double x = -Math.sin(Math.toRadians(xAngle));
         double y = -Math.cos(Math.toRadians(xAngle)) * Math.sin(Math.toRadians(yAngle));

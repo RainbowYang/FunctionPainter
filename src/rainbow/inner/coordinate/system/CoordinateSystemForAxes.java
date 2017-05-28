@@ -18,22 +18,22 @@ import java.awt.*;
  */
 public class CoordinateSystemForAxes extends CoordinateSystem {
 
-    public PointForAxes p0;
+    private PointForAxes p0;
 
     public CoordinateSystemForAxes(int size) {
         getAxes().addAxes(size);
         init();
     }
 
-    public CoordinateSystemForAxes(double... angles) {
-        getAxes().addAxes(angles);
-        init();
-    }
-
-    public void init() {
+    private void init() {
         p0 = new PointForAxes(0, getAxes().getSize(), true);
 
         switch (getAxes().getSize()) {
+            case 4:
+                getAxes().setAngle(0, Math.PI * 5 / 4);
+                getAxes().setAngle(1, 0);
+                getAxes().setAngle(2, Math.PI / 2);
+                getAxes().setAngle(3, Math.PI * 3 / 4);
             case 3:
                 getAxes().setAngle(0, Math.PI * 5 / 4);
                 getAxes().setAngle(1, 0);
@@ -48,9 +48,7 @@ public class CoordinateSystemForAxes extends CoordinateSystem {
                 break;
         }
 
-        if (getAxes().getSize() == 3) {
-            setComp(new Rotate3DEventListener(this));
-        }
+        setComp(new Rotate3DEventListener(this));
     }
 
     {

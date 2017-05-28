@@ -19,7 +19,7 @@ public class Start {
         MySystem.createSystem(new CoordinateSystemForAxes(3));
 
         Functions functions = MySystem.getSystem().getFunctions();
-        functions.add(new Ellipsoid(3, 6, 9));
+        functions.add(new Ellipsoid(6, 10, 6));
         // MySystem.getSystem().getFunctions().add(new LogFunction(1, Math.E));
         // MySystem.getSystem().getFunctions().add(new PowerFunction("1*x^4+2*x^3"));
         // functions.add(new ConicSection(10, 10, ConicSection.MODE_ELLIPSE_X));
