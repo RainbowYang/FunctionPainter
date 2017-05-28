@@ -9,10 +9,10 @@ import rainbow.outer.painter.tool.MyGraphics;
  * @author Rainbow Yang
  */
 public abstract class SystemPainter implements CoordinateSystemComponent {
-    private CoordinateSystem system;
+    private CoordinateSystem cs;
 
-    public SystemPainter(CoordinateSystem system) {
-        this.system = system;
+    public SystemPainter(CoordinateSystem cs) {
+        this.cs = cs;
     }
 
     /**
@@ -46,6 +46,14 @@ public abstract class SystemPainter implements CoordinateSystemComponent {
      * @param mg 画笔
      */
     public void paintGrid(MyGraphics mg) {
+    }
+
+    public void paintFunctions(MyGraphics mg) {
+        cs.getFunctions().getFunctions().forEach(f -> {
+            f.paintBefore(mg);
+            f.paintMain(mg);
+            f.paintAfter(mg);
+        });
     }
 
     @Override

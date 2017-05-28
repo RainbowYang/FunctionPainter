@@ -1,7 +1,7 @@
-package rainbow.inner.system.comp;
+package rainbow.inner.coordinate.system.comp;
 
+import rainbow.inner.coordinate.system.CoordinateSystem;
 import rainbow.inner.function.MyFunction;
-import rainbow.inner.system.SystemComponent;
 
 import java.util.ArrayList;
 
@@ -10,10 +10,13 @@ import java.util.ArrayList;
  *
  * @author Rainbow Yang
  */
-public class Functions implements SystemComponent {
+public class Functions implements CoordinateSystemComponent {
     private ArrayList<MyFunction> functions = new ArrayList<>();
 
-    public Functions() {
+    private CoordinateSystem cs;
+
+    public Functions(CoordinateSystem cs) {
+        this.cs = cs;
     }
 
     public void add(MyFunction function) {

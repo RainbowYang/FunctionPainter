@@ -3,7 +3,6 @@ package rainbow.inner.coordinate.system;
 import rainbow.inner.coordinate.system.comp.*;
 import rainbow.inner.scalable.ComponentScalable;
 import rainbow.inner.system.MySystem;
-import rainbow.inner.system.SystemComponent;
 
 /**
  * 坐标系
@@ -11,17 +10,18 @@ import rainbow.inner.system.SystemComponent;
  *
  * @author Rainbow Yang
  */
-public abstract class CoordinateSystem extends ComponentScalable<CoordinateSystemComponent> implements SystemComponent {
+public abstract class CoordinateSystem extends ComponentScalable<CoordinateSystemComponent> {
     private double x, y;
 
     public CoordinateSystem() {
-        setX(MySystem.getWidth() / 2);
-        setY(MySystem.getHeight() / 2);
+        setX(MySystem.getSystem().getSize().getWidth() / 2);
+        setY(MySystem.getSystem().getSize().getHeight() / 2);
 
         setComp(new Axes(this));
         setComp(new Mover(this));
         setComp(new Range(this));
 
+        setComp(new Functions(this));
         setComp(new EventListener(this));
     }
 
@@ -65,14 +65,7 @@ public abstract class CoordinateSystem extends ComponentScalable<CoordinateSyste
         return (EventListener) getComp(EventListener.staticGetKeyName());
     }
 
-    @Override
-    public String getKeyName() {
-        return staticGetKeyName();
+    public Functions getFunctions() {
+        return (Functions) getComp(Functions.staticGetKeyName());
     }
-
-    public static String staticGetKeyName() {
-        return "CoordinateSystem";
-    }
-
-
 }

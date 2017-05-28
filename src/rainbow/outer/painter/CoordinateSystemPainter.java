@@ -21,6 +21,7 @@ public class CoordinateSystemPainter implements MyPainter {
         painter.paintGrid(mg);
         painter.paintAxes(mg);
         painter.paintNum(mg);
+        painter.paintFunctions(mg);
 
     }
 }

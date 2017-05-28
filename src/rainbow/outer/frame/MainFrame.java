@@ -3,7 +3,6 @@ package rainbow.outer.frame;
 import rainbow.inner.system.MySystem;
 import rainbow.outer.painter.BackPainter;
 import rainbow.outer.painter.CoordinateSystemPainter;
-import rainbow.outer.painter.FunctionPainter;
 import rainbow.outer.painter.MyPainter;
 
 import javax.swing.*;
@@ -27,27 +26,29 @@ public class MainFrame extends JFrame {
 
     public MainFrame() throws HeadlessException {
         mainFrame = this;
-        setTitle(MySystem.name + MySystem.version + "  Author:Rainbow Yang");
-        setSize((int) MySystem.getWidth(), (int) MySystem.getHeight());
+        MySystem.getSystem().getVersion().setTitle(this);
+        MySystem.getSystem().getSize().setSize(this);
         center(this);
+        MySystem.getSystem().getListeners().setListeners(this);
 
+        //todo 将来用View
         add(new AllPainter());
 
-        MySystem.getSystem().getListeners().setListeners(this);
 
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
                 Dimension d = e.getComponent().getSize();
 
-                MySystem.setWidth(d.getWidth());
-                MySystem.setHeight(d.getHeight());
+                MySystem.getSystem().getSize().setWidth(d.getWidth());
+                MySystem.getSystem().getSize().setHeight(d.getHeight());
 
                 repaint();
             }
         });
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
         setVisible(true);
     }
 
@@ -58,7 +59,6 @@ public class MainFrame extends JFrame {
         {
             painters.add(new BackPainter());
             painters.add(new CoordinateSystemPainter());
-            painters.add(new FunctionPainter());
         }
 
         @Override

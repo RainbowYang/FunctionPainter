@@ -131,11 +131,11 @@ public class MyGraphics {
         if (pd1.getX() == pd2.getX()) {
             switch (mode) {
                 case MODE_STRAIGHT_LINE:
-                    g.drawLine((int) pd1.getX(), 0, (int) pd2.getX(), (int) MySystem.getHeight());
+                    g.drawLine((int) pd1.getX(), 0, (int) pd2.getX(), (int) MySystem.getSystem().getSize().getHeight());
                     break;
                 case MODE_RAY_LINE:
                     if (pd1.getY() < pd2.getY()) {
-                        g.drawLine((int) pd1.getX(), (int) pd1.getY(), (int) pd2.getX(), (int) MySystem.getHeight());
+                        g.drawLine((int) pd1.getX(), (int) pd1.getY(), (int) pd2.getX(), (int) MySystem.getSystem().getSize().getHeight());
                     } else {
                         g.drawLine((int) pd1.getX(), (int) pd1.getY(), (int) pd2.getX(), 0);
                     }
@@ -149,7 +149,8 @@ public class MyGraphics {
         //屏幕左边
         Line left = Line.Y_AXIS;
         //屏幕右边
-        Line right = new Line(new PointDouble(MySystem.getWidth(), 0), new PointDouble(MySystem.getWidth(), MySystem.getHeight()));
+        MySystem.Size size = MySystem.getSystem().getSize();
+        Line right = new Line(new PointDouble(size.getWidth(), 0), new PointDouble(size.getWidth(), size.getHeight()));
 
         PointDouble start = line.getCross(left);
         PointDouble end = line.getCross(right);

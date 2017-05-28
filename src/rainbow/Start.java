@@ -4,7 +4,7 @@ import rainbow.inner.coordinate.system.CoordinateSystemForAxes;
 import rainbow.inner.function.MyFunction;
 import rainbow.inner.function.mathfunction.simple._3D.Ellipsoid;
 import rainbow.inner.system.MySystem;
-import rainbow.inner.system.comp.Functions;
+import rainbow.inner.coordinate.system.comp.Functions;
 import rainbow.outer.frame.MainFrame;
 import rainbow.tools.CodeReader;
 
@@ -16,9 +16,9 @@ import rainbow.tools.CodeReader;
  */
 public class Start {
     public static void main(String[] args) {
-        MySystem.createSystem(new CoordinateSystemForAxes(3));
+        MySystem.getSystem().setCoordinateSystem(new CoordinateSystemForAxes(3));
 
-        Functions functions = MySystem.getSystem().getFunctions();
+        Functions functions = MySystem.getSystem().getCoordinateSystem().getFunctions();
 
         // functions.add(new ExpFunction(1, Math.E));
         // functions.add(new LogFunction(1, Math.E));
