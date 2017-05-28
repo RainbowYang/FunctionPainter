@@ -7,7 +7,7 @@ import rainbow.inner.coordinate.system.comp.Axes;
 import rainbow.inner.coordinate.system.comp.LocationChanger;
 import rainbow.inner.coordinate.system.comp.SystemPainter;
 import rainbow.inner.coordinate.system.comp.special.Rotate3DEventListener;
-import rainbow.outer.painter.tool.MyGraphics;
+import rainbow.inner.view.graphics.MyGraphics;
 
 import java.awt.*;
 

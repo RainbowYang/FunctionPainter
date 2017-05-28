@@ -1,15 +1,15 @@
-package rainbow.outer.painter;
+package rainbow.inner.view;
 
 import rainbow.inner.coordinate.system.comp.SystemPainter;
 import rainbow.inner.system.MySystem;
-import rainbow.outer.painter.tool.MyGraphics;
+import rainbow.inner.view.graphics.MyGraphics;
 
 import java.awt.*;
 
 /**
  * @author Rainbow Yang
  */
-public class CoordinateSystemPainter implements MyPainter {
+public class CoordinateSystemView extends View {
     private Color color = Color.black;
 
     @Override
@@ -22,6 +22,5 @@ public class CoordinateSystemPainter implements MyPainter {
         painter.paintAxes(mg);
         painter.paintNum(mg);
         painter.paintFunctions(mg);
-
     }
 }

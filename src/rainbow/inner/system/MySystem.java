@@ -3,8 +3,13 @@ package rainbow.inner.system;
 import rainbow.inner.coordinate.system.CoordinateSystem;
 import rainbow.inner.listener.Listeners;
 import rainbow.inner.scalable.ComponentScalable;
+import rainbow.inner.view.BackgroundView;
+import rainbow.inner.view.CoordinateSystemView;
+import rainbow.inner.view.View;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 /**
@@ -24,7 +29,7 @@ public class MySystem extends ComponentScalable<SystemComponent> {
     private int index = -1;//目前使用的CoordinateSystem的索引
 
     private MySystem() {
-        setComp(new Version(), new Size(), new Listeners());
+        setComp(new Version(), new Size(), new Listeners(), new Views());
     }
 
 
@@ -57,6 +62,10 @@ public class MySystem extends ComponentScalable<SystemComponent> {
 
     public Size getSize() {
         return (Size) getComp(Size.staticGetKeyName());
+    }
+
+    public Views getViews() {
+        return (Views) getComp(Views.staticGetKeyName());
     }
 
     //end-getComp
@@ -141,5 +150,51 @@ public class MySystem extends ComponentScalable<SystemComponent> {
         public static String staticGetKeyName() {
             return "Version";
         }
+    }
+
+    /**
+     * 本类用于存储界面
+     */
+    public static class Views implements SystemComponent {
+        private Runnable repaint;
+
+        private ArrayList<View> views = new ArrayList<>();
+
+        {
+            addView(new BackgroundView());
+            addView(new CoordinateSystemView());
+        }
+
+        public void setRepaint(Runnable repaint) {
+            this.repaint = repaint;
+        }
+
+        public Image getImage() {
+            BufferedImage image = new BufferedImage((int) MySystem.getSystem().getSize().getWidth(),
+                    (int) MySystem.getSystem().getSize().getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
+            Graphics g = image.getGraphics();
+            //抗锯齿
+            ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            views.forEach(view -> view.paint(g));
+            return image;
+        }
+
+        public void addView(View view) {
+            views.add(view);
+        }
+
+        public void repaint() {
+            repaint.run();
+        }
+
+        @Override
+        public String getKeyName() {
+            return staticGetKeyName();
+        }
+
+        public static String staticGetKeyName() {
+            return "Views";
+        }
+
     }
 }
