@@ -2,7 +2,7 @@ package rainbow;
 
 import rainbow.inner.coordinate.system.CoordinateSystemForAxes;
 import rainbow.inner.function.MyFunction;
-import rainbow.inner.function.mathfunction.special.Lissajous;
+import rainbow.inner.function.mathfunction.simple._3D.Ellipsoid;
 import rainbow.inner.system.MySystem;
 import rainbow.inner.system.comp.Functions;
 import rainbow.outer.frame.MainFrame;
@@ -20,9 +20,30 @@ public class Start {
 
         Functions functions = MySystem.getSystem().getFunctions();
 
-        functions.add(new Lissajous(3, 4, 5));
+        // functions.add(new ExpFunction(1, Math.E));
+        // functions.add(new LogFunction(1, Math.E));
+        // functions.add(new PowerFunction("1*x^2"));
+
+        // functions.add(new TrigonometricFunction(1, 1, 0, MODE_SIN));
+        // functions.add(new TrigonometricFunction(1, 1, 0, MODE_COS));
+        // functions.add(new TrigonometricFunction(1, 1, 0, MODE_TAN));
+        // functions.add(new TrigonometricFunction(1, 1, 0, MODE_COT));
+        // functions.add(new TrigonometricFunction(1, 1, 0, MODE_SEC));
+        // functions.add(new TrigonometricFunction(1, 1, 0, MODE_CSC));
+
+        // functions.add(new ConicSection(5, 5, MODE_ELLIPSE_X));
+        // functions.add(new ConicSection(5, 5, MODE_ELLIPSE_Y));
+        // functions.add(new ConicSection(5, 5, MODE_HYPERBOLA_X));
+        // functions.add(new ConicSection(5, 5, MODE_HYPERBOLA_Y));
+        // functions.add(new ConicSection(5, MODE_PARABOLA_X));
+        // functions.add(new ConicSection(5, MODE_PARABOLA_Y));
+
+        functions.add(new Ellipsoid(6, 6, 6));
+        // functions.add(new Lissajous(13, 18, 27));
+        // functions.add(new RegularPolygon(6, 5, 2));
 
         functions.getFunctions().forEach(MyFunction::calc);
+
         new MainFrame();
     }
 
