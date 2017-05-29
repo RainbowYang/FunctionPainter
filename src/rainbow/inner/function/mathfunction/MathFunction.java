@@ -23,7 +23,7 @@ public class MathFunction extends PointFunction {
             //每组Function都会生成一个点集
             List<DoubleUnaryOperator>
             > functionsList = new ArrayList<>();
-    private double start, end, step;
+    protected double start, end, step;
 
     //返回本身的DoubleUnaryOperator
     public static final DoubleUnaryOperator SELF = i -> i;
