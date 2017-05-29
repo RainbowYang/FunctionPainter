@@ -2,8 +2,7 @@ package rainbow;
 
 import rainbow.inner.coordinate.system.CoordinateSystemForAxes;
 import rainbow.inner.coordinate.system.comp.Functions;
-import rainbow.inner.function.MyFunction;
-import rainbow.inner.function.mathfunction.special._2D.cycloid.Epicycloid;
+import rainbow.inner.function.mathfunction.special._2D.cycloid.*;
 import rainbow.inner.system.MySystem;
 import rainbow.outer.frame.MainFrame;
 import rainbow.tools.CodeReader;
@@ -54,7 +53,7 @@ public class Start {
         // functions.add(new Epitrochoid(6, 4, 4));
         functions.add(new Epicycloid(10, 3));
 
-        functions.getFunctions().forEach(MyFunction::calc);
+        functions.clacFunctions();
 
         new MainFrame();
     }

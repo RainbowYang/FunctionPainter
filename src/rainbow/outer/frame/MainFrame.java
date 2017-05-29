@@ -20,6 +20,10 @@ public class MainFrame extends JFrame {
 
     public static MainFrame mainFrame;
 
+    {
+        MySystem.getSystem().getInformation().initStartLog(getClass().getSimpleName());
+    }
+
     public MainFrame() throws HeadlessException {
         mainFrame = this;
         MySystem.getSystem().getVersion().setTitle(this);
@@ -51,5 +55,7 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         setVisible(true);
+
+        MySystem.getSystem().getInformation().initEndLog(getClass().getSimpleName());
     }
 }

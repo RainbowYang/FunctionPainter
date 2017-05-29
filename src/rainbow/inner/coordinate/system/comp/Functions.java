@@ -2,6 +2,7 @@ package rainbow.inner.coordinate.system.comp;
 
 import rainbow.inner.coordinate.system.CoordinateSystem;
 import rainbow.inner.function.MyFunction;
+import rainbow.inner.system.MySystem;
 
 import java.util.ArrayList;
 
@@ -20,11 +21,18 @@ public class Functions implements CoordinateSystemComponent {
     }
 
     public void add(MyFunction function) {
+        MySystem.getSystem().getInformation().log("Adding " + function.getClass().getSimpleName() + "to Functions");
         functions.add(function);
     }
 
     public MyFunction get(int index) {
         return functions.get(index);
+    }
+
+    public void clacFunctions() {
+        MySystem.getSystem().getInformation().log("Functions is calculating.");
+        functions.forEach(MyFunction::calc);
+        MySystem.getSystem().getInformation().log("Functions is finishing calculating.");
     }
 
     public ArrayList<MyFunction> getFunctions() {

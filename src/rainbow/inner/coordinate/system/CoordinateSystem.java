@@ -15,6 +15,8 @@ public abstract class CoordinateSystem extends ComponentScalable<CoordinateSyste
     private double x, y;
 
     {
+        MySystem.getSystem().getInformation().initStartLog(this.getClass().getSimpleName());
+
         MySystem.getSystem().getListeners().addMouseListener(new CoordinateSystemListener());
 
         setX(MySystem.getSystem().getSize().getWidth() / 2);

@@ -10,7 +10,8 @@ import rainbow.inner.view.View;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
+import java.util.*;
+import java.util.List;
 
 /**
  * 本类采用单例模式
@@ -29,7 +30,8 @@ public class MySystem extends ComponentScalable<SystemComponent> {
     private int index = -1;//目前使用的CoordinateSystem的索引
 
     private MySystem() {
-        setComp(new Version(), new Size(), new Listeners(), new Views());
+        setComp(new Information(), new Version(), new Size(), new Listeners(), new Views());
+        getInformation().initEndLog("System");
     }
 
 
@@ -66,6 +68,10 @@ public class MySystem extends ComponentScalable<SystemComponent> {
 
     public Views getViews() {
         return (Views) getComp(Views.staticGetKeyName());
+    }
+
+    public Information getInformation() {
+        return (Information) getComp(Information.staticGetKeyName());
     }
 
     //end-getComp
@@ -196,5 +202,43 @@ public class MySystem extends ComponentScalable<SystemComponent> {
             return "Views";
         }
 
+    }
+
+    /**
+     * 本类用于存储信息
+     */
+    public static class Information implements SystemComponent {
+        private List<String> informations = new ArrayList<>();
+
+        private long start;
+
+        {
+            System.out.println();
+            System.out.println("Time\tProcess");
+            start = System.currentTimeMillis();
+            initStartLog("System");
+        }
+
+        public void log(String information) {
+            informations.add((System.currentTimeMillis() - start) + "\t\t" + information);
+            System.out.println(informations.get(informations.size() - 1));
+        }
+
+        public void initStartLog(String information) {
+            log("Start initing " + information + "...");
+        }
+
+        public void initEndLog(String information) {
+            log("Finish initing " + information + "...");
+        }
+
+        @Override
+        public String getKeyName() {
+            return staticGetKeyName();
+        }
+
+        public static String staticGetKeyName() {
+            return "Information";
+        }
     }
 }
