@@ -48,7 +48,8 @@ public class CoordinateSystemForAxes extends CoordinateSystem {
                 break;
         }
 
-        setComp(new Rotate3DEventListener(this));
+        if (getAxes().getSize() >= 3)
+            setComp(new Rotate3DEventListener(this));
     }
 
     {

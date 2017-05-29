@@ -1,5 +1,6 @@
 package rainbow.inner.function.mathfunction;
 
+import rainbow.inner.coordinate.point.MyPoint;
 import rainbow.inner.coordinate.point.PointForAxes;
 import rainbow.inner.coordinate.system.comp.Range;
 import rainbow.inner.function.PointFunction;
@@ -30,6 +31,9 @@ public class MathFunction extends PointFunction {
     //每个点的偏移，可用于平移
     private List<Double> translations;
 
+    public MathFunction() {
+    }
+
     public MathFunction(DoubleUnaryOperator... functions) {
         this(Arrays.asList(functions));
     }
@@ -49,13 +53,16 @@ public class MathFunction extends PointFunction {
     @Override
     public void calcPoint() {
         for (List<DoubleUnaryOperator> functions : this.functionsList) {
+            if (functions.size() == 0) {
+                continue;
+            }
             newPoints();
             for (double i = start; i < end; i += step) {
                 double[] ds = new double[functions.size()];
                 for (int j = 0; j < ds.length; j++) {
                     ds[j] = functions.get(j).applyAsDouble(i) + getTranslations(j);
                 }
-                addPoint(new PointForAxes(ds));
+                addPoint(createPoint(ds));
             }
         }
     }
@@ -106,6 +113,17 @@ public class MathFunction extends PointFunction {
      */
     protected void addFunctions(DoubleUnaryOperator... functions) {
         addFunctions(Arrays.asList(functions));
+    }
+
+    /**
+     * 需要创建的点
+     * 子类如需创造不是坐标系的点，只要重写此方法即可。
+     *
+     * @param ds 所有的参数
+     * @return 所创建的点
+     */
+    protected MyPoint createPoint(double... ds) {
+        return new PointForAxes(ds);
     }
 
     protected void setStart(double start) {

@@ -1,10 +1,10 @@
 package rainbow;
 
 import rainbow.inner.coordinate.system.CoordinateSystemForAxes;
-import rainbow.inner.function.MyFunction;
-import rainbow.inner.function.mathfunction.simple._3D.Ellipsoid;
-import rainbow.inner.system.MySystem;
 import rainbow.inner.coordinate.system.comp.Functions;
+import rainbow.inner.function.MyFunction;
+import rainbow.inner.function.mathfunction.simple._2D.spiral.LituusSpiral;
+import rainbow.inner.system.MySystem;
 import rainbow.outer.frame.MainFrame;
 import rainbow.tools.CodeReader;
 
@@ -16,7 +16,7 @@ import rainbow.tools.CodeReader;
  */
 public class Start {
     public static void main(String[] args) {
-        MySystem.getSystem().setCoordinateSystem(new CoordinateSystemForAxes(3));
+        MySystem.getSystem().setCoordinateSystem(new CoordinateSystemForAxes(2));
 
         Functions functions = MySystem.getSystem().getCoordinateSystem().getFunctions();
 
@@ -38,9 +38,15 @@ public class Start {
         // functions.add(new ConicSection(5, MODE_PARABOLA_X));
         // functions.add(new ConicSection(5, MODE_PARABOLA_Y));
 
-        functions.add(new Ellipsoid(6, 6, 6));
+        // functions.add(new Ellipsoid(6, 6, 6));
         // functions.add(new Lissajous(13, 18, 27));
         // functions.add(new RegularPolygon(6, 5, 2));
+
+        // functions.add(new FermatSpiral(100,1));
+        // functions.add(new IsometricSpiral(1,0.5));
+        // functions.add(new HyperbolicSpiral(1));
+        // functions.add(new ArchimedeanSpiral(1));
+        functions.add(new LituusSpiral(1));
 
         functions.getFunctions().forEach(MyFunction::calc);
 

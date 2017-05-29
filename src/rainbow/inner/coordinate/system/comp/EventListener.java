@@ -5,7 +5,7 @@ import rainbow.inner.coordinate.system.event.CoordinateSystemEvent;
 import rainbow.inner.coordinate.system.event.MoveEvent;
 import rainbow.inner.coordinate.system.event.RotateEvent;
 import rainbow.inner.coordinate.system.event.ZoomEvent;
-import rainbow.outer.frame.MainFrame;
+import rainbow.inner.system.MySystem;
 
 /**
  * @author Rainbow Yang
@@ -31,8 +31,7 @@ public class EventListener implements CoordinateSystemComponent {
 
         specialAccept(event);
 
-        // todo repaint 需改
-        MainFrame.mainFrame.repaint();
+        MySystem.getSystem().getViews().repaint();
     }
 
     public void move(MoveEvent event) {

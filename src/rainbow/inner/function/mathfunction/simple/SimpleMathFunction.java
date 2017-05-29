@@ -49,6 +49,7 @@ public class SimpleMathFunction extends MathFunction {
         ArrayList<DoubleUnaryOperator> newFunctions = new ArrayList<>();
         newFunctions.addAll(functions);
         newFunctions.add(index, SELF);
+        //todo
         addFunctions(newFunctions);
     }
 }
