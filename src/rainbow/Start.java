@@ -2,7 +2,7 @@ package rainbow;
 
 import rainbow.inner.coordinate.system.CoordinateSystemForAxes;
 import rainbow.inner.coordinate.system.comp.Functions;
-import rainbow.inner.function.mathfunction.special.Net;
+import rainbow.inner.function.pointfunction.Hypercube;
 import rainbow.inner.system.MySystem;
 import rainbow.outer.frame.MainFrame;
 import rainbow.tools.CodeReader;
@@ -53,7 +53,9 @@ public class Start {
         // functions.add(new Epitrochoid(6, 4, 4));
         // functions.add(new Epicycloid(10, 3));
 
-        functions.add(new Net((x, y, z) -> -10 / Math.sqrt(0.000001 + (x * x) + (y * y))));
+        // functions.add(new Net((x, y, z) -> -10 / Math.sqrt(0.000001 + (x * x) + (y * y))));
+
+        functions.add(new Hypercube(10, 4));
 
         functions.clacFunctions();
 

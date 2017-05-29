@@ -9,7 +9,7 @@ import rainbow.inner.view.graphics.MyGraphics;
  * @see PointFunction
  */
 public abstract class MyFunction {
-    MyFunction() {
+    protected MyFunction() {
     }
 
     /**
