@@ -36,6 +36,25 @@ public class Line {
         c = (p1.getX() * p2.getY() - p1.getY() * p2.getX());
     }
 
+    /**
+     * 根据一个点和倾斜角生成线
+     *
+     * @param p     直线要过得点
+     * @param angle 倾斜角
+     */
+    public Line(PointDouble p, double angle) {
+        if ((angle - Math.PI / 2) % Math.PI == 0) {
+            a = 1;
+            b = 0;
+            c = -p.getX();
+        } else {
+            a = Math.tan(angle);
+            b = -1;
+            c = p.getY() - p.getY() * a;
+        }
+
+    }
+
     public PointDouble getCross(Line l) {
         //平行
         if (a * l.b - b * l.a == 0) {

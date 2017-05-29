@@ -66,7 +66,7 @@ public abstract class LocationChanger implements CoordinateSystemComponent {
     }
 
     public MyPoint toSystem(PointDouble p) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override

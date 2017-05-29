@@ -11,6 +11,8 @@ import rainbow.inner.view.graphics.MyGraphics;
 
 import java.awt.*;
 
+import static java.lang.Math.*;
+
 /**
  * 任意维度的轴坐标系
  *
@@ -30,18 +32,18 @@ public class CoordinateSystemForAxes extends CoordinateSystem {
 
         switch (getAxes().getSize()) {
             case 4:
-                getAxes().setAngle(0, Math.PI * 5 / 4);
+                getAxes().setAngle(0, PI * 5 / 4);
                 getAxes().setAngle(1, 0);
-                getAxes().setAngle(2, Math.PI / 2);
-                getAxes().setAngle(3, Math.PI * 3 / 4);
+                getAxes().setAngle(2, PI / 2);
+                getAxes().setAngle(3, PI * 3 / 4);
             case 3:
-                getAxes().setAngle(0, Math.PI * 5 / 4);
+                getAxes().setAngle(0, PI * 5 / 4);
                 getAxes().setAngle(1, 0);
-                getAxes().setAngle(2, Math.PI / 2);
+                getAxes().setAngle(2, PI / 2);
                 break;
             case 2:
                 getAxes().setAngle(0, 0);
-                getAxes().setAngle(1, Math.PI / 2);
+                getAxes().setAngle(1, PI / 2);
                 break;
             case 1:
                 getAxes().setAngle(0, 0);
@@ -63,10 +65,25 @@ public class CoordinateSystemForAxes extends CoordinateSystem {
                 for (int i = 0; i < getAxes().getSize(); i++) {
                     double angle = axes.getAngle(i);
                     double length = axes.getLength(i);
-                    px += Math.cos(angle) * length * pa.get(i);
-                    py -= Math.sin(angle) * length * pa.get(i);
+                    px += cos(angle) * length * pa.get(i);
+                    py -= sin(angle) * length * pa.get(i);
                 }
                 return new PointDouble(px, py);
+            }
+
+            @Override
+            public MyPoint toSystem(PointDouble p) {
+                PointDouble dp = new PointDouble(p.getX() - getX(), getY() - p.getY());
+                double x = dp.spin(PI / 2 - getAxes().getAngle(1)).getX();
+                double y = dp.spin(0 - getAxes().getAngle(0)).getY();
+
+                double xAngle = getAxes().getAngle(0) + PI / 2 - getAxes().getAngle(1);
+                double yAngle = getAxes().getAngle(1) - getAxes().getAngle(0);
+
+                double px = x / cos(xAngle) / getAxes().getLength(0);
+                double py = y / sin(yAngle) / getAxes().getLength(1);
+
+                return new PointForAxes(px, py);
             }
         });
 

@@ -1,5 +1,7 @@
 package rainbow.inner.coordinate.point;
 
+import static java.lang.Math.*;
+
 /**
  * 用于表示屏幕上的位置
  *
@@ -28,6 +30,10 @@ public class PointDouble {
 
     public double getY() {
         return y;
+    }
+
+    public PointDouble spin(double angle) {
+        return new PointDouble(x * cos(angle) - y * sin(angle), x * sin(angle) + y * cos(angle));
     }
 
     @Override

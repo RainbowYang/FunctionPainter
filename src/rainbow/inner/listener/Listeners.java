@@ -16,10 +16,6 @@ public class Listeners implements SystemComponent {
 
     private List<MouseAdapter> mouseAdapters = new ArrayList<>();
 
-    {
-        addMouseListener(new CoordinateSystemListener());
-    }
-
     public void addMouseListener(MouseAdapter l) {
         mouseAdapters.add(l);
     }

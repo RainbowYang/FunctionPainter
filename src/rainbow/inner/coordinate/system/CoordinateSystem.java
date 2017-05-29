@@ -1,6 +1,7 @@
 package rainbow.inner.coordinate.system;
 
 import rainbow.inner.coordinate.system.comp.*;
+import rainbow.inner.listener.CoordinateSystemListener;
 import rainbow.inner.scalable.ComponentScalable;
 import rainbow.inner.system.MySystem;
 
@@ -13,7 +14,9 @@ import rainbow.inner.system.MySystem;
 public abstract class CoordinateSystem extends ComponentScalable<CoordinateSystemComponent> {
     private double x, y;
 
-    public CoordinateSystem() {
+    {
+        MySystem.getSystem().getListeners().addMouseListener(new CoordinateSystemListener());
+
         setX(MySystem.getSystem().getSize().getWidth() / 2);
         setY(MySystem.getSystem().getSize().getHeight() / 2);
 

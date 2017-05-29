@@ -1,5 +1,7 @@
 package rainbow.inner.coordinate.system.comp;
 
+import rainbow.inner.coordinate.point.MyPoint;
+import rainbow.inner.coordinate.point.PointDouble;
 import rainbow.inner.coordinate.system.CoordinateSystem;
 import rainbow.inner.coordinate.system.event.CoordinateSystemEvent;
 import rainbow.inner.coordinate.system.event.MoveEvent;
@@ -44,10 +46,10 @@ public class EventListener implements CoordinateSystemComponent {
 
     public void zoom(ZoomEvent event) {
         //todo 当实现toSystem之后 可以弄成根据鼠标中心缩放
-        // MyPoint p = cs.getLocationChanger().toSystem(new PointDouble(event.getX(), event.getY()));
-        // cs.getMover().moveTo(p);
+        MyPoint p = cs.getLocationChanger().toSystem(new PointDouble(event.getX(), event.getY()));
+        cs.getMover().moveTo(p);
         cs.getAxes().timesAllLengthTimes(Math.pow(zoomSpeed, event.getZoomLevel()));
-        // cs.getMover().moveToOpposite(p);
+        cs.getMover().moveToOpposite(p);
     }
 
     /**

@@ -31,6 +31,16 @@ public class Axes implements CoordinateSystemComponent {
     //Axes-start
 
     /**
+     * 获取第index个坐标系
+     *
+     * @param index 索引
+     * @return 返回的坐标系
+     */
+    public Axis getAxis(int index) {
+        return axes.get(index);
+    }
+
+    /**
      * 添加count个轴,angle为0
      *
      * @param count 要添加的轴的个数
