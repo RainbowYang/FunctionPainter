@@ -1,4 +1,4 @@
-package rainbow.inner.function.mathfunction.special;
+package rainbow.inner.function.mathfunction.special._2D;
 
 import rainbow.inner.function.mathfunction.MathFunction;
 
