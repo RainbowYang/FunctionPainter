@@ -2,7 +2,6 @@ package rainbow;
 
 import rainbow.inner.coordinate.system.CoordinateSystemForAxes;
 import rainbow.inner.coordinate.system.comp.Functions;
-import rainbow.inner.function.pointfunction.Hypercube;
 import rainbow.inner.system.MySystem;
 import rainbow.outer.frame.MainFrame;
 import rainbow.tools.CodeReader;
@@ -15,8 +14,17 @@ import rainbow.tools.CodeReader;
  */
 public class Start {
     public static void main(String[] args) {
-        MySystem.getSystem().setCoordinateSystem(new CoordinateSystemForAxes(4));
+        systemInit();
 
+        System.out.println(MySystem.getSystem().getRegistry().getFunctions());
+
+    }
+
+    public static void systemInit() {
+        MySystem.getSystem().setCoordinateSystem(new CoordinateSystemForAxes(4));
+    }
+
+    public static void functionsInit() {
         Functions functions = MySystem.getSystem().getCoordinateSystem().getFunctions();
 
         // functions.add(new ExpFunction(1, Math.E));
@@ -55,14 +63,16 @@ public class Start {
 
         // functions.add(new Net((x, y, z) -> -10 / Math.sqrt(0.000001 + (x * x) + (y * y))));
 
-        functions.add(new Hypercube(10, 4));
+        // functions.add(new Hypercube(10, 4));
 
         functions.clacFunctions();
+    }
 
+    public static void showFrame() {
         new MainFrame();
     }
 
     static {
-        new CodeReader(".//src//rainbow").print(CodeReader.DETAILED);
+        new CodeReader(".//src//rainbow").print(CodeReader.NO_FOLDER);
     }
 }

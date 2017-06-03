@@ -1,4 +1,4 @@
-package rainbow.inner.function.mathfunction.simple._2D;
+package rainbow.inner.function.mathfunction.simple._2D.trigonometric_function;
 
 import rainbow.inner.function.mathfunction.simple.SimpleMathFunction;
 

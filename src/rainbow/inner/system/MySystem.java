@@ -1,6 +1,21 @@
 package rainbow.inner.system;
 
 import rainbow.inner.coordinate.system.CoordinateSystem;
+import rainbow.inner.coordinate.system.CoordinateSystemForAxes;
+import rainbow.inner.function.MyFunction;
+import rainbow.inner.function.mathfunction.simple._2D.ExpFunction;
+import rainbow.inner.function.mathfunction.simple._2D.LogFunction;
+import rainbow.inner.function.mathfunction.simple._2D.PowerFunction;
+import rainbow.inner.function.mathfunction.simple._2D.spiral.*;
+import rainbow.inner.function.mathfunction.simple._2D.trigonometric_function.*;
+import rainbow.inner.function.mathfunction.simple._3D.Ellipsoid;
+import rainbow.inner.function.mathfunction.special.Lissajous;
+import rainbow.inner.function.mathfunction.special._2D.conic_section.Ellipse;
+import rainbow.inner.function.mathfunction.special._2D.conic_section.Hyperbola;
+import rainbow.inner.function.mathfunction.special._2D.conic_section.Parabola;
+import rainbow.inner.function.mathfunction.special._2D.cycloid.*;
+import rainbow.inner.function.pointfunction.Hypercube;
+import rainbow.inner.function.pointfunction.RegularPolygon;
 import rainbow.inner.listener.Listeners;
 import rainbow.inner.scalable.ComponentScalable;
 import rainbow.inner.view.BackgroundView;
@@ -10,7 +25,7 @@ import rainbow.inner.view.View;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,6 +36,9 @@ import java.util.List;
  * @author Rainbow Yang
  * @see rainbow.inner.system.MySystem.Version
  * @see rainbow.inner.system.MySystem.Size
+ * @see rainbow.inner.system.MySystem.Views
+ * @see rainbow.inner.system.MySystem.Information
+ * @see rainbow.inner.system.MySystem.Registry
  */
 public class MySystem extends ComponentScalable<SystemComponent> {
 
@@ -30,7 +48,7 @@ public class MySystem extends ComponentScalable<SystemComponent> {
     private int index = -1;//目前使用的CoordinateSystem的索引
 
     private MySystem() {
-        setComp(new Information(), new Version(), new Size(), new Listeners(), new Views());
+        setComp(new Information(), new Version(), new Size(), new Listeners(), new Views(), new Registry());
         getInformation().initEndLog("System");
     }
 
@@ -74,6 +92,9 @@ public class MySystem extends ComponentScalable<SystemComponent> {
         return (Information) getComp(Information.staticGetKeyName());
     }
 
+    public Registry getRegistry() {
+        return (Registry) getComp(Registry.staticGetKeyName());
+    }
     //end-getComp
 
     public static MySystem getSystem() {
@@ -239,6 +260,75 @@ public class MySystem extends ComponentScalable<SystemComponent> {
 
         public static String staticGetKeyName() {
             return "Information";
+        }
+    }
+
+    /**
+     * 本类静态存储所有可创建的坐标系和函数的Class文件
+     *
+     * @author Rainbow Yang
+     */
+    public static class Registry implements SystemComponent {
+
+        private List<Class<? extends MyFunction>> functions = new ArrayList<>();
+        private List<Class<? extends CoordinateSystem>> coordinateSystems = new ArrayList<>();
+
+        {
+            coordinateSystems.add(CoordinateSystemForAxes.class);
+
+
+            functions.add(PowerFunction.class);
+            functions.add(ExpFunction.class);
+            functions.add(LogFunction.class);
+
+            functions.add(Cos.class);
+            functions.add(Tan.class);
+            functions.add(Cot.class);
+            functions.add(Sin.class);
+            functions.add(Csc.class);
+            functions.add(Sec.class);
+
+            functions.add(Ellipse.class);
+            functions.add(Parabola.class);
+            functions.add(Hyperbola.class);
+
+            functions.add(Lissajous.class);
+
+            functions.add(Epitrochoid.class);
+            functions.add(Hypotrochoid.class);
+            functions.add(Hypocycloid.class);
+            functions.add(Epicycloid.class);
+            functions.add(Cycloid.class);
+
+            functions.add(ArchimedeanSpiral.class);
+            functions.add(IsometricSpiral.class);
+            functions.add(LituusSpiral.class);
+            functions.add(FermatSpiral.class);
+            functions.add(HyperbolicSpiral.class);
+
+            functions.add(Ellipsoid.class);
+            functions.add(Hypercube.class);
+            functions.add(RegularPolygon.class);
+
+            // functions.add(Net.class);
+
+        }
+
+        public List<Class<? extends MyFunction>> getFunctions() {
+            return functions;
+        }
+
+        public List<Class<? extends CoordinateSystem>> getCoordinateSystems() {
+            return coordinateSystems;
+        }
+
+        @Override
+        public String getKeyName() {
+            return staticGetKeyName();
+        }
+
+        public static String staticGetKeyName() {
+            return "Registry";
         }
     }
 }
