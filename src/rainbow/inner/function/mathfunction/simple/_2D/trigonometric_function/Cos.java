@@ -6,7 +6,7 @@ package rainbow.inner.function.mathfunction.simple._2D.trigonometric_function;
  * @author Rainbow Yang
  */
 public class Cos extends TrigonometricFunction {
-    public Cos(double a, double w, double f, String mode) {
+    public Cos(double a, double w, double f) {
         super(a, w, f, MODE_COS);
     }
 }

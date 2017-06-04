@@ -6,7 +6,7 @@ package rainbow.inner.function.mathfunction.simple._2D.trigonometric_function;
  * @author Rainbow Yang
  */
 public class Sin extends TrigonometricFunction {
-    public Sin(double a, double w, double f, String mode) {
+    public Sin(double a, double w, double f) {
         super(a, w, f, MODE_SIN);
     }
 }
