@@ -1,8 +1,8 @@
 package rainbow.inner.system
 
-import rainbow.inner.coordinate.system.CoordinateSystem
 import rainbow.inner.function.MyFunction
 import rainbow.inner.background.Background
+import rainbow.inner.coordinate.system.CoordinateSystem
 
 /**
  * 本类单例来存贮以下东西：
@@ -27,7 +27,7 @@ object MySystem {
     val coordinateSystems = mutableListOf<CoordinateSystem>()
 
     var coordinateSystem: CoordinateSystem
-        get() = coordinateSystems.get(index)
+        get() = coordinateSystems[index]
         set(cs) {
             if (coordinateSystems.contains(cs)) {
                 index = coordinateSystems.indexOf(cs)

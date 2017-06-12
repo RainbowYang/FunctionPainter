@@ -3,6 +3,7 @@ package rainbow.inner.coordinate.system.comp;
 import rainbow.inner.coordinate.point.MyPoint;
 import rainbow.inner.coordinate.point.PointDouble;
 import rainbow.inner.coordinate.system.CoordinateSystem;
+import rainbow.inner.coordinate.system.comp.unused.CoordinateSystemComponent;
 import rainbow.inner.coordinate.system.event.CoordinateSystemEvent;
 import rainbow.inner.coordinate.system.event.MoveEvent;
 import rainbow.inner.coordinate.system.event.RotateEvent;

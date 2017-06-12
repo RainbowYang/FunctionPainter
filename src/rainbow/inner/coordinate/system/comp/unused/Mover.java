@@ -1,4 +1,4 @@
-package rainbow.inner.coordinate.system.comp;
+package rainbow.inner.coordinate.system.comp.unused;
 
 import rainbow.inner.coordinate.point.MyPoint;
 import rainbow.inner.coordinate.point.PointDouble;

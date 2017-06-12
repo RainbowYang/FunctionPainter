@@ -1,8 +1,12 @@
 package rainbow
 
 import rainbow.inner.coordinate.system.CoordinateSystemForAxes
-import rainbow.inner.function.pointfunction.Hypercube
+import rainbow.inner.function.MyFunction
+import rainbow.inner.painter.background.DefaultBackgroundPainter
+import rainbow.inner.painter.coordinate_system.DefaultCoordinateSystemPainter
+import rainbow.inner.painter.function.DefaultFunctionsPainter
 import rainbow.inner.system.MySystem
+import rainbow.inner.system.SystemPainters
 import rainbow.outer.frame.MainFrame
 import rainbow.tools.CodeReader
 
@@ -14,18 +18,27 @@ import rainbow.tools.CodeReader
 
 fun main(args: Array<String>) {
     readCode()
+    addPainters()
     coordinateSystemInit()
     functionsInit()
     showFrame()
 }
 
+fun addPainters() {
+    SystemPainters.painters.apply {
+        add(DefaultBackgroundPainter())
+        add(DefaultCoordinateSystemPainter())
+        add(DefaultFunctionsPainter())
+    }
+}
+
 fun coordinateSystemInit() {
-    MySystem.getSystem().coordinateSystem = CoordinateSystemForAxes(3)
+    MySystem.coordinateSystem = CoordinateSystemForAxes(3)
 }
 
 fun functionsInit() {
-    MySystem.getSystem().coordinateSystem.functions.apply {
-//        add(ExpFunction(1.0, Math.E))
+    MySystem.functions.apply {
+        //        add(ExpFunction(1.0, Math.E))
 //        add(LogFunction(1.0, Math.E))
 //        add(PowerFunction("1*x^2"))
 //
@@ -61,10 +74,9 @@ fun functionsInit() {
 //
 //        add(Net { x: Double, y: Double -> -10 / Math.sqrt(0.000001 + (x * x) + (y * y)) })
 //
-        add(Hypercube(10.0, 4))
-
-        clacFunctions()
+//        add(Hypercube(10.0, 4))
     }
+    MySystem.functions.forEach(MyFunction::calc)
 }
 
 fun showFrame() {

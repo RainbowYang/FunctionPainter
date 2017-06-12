@@ -1,7 +1,6 @@
-package rainbow.inner.coordinate.system.comp.special;
+package rainbow.inner.coordinate.system.comp;
 
 import rainbow.inner.coordinate.system.CoordinateSystem;
-import rainbow.inner.coordinate.system.comp.EventListener;
 import rainbow.inner.coordinate.system.event.RotateEvent;
 
 /**

@@ -3,7 +3,8 @@ package rainbow.inner.painter.graphics;
 import rainbow.inner.coordinate.point.MyPoint;
 import rainbow.inner.coordinate.point.PointDouble;
 import rainbow.inner.coordinate.point.PointForAxes;
-import rainbow.inner.coordinate.system.comp.LocationChanger;
+import rainbow.inner.coordinate.system.CoordinateSystem;
+import rainbow.inner.coordinate.system.comp.unused.LocationChanger;
 import rainbow.inner.math.Line;
 import rainbow.inner.system.MySystem;
 
@@ -25,11 +26,11 @@ public class MyGraphics {
     public static final String MODE_RAY_LINE = "Ray Line";
 
     private Graphics g;
-    private LocationChanger changer;
+    private CoordinateSystem changer;
 
     public MyGraphics(Graphics g) {
         this.g = g;
-        changer = MySystem.getSystem().getCoordinateSystem().getLocationChanger();
+        changer = MySystem.INSTANCE.getCoordinateSystem();
     }
 
     public Graphics getGraphics() {
@@ -66,7 +67,7 @@ public class MyGraphics {
         return this;
     }
 
-    private Polygon toPolygon(List<MyPoint> ps) {
+    private Polygon toPolygon(List<MyPoint<?>> ps) {
         Polygon p = new Polygon();
         for (PointDouble point : changer.toReal(ps)) {
             if (!(Double.isNaN(point.getY()) || Double.isNaN(point.getX()))) {
