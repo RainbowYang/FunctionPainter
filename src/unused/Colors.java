@@ -1,4 +1,4 @@
-package unused.comp;
+package unused;
 
 import java.awt.*;
 import java.util.HashMap;

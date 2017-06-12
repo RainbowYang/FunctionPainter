@@ -14,6 +14,8 @@ object SystemPainters {
 
     var repainter: (() -> Unit)? = null
 
+    fun repaint() = SystemPainters::repainter
+
     fun paint(g: Graphics) {
         (g as Graphics2D).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
         painters.forEach { it.paint(g) }

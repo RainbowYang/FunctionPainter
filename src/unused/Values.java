@@ -1,4 +1,4 @@
-package rainbow.inner.coordinate.system.comp.unused;
+package unused;
 
 import java.util.ArrayList;
 import java.util.function.BiFunction;

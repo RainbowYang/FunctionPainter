@@ -9,11 +9,12 @@ import rainbow.inner.coordinate.system.event.MoveEvent;
 import rainbow.inner.coordinate.system.event.RotateEvent;
 import rainbow.inner.coordinate.system.event.ZoomEvent;
 import rainbow.inner.system.MySystem;
+import rainbow.inner.system.SystemPainters;
 
 /**
  * @author Rainbow Yang
  */
-public class EventListener implements CoordinateSystemComponent {
+public class EventListener {
     protected CoordinateSystem cs;
 
     //todo 暂时
@@ -34,11 +35,11 @@ public class EventListener implements CoordinateSystemComponent {
 
         specialAccept(event);
 
-        MySystem.getSystem().getViews().repaint();
+        SystemPainters.INSTANCE.repaint();
     }
 
     public void move(MoveEvent event) {
-        cs.getMover().move(event.getDx(), event.getDy());
+        cs.move(event.getDx(), event.getDy());
     }
 
     public void rotate(RotateEvent event) {

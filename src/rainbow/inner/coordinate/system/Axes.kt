@@ -21,5 +21,17 @@ class Axes {
 
     fun getSize() = axes.size
 
+    /**
+     * 对调两个维度的位置
+     * @param index1 维度1
+     * *
+     * @param index2 维度2
+     */
+    fun change(index1: Int, index2: Int) {
+        val axis = axes[index1]
+        axes[index1] = axes[index2]
+        axes[index2] = axis
+    }
+
     class Axis(var angle: Double = 0.0, var length: Double = 40.0, var lengthTimes: Double = 1.0)
 }
