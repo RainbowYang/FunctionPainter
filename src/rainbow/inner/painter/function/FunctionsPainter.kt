@@ -1,6 +1,6 @@
 package rainbow.inner.painter.function
 
-import rainbow.inner.painter.graphics.MyGraphics
+import rainbow.inner.painter.graphics.MathGraphics
 import rainbow.inner.painter.SystemPainter
 import rainbow.inner.system.MySystem
 import java.awt.Graphics
@@ -13,7 +13,7 @@ import java.awt.Graphics
 interface FunctionsPainter : SystemPainter {
     override fun paint(g: Graphics) {
         MySystem.functions.forEach {
-            val mg = MyGraphics(g)
+            val mg = MathGraphics(g)
             it.paintBefore(mg)
             it.paintMain(mg)
             it.paintAfter(mg)

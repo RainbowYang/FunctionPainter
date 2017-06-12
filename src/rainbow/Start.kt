@@ -2,6 +2,7 @@ package rainbow
 
 import rainbow.inner.coordinate.system.CoordinateSystemForAxes
 import rainbow.inner.function.MyFunction
+import rainbow.inner.function.pointfunction.Hypercube
 import rainbow.inner.painter.background.DefaultBackgroundPainter
 import rainbow.inner.painter.coordinate_system.DefaultCoordinateSystemPainter
 import rainbow.inner.painter.function.DefaultFunctionsPainter
@@ -74,7 +75,7 @@ fun functionsInit() {
 //
 //        add(Net { x: Double, y: Double -> -10 / Math.sqrt(0.000001 + (x * x) + (y * y)) })
 //
-//        add(Hypercube(10.0, 4))
+        add(Hypercube(10.0, 4))
     }
     MySystem.functions.forEach(MyFunction::calc)
 }

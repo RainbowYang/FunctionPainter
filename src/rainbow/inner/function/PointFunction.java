@@ -1,7 +1,7 @@
 package rainbow.inner.function;
 
 import rainbow.inner.coordinate.point.MyPoint;
-import rainbow.inner.painter.graphics.MyGraphics;
+import rainbow.inner.painter.graphics.MathGraphics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ public abstract class PointFunction extends MyFunction {
     }
 
     @Override
-    public void paintMain(MyGraphics mg) {
+    public void paintMain(MathGraphics mg) {
         pointsList.forEach(mg::paintPoints);
     }
 

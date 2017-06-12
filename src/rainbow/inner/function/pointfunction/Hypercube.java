@@ -2,7 +2,7 @@ package rainbow.inner.function.pointfunction;
 
 import rainbow.inner.coordinate.point.PointForAxes;
 import rainbow.inner.function.MyFunction;
-import rainbow.inner.painter.graphics.MyGraphics;
+import rainbow.inner.painter.graphics.MathGraphics;
 
 /**
  * 任意维度的超方体
@@ -19,7 +19,7 @@ public class Hypercube extends MyFunction {
     }
 
     @Override
-    public void paintMain(MyGraphics mg) {
+    public void paintMain(MathGraphics mg) {
         mg.paintLocation(new PointForAxes(length, size, true));
     }
 }

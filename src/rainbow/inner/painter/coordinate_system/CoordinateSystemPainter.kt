@@ -1,6 +1,6 @@
 package rainbow.inner.painter.coordinate_system
 
-import rainbow.inner.painter.graphics.MyGraphics
+import rainbow.inner.painter.graphics.MathGraphics
 import rainbow.inner.painter.SystemPainter
 import java.awt.Graphics
 
@@ -14,31 +14,31 @@ interface CoordinateSystemPainter : SystemPainter {
 
      * @param mg 画笔
      */
-    fun paintOrigin(mg: MyGraphics) {}
+    fun paintOrigin(mg: MathGraphics) {}
 
     /**
      * 画网格
 
      * @param mg 画笔
      */
-    fun paintGrid(mg: MyGraphics) {}
+    fun paintGrid(mg: MathGraphics) {}
 
     /**
      * 画坐标轴
 
      * @param mg 画笔
      */
-    fun paintAxes(mg: MyGraphics) {}
+    fun paintAxes(mg: MathGraphics) {}
 
     /**
      * 画数字
 
      * @param mg 画笔
      */
-    fun paintNum(mg: MyGraphics) {}
+    fun paintNum(mg: MathGraphics) {}
 
     override fun paint(g: Graphics) {
-        val mg = MyGraphics(g)
+        val mg = MathGraphics(g)
         paintOrigin(mg)
         paintGrid(mg)
         paintAxes(mg)
