@@ -48,10 +48,10 @@ fun CoordinateSystem.moveTo(pd: rainbow.inner.coordinate.point.PointDouble) {
     return moveTo(pd.x, pd.y)
 }
 
-fun CoordinateSystem.moveTo(p: rainbow.inner.coordinate.point.MyPoint<*>) {
+fun CoordinateSystem.moveTo(p: rainbow.inner.coordinate.point.MyPoint) {
     return moveTo(toReal(p))
 }
 
-fun CoordinateSystem.moveToOpposite(p: rainbow.inner.coordinate.point.MyPoint<*>) {
+fun CoordinateSystem.moveToOpposite(p: rainbow.inner.coordinate.point.MyPoint) {
     return moveTo(toReal(p.times(-1.0)))
 }

@@ -10,7 +10,7 @@ import java.util.Arrays;
  *
  * @author Rainbow Yang
  */
-public class PointForAxes implements MyPoint<PointForAxes> {
+public class PointForAxes implements MyPoint {
     //所有维度上的值
     private double[] values;
 
@@ -40,17 +40,18 @@ public class PointForAxes implements MyPoint<PointForAxes> {
     }
 
     @Override
-    public PointForAxes add(PointForAxes pt) {
-        int size = this.getBigger(pt).size();
+    public MyPoint add(MyPoint pt) {
+        PointForAxes pa = pt.toPointForAxes();
+        int size = this.getBigger(pa).size();
         double[] ds = new double[size];
         for (int i = 0; i < size; i++) {
-            ds[i] = (this.get(i) + pt.get(i));
+            ds[i] = (this.get(i) + pa.get(i));
         }
         return new PointForAxes(ds);
     }
 
     @Override
-    public PointForAxes reduce(PointForAxes pt) {
+    public MyPoint reduce(MyPoint pt) {
         return add(pt.times(-1));
     }
 

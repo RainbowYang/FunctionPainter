@@ -15,6 +15,9 @@ abstract class CoordinateSystem {
 
     val axes = Axes()
 
-    abstract fun toReal(p: MyPoint<*>): PointDouble
-    abstract fun toSystem(p: PointDouble): MyPoint<*>
+    abstract fun toReal(p: MyPoint): PointDouble
+    abstract fun toSystem(p: PointDouble): MyPoint
+
+    //todo timely
+    fun getRange() = Range()
 }

@@ -7,7 +7,7 @@ package rainbow.inner.coordinate.point;
  * @author Rainbow Yang
  * @see UnsupportedOperationException
  */
-public interface MyPoint<P extends MyPoint> {
+public interface MyPoint {
 
     PointForAxes toPointForAxes();
 
@@ -17,7 +17,7 @@ public interface MyPoint<P extends MyPoint> {
      * @param pt 需要相加的点
      * @return 两者相加之后的点
      */
-    public default P add(P pt) {
+    public default MyPoint add(MyPoint pt) {
         throw new UnsupportedOperationException(getDescription("Add"));
     }
 
@@ -28,7 +28,7 @@ public interface MyPoint<P extends MyPoint> {
      * @param pt 需要相减的点
      * @return 两者相减之后的点
      */
-    public default P reduce(P pt) {
+    public default MyPoint reduce(MyPoint pt) {
         throw new UnsupportedOperationException(getDescription("Add"));
     }
 
@@ -38,7 +38,7 @@ public interface MyPoint<P extends MyPoint> {
      * @param times 需要缩放的倍数
      * @return 缩放之后的点
      */
-    public default P times(double times) {
+    public default MyPoint times(double times) {
         throw new UnsupportedOperationException(getDescription("Times"));
     }
 

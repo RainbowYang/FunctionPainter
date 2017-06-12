@@ -2,7 +2,7 @@ package rainbow.inner.function.mathfunction;
 
 import rainbow.inner.coordinate.point.MyPoint;
 import rainbow.inner.coordinate.point.PointForAxes;
-import rainbow.inner.coordinate.system.comp.unused.Range;
+import rainbow.inner.coordinate.system.Range;
 import rainbow.inner.function.PointFunction;
 import rainbow.inner.system.MySystem;
 
@@ -43,7 +43,7 @@ public class MathFunction extends PointFunction {
     }
 
     {
-        Range range = MySystem.getSystem().getCoordinateSystem().getRange();
+        Range range = MySystem.INSTANCE.getCoordinateSystem().getRange();
         start = range.getStart();
         end = range.getEnd();
         step = range.getStep();

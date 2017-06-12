@@ -7,7 +7,7 @@ import static java.lang.Math.*;
  *
  * @author Rainbow Yang
  */
-public class PointPolar2D implements MyPoint<PointPolar2D> {
+public class PointPolar2D implements MyPoint {
     private double r;
     private double angle;
 
@@ -26,7 +26,7 @@ public class PointPolar2D implements MyPoint<PointPolar2D> {
 
     @Override
     public PointForAxes toPointForAxes() {
-        return new PointForAxes(r * Math.cos(angle), r * Math.sin(angle));
+        return new PointForAxes(r * cos(angle), r * sin(angle));
     }
 
     /**
@@ -36,8 +36,9 @@ public class PointPolar2D implements MyPoint<PointPolar2D> {
      * @return 相加后的点
      */
     @Override
-    public PointPolar2D add(PointPolar2D pt) {
-        return add(pt.r, pt.angle);
+    public MyPoint add(MyPoint pt) {
+        PointPolar2D pp = (PointPolar2D) pt;
+        return add(pp.r, pp.angle);
     }
 
     public PointPolar2D add(double r, double angle) {
@@ -47,8 +48,9 @@ public class PointPolar2D implements MyPoint<PointPolar2D> {
     }
 
     @Override
-    public PointPolar2D reduce(PointPolar2D pt) {
-        return add(pt.r, pt.angle + PI);
+    public MyPoint reduce(MyPoint pt) {
+        PointPolar2D pp = (PointPolar2D) pt;
+        return add(pp.r, pp.angle + PI);
     }
 
     public PointPolar2D reduce(double r, double angle) {
@@ -73,7 +75,7 @@ public class PointPolar2D implements MyPoint<PointPolar2D> {
      * @return 旋转之后得到的点
      */
     public PointPolar2D spin(PointPolar2D center, double angle) {
-        return reduce(center).spin(angle).add(center);
+        return (PointPolar2D) ((PointPolar2D) reduce(center)).spin(angle).add(center);
     }
 
 

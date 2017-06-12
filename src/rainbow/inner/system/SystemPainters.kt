@@ -12,6 +12,8 @@ import java.awt.RenderingHints
 object SystemPainters {
     val painters = mutableListOf<SystemPainter>()
 
+    var repainter: (() -> Unit)? = null
+
     fun paint(g: Graphics) {
         (g as Graphics2D).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
         painters.forEach { it.paint(g) }

@@ -21,7 +21,7 @@ public class MainFrame extends JFrame {
     public static MainFrame mainFrame;
 
     {
-        MySystem.getSystem().getInformation().initStartLog(getClass().getSimpleName());
+        MySystem.getInformation().initStartLog(getClass().getSimpleName());
     }
 
     public MainFrame() throws HeadlessException {

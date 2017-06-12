@@ -19,6 +19,8 @@ fun MySystem.getListeners() = SystemListeners
 fun MySystem.getPainters() = SystemPainters
 
 
+fun MySystem.setSize(f: Frame) = f.setSize(getIntWidth(), getIntHeight())
+fun MySystem.setTitle(f: Frame) = SystemAbout.setTitle(f)
 fun SystemAbout.setTitle(f: Frame) {
     f.title = "${SystemAbout.name} ${SystemAbout.version}  Author:${SystemAbout.author}"
 }

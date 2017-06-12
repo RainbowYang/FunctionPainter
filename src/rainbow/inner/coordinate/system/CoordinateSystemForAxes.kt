@@ -1,5 +1,7 @@
 package rainbow.inner.coordinate.system
 
+import rainbow.inner.coordinate.point.MyPoint
+import rainbow.inner.coordinate.point.PointDouble
 import java.lang.Math.*
 
 /**
@@ -31,7 +33,7 @@ class CoordinateSystemForAxes(size: Int) : CoordinateSystem() {
         }
     }
 
-    override fun toReal(p: rainbow.inner.coordinate.point.MyPoint<*>): rainbow.inner.coordinate.point.PointDouble {
+    override fun toReal(p: MyPoint): PointDouble {
         val pa = p.toPointForAxes()
         var px = x
         var py = y//x,y是原点的在屏幕上的坐标
@@ -44,7 +46,7 @@ class CoordinateSystemForAxes(size: Int) : CoordinateSystem() {
         return rainbow.inner.coordinate.point.PointDouble(px, py)
     }
 
-    override fun toSystem(p: rainbow.inner.coordinate.point.PointDouble): rainbow.inner.coordinate.point.MyPoint<*> {
+    override fun toSystem(p: PointDouble): MyPoint {
         val dp = rainbow.inner.coordinate.point.PointDouble(p.x - x, y - p.y)
         val x = dp.spin(PI / 2 - axes.getAngle(1)).x
         val y = dp.spin(0 - axes.getAngle(0)).y

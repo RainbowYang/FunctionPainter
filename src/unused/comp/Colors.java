@@ -1,4 +1,4 @@
-package rainbow.inner.system.comp;
+package unused.comp;
 
 import java.awt.*;
 import java.util.HashMap;
