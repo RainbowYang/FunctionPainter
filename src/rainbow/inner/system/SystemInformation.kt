@@ -1,4 +1,4 @@
-package timely.inner.system
+package rainbow.inner.system
 
 /**
  * 本类单例用来存贮和输出所有来自本系统的信息。

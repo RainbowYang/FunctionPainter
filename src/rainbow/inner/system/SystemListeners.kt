@@ -1,4 +1,4 @@
-package timely.inner.system
+package rainbow.inner.system
 
 import java.awt.Frame
 import java.awt.event.MouseAdapter

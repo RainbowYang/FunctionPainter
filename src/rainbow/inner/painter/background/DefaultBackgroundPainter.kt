@@ -1,4 +1,4 @@
-package timely.inner.painter.background
+package rainbow.inner.painter.background
 
 /**
  * @author Rainbow Yang

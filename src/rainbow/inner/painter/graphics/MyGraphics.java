@@ -1,4 +1,4 @@
-package rainbow.inner.view.graphics;
+package rainbow.inner.painter.graphics;
 
 import rainbow.inner.coordinate.point.MyPoint;
 import rainbow.inner.coordinate.point.PointDouble;

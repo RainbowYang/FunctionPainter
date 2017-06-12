@@ -1,8 +1,8 @@
-package timely.inner.painter.function
+package rainbow.inner.painter.function
 
-import rainbow.inner.view.graphics.MyGraphics
-import timely.inner.painter.SystemPainter
-import timely.inner.system.MySystem
+import rainbow.inner.painter.graphics.MyGraphics
+import rainbow.inner.painter.SystemPainter
+import rainbow.inner.system.MySystem
 import java.awt.Graphics
 
 /**

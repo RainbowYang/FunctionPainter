@@ -1,8 +1,8 @@
-package timely.inner.painter.background
+package rainbow.inner.painter.background
 
-import timely.inner.painter.SystemPainter
-import timely.inner.system.MySystem
-import timely.inner.system.fillRect
+import rainbow.inner.painter.SystemPainter
+import rainbow.inner.system.MySystem
+import rainbow.inner.system.fillRect
 import java.awt.Graphics
 
 /**

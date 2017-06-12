@@ -1,7 +1,7 @@
-package timely.inner.painter.coordinate_system
+package rainbow.inner.painter.coordinate_system
 
-import rainbow.inner.view.graphics.MyGraphics
-import timely.inner.painter.SystemPainter
+import rainbow.inner.painter.graphics.MyGraphics
+import rainbow.inner.painter.SystemPainter
 import java.awt.Graphics
 
 /**

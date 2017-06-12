@@ -2,7 +2,7 @@ package rainbow.inner.function.pointfunction;
 
 import rainbow.inner.coordinate.point.PointForAxes;
 import rainbow.inner.function.MyFunction;
-import rainbow.inner.view.graphics.MyGraphics;
+import rainbow.inner.painter.graphics.MyGraphics;
 
 /**
  * 任意维度的超方体

@@ -1,4 +1,4 @@
-package timely.inner.background
+package rainbow.inner.background
 
 import java.awt.Color
 import java.awt.Image

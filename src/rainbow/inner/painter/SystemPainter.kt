@@ -1,4 +1,4 @@
-package timely.inner.painter
+package rainbow.inner.painter
 
 import java.awt.Graphics
 

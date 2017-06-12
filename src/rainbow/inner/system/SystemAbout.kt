@@ -1,4 +1,4 @@
-package timely.inner.system
+package rainbow.inner.system
 
 /**
  * 本类用于存贮About信息

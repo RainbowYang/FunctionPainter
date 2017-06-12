@@ -1,6 +1,6 @@
-package timely.inner.system
+package rainbow.inner.system
 
-import timely.inner.painter.SystemPainter
+import rainbow.inner.painter.SystemPainter
 import java.awt.Graphics
 import java.awt.Graphics2D
 import java.awt.RenderingHints

@@ -1,4 +1,4 @@
-package timely.inner.painter.function
+package rainbow.inner.painter.function
 
 /**
  * @author Rainbow Yang

@@ -1,8 +1,8 @@
-package timely.inner.system
+package rainbow.inner.system
 
 import rainbow.inner.coordinate.system.CoordinateSystem
 import rainbow.inner.function.MyFunction
-import timely.inner.background.Background
+import rainbow.inner.background.Background
 
 /**
  * 本类单例来存贮以下东西：

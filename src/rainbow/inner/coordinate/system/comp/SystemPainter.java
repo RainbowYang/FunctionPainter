@@ -1,7 +1,7 @@
 package rainbow.inner.coordinate.system.comp;
 
 import rainbow.inner.coordinate.system.CoordinateSystem;
-import rainbow.inner.view.graphics.MyGraphics;
+import rainbow.inner.painter.graphics.MyGraphics;
 
 /**
  * 用于绘制坐标系

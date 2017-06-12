@@ -1,9 +1,9 @@
 package timely
 
-import timely.inner.painter.background.DefaultBackgroundPainter
-import timely.inner.painter.coordinate_system.DefaultCoordinateSystemPainter
-import timely.inner.painter.function.DefaultFunctionsPainter
-import timely.inner.system.SystemPainters
+import rainbow.inner.painter.background.DefaultBackgroundPainter
+import rainbow.inner.painter.coordinate_system.DefaultCoordinateSystemPainter
+import rainbow.inner.painter.function.DefaultFunctionsPainter
+import rainbow.inner.system.SystemPainters
 
 /**
  * @author Rainbow Yang
