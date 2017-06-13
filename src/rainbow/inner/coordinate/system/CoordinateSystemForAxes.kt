@@ -2,6 +2,7 @@ package rainbow.inner.coordinate.system
 
 import rainbow.inner.coordinate.point.MyPoint
 import rainbow.inner.coordinate.point.PointDouble
+import rainbow.inner.coordinate.point.PointForAxes
 import java.lang.Math.*
 
 /**
@@ -43,7 +44,7 @@ class CoordinateSystemForAxes(size: Int) : CoordinateSystem() {
             px += cos(angle) * length * pa.get(i)
             py -= sin(angle) * length * pa.get(i)
         }
-        return rainbow.inner.coordinate.point.PointDouble(px, py)
+        return PointDouble(px, py)
     }
 
     override fun toSystem(p: PointDouble): MyPoint {
@@ -57,6 +58,6 @@ class CoordinateSystemForAxes(size: Int) : CoordinateSystem() {
         val px = x / cos(xAngle) / axes.getLength(0)
         val py = y / sin(yAngle) / axes.getLength(1)
 
-        return rainbow.inner.coordinate.point.PointForAxes(px, py)
+        return PointForAxes(px, py)
     }
 }

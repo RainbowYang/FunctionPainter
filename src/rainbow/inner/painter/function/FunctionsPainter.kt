@@ -12,8 +12,8 @@ import java.awt.Graphics
  */
 interface FunctionsPainter : SystemPainter {
     override fun paint(g: Graphics) {
+        val mg = MathGraphics(g)
         MySystem.functions.forEach {
-            val mg = MathGraphics(g)
             it.paintBefore(mg)
             it.paintMain(mg)
             it.paintAfter(mg)

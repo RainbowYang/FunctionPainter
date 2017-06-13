@@ -1,13 +1,24 @@
 package rainbow
 
+import rainbow.inner.coordinate.point.PointForAxes
 import rainbow.inner.coordinate.system.CoordinateSystemForAxes
+import rainbow.inner.coordinate.system.move
 import rainbow.inner.function.MyFunction
+import rainbow.inner.function.mathfunction.MathFunction
+import rainbow.inner.function.mathfunction.simple._2D.ExpFunction
+import rainbow.inner.function.mathfunction.simple._2D.trigonometric_function.Csc
+import rainbow.inner.function.mathfunction.simple._2D.trigonometric_function.Sin
+import rainbow.inner.function.mathfunction.special.Lissajous
+import rainbow.inner.function.mathfunction.special.Net
 import rainbow.inner.function.pointfunction.Hypercube
+import rainbow.inner.listener.CoordinateSystemListener
 import rainbow.inner.painter.background.DefaultBackgroundPainter
 import rainbow.inner.painter.coordinate_system.DefaultCoordinateSystemPainter
 import rainbow.inner.painter.function.DefaultFunctionsPainter
 import rainbow.inner.system.MySystem
+import rainbow.inner.system.SystemListeners
 import rainbow.inner.system.SystemPainters
+import rainbow.inner.system.getPainters
 import rainbow.outer.frame.MainFrame
 import rainbow.tools.CodeReader
 
@@ -18,7 +29,8 @@ import rainbow.tools.CodeReader
  */
 
 fun main(args: Array<String>) {
-    readCode()
+//    readCode()
+    addListeners()
     addPainters()
     coordinateSystemInit()
     functionsInit()
@@ -31,6 +43,10 @@ fun addPainters() {
         add(DefaultCoordinateSystemPainter())
         add(DefaultFunctionsPainter())
     }
+}
+
+fun addListeners() {
+    SystemListeners.addMouseListener(CoordinateSystemListener())
 }
 
 fun coordinateSystemInit() {
@@ -73,9 +89,9 @@ fun functionsInit() {
 //        add(Epitrochoid(6.0, 4.0, 4.0))
 //        add(Epicycloid(10.0, 3.0))
 //
-//        add(Net { x: Double, y: Double -> -10 / Math.sqrt(0.000001 + (x * x) + (y * y)) })
+        add(Net { x: Double, y: Double -> -10 / Math.sqrt(0.000001 + (x * x) + (y * y)) })
 //
-        add(Hypercube(10.0, 4))
+//        add(Hypercube(10.0, 4))
     }
     MySystem.functions.forEach(MyFunction::calc)
 }

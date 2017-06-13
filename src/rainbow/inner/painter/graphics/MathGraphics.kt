@@ -4,6 +4,9 @@ import rainbow.inner.coordinate.point.MyPoint
 import rainbow.inner.coordinate.point.PointDouble
 import rainbow.inner.coordinate.system.toReal
 import rainbow.inner.math.Line
+import rainbow.inner.painter.graphics.MathGraphics.Companion.MODE_LINE_SEGMENT
+import rainbow.inner.painter.graphics.MathGraphics.Companion.MODE_RAY_LINE
+import rainbow.inner.painter.graphics.MathGraphics.Companion.MODE_STRAIGHT_LINE
 import rainbow.inner.system.MySystem
 import rainbow.inner.system.getIntHeight
 import java.awt.Color
@@ -52,9 +55,8 @@ class MathGraphics(val g: Graphics) {
     private fun toPolygon(ps: List<MyPoint>): Polygon {
         val p = Polygon()
         MySystem.coordinateSystem.toReal(ps).forEach {
-            if (it.x != Double.NaN && it.y != Double.NaN) {
-                p.addPoint(it.x.toInt(), it.x.toInt())
-            }
+            if (it.x != Double.NaN && it.y != Double.NaN)
+                p.addPoint(it.x.toInt(), it.y.toInt())
         }
         return p
     }
