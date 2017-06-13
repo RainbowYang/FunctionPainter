@@ -16,8 +16,15 @@ class Axes {
     fun addAxisDeg(angle: Double) = addAxis(Math.toRadians(angle))
     fun addAxisDeg(angle: Int) = addAxisDeg(angle.toDouble())
 
-    fun getAngle(index: Int) = axes.get(index).angle + startAngle
-    fun getLength(index: Int) = axes.get(index).length * axes.get(index).lengthTimes * allLengthTimes
+    fun getAngle(index: Int) = axes[index].angle + startAngle
+    fun getLength(index: Int) = axes[index].length * axes[index].lengthTimes * allLengthTimes
+    fun setAngle(index: Int, angle: Double) {
+        axes[index].angle = angle
+    }
+
+    fun setLengthTimes(index: Int, lengthTimes: Double) {
+        axes[index].lengthTimes = lengthTimes
+    }
 
     fun getSize() = axes.size
 

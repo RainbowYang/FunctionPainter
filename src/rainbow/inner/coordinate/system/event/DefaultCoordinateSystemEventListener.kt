@@ -10,8 +10,8 @@ class DefaultCoordinateSystemEventListener : CoordinateSystemEventListener {
     //        fun rotate(event: RotateEvent) {
 //        MySystem.coordinateSystem.axes.startAngle += (-RotateEvent.getDiffAngle(MySystem.coordinateSystem, event))
 //    }
-    var xAngle = 0.0
-    var yAngle = 0.0
+    var xAngle = 30.0
+    var yAngle = 30.0
 
 
     override fun rotate(event: RotateEvent) {
@@ -22,21 +22,19 @@ class DefaultCoordinateSystemEventListener : CoordinateSystemEventListener {
     }
 
     private fun resetAngleAndLength() {
-        if (MySystem.coordinateSystem.axes.getSize() >= 3) {
-            MySystem.coordinateSystem.axes.axes[2].lengthTimes = Math.cos(Math.toRadians(yAngle))
-        }
+        MySystem.coordinateSystem.axes.setLengthTimes(2, Math.cos(Math.toRadians(yAngle)))
 
         var x = -Math.sin(Math.toRadians(xAngle))
         var y = -Math.cos(Math.toRadians(xAngle)) * Math.sin(Math.toRadians(yAngle))
 
-        MySystem.coordinateSystem.axes.axes[0].angle = Math.atan2(y, x)
-        MySystem.coordinateSystem.axes.axes[0].lengthTimes = (Math.sqrt(x * x + y * y))
+        MySystem.coordinateSystem.axes.setAngle(0, Math.atan2(y, x))
+        MySystem.coordinateSystem.axes.setLengthTimes(0, Math.sqrt(x * x + y * y))
 
         x = -Math.sin(Math.toRadians(xAngle - 90))
         y = -Math.cos(Math.toRadians(xAngle - 90)) * Math.sin(Math.toRadians(yAngle))
 
-        MySystem.coordinateSystem.axes.axes[1].angle = Math.atan2(y, x)
-        MySystem.coordinateSystem.axes.axes[0].lengthTimes = Math.sqrt(x * x + y * y)
+        MySystem.coordinateSystem.axes.setAngle(1, Math.atan2(y, x))
+        MySystem.coordinateSystem.axes.setLengthTimes(1, Math.sqrt(x * x + y * y))
 
     }
 }
