@@ -1,8 +1,8 @@
 package rainbow.inner.color
 
+import rainbow.inner.system.SystemColorer
 import java.awt.Color
-import java.util.HashMap
-import java.util.NoSuchElementException
+import java.util.*
 
 /**
  * @author Rainbow Yang
@@ -43,7 +43,7 @@ class Colors {
         if (!colorMap.keys.contains(name)) {
             throw NoSuchElementException("当前的Colors中不含有$name,默认返回黑色")
         }
-        return ColorGetter.getColor(colorMap.getOrDefault(name, "#000000"))
+        return SystemColorer.getColor(colorMap.getOrDefault(name, "#000000"))
     }
 
     /**
@@ -53,7 +53,7 @@ class Colors {
      * *
      * @param color 需要的颜色
      */
-    @JvmOverloads fun setColor(name: String, color: String = "#000000") {
+    fun setColor(name: String, color: String = "#000000") {
         colorMap.put(name, color)
     }
 

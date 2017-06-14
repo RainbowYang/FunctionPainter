@@ -1,10 +1,10 @@
 package rainbow
 
 import rainbow.inner.background.Background
-import rainbow.inner.color.ColorGetter.getColor
 import rainbow.inner.coordinate.system.CoordinateSystemForAxes
 import rainbow.inner.function.MyFunction
-import rainbow.inner.function.mathfunction.special.Net
+import rainbow.inner.function.mathfunction.special.Lissajous
+import rainbow.inner.function.pointfunction.RegularPolygon
 import rainbow.inner.listener.CoordinateSystemListener
 import rainbow.inner.painter.background.DefaultBackgroundPainter
 import rainbow.inner.painter.coordinate_system.DefaultCoordinateSystemPainter
@@ -44,9 +44,7 @@ fun addPainters() {
 
     SystemPainters.painters.apply {
         add(DefaultBackgroundPainter())
-        add(DefaultCoordinateSystemPainter(
-                getColor("蓝"), getColor("蓝"), getColor("蓝"), getColor("蓝")
-        ))
+        add(DefaultCoordinateSystemPainter())
         add(DefaultFunctionsPainter())
     }
 }
@@ -80,8 +78,8 @@ fun functionsInit() {
 //        add(Parabola(5.0, Y_TOWARDS))
 //
 //        add(Ellipsoid(6.0, 6.0, 6.0))
-//        add(Lissajous(13, 18, 27))
-//        add(RegularPolygon(6, 5.0, 2))
+        add(Lissajous(13, 18, 27))
+//        add(RegularPolygon(60, 5.0, 23))
 //
 //        add(FermatSpiral(100.0, 1.0))
 //        add(IsometricSpiral(1.0, 0.5))
@@ -95,7 +93,7 @@ fun functionsInit() {
 //        add(Epitrochoid(6.0, 4.0, 4.0))
 //        add(Epicycloid(10.0, 3.0))
 //
-        add(Net { x: Double, y: Double -> -10 / Math.sqrt(0.000001 + (x * x) + (y * y)) })
+//        add(Net { x: Double, y: Double -> -10 / Math.sqrt(0.000001 + (x * x) + (y * y)) })
 //
 //        add(Hypercube(10.0, 4))
     }
