@@ -1,5 +1,7 @@
 package rainbow.inner.coordinate.system
 
+import rainbow.inner.color.Colors
+import rainbow.inner.color.ColorGetter
 import rainbow.inner.coordinate.point.MyPoint
 import rainbow.inner.coordinate.point.PointDouble
 import rainbow.inner.coordinate.system.event.DefaultCoordinateSystemEventListener
@@ -15,6 +17,10 @@ abstract class CoordinateSystem {
     var y = rainbow.inner.system.MySystem.height / 2
 
     val axes = Axes()
+
+    val colors: Colors = Colors(arrayOf("colorOfNum", "colorOfOrigin", "colorOfAxes", "colorOfGrid "),
+            arrayOf("蓝", "蓝", "蓝", "蓝"))
+
 
     var eventListener = DefaultCoordinateSystemEventListener()
 

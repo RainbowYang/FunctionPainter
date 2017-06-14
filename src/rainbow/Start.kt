@@ -1,16 +1,10 @@
 package rainbow
 
-import rainbow.inner.coordinate.point.PointForAxes
+import rainbow.inner.background.Background
+import rainbow.inner.color.ColorGetter.getColor
 import rainbow.inner.coordinate.system.CoordinateSystemForAxes
-import rainbow.inner.coordinate.system.move
 import rainbow.inner.function.MyFunction
-import rainbow.inner.function.mathfunction.MathFunction
-import rainbow.inner.function.mathfunction.simple._2D.ExpFunction
-import rainbow.inner.function.mathfunction.simple._2D.trigonometric_function.Csc
-import rainbow.inner.function.mathfunction.simple._2D.trigonometric_function.Sin
-import rainbow.inner.function.mathfunction.special.Lissajous
 import rainbow.inner.function.mathfunction.special.Net
-import rainbow.inner.function.pointfunction.Hypercube
 import rainbow.inner.listener.CoordinateSystemListener
 import rainbow.inner.painter.background.DefaultBackgroundPainter
 import rainbow.inner.painter.coordinate_system.DefaultCoordinateSystemPainter
@@ -18,9 +12,9 @@ import rainbow.inner.painter.function.DefaultFunctionsPainter
 import rainbow.inner.system.MySystem
 import rainbow.inner.system.SystemListeners
 import rainbow.inner.system.SystemPainters
-import rainbow.inner.system.getPainters
 import rainbow.outer.frame.MainFrame
 import rainbow.tools.CodeReader
+
 
 /**
  * 这是FunctionPainter2，一个重新开始的版本
@@ -29,7 +23,7 @@ import rainbow.tools.CodeReader
  */
 
 fun main(args: Array<String>) {
-//    readCode()
+    readCode()
     addListeners()
     addPainters()
     coordinateSystemInit()
@@ -38,9 +32,21 @@ fun main(args: Array<String>) {
 }
 
 fun addPainters() {
+
+//    MySystem.background = Background(img = ImageIO.read(File(".//src//rainbow//星空.jpg")))
+//    MySystem.background = Background("红")
+    MySystem.background = Background("2B2B2B")
+//    MySystem.background = Background("519872")
+//    MySystem.background = Background("34252F")
+//    MySystem.background = Background("DAB094")
+//    MySystem.background = Background("94B0DA")
+//    MySystem.background = Background("0F9D58")
+
     SystemPainters.painters.apply {
         add(DefaultBackgroundPainter())
-        add(DefaultCoordinateSystemPainter())
+        add(DefaultCoordinateSystemPainter(
+                getColor("蓝"), getColor("蓝"), getColor("蓝"), getColor("蓝")
+        ))
         add(DefaultFunctionsPainter())
     }
 }

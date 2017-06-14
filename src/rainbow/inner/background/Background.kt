@@ -1,5 +1,6 @@
 package rainbow.inner.background
 
+import rainbow.inner.color.ColorGetter.getColor
 import java.awt.Color
 import java.awt.Image
 
@@ -13,4 +14,7 @@ import java.awt.Image
  *
  * @author Rainbow Yang
  */
-open class Background(var backColor: Color = Color.WHITE, var img: Image? = null, var frontColor: Color? = null)
+open class Background(var backColor: Color = Color.WHITE, var img: Image? = null, var frontColor: Color? = null) {
+    constructor(backColor: String, img: Image? = null, frontColor: String? = null) :
+            this(getColor(backColor), img, if (frontColor == null) null else getColor(frontColor))
+}

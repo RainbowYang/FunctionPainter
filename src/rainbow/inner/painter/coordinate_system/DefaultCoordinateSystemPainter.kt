@@ -9,8 +9,15 @@ import java.awt.Color
 /**
  * @author Rainbow Yang
  */
-class DefaultCoordinateSystemPainter : CoordinateSystemPainter {
+class DefaultCoordinateSystemPainter(
+        var ColorOfNum: Color = Color.blue,
+        var colorOfOrigin: Color = Color.blue,
+        var ColorOfAxes: Color = Color.blue,
+        var ColorOfGrid: Color = Color.blue
+) : CoordinateSystemPainter {
+
     override fun paintNum(mg: MathGraphics) {
+        mg.setColor(ColorOfNum)
         //todo Test
         val p0 = PointForAxes(0.0, MySystem.coordinateSystem.axes.getSize(), true)
         for (s in 0..MySystem.coordinateSystem.axes.getSize() - 1) {
@@ -22,20 +29,24 @@ class DefaultCoordinateSystemPainter : CoordinateSystemPainter {
     }
 
     override fun paintOrigin(mg: MathGraphics) {
+        mg.setColor(colorOfOrigin)
+
         val p0 = PointForAxes(0.0, MySystem.coordinateSystem.axes.getSize(), true)
         mg.paintString("O", p0)
     }
 
     override fun paintAxes(mg: MathGraphics) {
+        mg.setColor(ColorOfAxes)
+
         val p0 = PointForAxes(0.0, MySystem.coordinateSystem.axes.getSize(), true)
-        mg.setColor(Color.RED)
+        mg.setColor(Color.WHITE)
         for (i in 0..MySystem.coordinateSystem.axes.getSize() - 1) {
             mg.paintLine(p0, p0.add(i, 1.0), MathGraphics.MODE_STRAIGHT_LINE)
         }
     }
 
     override fun paintGrid(mg: MathGraphics) {
-        mg.setColor(Color.BLACK)
+        mg.setColor(ColorOfGrid)
 
         val p0 = PointForAxes(0.0, MySystem.coordinateSystem.axes.getSize(), true)
         //维度遍历
