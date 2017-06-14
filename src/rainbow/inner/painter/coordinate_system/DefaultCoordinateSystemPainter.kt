@@ -5,6 +5,7 @@ import rainbow.inner.coordinate.point.PointForAxes
 import rainbow.inner.coordinate.system.CoordinateSystem
 import rainbow.inner.painter.graphics.MathGraphics
 import rainbow.inner.system.MySystem
+import rainbow.inner.system.getColors
 import java.awt.Color
 
 /**
@@ -14,7 +15,7 @@ class DefaultCoordinateSystemPainter : CoordinateSystemPainter {
 
     override fun paintNum(mg: MathGraphics) {
         val cs = MySystem.coordinateSystem
-        mg.setColor(cs.colors.getColor("colorOfNum"))
+        mg.setColor(MySystem.getColors().getColor("colorOfNum"))
         //todo Test
         val p0 = PointForAxes(0.0, cs.axes.getSize(), true)
         for (s in 0..cs.axes.getSize() - 1) {
@@ -27,7 +28,7 @@ class DefaultCoordinateSystemPainter : CoordinateSystemPainter {
 
     override fun paintOrigin(mg: MathGraphics) {
         val cs = MySystem.coordinateSystem
-        mg.setColor(cs.colors.getColor("colorOfOrigin"))
+        mg.setColor(MySystem.getColors().getColor("colorOfOrigin"))
 
         val p0 = PointForAxes(0.0, cs.axes.getSize(), true)
         mg.paintString("O", p0)
@@ -35,7 +36,7 @@ class DefaultCoordinateSystemPainter : CoordinateSystemPainter {
 
     override fun paintAxes(mg: MathGraphics) {
         val cs = MySystem.coordinateSystem
-        mg.setColor(cs.colors.getColor("colorOfAxes"))
+        mg.setColor(MySystem.getColors().getColor("colorOfAxes"))
 
         val p0 = PointForAxes(0.0, cs.axes.getSize(), true)
         mg.setColor(Color.WHITE)
@@ -46,7 +47,7 @@ class DefaultCoordinateSystemPainter : CoordinateSystemPainter {
 
     override fun paintGrid(mg: MathGraphics) {
         val cs = MySystem.coordinateSystem
-        mg.setColor(cs.colors.getColor("colorOfGrid"))
+        mg.setColor(MySystem.getColors().getColor("colorOfGrid"))
 
         val p0 = PointForAxes(0.0, cs.axes.getSize(), true)
         //维度遍历

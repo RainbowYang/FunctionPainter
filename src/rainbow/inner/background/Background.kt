@@ -1,6 +1,6 @@
 package rainbow.inner.background
 
-import rainbow.inner.system.SystemColorer.getColor
+import rainbow.inner.system.SystemColors.getColor
 import java.awt.Color
 import java.awt.Image
 

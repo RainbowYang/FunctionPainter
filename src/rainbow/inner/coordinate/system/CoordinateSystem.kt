@@ -17,10 +17,6 @@ abstract class CoordinateSystem {
 
     val axes = Axes()
 
-    val colors: Colors = Colors(arrayOf("colorOfNum", "colorOfOrigin", "colorOfAxes", "colorOfGrid"),
-            arrayOf("蓝", "蓝", "蓝", "蓝"))
-
-
     var eventListener = DefaultCoordinateSystemEventListener()
 
     abstract fun toReal(p: MyPoint): PointDouble

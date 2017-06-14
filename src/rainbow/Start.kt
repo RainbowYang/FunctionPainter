@@ -1,6 +1,7 @@
 package rainbow
 
 import rainbow.inner.background.Background
+import rainbow.inner.color.CoordinateSystemColors
 import rainbow.inner.coordinate.system.CoordinateSystemForAxes
 import rainbow.inner.function.MyFunction
 import rainbow.inner.function.mathfunction.special.Lissajous
@@ -12,6 +13,7 @@ import rainbow.inner.painter.function.DefaultFunctionsPainter
 import rainbow.inner.system.MySystem
 import rainbow.inner.system.SystemListeners
 import rainbow.inner.system.SystemPainters
+import rainbow.inner.system.getColors
 import rainbow.outer.frame.MainFrame
 import rainbow.tools.CodeReader
 
@@ -24,8 +26,11 @@ import rainbow.tools.CodeReader
 
 fun main(args: Array<String>) {
     readCode()
+
     addListeners()
     addPainters()
+    addColors()
+
     coordinateSystemInit()
     functionsInit()
     showFrame()
@@ -51,6 +56,10 @@ fun addPainters() {
 
 fun addListeners() {
     SystemListeners.addMouseListener(CoordinateSystemListener())
+}
+
+fun addColors() {
+    MySystem.getColors().colorsList.add(CoordinateSystemColors())
 }
 
 fun coordinateSystemInit() {

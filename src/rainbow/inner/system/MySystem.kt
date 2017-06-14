@@ -11,6 +11,8 @@ import rainbow.inner.coordinate.system.CoordinateSystem
  * 坐标系
  * 函数
  *
+ * 其余所有的有关的单例都应扩展本类来获取
+ *
  * @author Rainbow Yang
  * @see Background
  * @see CoordinateSystem

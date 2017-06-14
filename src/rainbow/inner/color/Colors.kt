@@ -1,14 +1,15 @@
 package rainbow.inner.color
 
-import rainbow.inner.system.SystemColorer
+import rainbow.inner.system.MySystem
+import rainbow.inner.system.getColors
 import java.awt.Color
 import java.util.*
 
 /**
  * @author Rainbow Yang
  */
-class Colors {
-    private val colorMap = HashMap<String, String>()
+open class Colors {
+    val colorMap = HashMap<String, String>()
 
     /**
      * 用所给的String数组对对Map进行初始化，默认为Color.BLACK
@@ -36,21 +37,19 @@ class Colors {
      * 根据变量名字返回所对应的颜色，如不存在则返回BLACK，并抛出异常。
 
      * @param name 所需要的颜色的名字
-     * *
      * @return
      */
     fun getColor(name: String): Color {
         if (!colorMap.keys.contains(name)) {
             throw NoSuchElementException("当前的Colors中不含有$name,默认返回黑色")
         }
-        return SystemColorer.getColor(colorMap.getOrDefault(name, "#000000"))
+        return MySystem.getColors().getColor(colorMap.getOrDefault(name, "#000000"))
     }
 
     /**
      * 新添加或改变颜色
 
      * @param name  需要设置的颜色变量的名字
-     * *
      * @param color 需要的颜色
      */
     fun setColor(name: String, color: String = "#000000") {
