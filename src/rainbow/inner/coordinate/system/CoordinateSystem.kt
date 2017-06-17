@@ -1,8 +1,9 @@
 package rainbow.inner.coordinate.system
 
-import rainbow.inner.color.Colors
 import rainbow.inner.coordinate.point.MyPoint
 import rainbow.inner.coordinate.point.PointDouble
+import rainbow.inner.coordinate.system.comp.Axes
+import rainbow.inner.coordinate.system.comp.Range
 import rainbow.inner.coordinate.system.event.DefaultCoordinateSystemEventListener
 
 /**

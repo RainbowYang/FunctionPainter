@@ -1,21 +1,45 @@
 package rainbow.inner.background
 
-import rainbow.inner.system.SystemColors.getColor
 import java.awt.Color
+import java.awt.Color.getColor
+import java.awt.Graphics
 import java.awt.Image
 
 /**
- * 本类用于表示背景颜色及图片
+ * 背景
  *
- * 分为三层，为背景色，中心图片，前景色
- * 前景色仅在中心图片上面，并不会在坐标系之上
- *
+ * 分为三层
+ * 背景色，中心图片，前景色
  * 三者依次画出
  *
  * @author Rainbow Yang
  */
 open class Background(var backColor: Color = Color.WHITE, var img: Image? = null, var frontColor: Color? = null) {
-    // 这里用String代表Color时的格式为"#FFFFFF"之类或不带"#"
+
     constructor(backColor: String, img: Image? = null, frontColor: String? = null) :
             this(getColor(backColor), img, if (frontColor == null) null else getColor(frontColor))
+
+    fun paint(g: Graphics, width: Int, height: Int) {
+        paintBack(g, width, height)
+
+        if (img != null)
+            paintImage(g)
+
+        if (frontColor != null)
+            paintFront(g, width, height)
+    }
+
+    fun paintBack(g: Graphics, width: Int, height: Int) {
+        g.color = backColor
+        g.fillRect(0, 0, width, height)
+    }
+
+    fun paintImage(g: Graphics) {
+        g.drawImage(img, 0, 0, null)
+    }
+
+    fun paintFront(g: Graphics, width: Int, height: Int) {
+        g.color = frontColor
+        g.fillRect(0, 0, width, height)
+    }
 }

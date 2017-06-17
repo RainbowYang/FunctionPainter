@@ -1,10 +1,10 @@
-package rainbow.inner.coordinate.system
+package rainbow.inner.coordinate.system.comp
 
 /**
  * @author Rainbow Yang
  */
 class Axes {
-    val axes = mutableListOf<rainbow.inner.coordinate.system.Axes.Axis>()
+    val axes = mutableListOf<Axis>()
 
     //所有轴开始算起的角度，用于整体旋转
     var startAngle = 0.0

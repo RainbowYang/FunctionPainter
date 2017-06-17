@@ -1,5 +1,6 @@
 package rainbow.inner.painter.function
 
+import jdk.nashorn.internal.objects.NativeArray.forEach
 import rainbow.inner.painter.graphics.MathGraphics
 import rainbow.inner.painter.SystemPainter
 import rainbow.inner.system.MySystem

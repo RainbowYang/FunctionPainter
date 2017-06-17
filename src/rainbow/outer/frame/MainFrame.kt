@@ -1,7 +1,6 @@
 package rainbow.outer.frame
 
 import rainbow.inner.system.*
-import rainbow.inner.system.SystemPainters.repaint
 import rainbow.outer.frame.tool.FrameLocationSetter.center
 import java.awt.Graphics
 import java.awt.event.ComponentAdapter

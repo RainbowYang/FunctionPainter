@@ -3,6 +3,8 @@ package rainbow.inner.system
 import rainbow.inner.function.MyFunction
 import rainbow.inner.background.Background
 import rainbow.inner.coordinate.system.CoordinateSystem
+import rainbow.inner.system.comp.CoordinateSystems
+import rainbow.inner.system.comp.Functions
 
 /**
  * 本类单例来存贮以下东西：
@@ -24,21 +26,16 @@ object MySystem {
 
     var background = Background()
 
-    //目前使用的CoordinateSystem的索引
-    private var index = -1
-    val coordinateSystems = mutableListOf<CoordinateSystem>()
+    val coordinateSystems = CoordinateSystems()
 
-    var coordinateSystem: CoordinateSystem
-        get() = coordinateSystems[index]
+    var coordinateSystem
+        get() = coordinateSystems.coordinateSystem
         set(cs) {
-            if (coordinateSystems.contains(cs)) {
-                index = coordinateSystems.indexOf(cs)
-            } else {
-                coordinateSystems.add(cs)
-                index = coordinateSystems.size - 1
-            }
+            coordinateSystems.coordinateSystem = cs
         }
 
     //所有的函数
-    val functions = mutableListOf<MyFunction>()
+    val Functions = Functions()
+
+    val functions get() = Functions.functions
 }

@@ -40,7 +40,7 @@ fun addPainters() {
 
 //    MySystem.background = Background(img = ImageIO.read(File(".//src//rainbow//星空.jpg")))
 //    MySystem.background = Background("红")
-    MySystem.background = Background("2B2B2B")
+    MySystem.background = Background("0X2B2B2B")
 //    MySystem.background = Background("519872")
 //    MySystem.background = Background("34252F")
 //    MySystem.background = Background("DAB094")

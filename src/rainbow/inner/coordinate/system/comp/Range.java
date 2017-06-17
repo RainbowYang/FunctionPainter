@@ -1,4 +1,4 @@
-package rainbow.inner.coordinate.system;
+package rainbow.inner.coordinate.system.comp;
 
 /**
  * 范围

@@ -2,7 +2,7 @@ package rainbow.inner.function.mathfunction;
 
 import rainbow.inner.coordinate.point.MyPoint;
 import rainbow.inner.coordinate.point.PointForAxes;
-import rainbow.inner.coordinate.system.Range;
+import rainbow.inner.coordinate.system.comp.Range;
 import rainbow.inner.function.PointFunction;
 import rainbow.inner.system.MySystem;
 
