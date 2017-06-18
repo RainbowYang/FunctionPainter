@@ -14,13 +14,14 @@ import java.awt.Image
  *
  * @author Rainbow Yang
  */
-open class Background(var backColor: Color = Color.WHITE, var img: Image? = null, var frontColor: Color? = null) {
+open class Background(var backColor: Color? = Color.WHITE, var img: Image? = null, var frontColor: Color? = null) {
 
     constructor(backColor: String, img: Image? = null, frontColor: String? = null) :
-            this(getColor(backColor), img, if (frontColor == null) null else getColor(frontColor))
+            this(getColor(backColor, Color.WHITE), img, getColor(frontColor, null))
 
     fun paint(g: Graphics, width: Int, height: Int) {
-        paintBack(g, width, height)
+        if (backColor != null)
+            paintBack(g, width, height)
 
         if (img != null)
             paintImage(g)
