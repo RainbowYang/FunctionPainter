@@ -1,5 +1,7 @@
 # FunctionPainter2 函数绘画师2
 
+[![Build Status](https://travis-ci.org/michaelliao/openweixin.svg?branch=master)](https://travis-ci.org/michaelliao/openweixin)
+
 ## 简介
 顾名思义，这是一个用来画函数的任意纬度的数学空间（已实现了三维旋转。其实还想可以画点别的好看的几何图形）。
 
