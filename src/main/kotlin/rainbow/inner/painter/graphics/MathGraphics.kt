@@ -72,9 +72,9 @@ class MathGraphics(val g: Graphics) {
      */
     fun paintLocation(p: MyPoint): MathGraphics {
         val pa = p.toPointForAxes()
-        for (i in 0..pa.size() - 1) {
-            if (pa.get(i) != 0.0) {
-                val p0 = pa.clear(i)
+        for (i in 0..pa.size - 1) {
+            if (pa.getValue(i) != 0.0) {
+                val p0 = pa.changeValueAsNew(i, 0.0)
                 paintLine(pa, p0)
 
                 paintLocation(p0)

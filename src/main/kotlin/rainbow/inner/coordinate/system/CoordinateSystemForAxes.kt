@@ -41,8 +41,8 @@ class CoordinateSystemForAxes(size: Int) : CoordinateSystem() {
         for (i in 0..axes.axes.size - 1) {
             val angle = axes.getAngle(i)
             val length = axes.getLength(i)
-            px += cos(angle) * length * pa.get(i)
-            py -= sin(angle) * length * pa.get(i)
+            px += cos(angle) * length * pa.getValue(i)
+            py -= sin(angle) * length * pa.getValue(i)
         }
         return PointDouble(px, py)
     }

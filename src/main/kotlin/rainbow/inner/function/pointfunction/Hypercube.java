@@ -20,6 +20,6 @@ public class Hypercube extends MyFunction {
 
     @Override
     public void paintMain(MathGraphics mg) {
-        mg.paintLocation(new PointForAxes(length, size, true));
+        mg.paintLocation(new PointForAxes(length, size));
     }
 }
