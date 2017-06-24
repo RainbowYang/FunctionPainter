@@ -1,7 +1,7 @@
 package rainbow.inner.function;
 
 import rainbow.inner.coordinate.point.MyPoint;
-import rainbow.inner.painter.graphics.MathGraphics;
+import rainbow.inner.coordinate.system.graphics.MathGraphics;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package rainbow.inner.coordinate.system.comp
+package rainbow.inner.coordinate.system
 
 /**
  * @author Rainbow Yang
@@ -26,7 +26,8 @@ class Axes {
         axes[index].lengthTimes = lengthTimes
     }
 
-    fun getSize() = axes.size
+    val size
+        get() = axes.size
 
     /**
      * 对调两个维度的位置

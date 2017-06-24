@@ -1,10 +1,5 @@
 package rainbow.inner.system
 
-import rainbow.inner.listener.CoordinateSystemListener
-import rainbow.inner.system.SystemPainters.repaint
-import java.awt.Dimension
-import java.awt.event.ComponentAdapter
-import java.awt.event.ComponentEvent
 import java.awt.event.MouseAdapter
 import javax.swing.JFrame
 

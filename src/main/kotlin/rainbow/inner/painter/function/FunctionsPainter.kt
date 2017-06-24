@@ -1,7 +1,6 @@
 package rainbow.inner.painter.function
 
-import jdk.nashorn.internal.objects.NativeArray.forEach
-import rainbow.inner.painter.graphics.MathGraphics
+import rainbow.inner.coordinate.system.graphics.MathGraphics
 import rainbow.inner.painter.SystemPainter
 import rainbow.inner.system.MySystem
 import java.awt.Graphics
@@ -13,7 +12,7 @@ import java.awt.Graphics
  */
 interface FunctionsPainter : SystemPainter {
     override fun paint(g: Graphics) {
-        val mg = MathGraphics(g)
+        val mg = MathGraphics(g, MySystem.coordinateSystem.locationChanger)
         MySystem.functions.forEach {
             it.paintBefore(mg)
             it.paintMain(mg)

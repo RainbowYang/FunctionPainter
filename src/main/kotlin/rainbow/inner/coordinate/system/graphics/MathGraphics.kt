@@ -1,12 +1,9 @@
-package rainbow.inner.painter.graphics
+package rainbow.inner.coordinate.system.graphics
 
 import rainbow.inner.coordinate.point.MyPoint
 import rainbow.inner.coordinate.point.PointDouble
-import rainbow.inner.coordinate.system.toReal
+import rainbow.inner.coordinate.system.location_changer.LocationChanger
 import rainbow.inner.math.Line
-import rainbow.inner.painter.graphics.MathGraphics.Companion.MODE_LINE_SEGMENT
-import rainbow.inner.painter.graphics.MathGraphics.Companion.MODE_RAY_LINE
-import rainbow.inner.painter.graphics.MathGraphics.Companion.MODE_STRAIGHT_LINE
 import rainbow.inner.system.MySystem
 import rainbow.inner.system.getIntHeight
 import java.awt.Color
@@ -19,7 +16,7 @@ import java.util.*
  * 可以直接用MyPoint进行操作
  * @author Rainbow Yang
  */
-class MathGraphics(val g: Graphics) {
+class MathGraphics(val g: Graphics, val locationChanger: LocationChanger) {
     companion object {
         val MODE_STRAIGHT_LINE = "Straight Line"
         val MODE_LINE_SEGMENT = "Line Segment"
@@ -32,7 +29,7 @@ class MathGraphics(val g: Graphics) {
     }
 
     fun paintString(string: String, p: MyPoint): MathGraphics {
-        val pd = MySystem.coordinateSystem.toReal(p)
+        val pd = locationChanger.toReal(p)
         g.drawString(string, pd.x.toInt(), pd.y.toInt())
         return this
     }
@@ -54,7 +51,7 @@ class MathGraphics(val g: Graphics) {
 
     private fun toPolygon(ps: List<MyPoint>): Polygon {
         val p = Polygon()
-        MySystem.coordinateSystem.toReal(ps).forEach {
+        locationChanger.toReal(ps).forEach {
             if (it.x != Double.NaN && it.y != Double.NaN)
                 p.addPoint(it.x.toInt(), it.y.toInt())
         }
@@ -90,7 +87,7 @@ class MathGraphics(val g: Graphics) {
     }
 
     fun paintLine(p1: MyPoint, p2: MyPoint): MathGraphics {
-        paintLine(MySystem.coordinateSystem.toReal(p1), MySystem.coordinateSystem.toReal(p2))
+        paintLine(locationChanger.toReal(p1), locationChanger.toReal(p2))
         return this
     }
 
@@ -114,8 +111,8 @@ class MathGraphics(val g: Graphics) {
             return this
         }
 
-        val pd1 = MySystem.coordinateSystem.toReal(p1)
-        val pd2 = MySystem.coordinateSystem.toReal(p2)
+        val pd1 = locationChanger.toReal(p1)
+        val pd2 = locationChanger.toReal(p2)
 
         if (pd1.x == pd2.x) {
             when (mode) {

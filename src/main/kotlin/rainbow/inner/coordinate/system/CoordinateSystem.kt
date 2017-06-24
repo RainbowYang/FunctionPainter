@@ -1,10 +1,9 @@
 package rainbow.inner.coordinate.system
 
-import rainbow.inner.coordinate.point.MyPoint
-import rainbow.inner.coordinate.point.PointDouble
-import rainbow.inner.coordinate.system.comp.Axes
-import rainbow.inner.coordinate.system.comp.Range
+import rainbow.inner.color.Colors
 import rainbow.inner.coordinate.system.event.DefaultCoordinateSystemEventListener
+import rainbow.inner.coordinate.system.location_changer.LocationChanger
+import rainbow.inner.coordinate.system.painter.CoordinateSystemPainter
 
 /**
  * 坐标系
@@ -18,11 +17,11 @@ abstract class CoordinateSystem {
 
     val axes = Axes()
 
+    lateinit var painter: CoordinateSystemPainter
+    lateinit var locationChanger: LocationChanger
+    var colors = Colors()
+
     var eventListener = DefaultCoordinateSystemEventListener()
-
-    abstract fun toReal(p: MyPoint): PointDouble
-    abstract fun toSystem(p: PointDouble): MyPoint
-
     //todo timely
     fun getRange() = Range()
 }

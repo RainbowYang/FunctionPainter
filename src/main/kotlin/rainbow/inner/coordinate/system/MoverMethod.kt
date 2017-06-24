@@ -49,9 +49,9 @@ fun CoordinateSystem.moveTo(pd: rainbow.inner.coordinate.point.PointDouble) {
 }
 
 fun CoordinateSystem.moveTo(p: rainbow.inner.coordinate.point.MyPoint) {
-    return moveTo(toReal(p))
+    return moveTo(locationChanger.toReal(p))
 }
 
 fun CoordinateSystem.moveToOpposite(p: rainbow.inner.coordinate.point.MyPoint) {
-    return moveTo(toReal(p.times(-1.0)))
+    return moveTo(locationChanger.toReal(p.times(-1.0)))
 }

@@ -1,28 +1,10 @@
-package rainbow
-
 import rainbow.inner.background.Background
 import rainbow.inner.color.CoordinateSystemColors
 import rainbow.inner.coordinate.system.CoordinateSystemForAxes
 import rainbow.inner.function.MyFunction
-import rainbow.inner.function.mathfunction.simple._2D.ExpFunction
-import rainbow.inner.function.mathfunction.simple._2D.LogFunction
-import rainbow.inner.function.mathfunction.simple._2D.PowerFunction
-import rainbow.inner.function.mathfunction.simple._2D.spiral.*
-import rainbow.inner.function.mathfunction.simple._2D.trigonometric_function.*
-import rainbow.inner.function.mathfunction.simple._3D.Ellipsoid
 import rainbow.inner.function.mathfunction.special.Lissajous
-import rainbow.inner.function.mathfunction.special.Net
-import rainbow.inner.function.mathfunction.special._2D.conic_section.ConicSection.X_TOWARDS
-import rainbow.inner.function.mathfunction.special._2D.conic_section.ConicSection.Y_TOWARDS
-import rainbow.inner.function.mathfunction.special._2D.conic_section.Ellipse
-import rainbow.inner.function.mathfunction.special._2D.conic_section.Hyperbola
-import rainbow.inner.function.mathfunction.special._2D.conic_section.Parabola
-import rainbow.inner.function.mathfunction.special._2D.cycloid.*
-import rainbow.inner.function.pointfunction.Hypercube
-import rainbow.inner.function.pointfunction.RegularPolygon
 import rainbow.inner.listener.CoordinateSystemListener
 import rainbow.inner.painter.background.DefaultBackgroundPainter
-import rainbow.inner.painter.coordinate_system.DefaultCoordinateSystemPainter
 import rainbow.inner.painter.function.DefaultFunctionsPainter
 import rainbow.inner.system.MySystem
 import rainbow.inner.system.SystemListeners
@@ -63,7 +45,6 @@ fun addPainters() {
 
     SystemPainters.painters.apply {
         add(DefaultBackgroundPainter())
-        add(DefaultCoordinateSystemPainter())
         add(DefaultFunctionsPainter())
     }
 }
@@ -82,7 +63,7 @@ fun coordinateSystemInit() {
 
 fun functionsInit() {
     MySystem.functions.apply {
-//        add(ExpFunction(1.0, Math.E))
+        //        add(ExpFunction(1.0, Math.E))
 //        add(LogFunction(1.0, Math.E))
 //        add(PowerFunction("1*x^2"))
 //

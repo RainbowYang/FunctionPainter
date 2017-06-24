@@ -1,9 +1,10 @@
 package rainbow.inner.background
 
 import java.awt.Color
-import java.awt.Color.getColor
 import java.awt.Graphics
 import java.awt.Image
+
+import rainbow.tools.getColorByHexRGB
 
 /**
  * 背景
@@ -17,7 +18,7 @@ import java.awt.Image
 open class Background(var backColor: Color? = Color.WHITE, var img: Image? = null, var frontColor: Color? = null) {
 
     constructor(backColor: String, img: Image? = null, frontColor: String? = null) :
-            this(getColor(backColor, Color.WHITE), img, getColor(frontColor, null))
+            this(getColorByHexRGB(backColor), img, getColorByHexRGB(frontColor))
 
     fun paint(g: Graphics, width: Int, height: Int) {
         if (backColor != null)
@@ -43,4 +44,9 @@ open class Background(var backColor: Color? = Color.WHITE, var img: Image? = nul
         g.color = frontColor
         g.fillRect(0, 0, width, height)
     }
+
+    override fun toString(): String {
+        return "Background(backColor=$backColor, img=$img, frontColor=$frontColor)"
+    }
+
 }

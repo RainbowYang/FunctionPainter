@@ -1,6 +1,6 @@
 package rainbow.inner.function;
 
-import rainbow.inner.painter.graphics.MathGraphics;
+import rainbow.inner.coordinate.system.graphics.MathGraphics;
 
 /**
  * 所有能画在坐标系上的东西的父类

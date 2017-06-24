@@ -10,8 +10,6 @@ import rainbow.inner.coordinate.system.moveTo
 import rainbow.inner.coordinate.system.moveToOpposite
 import rainbow.inner.system.MySystem
 import rainbow.inner.system.SystemPainters
-import rainbow.outer.frame.MainFrame
-import kotlin.coroutines.experimental.EmptyCoroutineContext.plus
 
 /**
  * @author Rainbow Yang
@@ -29,7 +27,7 @@ interface CoordinateSystemEventListener {
         } else if (event is ZoomEvent) {
             zoom(event)
         }
-        SystemPainters.repaint()
+//        SystemPainters.repaint()
     }
 
 
@@ -38,7 +36,7 @@ interface CoordinateSystemEventListener {
     }
 
     fun zoom(event: ZoomEvent) {
-        val p = MySystem.coordinateSystem.toSystem(PointDouble(event.x, event.y))
+        val p = MySystem.coordinateSystem.locationChanger.toSystem(PointDouble(event.x, event.y))
         MySystem.coordinateSystem.moveTo(p)
         MySystem.coordinateSystem.axes.allLengthTimes *= (Math.pow(zoomSpeed, event.zoomLevel))
         MySystem.coordinateSystem.moveToOpposite(p)
