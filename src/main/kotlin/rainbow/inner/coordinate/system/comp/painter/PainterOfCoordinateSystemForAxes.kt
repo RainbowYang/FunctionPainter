@@ -1,10 +1,8 @@
-package rainbow.inner.coordinate.system.painter
+package rainbow.inner.coordinate.system.comp.painter
 
 import rainbow.inner.coordinate.point.PointForAxes
 import rainbow.inner.coordinate.system.CoordinateSystem
 import rainbow.inner.coordinate.system.graphics.MathGraphics
-import rainbow.inner.system.MySystem
-import rainbow.inner.system.getColors
 import java.awt.Color
 
 /**

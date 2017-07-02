@@ -1,4 +1,4 @@
-package rainbow.inner.coordinate.system.location_changer
+package rainbow.inner.coordinate.system.comp.location_changer
 
 import rainbow.inner.coordinate.point.MyPoint
 import rainbow.inner.coordinate.point.PointDouble

@@ -26,9 +26,9 @@ public class CoordinateSystemListener extends MouseAdapter {
     @Override
     public void mouseDragged(MouseEvent e) {
         if (first.getButton() == MouseEvent.BUTTON1) {
-            MySystem.INSTANCE.getCoordinateSystem().getEventListener().accept(new MoveEvent(last, e));
+            MySystem.INSTANCE.getCoordinateSystem().controller.accept(new MoveEvent(last, e));
         } else if (first.getButton() == MouseEvent.BUTTON3) {
-            MySystem.INSTANCE.getCoordinateSystem().getEventListener().accept(new RotateEvent(last, e));
+            MySystem.INSTANCE.getCoordinateSystem().controller.accept(new RotateEvent(last, e));
         }
 
         last = e;
@@ -37,6 +37,6 @@ public class CoordinateSystemListener extends MouseAdapter {
     //缩放效果
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
-        MySystem.INSTANCE.getCoordinateSystem().getEventListener().accept(new ZoomEvent(e));
+        MySystem.INSTANCE.getCoordinateSystem().controller.accept(new ZoomEvent(e));
     }
 }

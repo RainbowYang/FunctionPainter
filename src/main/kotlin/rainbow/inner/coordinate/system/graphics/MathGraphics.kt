@@ -2,7 +2,7 @@ package rainbow.inner.coordinate.system.graphics
 
 import rainbow.inner.coordinate.point.MyPoint
 import rainbow.inner.coordinate.point.PointDouble
-import rainbow.inner.coordinate.system.location_changer.LocationChanger
+import rainbow.inner.coordinate.system.comp.location_changer.LocationChanger
 import rainbow.inner.math.Line
 import rainbow.inner.system.MySystem
 import rainbow.inner.system.getIntHeight

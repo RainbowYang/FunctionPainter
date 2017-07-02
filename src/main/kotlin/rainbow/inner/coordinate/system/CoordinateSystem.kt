@@ -1,9 +1,9 @@
 package rainbow.inner.coordinate.system
 
 import rainbow.inner.color.Colors
-import rainbow.inner.coordinate.system.event.DefaultCoordinateSystemEventListener
-import rainbow.inner.coordinate.system.location_changer.LocationChanger
-import rainbow.inner.coordinate.system.painter.CoordinateSystemPainter
+import rainbow.inner.coordinate.system.comp.controller.CoordinateSystemController
+import rainbow.inner.coordinate.system.comp.location_changer.LocationChanger
+import rainbow.inner.coordinate.system.comp.painter.CoordinateSystemPainter
 
 /**
  * 坐标系
@@ -19,9 +19,9 @@ abstract class CoordinateSystem {
 
     lateinit var painter: CoordinateSystemPainter
     lateinit var locationChanger: LocationChanger
+    lateinit var controller: CoordinateSystemController
     var colors = Colors()
 
-    var eventListener = DefaultCoordinateSystemEventListener()
     //todo timely
     fun getRange() = Range()
 }

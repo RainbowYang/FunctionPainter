@@ -1,8 +1,9 @@
 package rainbow.inner.coordinate.system
 
 import rainbow.inner.color.CoordinateSystemColors
-import rainbow.inner.coordinate.system.location_changer.LocationChangerOfCoordinateSystemForAxes
-import rainbow.inner.coordinate.system.painter.PainterOfCoordinateSystemForAxes
+import rainbow.inner.coordinate.system.comp.controller.ControllerOfCoordinateSystemForAxes
+import rainbow.inner.coordinate.system.comp.location_changer.LocationChangerOfCoordinateSystemForAxes
+import rainbow.inner.coordinate.system.comp.painter.PainterOfCoordinateSystemForAxes
 
 /**
  * 任意维度的轴坐标系
@@ -34,6 +35,7 @@ class CoordinateSystemForAxes(size: Int) : CoordinateSystem() {
 
         locationChanger = LocationChangerOfCoordinateSystemForAxes(this)
         painter = PainterOfCoordinateSystemForAxes(this)
+        controller = ControllerOfCoordinateSystemForAxes(this)
         colors = CoordinateSystemColors()
     }
 }
