@@ -1,6 +1,6 @@
 package rainbow.inner.coordinate.system
 
-import rainbow.inner.coordinate.point.MyPoint
+import rainbow.inner.coordinate.point.CoordinatePoint
 import rainbow.inner.coordinate.point.PointDouble
 
 /**
@@ -33,10 +33,10 @@ fun CoordinateSystem.moveTo(pd: PointDouble) {
     return moveTo(pd.x, pd.y)
 }
 
-fun CoordinateSystem.moveTo(p: MyPoint) {
-    return moveTo(locationChanger.toReal(p))
+fun CoordinateSystem.moveTo(p: CoordinatePoint) {
+    return moveTo(toScreen(p))
 }
 
-fun CoordinateSystem.moveToOpposite(p: MyPoint) {
-    return moveTo(locationChanger.toReal(p.times(-1.0)))
+fun CoordinateSystem.moveToOpposite(p: CoordinatePoint) {
+    return moveTo(toScreen(p.times(-1.0)))
 }

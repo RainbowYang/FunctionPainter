@@ -5,13 +5,15 @@ package rainbow.inner.coordinate.point
  *
  * @author Rainbow Yang
  */
-class PointDouble(val x: Double, val y: Double) {
-
+class PointDouble(var x: Double, var y: Double) {
     constructor(x: Int, y: Int) : this(x.toDouble(), y.toDouble())
 
-    fun spin(angle: Double): PointDouble {
-        return PointDouble(x * Math.cos(angle) - y * Math.sin(angle), x * Math.sin(angle) + y * Math.cos(angle))
-    }
+    fun plus(other: PointDouble): PointDouble = PointDouble(x + other.x, y + other.y)
+
+    fun times(times: Double): PointDouble = PointDouble(x * times, y * times)
+
+    fun spin(angle: Double): PointDouble
+            = PointDouble(x * Math.cos(angle) - y * Math.sin(angle), x * Math.sin(angle) + y * Math.cos(angle))
 
     override fun toString(): String {
         return "PointDouble(x=$x, y=$y)"

@@ -5,7 +5,7 @@ package rainbow.inner.coordinate.point
  * @author Rainbow Yang
  */
 
-class PointPolar2D(val r: Double, val angle: Double) : MyPoint {
+class PointPolar2D(val r: Double, val angle: Double) : CoordinatePoint {
     override fun toPointForAxes() = PointForAxes(r * Math.cos(angle), r * Math.sin(angle))
     override fun times(times: Double) = PointPolar2D(r * times, angle)
 }

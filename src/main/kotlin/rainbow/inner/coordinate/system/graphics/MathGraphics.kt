@@ -1,8 +1,8 @@
 package rainbow.inner.coordinate.system.graphics
 
-import rainbow.inner.coordinate.point.MyPoint
+import rainbow.inner.coordinate.point.CoordinatePoint
 import rainbow.inner.coordinate.point.PointDouble
-import rainbow.inner.coordinate.system.comp.location_changer.LocationChanger
+import rainbow.inner.coordinate.system.CoordinateSystem
 import rainbow.inner.math.Line
 import rainbow.inner.system.MySystem
 import rainbow.inner.system.getIntHeight
@@ -16,7 +16,7 @@ import java.util.*
  * 可以直接用MyPoint进行操作
  * @author Rainbow Yang
  */
-class MathGraphics(val g: Graphics, val locationChanger: LocationChanger) {
+class MathGraphics(val g: Graphics, val coordinateSystem: CoordinateSystem) {
     companion object {
         val MODE_STRAIGHT_LINE = "Straight Line"
         val MODE_LINE_SEGMENT = "Line Segment"
@@ -28,30 +28,30 @@ class MathGraphics(val g: Graphics, val locationChanger: LocationChanger) {
         return this
     }
 
-    fun paintString(string: String, p: MyPoint): MathGraphics {
-        val pd = locationChanger.toReal(p)
+    fun paintString(string: String, p: CoordinatePoint): MathGraphics {
+        val pd = coordinateSystem.toReal(p)
         g.drawString(string, pd.x.toInt(), pd.y.toInt())
         return this
     }
 
-    fun paintPoints(vararg ps: MyPoint): MathGraphics = paintPoints(Arrays.asList(*ps))
+    fun paintPoints(vararg ps: CoordinatePoint): MathGraphics = paintPoints(Arrays.asList(*ps))
 
 
-    fun paintPoints(ps: List<MyPoint>): MathGraphics {
+    fun paintPoints(ps: List<CoordinatePoint>): MathGraphics {
         g.drawPolyline(toPolygon(ps))
         return this
     }
 
-    fun fillPoint(vararg ps: MyPoint): MathGraphics = fillPoint(Arrays.asList(*ps))
+    fun fillPoint(vararg ps: CoordinatePoint): MathGraphics = fillPoint(Arrays.asList(*ps))
 
-    fun fillPoint(ps: List<MyPoint>): MathGraphics {
+    fun fillPoint(ps: List<CoordinatePoint>): MathGraphics {
         g.fillPolygon(toPolygon(ps))
         return this
     }
 
-    private fun toPolygon(ps: List<MyPoint>): Polygon {
+    private fun toPolygon(ps: List<CoordinatePoint>): Polygon {
         val p = Polygon()
-        locationChanger.toReal(ps).forEach {
+        coordinateSystem.toReal(ps).forEach {
             if (it.x != Double.NaN && it.y != Double.NaN)
                 p.addPoint(it.x.toInt(), it.y.toInt())
         }
@@ -67,7 +67,7 @@ class MathGraphics(val g: Graphics, val locationChanger: LocationChanger) {
      * *
      * @return MathGraphics
      */
-    fun paintLocation(p: MyPoint): MathGraphics {
+    fun paintLocation(p: CoordinatePoint): MathGraphics {
         val pa = p.toPointForAxes()
         for (i in 0..pa.size - 1) {
             if (pa.getValue(i) != 0.0) {
@@ -86,8 +86,8 @@ class MathGraphics(val g: Graphics, val locationChanger: LocationChanger) {
         return this
     }
 
-    fun paintLine(p1: MyPoint, p2: MyPoint): MathGraphics {
-        paintLine(locationChanger.toReal(p1), locationChanger.toReal(p2))
+    fun paintLine(p1: CoordinatePoint, p2: CoordinatePoint): MathGraphics {
+        paintLine(coordinateSystem.toReal(p1), coordinateSystem.toReal(p2))
         return this
     }
 
@@ -102,7 +102,7 @@ class MathGraphics(val g: Graphics, val locationChanger: LocationChanger) {
      * *
      * @return MathGraphics
      */
-    fun paintLine(p1: MyPoint, p2: MyPoint, mode: String): MathGraphics {
+    fun paintLine(p1: CoordinatePoint, p2: CoordinatePoint, mode: String): MathGraphics {
         if (p1 == p2) {
             return this
         }
@@ -111,8 +111,8 @@ class MathGraphics(val g: Graphics, val locationChanger: LocationChanger) {
             return this
         }
 
-        val pd1 = locationChanger.toReal(p1)
-        val pd2 = locationChanger.toReal(p2)
+        val pd1 = coordinateSystem.toReal(p1)
+        val pd2 = coordinateSystem.toReal(p2)
 
         if (pd1.x == pd2.x) {
             when (mode) {

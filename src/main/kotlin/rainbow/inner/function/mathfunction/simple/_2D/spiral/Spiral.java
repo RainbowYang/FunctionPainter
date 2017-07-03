@@ -1,6 +1,6 @@
 package rainbow.inner.function.mathfunction.simple._2D.spiral;
 
-import rainbow.inner.coordinate.point.MyPoint;
+import rainbow.inner.coordinate.point.CoordinatePoint;
 import rainbow.inner.coordinate.point.PointPolar2D;
 import rainbow.inner.function.mathfunction.simple.SimpleMathFunction;
 
@@ -26,7 +26,7 @@ public abstract class Spiral extends SimpleMathFunction {
 
 
     @Override
-    protected MyPoint createPoint(double... ds) {
+    protected CoordinatePoint createPoint(double... ds) {
         //此处使用ds[1], ds[0]的原因是在计算的时候，角度会被当做第一个维度，而长度则为第二个
         //而PointPolar2D的顺序是先长度后角度
         return new PointPolar2D(ds[1], ds[0]);

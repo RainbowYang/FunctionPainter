@@ -1,6 +1,6 @@
 import rainbow.inner.background.Background
 import rainbow.inner.color.CoordinateSystemColors
-import rainbow.inner.coordinate.system.CoordinateSystemForAxes
+import rainbow.inner.coordinate.system.cartesian.CoordinateSystemForAxes
 import rainbow.inner.function.MyFunction
 import rainbow.inner.function.mathfunction.special.Lissajous
 import rainbow.inner.listener.CoordinateSystemListener

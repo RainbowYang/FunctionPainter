@@ -1,6 +1,6 @@
 package rainbow.inner.function;
 
-import rainbow.inner.coordinate.point.MyPoint;
+import rainbow.inner.coordinate.point.CoordinatePoint;
 import rainbow.inner.coordinate.system.graphics.MathGraphics;
 
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.List;
 public abstract class PointFunction extends MyFunction {
     //所有点集的集合
     //当图像并不是一笔完成，则需要放在不同的List中。
-    protected List<List<MyPoint>> pointsList = new ArrayList<>();
+    protected List<List<CoordinatePoint>> pointsList = new ArrayList<>();
     //表示当前操作的点集的索引
     private int index = -1;
 
@@ -57,11 +57,11 @@ public abstract class PointFunction extends MyFunction {
      *
      * @param p 需要添加的点
      */
-    public void addPoint(MyPoint p) {
+    public void addPoint(CoordinatePoint p) {
         pointsList.get(index).add(p);
     }
 
-    public List<List<MyPoint>> getPointsList() {
+    public List<List<CoordinatePoint>> getPointsList() {
         return pointsList;
     }
 }

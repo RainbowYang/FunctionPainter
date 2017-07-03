@@ -1,7 +1,7 @@
 package rainbow.inner.system;
 
 import rainbow.inner.coordinate.system.CoordinateSystem;
-import rainbow.inner.coordinate.system.CoordinateSystemForAxes;
+import rainbow.inner.coordinate.system.cartesian.CoordinateSystemForAxes;
 import rainbow.inner.function.MyFunction;
 import rainbow.inner.function.mathfunction.simple._2D.ExpFunction;
 import rainbow.inner.function.mathfunction.simple._2D.LogFunction;

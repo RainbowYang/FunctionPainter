@@ -7,7 +7,7 @@ import java.util.*
  *
  * @author Rainbow Yang
  */
-class PointForAxes constructor(vararg initValues: Double) : MyPoint {
+class PointForAxes constructor(vararg initValues: Double) : CoordinatePoint {
     companion object {
         operator fun invoke(initValues: DoubleArray) = PointForAxes(*initValues)
     }

@@ -12,7 +12,7 @@ import java.awt.Graphics
  */
 interface FunctionsPainter : SystemPainter {
     override fun paint(g: Graphics) {
-        val mg = MathGraphics(g, MySystem.coordinateSystem.locationChanger)
+        val mg = MathGraphics(g, MySystem.coordinateSystem)
         MySystem.functions.forEach {
             it.paintBefore(mg)
             it.paintMain(mg)

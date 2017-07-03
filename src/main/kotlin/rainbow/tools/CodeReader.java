@@ -13,6 +13,11 @@ import java.util.Map;
  * @author Rainbow Yang
  */
 public class CodeReader {
+
+    public static void main(String[] args) {
+        new CodeReader("..").print(DETAILED);
+    }
+
     //模式
     public static final String DETAILED = "detailed";
     public static final String NO_FOLDER = "noFolder";

@@ -1,10 +1,8 @@
 package rainbow.inner.function.mathfunction;
 
-import rainbow.inner.coordinate.point.MyPoint;
+import rainbow.inner.coordinate.point.CoordinatePoint;
 import rainbow.inner.coordinate.point.PointForAxes;
-import rainbow.inner.coordinate.system.Range;
 import rainbow.inner.function.PointFunction;
-import rainbow.inner.system.MySystem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,10 +41,10 @@ public class MathFunction extends PointFunction {
     }
 
     {
-        Range range = MySystem.INSTANCE.getCoordinateSystem().getRange();
-        start = range.getStart();
-        end = range.getEnd();
-        step = range.getStep();
+        //todo timely
+        start = -20;
+        end = 20;
+        step = 0.01;
     }
 
     //生成所有的点
@@ -122,7 +120,7 @@ public class MathFunction extends PointFunction {
      * @param ds 所有的参数
      * @return 所创建的点
      */
-    protected MyPoint createPoint(double... ds) {
+    protected CoordinatePoint createPoint(double... ds) {
         return new PointForAxes(ds);
     }
 
