@@ -1,10 +1,8 @@
-package rainbow.inner.coordinate.system.comp.painter
+package rainbow.inner.painter.coordinates
 
 import rainbow.inner.coordinate.point.PointForAxes
-import rainbow.inner.coordinate.system.CoordinateSystem
 import rainbow.inner.coordinate.system.cartesian.CartesianCoordinateSystem
 import rainbow.inner.coordinate.system.graphics.MathGraphics
-import java.awt.Color
 
 /**
  * @author Rainbow Yang
@@ -25,10 +23,8 @@ class PainterOfCartesianCoordinateSystem(val cs: CartesianCoordinateSystem) : Co
                 val p = p0.changeValueAsNew(s, i.toDouble())
                 val p1 = p.changeValueAsNew(if (s == cs.axes.size - 1) 0 else s + 1, 1.0)
                 val p2 = p.changeValueAsNew(if (s == 0) cs.axes.size - 1 else s - 1, 1.0)
-                mg.paintLine(p, p1, MathGraphics.MODE_STRAIGHT_LINE)
-                mg.paintLine(p, p2, MathGraphics.MODE_STRAIGHT_LINE)
-//                mg.paintLine(p, p1, MathGraphics.MODE_RAY_LINE)
-//                mg.paintLine(p, p2, MathGraphics.MODE_RAY_LINE)
+                mg.paintLine(p, p1, MathGraphics.MODE_RAY_LINE)
+                mg.paintLine(p, p2, MathGraphics.MODE_RAY_LINE)
             }
         }
     }

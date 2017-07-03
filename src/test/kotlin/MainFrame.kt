@@ -1,6 +1,6 @@
 import rainbow.inner.coordinate.system.CoordinateSystem
 import rainbow.inner.coordinate.system.cartesian.CartesianCoordinateSystem
-import rainbow.inner.coordinate.system.comp.painter.PainterOfCartesianCoordinateSystem
+import rainbow.inner.painter.coordinates.PainterOfCartesianCoordinateSystem
 import java.awt.Graphics
 import javax.swing.JFrame
 import javax.swing.JPanel
