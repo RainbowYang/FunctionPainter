@@ -2,6 +2,8 @@ package rainbow.inner.coordinate.system
 
 import rainbow.inner.coordinate.point.CoordinatePoint
 import rainbow.inner.coordinate.point.PointDouble
+import rainbow.inner.coordinate.system.command.CoordinateSystemCommand
+import rainbow.inner.coordinate.system.command.WorryCoordinateSystemToCommandException
 
 /**
  * 坐标系的顶层抽象类
@@ -27,15 +29,15 @@ abstract class CoordinateSystem {
         }
 
     //使用弧度
-    var rotationAngle = 0.0
+    var rotateAngle = 0.0
 
-    var rotationAngleAsDegree: Double
-        get() = Math.toDegrees(rotationAngle)
+    var rotateAngleAsDegree: Double
+        get() = Math.toDegrees(rotateAngle)
         set(value) {
-            rotationAngle = Math.toRadians(value)
+            rotateAngle = Math.toRadians(value)
         }
 
-    var scalingRatio = 1.0
+    var zoomRate = 1.0
 
 
     fun toReal(ps: List<CoordinatePoint>): List<PointDouble> = toScreen(ps)
@@ -53,11 +55,11 @@ abstract class CoordinateSystem {
 
     fun rotateAndScaleAndMove(pd: PointDouble): PointDouble {
         var result = pd
-        if (rotationAngle != 0.0)
-            result = result.spin(rotationAngle)
+        if (rotateAngle != 0.0)
+            result = result.spin(rotateAngle)
 
-        if (scalingRatio != 1.0)
-            result = result.times(scalingRatio)
+        if (zoomRate != 1.0)
+            result = result.times(zoomRate)
 
         result.x = origin.x + result.x
         // 屏幕的点是向右下角递增,而坐标点是向右上角递增
@@ -84,22 +86,24 @@ abstract class CoordinateSystem {
         // 屏幕的点是向右下角递增,而坐标点是向右上角递增
         result.y = origin.y - result.y
 
-        if (rotationAngle != 0.0)
-            result = result.spin(-rotationAngle)
+        if (rotateAngle != 0.0)
+            result = result.spin(-rotateAngle)
 
-        if (scalingRatio != 1.0)
-            result = result.times(1.0 / scalingRatio)
+        if (zoomRate != 1.0)
+            result = result.times(1.0 / zoomRate)
         return result
     }
 
+    inline fun <reified S : CoordinateSystem> doCommand(command: CoordinateSystemCommand<S>) {
+        if (this is S)
+            command.todo(this)
+        else
+            throw WorryCoordinateSystemToCommandException("$command isn't suitable for $this")
+    }
 
-//    val axes = Axes()
-//
-//    lateinit var painter: CoordinateSystemPainter
-//    lateinit var locationChanger: LocationChanger
-//    lateinit var controller: CoordinateSystemController
-//    var colors = Colors()
+    override fun toString(): String {
+        return "CoordinateSystem(origin=$origin, rotateAngle=$rotateAngle, zoomRate=$zoomRate)"
+    }
 
-//    //todo timely
-//    fun getRange() = Range()
+
 }
