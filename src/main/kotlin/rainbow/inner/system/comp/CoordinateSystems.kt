@@ -1,6 +1,6 @@
 package rainbow.inner.system.comp
 
-import rainbow.inner.coordinate.system.CoordinateSystem
+import rainbow.coordinate.system.CoordinateSystem
 
 /**
  * @author Rainbow Yang

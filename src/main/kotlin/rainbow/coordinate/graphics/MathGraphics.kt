@@ -1,8 +1,8 @@
-package rainbow.inner.coordinate.system.graphics
+package rainbow.coordinate.graphics
 
-import rainbow.inner.coordinate.point.CoordinatePoint
-import rainbow.inner.coordinate.point.PointDouble
-import rainbow.inner.coordinate.system.CoordinateSystem
+import rainbow.coordinate.point.CoordinatePoint
+import rainbow.coordinate.point.PointDouble
+import rainbow.coordinate.system.CoordinateSystem
 import rainbow.inner.math.Line
 import rainbow.inner.system.MySystem
 import rainbow.inner.system.getIntHeight
@@ -23,13 +23,12 @@ class MathGraphics(val g: Graphics, val coordinateSystem: CoordinateSystem) {
         val MODE_RAY_LINE = "Ray Line"
     }
 
-    fun setColor(color: Color): MathGraphics {
+    fun setColor(color: Color) {
         g.color = color
-        return this
     }
 
     fun paintString(string: String, p: CoordinatePoint): MathGraphics {
-        val pd = coordinateSystem.toReal(p)
+        val pd = coordinateSystem.toScreenPoint(p)
         g.drawString(string, pd.x.toInt(), pd.y.toInt())
         return this
     }
@@ -51,7 +50,7 @@ class MathGraphics(val g: Graphics, val coordinateSystem: CoordinateSystem) {
 
     private fun toPolygon(ps: List<CoordinatePoint>): Polygon {
         val p = Polygon()
-        coordinateSystem.toReal(ps).forEach {
+        coordinateSystem.toScreenPoint(ps).forEach {
             if (it.x != Double.NaN && it.y != Double.NaN)
                 p.addPoint(it.x.toInt(), it.y.toInt())
         }
@@ -87,7 +86,7 @@ class MathGraphics(val g: Graphics, val coordinateSystem: CoordinateSystem) {
     }
 
     fun paintLine(p1: CoordinatePoint, p2: CoordinatePoint): MathGraphics {
-        paintLine(coordinateSystem.toReal(p1), coordinateSystem.toReal(p2))
+        paintLine(coordinateSystem.toScreenPoint(p1), coordinateSystem.toScreenPoint(p2))
         return this
     }
 
@@ -111,8 +110,8 @@ class MathGraphics(val g: Graphics, val coordinateSystem: CoordinateSystem) {
             return this
         }
 
-        val pd1 = coordinateSystem.toReal(p1)
-        val pd2 = coordinateSystem.toReal(p2)
+        val pd1 = coordinateSystem.toScreenPoint(p1)
+        val pd2 = coordinateSystem.toScreenPoint(p2)
 
         if (pd1.x == pd2.x) {
             when (mode) {

@@ -1,6 +1,6 @@
 package rainbow.inner.math;
 
-import rainbow.inner.coordinate.point.PointDouble;
+import rainbow.coordinate.point.PointDouble;
 
 /**
  * 数学意义上的线

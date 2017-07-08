@@ -4,9 +4,9 @@ import java.awt.Graphics
 
 /**
  * 系统画笔
- * 所有要画在界面上的东西都应该要继承此类
  * @author Rainbow Yang
  */
 interface SystemPainter {
-    fun paint(g: Graphics)
+    fun paint(g: Graphics, width: Double, height: Double)
+    fun paint(g: Graphics, width: Number, height: Number) = paint(g, width.toDouble(), height.toDouble())
 }

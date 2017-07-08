@@ -1,11 +1,13 @@
-import rainbow.inner.coordinate.system.CoordinateSystem
-import rainbow.inner.coordinate.system.cartesian.CartesianCoordinateSystem
-import rainbow.inner.painter.coordinates.PainterOfCartesianCoordinateSystem
+import rainbow.coordinate.system.CoordinateSystem
 import java.awt.Graphics
+import java.awt.event.ComponentAdapter
+import java.awt.event.ComponentEvent
 import javax.swing.JFrame
 import javax.swing.JPanel
 
+
 /**
+ * 测试
  * @author Rainbow Yang
  */
 class MainFrame(var coordinateSystem: CoordinateSystem) : JFrame() {
@@ -14,8 +16,12 @@ class MainFrame(var coordinateSystem: CoordinateSystem) : JFrame() {
 
         add(object : JPanel() {
             override fun paintComponent(g: Graphics) {
-                // todo test
-                PainterOfCartesianCoordinateSystem(coordinateSystem as CartesianCoordinateSystem).paint(g)
+                coordinateSystem.paint(g, this@MainFrame.size)
+            }
+        })
+
+        addComponentListener(object : ComponentAdapter() {
+            override fun componentResized(e: ComponentEvent?) {
                 this@MainFrame.repaint()
             }
         })
@@ -23,4 +29,6 @@ class MainFrame(var coordinateSystem: CoordinateSystem) : JFrame() {
         defaultCloseOperation = EXIT_ON_CLOSE
         isVisible = true
     }
+
+
 }

@@ -10,7 +10,7 @@ import java.awt.Graphics
  * @author Rainbow Yang
  */
 interface BackgroundPainter : SystemPainter {
-    override fun paint(g: Graphics) {
+    override fun paint(g: Graphics, width: Double, height: Double) {
         val bg = MySystem.background
 
         //画背景色

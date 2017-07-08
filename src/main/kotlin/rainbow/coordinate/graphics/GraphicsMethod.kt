@@ -1,4 +1,4 @@
-package rainbow.inner.coordinate.system.graphics
+package rainbow.coordinate.graphics
 
 import java.awt.Graphics
 import java.awt.Polygon

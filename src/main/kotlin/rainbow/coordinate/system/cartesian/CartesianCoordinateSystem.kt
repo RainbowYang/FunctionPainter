@@ -1,15 +1,18 @@
-package rainbow.inner.coordinate.system.cartesian
+package rainbow.coordinate.system.cartesian
 
-import rainbow.inner.coordinate.point.CoordinatePoint
-import rainbow.inner.coordinate.point.PointDouble
-import rainbow.inner.coordinate.point.PointForAxes
-import rainbow.inner.coordinate.system.CoordinateSystem
+import rainbow.coordinate.point.CoordinatePoint
+import rainbow.coordinate.point.PointDouble
+import rainbow.coordinate.point.PointForAxes
+import rainbow.coordinate.system.CoordinateSystem
+import rainbow.paint.Painter
 
 /**
  * 任意维度的轴坐标系
  * @author Rainbow Yang
  */
-class CartesianCoordinateSystem(size: Int) : CoordinateSystem() {
+class CartesianCoordinateSystem(size: Int) : CoordinateSystem {
+    override var painter: Painter = PainterForCartesianCoordinateSystem(this)
+
     val axes = Axes()
 
     init {
@@ -36,7 +39,7 @@ class CartesianCoordinateSystem(size: Int) : CoordinateSystem() {
         }
     }
 
-    override fun _toScreen(cp: CoordinatePoint): PointDouble {
+    override fun toScreenPoint(cp: CoordinatePoint): PointDouble {
         val form = cp.toPointForAxes()
         var px = 0.0
         var py = 0.0
@@ -49,7 +52,7 @@ class CartesianCoordinateSystem(size: Int) : CoordinateSystem() {
         return PointDouble(px, py)
     }
 
-    override fun _toSystem(pd: PointDouble): CoordinatePoint {
+    override fun toCoordinatePoint(pd: PointDouble): CoordinatePoint {
         val x = pd.spin(Math.PI / 2 - axes.getAngle(1)).x
         val y = pd.spin(0 - axes.getAngle(0)).y
 

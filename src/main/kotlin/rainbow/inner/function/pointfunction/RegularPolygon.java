@@ -1,6 +1,6 @@
 package rainbow.inner.function.pointfunction;
 
-import rainbow.inner.coordinate.point.PointPolar2D;
+import rainbow.coordinate.point.PointPolar2D;
 import rainbow.inner.function.PointFunction;
 
 /**

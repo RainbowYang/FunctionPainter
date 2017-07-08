@@ -1,5 +1,6 @@
 package rainbow.inner.background
 
+import rainbow.inner.painter.SystemPainter
 import java.awt.Color
 import java.awt.Graphics
 import java.awt.Image
@@ -15,20 +16,21 @@ import rainbow.tools.getColorByHexRGB
  *
  * @author Rainbow Yang
  */
-open class Background(var backColor: Color? = Color.WHITE, var img: Image? = null, var frontColor: Color? = null) {
+open class Background(var backColor: Color? = Color.WHITE, var img: Image? = null, var frontColor: Color? = null) : SystemPainter {
 
     constructor(backColor: String, img: Image? = null, frontColor: String? = null) :
             this(getColorByHexRGB(backColor), img, getColorByHexRGB(frontColor))
 
-    fun paint(g: Graphics, width: Int, height: Int) {
+
+    override fun paint(g: Graphics, width: Double, height: Double) {
         if (backColor != null)
-            paintBack(g, width, height)
+            paintBack(g, width.toInt(), height.toInt())
 
         if (img != null)
-            paintImage(g)
+            paintImage(g, width.toInt(), height.toInt())
 
         if (frontColor != null)
-            paintFront(g, width, height)
+            paintFront(g, width.toInt(), height.toInt())
     }
 
     fun paintBack(g: Graphics, width: Int, height: Int) {
@@ -36,7 +38,7 @@ open class Background(var backColor: Color? = Color.WHITE, var img: Image? = nul
         g.fillRect(0, 0, width, height)
     }
 
-    fun paintImage(g: Graphics) {
+    fun paintImage(g: Graphics, width: Int, height: Int) {
         g.drawImage(img, 0, 0, null)
     }
 
@@ -48,5 +50,10 @@ open class Background(var backColor: Color? = Color.WHITE, var img: Image? = nul
     override fun toString(): String {
         return "Background(backColor=$backColor, img=$img, frontColor=$frontColor)"
     }
+
+    val Image.width: Int
+        get() = this.getWidth(null)
+    val Image.height: Int
+        get() = this.getHeight(null)
 
 }

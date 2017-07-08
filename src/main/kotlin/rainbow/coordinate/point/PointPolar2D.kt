@@ -1,4 +1,4 @@
-package rainbow.inner.coordinate.point
+package rainbow.coordinate.point
 
 /**
  * 二维极坐标点

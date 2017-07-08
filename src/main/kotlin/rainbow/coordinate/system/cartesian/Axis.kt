@@ -1,4 +1,4 @@
-package rainbow.inner.coordinate.system.cartesian
+package rainbow.coordinate.system.cartesian
 
 /**
  * 坐标轴

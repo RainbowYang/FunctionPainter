@@ -2,7 +2,7 @@ package rainbow.inner.system
 
 import rainbow.inner.function.MyFunction
 import rainbow.inner.background.Background
-import rainbow.inner.coordinate.system.CoordinateSystem
+import rainbow.coordinate.system.CoordinateSystem
 import rainbow.inner.system.comp.CoordinateSystems
 import rainbow.inner.system.comp.Functions
 

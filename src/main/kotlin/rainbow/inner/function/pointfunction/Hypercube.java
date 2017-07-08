@@ -1,8 +1,8 @@
 package rainbow.inner.function.pointfunction;
 
-import rainbow.inner.coordinate.point.PointForAxes;
+import rainbow.coordinate.point.PointForAxes;
 import rainbow.inner.function.MyFunction;
-import rainbow.inner.coordinate.system.graphics.MathGraphics;
+import rainbow.coordinate.graphics.MathGraphics;
 
 /**
  * 任意维度的超方体

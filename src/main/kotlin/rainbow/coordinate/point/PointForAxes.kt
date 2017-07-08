@@ -1,4 +1,4 @@
-package rainbow.inner.coordinate.point
+package rainbow.coordinate.point
 
 import java.util.*
 
@@ -10,6 +10,10 @@ import java.util.*
 class PointForAxes constructor(vararg initValues: Double) : CoordinatePoint {
     companion object {
         operator fun invoke(initValues: DoubleArray) = PointForAxes(*initValues)
+        operator fun invoke(vararg initValues: Number) =
+                invoke(kotlin.DoubleArray(initValues.size) { initValues[it].toDouble() })
+
+        val ZERO = PointForAxes(0)
     }
 
     //生成size维的值均为value的点
@@ -31,7 +35,7 @@ class PointForAxes constructor(vararg initValues: Double) : CoordinatePoint {
         return PointForAxes(newValues)
     }
 
-    override operator fun times(times: Double) = PointForAxes(*DoubleArray(size) { it -> times * getValue(it) })
+    override operator fun times(times: Double) = PointForAxes(DoubleArray(size) { it -> times * getValue(it) })
 
     override operator fun unaryMinus() = times(-1.0)
 

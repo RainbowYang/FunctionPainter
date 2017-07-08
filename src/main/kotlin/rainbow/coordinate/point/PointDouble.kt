@@ -1,4 +1,4 @@
-package rainbow.inner.coordinate.point
+package rainbow.coordinate.point
 
 /**
  * 用于表示屏幕上的位置

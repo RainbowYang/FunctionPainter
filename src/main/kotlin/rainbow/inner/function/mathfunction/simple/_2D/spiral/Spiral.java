@@ -1,7 +1,7 @@
 package rainbow.inner.function.mathfunction.simple._2D.spiral;
 
-import rainbow.inner.coordinate.point.CoordinatePoint;
-import rainbow.inner.coordinate.point.PointPolar2D;
+import rainbow.coordinate.point.CoordinatePoint;
+import rainbow.coordinate.point.PointPolar2D;
 import rainbow.inner.function.mathfunction.simple.SimpleMathFunction;
 
 /**
