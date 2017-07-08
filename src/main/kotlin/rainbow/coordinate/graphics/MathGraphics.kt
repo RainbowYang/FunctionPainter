@@ -70,7 +70,7 @@ class MathGraphics(val g: Graphics, val coordinateSystem: CoordinateSystem) {
         val pa = p.toPointForAxes()
         for (i in 0..pa.size - 1) {
             if (pa.getValue(i) != 0.0) {
-                val p0 = pa.changeValueAsNew(i, 0.0)
+                val p0 = pa.plusAtAndNew(i, 0.0)
                 paintLine(pa, p0)
 
                 paintLocation(p0)

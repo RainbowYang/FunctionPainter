@@ -11,37 +11,61 @@ class PointForAxes constructor(vararg initValues: Double) : CoordinatePoint {
     companion object {
         operator fun invoke(initValues: DoubleArray) = PointForAxes(*initValues)
         operator fun invoke(vararg initValues: Number) =
-                invoke(kotlin.DoubleArray(initValues.size) { initValues[it].toDouble() })
+                invoke(DoubleArray(initValues.size) { initValues[it].toDouble() })
+
+        operator fun invoke(initValues: List<Number>) =
+                invoke(DoubleArray(initValues.size) { initValues[it].toDouble() })
 
         val ZERO = PointForAxes(0)
     }
 
     //生成size维的值均为value的点
-    constructor(value: Double, size: Int) : this(*DoubleArray(size) { _ -> value })
-
-    init {
-    }
+    constructor(value: Double, size: Int) : this(*DoubleArray(size) { value })
 
     val values: DoubleArray = initValues
 
     val size: Int
         get() = values.size
 
-    fun getValue(index: Int) = values.getOrNull(index) ?: 0.0 //用于低维向高维转换，维度不够时补0
+    operator fun get(index: Int) = values.getOrElse(index, { 0.0 })//维度不够时补0
+    fun getValue(index: Int) = get(index)
 
-    fun changeValueAsNew(index: Int, value: Double): PointForAxes {
-        val newValues = values.clone()
-        newValues[index] = value
+    fun plusAtAndNew(index: Int, plus: Number): PointForAxes {
+        val newValues = DoubleArray(Math.max(index + 1, size)) { get(it) }
+        newValues[index] += plus.toDouble()
         return PointForAxes(newValues)
     }
 
-    override operator fun times(times: Double) = PointForAxes(DoubleArray(size) { it -> times * getValue(it) })
+    fun timesAtAndNew(index: Int, times: Number): PointForAxes {
+        val newValues = DoubleArray(Math.max(index + 1, size)) { get(it) }
+        newValues[index] *= times.toDouble()
+        return PointForAxes(newValues)
+    }
 
-    override operator fun unaryMinus() = times(-1.0)
+    override operator fun times(times: Number) = PointForAxes(DoubleArray(size) { get(it) * times.toDouble() })
 
     override fun toPointForAxes() = this
 
+
     override fun toString(): String {
-        return "PointForAxes(values=${Arrays.toString(values)})"
+        return "PointForAxes(${Arrays.toString(values)})"
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other?.javaClass != javaClass) return false
+
+        other as PointForAxes
+
+        //只要两个点不为0的值均相等即可
+        (0..Math.max(this.size, other.size) - 1).forEach {
+            if (this[it] != other[it]) return false
+        }
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return Arrays.hashCode(values)
     }
 }

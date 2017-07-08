@@ -6,9 +6,8 @@ package rainbow.coordinate.point
  * @author Rainbow Yang
  */
 interface CoordinatePoint {
-    //所有的点都应该能够转换成PointForAxes
     fun toPointForAxes(): PointForAxes
 
-    operator fun times(times: Double): CoordinatePoint
-    operator fun unaryMinus() = times(-1.0)
+    operator fun times(times: Number): CoordinatePoint
+    operator fun unaryMinus() = times(-1)
 }

@@ -6,7 +6,7 @@ package rainbow.coordinate.point
  * @author Rainbow Yang
  */
 class PointDouble(var x: Double, var y: Double) {
-    constructor(x: Int, y: Int) : this(x.toDouble(), y.toDouble())
+    constructor(x: Number, y: Number) : this(x.toDouble(), y.toDouble())
 
     fun plus(other: PointDouble): PointDouble = PointDouble(x + other.x, y + other.y)
 
