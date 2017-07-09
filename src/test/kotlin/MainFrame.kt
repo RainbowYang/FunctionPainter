@@ -1,5 +1,7 @@
 import rainbow.coordinate.system.CoordinateSystem
 import java.awt.Graphics
+import java.awt.Graphics2D
+import java.awt.RenderingHints
 import java.awt.event.ComponentAdapter
 import java.awt.event.ComponentEvent
 import javax.swing.JFrame
@@ -16,6 +18,7 @@ class MainFrame(var coordinateSystem: CoordinateSystem) : JFrame() {
 
         add(object : JPanel() {
             override fun paintComponent(g: Graphics) {
+                (g as Graphics2D).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
                 coordinateSystem.paint(g, this@MainFrame.size)
             }
         })

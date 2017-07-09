@@ -1,6 +1,6 @@
 package rainbow.inner.function;
 
-import rainbow.coordinate.graphics.MathGraphics;
+import rainbow.coordinate.graphics.CoordinateGraphics;
 
 /**
  * 所有能画在坐标系上的东西的父类
@@ -18,7 +18,7 @@ public abstract class MyFunction {
      *
      * @param mg 包装的画笔
      */
-    public void paintBefore(MathGraphics mg) {
+    public void paintBefore(CoordinateGraphics mg) {
     }
 
     /**
@@ -27,7 +27,7 @@ public abstract class MyFunction {
      *
      * @param mg 包装的画笔
      */
-    public void paintMain(MathGraphics mg) {
+    public void paintMain(CoordinateGraphics mg) {
     }
 
     /**
@@ -36,7 +36,7 @@ public abstract class MyFunction {
      *
      * @param mg 包装的画笔
      */
-    public void paintAfter(MathGraphics mg) {
+    public void paintAfter(CoordinateGraphics mg) {
     }
 
 

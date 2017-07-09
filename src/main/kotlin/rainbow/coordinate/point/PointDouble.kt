@@ -8,6 +8,9 @@ package rainbow.coordinate.point
 class PointDouble(var x: Double, var y: Double) {
     constructor(x: Number, y: Number) : this(x.toDouble(), y.toDouble())
 
+    val available: Boolean
+        get() = (x != Double.NaN) && (y != Double.NaN)
+
     fun plus(other: PointDouble): PointDouble = PointDouble(x + other.x, y + other.y)
 
     fun times(times: Double): PointDouble = PointDouble(x * times, y * times)

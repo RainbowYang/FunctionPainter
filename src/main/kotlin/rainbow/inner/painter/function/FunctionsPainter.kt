@@ -1,6 +1,6 @@
 package rainbow.inner.painter.function
 
-import rainbow.coordinate.graphics.MathGraphics
+import rainbow.coordinate.graphics.CoordinateGraphics
 import rainbow.inner.painter.SystemPainter
 import rainbow.inner.system.MySystem
 import java.awt.Graphics
@@ -12,7 +12,7 @@ import java.awt.Graphics
  */
 interface FunctionsPainter : SystemPainter {
     override fun paint(g: Graphics, width: Double, height: Double) {
-        val mg = MathGraphics(g, MySystem.coordinateSystem)
+        val mg = CoordinateGraphics(g, MySystem.coordinateSystem)
         MySystem.functions.forEach {
             it.paintBefore(mg)
             it.paintMain(mg)

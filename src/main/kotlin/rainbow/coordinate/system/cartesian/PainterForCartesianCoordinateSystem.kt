@@ -1,8 +1,9 @@
 package rainbow.coordinate.system.cartesian
 
 import rainbow.coordinate.point.PointForAxes
-import rainbow.coordinate.graphics.MathGraphics
+import rainbow.coordinate.graphics.CoordinateGraphics
 import rainbow.coordinate.system.CoordinateSystemPainter
+import java.awt.Color
 
 /**
  * 默认的Painter For CartesianCoordinateSystem
@@ -10,36 +11,47 @@ import rainbow.coordinate.system.CoordinateSystemPainter
  */
 class PainterForCartesianCoordinateSystem(val cs: CartesianCoordinateSystem) : CoordinateSystemPainter(cs) {
 
-    override fun paintOrigin(mg: MathGraphics) {
+    var colorOfOrigin: Color = Color.BLACK
+    var colorOfGrid: Color = Color.BLACK
+    var colorOfAxes: Color = Color.BLACK
+    var colorOfNumber: Color = Color.BLACK
+
+
+    override fun paintOrigin(mg: CoordinateGraphics) {
+        mg.color = colorOfOrigin
         mg.paintString("O", PointForAxes.ZERO)
     }
 
-    override fun paintGrid(mg: MathGraphics) {
+    override fun paintGrid(mg: CoordinateGraphics) {
+        mg.color = colorOfGrid
+
         //维度遍历
-        for (s in 0..cs.axes.size - 1) {
+        for (index in 0..cs.axes.size - 1) {
             //值遍历
-            //todo test
-            for (i in -0..49) {
-                val p = PointForAxes.ZERO.plusAtAndNew(s, i.toDouble())
-                val p1 = p.plusAtAndNew(if (s == cs.axes.size - 1) 0 else s + 1, 1.0)
-                val p2 = p.plusAtAndNew(if (s == 0) cs.axes.size - 1 else s - 1, 1.0)
-                mg.paintLine(p, p1, MathGraphics.MODE_RAY_LINE)
-                mg.paintLine(p, p2, MathGraphics.MODE_RAY_LINE)
+            for (value in 0..30) {
+                val p0 = PointForAxes.ZERO.plusAtAndNew(index, value)
+                val p1 = p0.plusAtAndNew(if (index == cs.axes.size - 1) 0 else index + 1, 1.0)
+                //  val p2 = p.plusAtAndNew(if (index == 0) cs.axes.size - 1 else s - 1, 1.0)
+
+                mg.paintRayLine(p0, p1)
             }
         }
     }
 
-    override fun paintAxes(mg: MathGraphics) {
-        for (i in 0..cs.axes.size - 1) {
-            mg.paintLine(PointForAxes.ZERO, PointForAxes.ZERO.plusAtAndNew(i, 1.0), MathGraphics.MODE_STRAIGHT_LINE)
+    override fun paintAxes(mg: CoordinateGraphics) {
+        mg.color = colorOfAxes
+
+        for (index in 0..cs.axes.size - 1) {
+            mg.paintStraightLine(PointForAxes.ZERO, PointForAxes.ZERO.plusAtAndNew(index, 10))
         }
     }
 
-    override fun paintNum(mg: MathGraphics) {
-        //todo Test
-        for (s in 0..cs.axes.size - 1) {
+    override fun paintNumber(mg: CoordinateGraphics) {
+        mg.color = colorOfNumber
+
+        for (index in 0..cs.axes.size - 1) {
             (0..29).filter { it != 0 }.forEach {
-                mg.paintString(it.toString() + "", PointForAxes.ZERO.plusAtAndNew(s, it.toDouble()))
+                mg.paintString(it, PointForAxes.ZERO.plusAtAndNew(index, it))
             }
         }
     }

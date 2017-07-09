@@ -1,6 +1,6 @@
 package rainbow.coordinate.system
 
-import rainbow.coordinate.graphics.MathGraphics
+import rainbow.coordinate.graphics.CoordinateGraphics
 import rainbow.paint.Painter
 import java.awt.Graphics
 
@@ -9,16 +9,16 @@ import java.awt.Graphics
  * @author Rainbow Yang
  */
 abstract class CoordinateSystemPainter(val coordinateSystem: CoordinateSystem) : Painter {
-    open fun paintOrigin(mg: MathGraphics) {}
-    open fun paintGrid(mg: MathGraphics) {}
-    open fun paintAxes(mg: MathGraphics) {}
-    open fun paintNum(mg: MathGraphics) {}
+    open fun paintOrigin(mg: CoordinateGraphics) {}
+    open fun paintGrid(mg: CoordinateGraphics) {}
+    open fun paintAxes(mg: CoordinateGraphics) {}
+    open fun paintNumber(mg: CoordinateGraphics) {}
 
     override fun paint(g: Graphics, width: Double, height: Double) {
-        val mg = MathGraphics(g, coordinateSystem)
+        val mg = CoordinateGraphics(g, coordinateSystem, width, height)
         paintOrigin(mg)
         paintGrid(mg)
         paintAxes(mg)
-        paintNum(mg)
+        paintNumber(mg)
     }
 }
