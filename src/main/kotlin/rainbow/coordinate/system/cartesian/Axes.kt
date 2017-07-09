@@ -7,30 +7,44 @@ package rainbow.coordinate.system.cartesian
  *
  * @author Rainbow Yang
  */
-class Axes {
-    val axes = mutableListOf<Axis>()
-
-    fun addAxis(axis: Axis) = axes.add(axis)
-
-    fun addAxis(angle: Double) = axes.add(Axis(angle))
-    fun addAxis(angle: Int) = addAxis(angle.toDouble())
-    fun addAxisDeg(angle: Double) = addAxis(Math.toRadians(angle))
-    fun addAxisDeg(angle: Int) = addAxisDeg(angle.toDouble())
-
-    fun getAngle(index: Int) = axes[index].angle
-    fun getLength(index: Int) = axes[index].length
-
-    val size
+class Axes(initSize: Int) {
+    val axes = MutableList(initSize) { Axis() }
+    val size: Int
         get() = axes.size
 
-    /**
-     * 对调两个维度的位置
-     * @param index1 维度1
-     * @param index2 维度2
-     */
-    fun change(index1: Int, index2: Int) {
-        val axis = axes[index1]
-        axes[index1] = axes[index2]
-        axes[index2] = axis
+    operator fun get(index: Int): Axis = axes[index]
+
+    fun setAngle(vararg angles: Number) {
+        for ((index, value) in angles.withIndex()) {
+            if (index <= size)
+                axes[index].angle = value.toDouble()
+            else return
+        }
+    }
+
+    fun setAngleByDegrees(vararg angles: Number) {
+        for ((index, value) in angles.withIndex()) {
+            if (index <= size)
+                axes[index].angle = Math.toRadians(value.toDouble())
+            else return
+        }
+    }
+
+    override fun toString(): String {
+        return "$axes"
+    }
+
+
+}
+
+open class Axis(var angle: Double = 0.0, var length: Double = 40.0) {
+    constructor() : this(0.0, 40.0)
+    constructor(angle: Number = 0.0, length: Number = 40.0) : this(angle.toDouble(), length.toDouble())
+
+    operator fun component1() = angle
+    operator fun component2() = length
+
+    override fun toString(): String {
+        return "Axis(angle=$angle, length=$length)"
     }
 }

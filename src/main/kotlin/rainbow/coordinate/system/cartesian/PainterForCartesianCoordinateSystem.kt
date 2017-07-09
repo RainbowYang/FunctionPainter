@@ -9,6 +9,7 @@ import rainbow.coordinate.system.CoordinateSystemPainter
  * @author Rainbow Yang
  */
 class PainterForCartesianCoordinateSystem(val cs: CartesianCoordinateSystem) : CoordinateSystemPainter(cs) {
+
     override fun paintOrigin(mg: MathGraphics) {
         mg.paintString("O", PointForAxes.ZERO)
     }

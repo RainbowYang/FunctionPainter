@@ -4,38 +4,30 @@ import rainbow.coordinate.point.CoordinatePoint
 import rainbow.coordinate.point.PointDouble
 import rainbow.coordinate.point.PointForAxes
 import rainbow.coordinate.system.CoordinateSystem
+import rainbow.coordinate.system.CoordinateSystem2D
 import rainbow.paint.Painter
 
 /**
  * 任意维度的轴坐标系
  * @author Rainbow Yang
  */
-class CartesianCoordinateSystem(size: Int) : CoordinateSystem {
+class CartesianCoordinateSystem(size: Int,
+                                override var x: Double = 700.0,
+                                override var y: Double = 500.0,
+                                override var rotatedAngle: Double = 0.0,
+                                override var zoomRate: Double = 1.0)
+    : CoordinateSystem, CoordinateSystem2D {
     override var painter: Painter = PainterForCartesianCoordinateSystem(this)
 
-    val axes = Axes()
+    val axes = Axes(size)
 
     init {
+        if (size <= 1)
+            throw IllegalArgumentException("$size is not allowed in CartesianCoordinateSystem")
         when (size) {
-            4 -> {
-                axes.addAxisDeg(225)
-                axes.addAxisDeg(0)
-                axes.addAxisDeg(90)
-                axes.addAxisDeg(135)
-            }
-
-            3 -> {
-                axes.addAxisDeg(225)
-                axes.addAxisDeg(0)
-                axes.addAxisDeg(90)
-            }
-
-            2 -> {
-                axes.addAxisDeg(0)
-                axes.addAxisDeg(90)
-            }
-
-            1 -> axes.addAxisDeg(0)
+            4 -> axes.setAngleByDegrees(225, 0, 90, 135)
+            3 -> axes.setAngleByDegrees(225, 0, 90)
+            2 -> axes.setAngleByDegrees(0, 90)
         }
     }
 
@@ -44,24 +36,30 @@ class CartesianCoordinateSystem(size: Int) : CoordinateSystem {
         var px = 0.0
         var py = 0.0
         for (i in 0..axes.size - 1) {
-            val angle = axes.getAngle(i)
-            val length = axes.getLength(i)
+            val (angle, length) = axes[i]
             px += Math.cos(angle) * length * form.getValue(i)
             py += Math.sin(angle) * length * form.getValue(i)
         }
-        return PointDouble(px, py)
+        return rotateAndScaleAndMove(PointDouble(px, py))
     }
 
-    override fun toCoordinatePoint(pd: PointDouble): CoordinatePoint {
-        val x = pd.spin(Math.PI / 2 - axes.getAngle(1)).x
-        val y = pd.spin(0 - axes.getAngle(0)).y
+    //会返回在第一个面的值
+    override fun toCoordinatePoint(p: PointDouble): CoordinatePoint {
+        val pd = inverseRotateAndScaleAndMove(p)
 
-        val xAngle = axes.getAngle(0) + Math.PI / 2 - axes.getAngle(1)
-        val yAngle = axes.getAngle(1) - axes.getAngle(0)
+        val x = pd.spin(Math.PI / 2 - axes[1].angle).x
+        val y = pd.spin(0 - axes[0].angle).y
 
-        val px = x / Math.cos(xAngle) / axes.getLength(0)
-        val py = y / Math.sin(yAngle) / axes.getLength(1)
+        val xAngle = axes[0].angle + Math.PI / 2 - axes[1].angle
+        val yAngle = axes[1].angle - axes[0].angle
+
+        val px = x / Math.cos(xAngle) / axes[0].length
+        val py = y / Math.sin(yAngle) / axes[1].length
 
         return PointForAxes(px, py)
+    }
+
+    override fun toString(): String {
+        return "CartesianCoordinateSystem(axes=$axes, x=$x, y=$y, rotatedAngle=$rotatedAngle, zoomRate=$zoomRate)"
     }
 }

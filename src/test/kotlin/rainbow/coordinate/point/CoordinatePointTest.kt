@@ -13,8 +13,6 @@ class CoordinatePointTest : StringSpec() {
 
             point.plusAtAndNew(1, 1.0) shouldBe PointForAxes(0, 1)
             point.timesAtAndNew(1, 1.0) shouldBe PointForAxes(0)
-
-
         }
     }
 }
