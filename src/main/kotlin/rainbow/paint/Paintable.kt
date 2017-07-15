@@ -25,3 +25,7 @@ interface Painter {
     fun paint(g: Graphics, width: Number, height: Number) = paint(g, width.toDouble(), height.toDouble())
     fun paint(g: Graphics, width: Double, height: Double)
 }
+
+object EmptyPainter : Painter {
+    override fun paint(g: Graphics, width: Double, height: Double) {}
+}

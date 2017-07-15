@@ -1,6 +1,5 @@
 package rainbow.inner.background
 
-import rainbow.inner.painter.SystemPainter
 import java.awt.Color
 import java.awt.Graphics
 import java.awt.Image
@@ -16,13 +15,13 @@ import rainbow.tools.getColorByHexRGB
  *
  * @author Rainbow Yang
  */
-open class Background(var backColor: Color? = Color.WHITE, var img: Image? = null, var frontColor: Color? = null) : SystemPainter {
+open class Background(var backColor: Color? = Color.WHITE, var img: Image? = null, var frontColor: Color? = null) {
 
     constructor(backColor: String, img: Image? = null, frontColor: String? = null) :
             this(getColorByHexRGB(backColor), img, getColorByHexRGB(frontColor))
 
 
-    override fun paint(g: Graphics, width: Double, height: Double) {
+    fun paint(g: Graphics, width: Double, height: Double) {
         if (backColor != null)
             paintBack(g, width.toInt(), height.toInt())
 
