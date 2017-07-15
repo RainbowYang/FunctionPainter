@@ -1,24 +1,23 @@
 package rainbow.coordinate.system
 
+import rainbow.coordinate.CoordinatePainter
 import rainbow.coordinate.graphics.CoordinateGraphics
-import rainbow.paint.Painter
-import java.awt.Graphics
 
 /**
  * 所有CoordinateSystemPainter的接口
  * @author Rainbow Yang
  */
-abstract class CoordinateSystemPainter(val coordinateSystem: CoordinateSystem) : Painter {
-    open fun paintOrigin(mg: CoordinateGraphics) {}
-    open fun paintGrid(mg: CoordinateGraphics) {}
-    open fun paintAxes(mg: CoordinateGraphics) {}
-    open fun paintNumber(mg: CoordinateGraphics) {}
+abstract class CoordinateSystemPainter(coordinateSystem: CoordinateSystem) : CoordinatePainter(coordinateSystem) {
 
-    override fun paint(g: Graphics, width: Double, height: Double) {
-        val mg = CoordinateGraphics(g, coordinateSystem, width, height)
-        paintOrigin(mg)
-        paintGrid(mg)
-        paintAxes(mg)
-        paintNumber(mg)
+    open fun paintOrigin(cg: CoordinateGraphics) {}
+    open fun paintGrid(cg: CoordinateGraphics) {}
+    open fun paintAxes(cg: CoordinateGraphics) {}
+    open fun paintNumber(cg: CoordinateGraphics) {}
+
+    override fun paintByCoordinateGraphics(cg: CoordinateGraphics) {
+        paintOrigin(cg)
+        paintGrid(cg)
+        paintAxes(cg)
+        paintNumber(cg)
     }
 }

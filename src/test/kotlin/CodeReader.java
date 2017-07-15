@@ -1,5 +1,3 @@
-package rainbow.tools;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -15,7 +13,7 @@ import java.util.Map;
 public class CodeReader {
 
     public static void main(String[] args) {
-        new CodeReader("..").print(DETAILED);
+        new CodeReader(".//src").print(DETAILED);
     }
 
     //模式
