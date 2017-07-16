@@ -66,7 +66,7 @@ class CoordinateGraphics(val g: Graphics,
         val pa = p.toPointForAxes()
         for (i in 0..pa.size - 1) {
             if (pa.getValue(i) != 0.0) {
-                val p0 = pa.plusAtAndNew(i, 0.0)
+                val p0 = pa.setAtAndNew(i, 0.0)
                 paintLine(pa, p0)
 
                 paintLocation(p0)

@@ -8,9 +8,11 @@ import rainbow.coordinate.system.CoordinateSystem
 
 /**
  * 任意维度的超方体
+ * 基于paintLocation实现
+ * 所以目前只能从原点出发
  * @author Rainbow Yang
  */
-class Hypercube(var length: Double, var size: Int) : CoordinateFunction() {
+class Hypercube(var size: Int, var length: Double = 5.0) : CoordinateFunction() {
     override var coordinateSystem: CoordinateSystem
         get() = super.coordinateSystem
         set(value) {

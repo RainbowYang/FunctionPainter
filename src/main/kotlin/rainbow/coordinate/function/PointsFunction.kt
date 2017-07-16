@@ -17,13 +17,15 @@ abstract class PointsFunction : CoordinateFunction() {
             painter = PointsFunctionPainter(this, value)
         }
 
+    override fun init() = calcPoints()
+
     open fun calcPoints() {}
 
     fun cleanAllPoints() = pointsList.clear()
     fun newPointList() = pointsList.add(mutableListOf())
     fun addPoint(coordinatePoint: CoordinatePoint) {
         if (pointsList.isEmpty())
-            pointsList.add(mutableListOf())
+            newPointList()
 
         pointsList.last().add(coordinatePoint)
     }

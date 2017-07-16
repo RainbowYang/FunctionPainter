@@ -18,6 +18,8 @@ abstract class CoordinateFunction : Paintable {
         get() = (painter as CoordinatePainter).coordinateSystem
         set(value) {}
 
+    open fun init() {}
+
 }
 
 abstract class CoordinateFunctionPainter<out F : CoordinateFunction>(val function: F, coordinateSystem: CoordinateSystem)

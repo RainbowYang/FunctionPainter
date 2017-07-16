@@ -36,6 +36,12 @@ class PointForAxes constructor(vararg initValues: Double) : CoordinatePoint {
         return PointForAxes(newValues)
     }
 
+    fun setAtAndNew(index: Int, value: Number): PointForAxes {
+        val newValues = DoubleArray(Math.max(index + 1, size)) { get(it) }
+        newValues[index] = value.toDouble()
+        return PointForAxes(newValues)
+    }
+
     fun timesAtAndNew(index: Int, times: Number): PointForAxes {
         val newValues = DoubleArray(Math.max(index + 1, size)) { get(it) }
         newValues[index] *= times.toDouble()

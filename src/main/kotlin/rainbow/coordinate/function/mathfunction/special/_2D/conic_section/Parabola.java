@@ -12,7 +12,7 @@ public class Parabola extends ConicSection {
         this.p = p;
 
         if (towards)
-            setFunctions(i -> (i * i) / (2 * p), MathFunction.SELF);
+            setFunctions(i -> (i * i) / (2 * p), MathFunction.Companion.getSELF());
         else
             setFunctions(i -> i, i -> (i * i) / (2 * p));
     }

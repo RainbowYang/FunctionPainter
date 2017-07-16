@@ -5,7 +5,6 @@ import rainbow.coordinate.point.PointPolar2D
 
 /**
  * 正多边形
-
  * @author Rainbow Yang
  */
 class RegularPolygon(
@@ -34,7 +33,7 @@ class RegularPolygon(
 
                 index += step
                 index %= sides
-                
+
                 if (index == location) break
             }
 
