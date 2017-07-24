@@ -1,23 +1,22 @@
 package rainbow.coordinate.function
 
+import rainbow.ables.EmptyPainter
+import rainbow.ables.Paintable
+import rainbow.ables.Painter
 import rainbow.coordinate.CoordinatePainter
 import rainbow.coordinate.graphics.CoordinateGraphics
 import rainbow.coordinate.system.CoordinateSystem
-import rainbow.paint.EmptyPainter
-import rainbow.paint.Paintable
-import rainbow.paint.Painter
 
 /**
  * 所有能画在坐标系上的东西
  * @author Rainbow Yang
  */
 abstract class CoordinateFunction : Paintable {
-    override var painter: Painter = EmptyPainter
-
     open var coordinateSystem: CoordinateSystem
         get() = (painter as CoordinatePainter).coordinateSystem
         set(value) {}
 
+    override var painter: Painter = EmptyPainter
     open fun init() {}
 
 }

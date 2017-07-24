@@ -1,11 +1,11 @@
 package rainbow.coordinate.system.cartesian
 
+import rainbow.ables.Painter
 import rainbow.coordinate.point.CoordinatePoint
 import rainbow.coordinate.point.PointDouble
 import rainbow.coordinate.point.PointForAxes
 import rainbow.coordinate.system.CoordinateSystem
 import rainbow.coordinate.system.CoordinateSystem2D
-import rainbow.paint.Painter
 
 /**
  * 任意维度的轴坐标系

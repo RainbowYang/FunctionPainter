@@ -1,5 +1,6 @@
 package rainbow.coordinate.function.mathfunction
 
+import rainbow.ables.Painter
 import rainbow.coordinate.function.PointsFunction
 import rainbow.coordinate.point.CoordinatePoint
 import rainbow.coordinate.point.PointForAxes
@@ -12,6 +13,10 @@ typealias DoubleUnaryOperator = (Double) -> Double
  * @author Rainbow Yang
  */
 open class MathFunction(initFunctions: List<DoubleUnaryOperator> = listOf()) : PointsFunction() {
+    override var painter: Painter
+        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
+        set(value) {}
+
     companion object {
         val SELF: DoubleUnaryOperator = { it }
 

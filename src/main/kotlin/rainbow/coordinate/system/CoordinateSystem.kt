@@ -1,8 +1,8 @@
 package rainbow.coordinate.system
 
+import rainbow.ables.Paintable
 import rainbow.coordinate.point.CoordinatePoint
 import rainbow.coordinate.point.PointDouble
-import rainbow.paint.Paintable
 
 /**
  * 坐标系接口

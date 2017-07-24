@@ -1,6 +1,5 @@
 package rainbow.coordinate.system
 
-import rainbow.coordinate.point.CoordinatePoint
 import rainbow.coordinate.point.PointDouble
 
 /**
@@ -64,5 +63,4 @@ interface CoordinateSystem2D : CoordinateSystem {
             result = result.times(1.0 / zoomRate)
         return result
     }
-
 }
