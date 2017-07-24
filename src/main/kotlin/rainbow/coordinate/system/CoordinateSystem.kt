@@ -1,5 +1,6 @@
 package rainbow.coordinate.system
 
+import rainbow.ables.InputListenable
 import rainbow.ables.Paintable
 import rainbow.coordinate.point.CoordinatePoint
 import rainbow.coordinate.point.PointDouble
@@ -8,7 +9,7 @@ import rainbow.coordinate.point.PointDouble
  * 坐标系接口
  * @author Rainbow Yang
  */
-interface CoordinateSystem : Paintable {
+interface CoordinateSystem : Paintable, InputListenable {
     fun toScreenPoint(cp: CoordinatePoint): PointDouble
 
     fun toScreenPoint(points: List<CoordinatePoint>) = List(points.size) { toScreenPoint(points[it]) }

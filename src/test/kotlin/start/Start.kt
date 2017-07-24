@@ -1,5 +1,6 @@
 package start
 
+import rainbow.ables.addListener
 import rainbow.coordinate.function.CoordinateFunction
 import rainbow.coordinate.function.pointfunction.Hypercube
 import rainbow.coordinate.system.CoordinateSystem
@@ -40,6 +41,11 @@ class MainFrame(var coordinateSystem: CoordinateSystem,
                 functions.forEach { it.repaint(size.width, size.height, this@MainFrame::repaint) }
             }
         })
+
+        addListener(coordinateSystem) {
+            coordinateSystem.repaint(size.width, size.height, this@MainFrame::repaint)
+            functions.forEach { it.repaint(size.width, size.height, this@MainFrame::repaint) }
+        }
 
         defaultCloseOperation = EXIT_ON_CLOSE
         isVisible = true

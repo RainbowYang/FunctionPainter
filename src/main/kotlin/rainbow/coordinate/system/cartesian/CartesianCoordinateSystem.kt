@@ -1,5 +1,6 @@
 package rainbow.coordinate.system.cartesian
 
+import rainbow.ables.InputListener
 import rainbow.ables.Painter
 import rainbow.coordinate.point.CoordinatePoint
 import rainbow.coordinate.point.PointDouble
@@ -17,7 +18,9 @@ class CartesianCoordinateSystem(size: Int,
                                 override var rotatedAngle: Double = 0.0,
                                 override var zoomRate: Double = 1.0)
     : CoordinateSystem, CoordinateSystem2D {
+
     override var painter: Painter = PainterForCartesianCoordinateSystem(this)
+    override var listener: InputListener = InputListenerForCartesianCoordinateSystem(this)
 
     val axes = Axes(size)
 
