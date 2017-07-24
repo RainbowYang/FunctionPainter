@@ -26,11 +26,9 @@ interface Paintable {
 abstract class Painter {
 
     var cacheImage: BufferedImage = EmptyImage
+    lateinit protected var paintingImage: BufferedImage
 
-    var width = 0.0
-    var height = 0.0
-
-    var callback = {}
+    var _callback = {}
 
     /**
      * 在绘画期间可以决定：
@@ -38,17 +36,19 @@ abstract class Painter {
      * 要不要调用[callback]去显示尚未完成的图像
      */
     fun repaint(width: Number, height: Number, callback: () -> Unit) {
-        this.width = width.toDouble()
-        this.height = height.toDouble()
-        this.callback = callback
+        this._callback = callback
+        paintingImage = newImage(width, height)
 
-        Thread { repaint() }.start()
+        repaint()
     }
 
     open fun repaint() {}
 
-    protected fun cleanImage() {
-        cacheImage = EmptyImage
+    fun callback() {
+        cacheImage = newImage(paintingImage).apply {
+            graphics.drawImage(paintingImage, 0, 0, null)
+        }
+        _callback()
     }
 }
 
@@ -57,3 +57,4 @@ object EmptyPainter : Painter()
 object EmptyImage : BufferedImage(1, 1, TYPE_4BYTE_ABGR)
 
 fun newImage(width: Number, height: Number) = BufferedImage(width.toInt(), height.toInt(), TYPE_4BYTE_ABGR)
+fun newImage(image: BufferedImage) = BufferedImage(image.width, image.height, TYPE_4BYTE_ABGR)

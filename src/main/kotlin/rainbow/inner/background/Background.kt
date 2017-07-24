@@ -4,7 +4,7 @@ import java.awt.Color
 import java.awt.Graphics
 import java.awt.Image
 
-import rainbow.tools.getColorByHexRGB
+import rainbow.util.getColorByHexRGB
 
 /**
  * 背景

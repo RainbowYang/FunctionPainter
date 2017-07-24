@@ -29,7 +29,7 @@ class CartesianCoordinateSystem(size: Int,
             throw IllegalArgumentException("$size is not allowed in CartesianCoordinateSystem")
         when (size) {
             4 -> axes.setAngleByDegrees(225, 0, 90, 135)
-            3 -> axes.setAngleByDegrees(225, 0, 90)
+            3 -> axes.setAngleByDegrees(225, 0, 120)
             2 -> axes.setAngleByDegrees(0, 90)
         }
     }

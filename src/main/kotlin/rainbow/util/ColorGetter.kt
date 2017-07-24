@@ -1,4 +1,4 @@
-package rainbow.tools
+package rainbow.util
 
 import java.awt.Color
 

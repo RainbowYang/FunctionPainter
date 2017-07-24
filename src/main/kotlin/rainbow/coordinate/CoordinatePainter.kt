@@ -13,8 +13,7 @@ import rainbow.coordinate.system.CoordinateSystem
 abstract class CoordinatePainter(var coordinateSystem: CoordinateSystem) : Painter() {
 
     override fun repaint() {
-        cacheImage = newImage(width, height)
-        val cg = CoordinateGraphics(cacheImage.graphics, coordinateSystem, width, height)
+        val cg = CoordinateGraphics(paintingImage, coordinateSystem)
 
         paintByCoordinateGraphics(cg)
 

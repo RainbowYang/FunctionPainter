@@ -4,9 +4,8 @@ import rainbow.coordinate.point.CoordinatePoint
 import rainbow.coordinate.point.PointDouble
 import rainbow.coordinate.system.CoordinateSystem
 import rainbow.inner.math.Line
-import java.awt.Color
-import java.awt.Graphics
-import java.awt.Polygon
+import java.awt.*
+import java.awt.image.BufferedImage
 
 /**
  * 坐标画笔，对Graphics进行包装
@@ -19,6 +18,18 @@ class CoordinateGraphics(val g: Graphics,
                          val system: CoordinateSystem,
                          val width: Double = 1920.0,
                          val height: Double = 1080.0) {
+
+    constructor(g: Graphics,
+                system: CoordinateSystem,
+                width: Number = 1920.0,
+                height: Number = 1080.0) : this(g, system, width.toDouble(), height.toDouble())
+
+    constructor(image: BufferedImage,
+                system: CoordinateSystem) : this(image.graphics, system, image.width, image.height)
+
+    init {
+        (g as Graphics2D).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
+    }
 
     var color: Color
         get () = g.color

@@ -20,8 +20,6 @@ class InputListenerForCartesianCoordinateSystem(val ccs: CartesianCoordinateSyst
 
     //坐标系移动
     override fun mouseDragged(e: MouseEvent) {
-        println(e)
-        println(ccs.x.toString() + "--" + ccs.y)
         when (first.button) {
             BUTTON1 -> {
                 ccs.move(e.x - last.x, e.y - last.y)
