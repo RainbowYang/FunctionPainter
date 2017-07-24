@@ -3,7 +3,7 @@ package rainbow.coordinate.graphics
 import rainbow.coordinate.point.CoordinatePoint
 import rainbow.coordinate.point.PointDouble
 import rainbow.coordinate.system.CoordinateSystem
-import rainbow.inner.math.Line
+import rainbow.math.Line
 import java.awt.*
 import java.awt.image.BufferedImage
 

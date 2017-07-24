@@ -2,7 +2,6 @@ package start
 
 import rainbow.ables.addListener
 import rainbow.coordinate.function.CoordinateFunction
-import rainbow.coordinate.function.pointfunction.Hypercube
 import rainbow.coordinate.system.CoordinateSystem
 import rainbow.coordinate.system.cartesian.CartesianCoordinateSystem
 import java.awt.Frame

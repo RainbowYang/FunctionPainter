@@ -1,4 +1,4 @@
-package rainbow.inner.background
+package rainbow.background
 
 import java.awt.Color
 import java.awt.Graphics
