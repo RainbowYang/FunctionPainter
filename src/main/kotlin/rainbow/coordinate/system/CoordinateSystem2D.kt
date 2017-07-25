@@ -4,23 +4,20 @@ import rainbow.coordinate.point.PointDouble
 
 /**
  * 二维坐标系的接口
- * 自动实现平移，旋转，伸缩
+ * 实现平移，旋转，伸缩
  * @author Rainbow Yang
  */
-interface CoordinateSystem2D : CoordinateSystem {
-    var x: Double
-    var y: Double
-
-    //使用弧度
-    var rotatedAngle: Double
+abstract class CoordinateSystem2D(var x: Double = 0.0,
+                                  var y: Double = 0.0,
+                                  var rotatedAngle: Double = 0.0,
+                                  var zoomRate: Double = 1.0
+) : CoordinateSystem {
 
     var rotatedAngleAsDegree: Double
         get() = Math.toDegrees(rotatedAngle)
         set(value) {
             rotatedAngle = Math.toRadians(value)
         }
-
-    var zoomRate: Double
 
     fun move(x: Number, y: Number) {
         this.x += x.toDouble()

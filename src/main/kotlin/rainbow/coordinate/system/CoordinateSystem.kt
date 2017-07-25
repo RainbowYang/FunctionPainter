@@ -10,6 +10,7 @@ import rainbow.coordinate.point.PointDouble
  * @author Rainbow Yang
  */
 interface CoordinateSystem : Paintable, InputListenable {
+
     fun toScreenPoint(cp: CoordinatePoint): PointDouble
 
     fun toScreenPoint(points: List<CoordinatePoint>) = List(points.size) { toScreenPoint(points[it]) }

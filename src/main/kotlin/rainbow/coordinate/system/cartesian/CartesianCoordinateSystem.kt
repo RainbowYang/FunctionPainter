@@ -5,19 +5,23 @@ import rainbow.ables.Painter
 import rainbow.coordinate.point.CoordinatePoint
 import rainbow.coordinate.point.PointDouble
 import rainbow.coordinate.point.PointForAxes
-import rainbow.coordinate.system.CoordinateSystem
 import rainbow.coordinate.system.CoordinateSystem2D
 
 /**
  * 任意维度的轴坐标系
+ *
+ * 但由于其任意纬度的特性，可能不会有专门的立体效果
+ * 故继承[CoordinateSystem2D]
+ *
  * @author Rainbow Yang
+ * @see CoordinateSystem2D
  */
 class CartesianCoordinateSystem(size: Int,
-                                override var x: Double = 700.0,
-                                override var y: Double = 500.0,
-                                override var rotatedAngle: Double = 0.0,
-                                override var zoomRate: Double = 1.0)
-    : CoordinateSystem, CoordinateSystem2D {
+                                x: Double = 700.0,
+                                y: Double = 500.0,
+                                rotatedAngle: Double = 0.0,
+                                zoomRate: Double = 1.0)
+    : CoordinateSystem2D(x, y, rotatedAngle, zoomRate) {
 
     override var painter: Painter = PainterForCartesianCoordinateSystem(this)
     override var listener: InputListener = InputListenerForCartesianCoordinateSystem(this)

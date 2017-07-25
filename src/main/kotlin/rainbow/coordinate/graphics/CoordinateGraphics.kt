@@ -4,6 +4,9 @@ import rainbow.coordinate.point.CoordinatePoint
 import rainbow.coordinate.point.PointDouble
 import rainbow.coordinate.system.CoordinateSystem
 import rainbow.math.Line
+import rainbow.util.addPoint
+import rainbow.util.drawPolyline
+import rainbow.util.similarEquals
 import java.awt.*
 import java.awt.image.BufferedImage
 
@@ -42,15 +45,13 @@ class CoordinateGraphics(val g: Graphics,
         g.drawString(text.toString(), locationOnScreen.x.toInt(), locationOnScreen.y.toInt())
     }
 
-
     fun paintCoordinatePoints(vararg ps: CoordinatePoint) = paintCoordinatePoints(ps.toList())
 
-    //  todo 应对界面外的绘画做取消
     fun paintCoordinatePoints(ps: List<CoordinatePoint>) {
         val p = Polygon()
 
         system.toScreenPoint(ps).forEach {
-            if (it.available) {
+            if (it.available && !it.isOutOfSize(width, height)) {
                 p.addPoint(it)
             } else {
                 g.drawPolyline(p)
@@ -60,13 +61,6 @@ class CoordinateGraphics(val g: Graphics,
 
         g.drawPolyline(p)
     }
-
-    //Graphics提供了fillPolygon(Polygon)，却没有drawPolyline(Polygon)，特此扩展
-    fun Graphics.drawPolyline(p: Polygon) {
-        if (p.npoints > 0) drawPolyline(p.xpoints, p.ypoints, p.npoints)
-    }
-
-    fun Polygon.addPoint(it: PointDouble) = addPoint(it.x.toInt(), it.y.toInt())
 
     /**
      * 画出一个点的位置
@@ -93,7 +87,7 @@ class CoordinateGraphics(val g: Graphics,
             = paintStraightLine(system.toScreenPoint(origin), system.toScreenPoint(towards))
 
     fun paintStraightLine(origin: PointDouble, towards: PointDouble) {
-        if (origin.x == towards.x) {
+        if (origin.x similarEquals towards.x) {
             g.drawLine(origin.x, 0, towards.x, height)
         } else {
             val line = Line(origin, towards)
@@ -112,7 +106,7 @@ class CoordinateGraphics(val g: Graphics,
             = paintRayLine(system.toScreenPoint(origin), system.toScreenPoint(towards))
 
     fun paintRayLine(origin: PointDouble, towards: PointDouble) {
-        if (origin.x == towards.x) {
+        if (origin.x similarEquals towards.x) {
             if (origin.y < towards.y) {
                 g.drawLine(origin.x, origin.y, towards.x, height)
             } else {

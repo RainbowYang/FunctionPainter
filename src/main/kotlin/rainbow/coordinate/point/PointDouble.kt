@@ -9,7 +9,10 @@ class PointDouble(var x: Double, var y: Double) {
     constructor(x: Number, y: Number) : this(x.toDouble(), y.toDouble())
 
     val available: Boolean
-        get() = (x != Double.NaN) && (y != Double.NaN)
+        get() = !x.isNaN() && !y.isNaN()
+
+    fun isOutOfSize(width: Number, height: Number) =
+            x < 0 || y < 0 || x > width.toInt() || y > height.toInt()
 
     fun plus(other: PointDouble): PointDouble = PointDouble(x + other.x, y + other.y)
 
