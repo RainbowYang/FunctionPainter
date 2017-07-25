@@ -26,15 +26,15 @@ class CartesianCoordinateSystem(size: Int,
     override var painter: Painter = PainterForCartesianCoordinateSystem(this)
     override var listener: InputListener = InputListenerForCartesianCoordinateSystem(this)
 
-    val axes = Axes(size)
+    val axes = Axes()
 
     init {
         if (size <= 1)
             throw IllegalArgumentException("$size is not allowed in CartesianCoordinateSystem")
         when (size) {
-            4 -> axes.setAngleByDegrees(225, 0, 90, 135)
-            3 -> axes.setAngleByDegrees(225, 0, 120)
-            2 -> axes.setAngleByDegrees(0, 90)
+            4 -> axes.addAxis(Axis.front(), Axis.right(), Axis.up(), Axis(-60, 60))
+            3 -> axes.addAxis(Axis.front(), Axis.right(), Axis.up())
+            2 -> axes.addAxis(Axis.right(), Axis.up())
         }
     }
 

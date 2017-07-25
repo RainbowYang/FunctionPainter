@@ -3,6 +3,7 @@ package start
 import rainbow.ables.addListener
 import rainbow.coordinate.function.CoordinateFunction
 import rainbow.coordinate.system.CoordinateSystem
+import rainbow.coordinate.system.cartesian.Axis
 import rainbow.coordinate.system.cartesian.CartesianCoordinateSystem
 import java.awt.Frame
 import java.awt.Graphics
@@ -14,13 +15,14 @@ import javax.swing.JFrame
 import javax.swing.JPanel
 
 fun main(args: Array<String>) {
-    val coordinateSystem = CartesianCoordinateSystem(2)
+    val coordinateSystem = CartesianCoordinateSystem(3)
     val frame = MainFrame(coordinateSystem)
 //
 //    frame.functions.add(rainbow.coordinate.function.mathfunction.simple._2D.LogFunction(1.0,2.0).apply {
 //        this.coordinateSystem=coordinateSystem
 //        init()
 //    })
+
 }
 
 class MainFrame(var coordinateSystem: CoordinateSystem,

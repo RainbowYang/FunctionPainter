@@ -1,50 +1,80 @@
 package rainbow.coordinate.system.cartesian
 
+import java.lang.Math.*
+import kotlin.coroutines.experimental.EmptyCoroutineContext.plus
+
 /**
- * For CartesianCoordinateSystem
- *
- * 用于存储Axis及其子类
- *
+ * 每个[Axis]都将会被视为一个轴，会放在一个球(经纬度坐标)的模型上
  * @author Rainbow Yang
  */
-class Axes(initSize: Int) {
-    val axes = MutableList(initSize) { Axis() }
+class Axes {
+    var axes = mutableListOf<Axis>()
+
     val size: Int
         get() = axes.size
 
-    operator fun get(index: Int): Axis = axes[index]
+    operator fun get(index: Int) = axes[index]
 
-    fun setAngle(vararg angles: Number) {
-        for ((index, value) in angles.withIndex()) {
-            if (index <= size)
-                axes[index].angle = value.toDouble()
-            else return
-        }
-    }
-
-    fun setAngleByDegrees(vararg angles: Number) {
-        for ((index, value) in angles.withIndex()) {
-            if (index <= size)
-                axes[index].angle = Math.toRadians(value.toDouble())
-            else return
-        }
-    }
-
-    override fun toString(): String {
-        return "$axes"
-    }
-
-
+    fun addAxis(vararg axes: Axis) = this.axes.addAll(axes)
 }
 
-open class Axis(var angle: Double = 0.0, var length: Double = 40.0) {
-    constructor() : this(0.0, 40.0)
-    constructor(angle: Number = 0.0, length: Number = 40.0) : this(angle.toDouble(), length.toDouble())
+class Axis(xAngle: Double = 0.0, yAngle: Double = 0.0, var originalLength: Double = 40.0) {
+
+    companion object {
+        operator fun invoke(xAngle: Number = 0.0, yAngle: Number = 0.0, originalLength: Double = 40.0) =
+                Axis(xAngle.toDouble(), yAngle.toDouble(), originalLength)
+
+        fun front() = Axis()
+        fun back() = Axis(180, 0)
+        fun up() = Axis(0, 90)
+        fun down() = Axis(0, -90)
+        fun right() = Axis(90, 0)
+        fun left() = Axis(-90, 0)
+    }
+
+    operator fun component2() = length
+    var length: Double
+        get() = originalLength * visualTimes
+        set(value) {
+            originalLength = length / visualTimes
+        }
 
     operator fun component1() = angle
-    operator fun component2() = length
+    var angle: Double = 0.0
+        private set
+    var visualTimes: Double = 0.0
+        private set
+
+    var xAngle: Double = xAngle
+        private set
+    var yAngle: Double = yAngle
+        private set
+
+    init {
+        resetAngleAndLength()
+    }
+
+    var movable = true
+
+    fun move(x: Number, y: Number) {
+        if (movable) {
+            xAngle += x.toDouble()
+            yAngle += y.toDouble()
+
+            resetAngleAndLength()
+        }
+    }
+
+    private fun resetAngleAndLength() {
+        val x = sin(toRadians(xAngle)) * cos(toRadians(yAngle))
+        val y = sin(toRadians(yAngle))
+
+        angle = atan2(y, x)
+        visualTimes = sqrt(x * x + y * y)
+    }
 
     override fun toString(): String {
-        return "Axis(angle=$angle, length=$length)"
+        return "Axis(originalLength=$originalLength, angle=$angle, visualTimes=$visualTimes, xAngle=$xAngle, yAngle=$yAngle, movable=$movable)"
     }
+
 }
