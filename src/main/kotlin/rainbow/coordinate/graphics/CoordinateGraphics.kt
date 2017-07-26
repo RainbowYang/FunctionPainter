@@ -3,7 +3,7 @@ package rainbow.coordinate.graphics
 import rainbow.coordinate.point.CoordinatePoint
 import rainbow.coordinate.point.PointDouble
 import rainbow.coordinate.system.CoordinateSystem
-import rainbow.math.Line
+import rainbow.util.math.Line
 import rainbow.util.addPoint
 import rainbow.util.drawPolyline
 import rainbow.util.similarEquals

@@ -1,4 +1,4 @@
-package rainbow.math;
+package rainbow.util.math;
 
 import rainbow.coordinate.point.PointDouble;
 

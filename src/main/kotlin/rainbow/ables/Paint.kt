@@ -15,7 +15,9 @@ interface Paintable {
     /**
      * 将当前已绘制好的图像画到graphics上
      */
-    fun paintImage(g: Graphics) = g.drawImage(painter.cacheImage, 0, 0, null)
+    fun paintImage(g: Graphics) {
+        g.drawImage(painter.cacheImage, 0, 0, null)
+    }
 
     /**
      * 重新绘画
