@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent
  * @author Rainbow Yang
  */
 
-infix fun Number.similarEquals(other: Number) = Math.abs(this.toInt() - other.toInt()) < 1E-5
+infix fun Number.similarEquals(other: Number) = Math.abs(this.toInt() - other.toInt()) < 1E-10
 
 fun CartesianCoordinateSystem.getDiffAngle(form: MouseEvent, to: MouseEvent): Double {
     val toAngle = Math.atan2(y - to.y, to.x - x)

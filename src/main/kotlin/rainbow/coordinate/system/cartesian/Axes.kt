@@ -1,13 +1,22 @@
 package rainbow.coordinate.system.cartesian
 
 import java.lang.Math.*
-import kotlin.coroutines.experimental.EmptyCoroutineContext.plus
 
 /**
  * 每个[Axis]都将会被视为一个轴，会放在一个球(经纬度坐标)的模型上
  * @author Rainbow Yang
  */
 class Axes {
+    var sight = Axis(0, 0)
+
+    fun moveSight(x: Number, y: Number) {
+        sight.xAngle += x.toDouble()
+        sight.yAngle += y.toDouble()
+
+        axes.forEach { it.recalculateAngleAndTimes(sight) }
+    }
+
+
     var axes = mutableListOf<Axis>()
 
     val size: Int
@@ -15,10 +24,13 @@ class Axes {
 
     operator fun get(index: Int) = axes[index]
 
-    fun addAxis(vararg axes: Axis) = this.axes.addAll(axes)
+    fun addAxis(vararg axes: Axis) {
+        this.axes.addAll(axes)
+        axes.forEach { it.recalculateAngleAndTimes(sight) }
+    }
 }
 
-class Axis(xAngle: Double = 0.0, yAngle: Double = 0.0, var originalLength: Double = 40.0) {
+class Axis(var xAngle: Double = 0.0, var yAngle: Double = 0.0, var originalLength: Double = 40.0) {
 
     companion object {
         operator fun invoke(xAngle: Number = 0.0, yAngle: Number = 0.0, originalLength: Double = 40.0) =
@@ -32,49 +44,51 @@ class Axis(xAngle: Double = 0.0, yAngle: Double = 0.0, var originalLength: Doubl
         fun left() = Axis(-90, 0)
     }
 
+    operator fun component1() = angle
     operator fun component2() = length
+
     var length: Double
         get() = originalLength * visualTimes
         set(value) {
             originalLength = length / visualTimes
         }
-
-    operator fun component1() = angle
     var angle: Double = 0.0
         private set
     var visualTimes: Double = 0.0
         private set
 
-    var xAngle: Double = xAngle
-        private set
-    var yAngle: Double = yAngle
-        private set
+    fun recalculateAngleAndTimes(sight: Axis) {
+        val thisX = toRadians(xAngle)
+        val thisY = toRadians(yAngle)
+        val sightX = toRadians(sight.xAngle)
+        val sightY = toRadians(sight.yAngle)
 
-    init {
-        resetAngleAndLength()
-    }
-
-    var movable = true
-
-    fun move(x: Number, y: Number) {
-        if (movable) {
-            xAngle += x.toDouble()
-            yAngle += y.toDouble()
-
-            resetAngleAndLength()
-        }
-    }
-
-    private fun resetAngleAndLength() {
-        val x = sin(toRadians(xAngle)) * cos(toRadians(yAngle))
-        val y = sin(toRadians(yAngle))
+        val x = sin(thisX - sightX) * cos(thisY)
+        val y = sin(thisY) * cos(sightY) - cos(thisY) * sin(sightY)
 
         angle = atan2(y, x)
         visualTimes = sqrt(x * x + y * y)
     }
 
     override fun toString(): String {
-        return "Axis(originalLength=$originalLength, angle=$angle, visualTimes=$visualTimes, xAngle=$xAngle, yAngle=$yAngle, movable=$movable)"
+        return "Axis(originalLength=$originalLength, angle=$angle, visualTimes=$visualTimes, xAngle=$xAngle, yAngle=$yAngle)"
     }
+
+//    private fun resetAngleAndLength() {
+//        MySystem.coordinateSystem.axes.setLengthTimes(2, Math.cos(Math.toRadians(yAngle)))
+//
+//        var x = -Math.sin(Math.toRadians(xAngle))
+//        var y = -Math.cos(Math.toRadians(xAngle)) * Math.sin(Math.toRadians(yAngle))
+//
+//        MySystem.coordinateSystem.axes.setAngle(0, Math.atan2(y, x))
+//        MySystem.coordinateSystem.axes.setLengthTimes(0, Math.sqrt(x * x + y * y))
+//
+//        x = -Math.sin(Math.toRadians(xAngle - 90))
+//        y = -Math.cos(Math.toRadians(xAngle - 90)) * Math.sin(Math.toRadians(yAngle))
+//
+//        MySystem.coordinateSystem.axes.setAngle(1, Math.atan2(y, x))
+//        MySystem.coordinateSystem.axes.setLengthTimes(1, Math.sqrt(x * x + y * y))
+//
+//    }
 
 }
