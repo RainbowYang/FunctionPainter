@@ -1,15 +1,24 @@
-# FunctionPainter2 函数绘画师2
+# FunctionPainter2
 
 [![Build Status](https://travis-ci.org/RainbowYang/FunctionPainter2.svg?branch=master)](https://travis-ci.org/RainbowYang/FunctionPainter2)
 
-## 简介
-顾名思义，这是一个用来画函数的任意纬度的数学空间（已实现了三维旋转。其实还想可以画点别的好看的几何图形）。
+## 简介 | Introduction
+一个用来绘画的数学空间。
 
-从新开始的FunctionPainter。
+## 设计 | Design
+主要由坐标系(CoordinateSystem)和函数(CoordinateFunction)组成。
 
-代码会先更新在分支-[dev](https://github.com/RainbowYang/FunctionPainter2/tree/dev)!
+### 坐标系 | CoordinateSystem
+坐标系是一个具有坐标转换功能（可以将一个坐标点转换为表示在屏幕上的位置）的对象。另外应负责绘图工作
+#### 组成
+1. 状态 | Condition ： 用于存贮其目前的状态
+2. 坐标转换 | CoordinateChanger ： 用于实现坐标的双向转换。@ 1
+3. 绘图 | Painter ： 用于对坐标系进行绘图。 @1 @2
 
-Developing!
+### 函数 | CoordinateFunction
+函数在这里指的是可以通过数学方式描述的一切几何图像。
++ 绘图 | Painter 
+
 
 ## 功能
 ### 坐标系
@@ -78,137 +87,6 @@ Developing!
 + 旋转 
 + 翻折
 + 放大和缩小
-
-## 自制代码统计(2017-5-30 14:07:32)
-    rainbow : 3302 lines in 63 files {
-        outer : 64 lines in 2 files {
-            frame : 64 lines in 2 files {
-                MainFrame.java : 46(5)
-                tool : 18 lines in 1 file {
-                    FrameLocationSetter.java : 18(8)
-                }
-            }
-        }
-        Start.java : 59(41)
-        inner : 2996 lines in 59 files {
-            scalable : 28 lines in 2 files {
-                ComponentScalable.java : 19(3)
-                Component.java : 9(5)
-            }
-            view : 192 lines in 4 files {
-                View.java : 10(5)
-                CoordinateSystemView.java : 22(3)
-                BackgroundView.java : 14(3)
-                graphics : 146 lines in 1 file {
-                    MyGraphics.java : 146(25)
-                }
-            }
-            coordinate : 1385 lines in 21 files {
-                system : 1026 lines in 16 files {
-                    comp : 773 lines in 10 files {
-                        special : 36 lines in 1 file {
-                            Rotate3DEventListener.java : 36(3)
-                        }
-                        SystemPainter.java : 56(25)
-                        Axes.java : 322(170)
-                        EventListener.java : 58(10)
-                        LocationChanger.java : 68(18)
-                        Functions.java : 42(5)
-                        Range.java : 29(5)
-                        Mover.java : 84(40)
-                        unused : 69 lines in 1 file {
-                            Values.java : 69(15)
-                        }
-                        CoordinateSystemComponent.java : 9(5)
-                    }
-                    CoordinateSystemForAxes.java : 116(19)
-                    CoordinateSystem.java : 58(6)
-                    event : 79 lines in 4 files {
-                        RotateEvent.java : 30(3)
-                        CoordinateSystemEvent.java : 8(5)
-                        MoveEvent.java : 19(3)
-                        ZoomEvent.java : 22(5)
-                    }
-                }
-                point : 359 lines in 5 files {
-                    PointAxes2D.java : 77(21)
-                    PointPolar2D.java : 77(24)
-                    MyPoint.java : 43(26)
-                    PointForAxes.java : 125(43)
-                    PointDouble.java : 37(5)
-                }
-            }
-            system : 283 lines in 3 files {
-                comp : 83 lines in 1 file {
-                    Colors.java : 83(37)
-                }
-                SystemComponent.java : 9(5)
-                MySystem.java : 191(30)
-            }
-            function : 944 lines in 25 files {
-                PointFunction.java : 56(23)
-                mathfunction : 725 lines in 21 files {
-                    special : 223 lines in 8 files {
-                        _2D : 159 lines in 6 files {
-                            cycloid : 103 lines in 5 files {
-                                Epitrochoid.java : 26(8)
-                                Hypotrochoid.java : 26(8)
-                                Hypocycloid.java : 14(8)
-                                Epicycloid.java : 17(11)
-                                Cycloid.java : 20(8)
-                            }
-                            ConicSection.java : 56(19)
-                        }
-                        Lissajous.java : 23(8)
-                        Net.java : 41(9)
-                    }
-                    MathFunction.java : 135(38)
-                    simple : 367 lines in 12 files {
-                        _2D : 284 lines in 10 files {
-                            PowerFunction.java : 54(8)
-                            TrigonometricFunction.java : 51(6)
-                            ExpFunction.java : 22(6)
-                            spiral : 135 lines in 6 files {
-                                ArchimedeanSpiral.java : 21(7)
-                                IsometricSpiral.java : 20(7)
-                                LituusSpiral.java : 16(6)
-                                FermatSpiral.java : 25(7)
-                                HyperbolicSpiral.java : 23(9)
-                                Spiral.java : 30(20)
-                            }
-                            LogFunction.java : 22(6)
-                        }
-                        SimpleMathFunction.java : 43(6)
-                        _3D : 40 lines in 1 file {
-                            Ellipsoid.java : 40(15)
-                        }
-                    }
-                }
-                MyFunction.java : 41(27)
-                pointfunction : 122 lines in 2 files {
-                    Hypercube.java : 21(5)
-                    RegularPolygon.java : 101(10)
-                }
-            }
-            listener : 65 lines in 2 files {
-                CoordinateSystemListener.java : 34(5)
-                Listeners.java : 31(5)
-            }
-            math : 99 lines in 2 files {
-                MyMath.java : 30(20)
-                Line.java : 69(21)
-            }
-        }
-        tools : 183 lines in 1 file {
-            CodeReader.java : 183(13)
-        }
-    }
-    ---------------------------------------------------------
-    Files : 63
-    Code lines : 3302
-    Blank lines : 644
-    Annotation lines : 975
-    Lines per file : 52.46
 
 本文博客地址 http://rainbow-yang.moe/201704/04/introduction-of-FunctionPainter.html
 （未完）
