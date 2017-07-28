@@ -7,13 +7,10 @@ import rainbow.point.PointPolar2D
  * 正多边形
  * @author Rainbow Yang
  */
-class RegularPolygon(
-        var sides: Int = 6,
-        var radius: Double = 5.0,
-        var step: Int = 1,
-        var startAngle: Double = Math.PI / 2
-) : PointsFunction() {
-
+class RegularPolygon(var sides: Int = 6,
+                     var radius: Double = 5.0,
+                     var step: Int = 1,
+                     var startAngle: Double = Math.PI / 2) : PointsFunction() {
 
     override fun calcPoints() {
         cleanAllPoints()
@@ -41,7 +38,7 @@ class RegularPolygon(
         }
     }
 
-    fun addPointByIndex(index: Int) = addPoint(getPoint(index))
+    private fun addPointByIndex(index: Int) = addPoint(getPoint(index))
 
     private fun getPoint(index: Int): PointPolar2D {
         val stepAngle = Math.PI * 2 / sides

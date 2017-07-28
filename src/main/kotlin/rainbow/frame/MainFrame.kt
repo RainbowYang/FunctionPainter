@@ -1,6 +1,8 @@
 package rainbow.frame
 
 import rainbow.coordinates.CoordinateSystem
+import rainbow.function.CoordinateFunction
+import java.awt.Component
 import java.awt.Graphics
 import java.awt.Graphics2D
 import java.awt.event.ComponentAdapter
@@ -11,15 +13,16 @@ import javax.swing.JPanel
 /**
  * @author Rainbow Yang
  */
-class MainFrame(var system: CoordinateSystem) : JFrame() {
-
+class MainFrame(var coordinateSystem: CoordinateSystem,
+                var functions: MutableList<CoordinateFunction> = mutableListOf()) : JFrame() {
     init {
-        setSize(1000, 500)
-        center()
+        defaultInit()
 
         add(object : JPanel() {
             override fun paintComponent(g: Graphics) {
-                system.paintImageTo(g as Graphics2D)
+                g as Graphics2D
+                coordinateSystem.paintImageTo(g)
+                functions.forEach { it.paintImageTo(g) }
             }
         })
 
@@ -29,13 +32,19 @@ class MainFrame(var system: CoordinateSystem) : JFrame() {
             }
         })
 
-        system.bindTo(this)
+        coordinateSystem.bindTo(this)
+    }
 
+    fun defaultInit() {
+        setSize(1000, 500)
+        center(this)
         defaultCloseOperation = EXIT_ON_CLOSE
         isVisible = true
     }
 
-    fun center() {
-        setLocation((toolkit.screenSize.width - width) / 2, (toolkit.screenSize.height - height) / 2)
+
+    fun center(comp: Component) {
+        val screenSize = toolkit.screenSize
+        comp.setLocation((screenSize.width - comp.width) / 2, (screenSize.height - comp.height) / 2)
     }
 }

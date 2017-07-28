@@ -26,9 +26,6 @@ class CartesianCoordinateSystem(size: Int) : CoordinateSystem2D() {
     override var paintComponent: CoordinateSystemPainter
             = PainterForCartesianCoordinateSystem(this)
 
-    override var inputComponent: InputListenComponent
-            = InputListenerForCartesianCoordinateSystem(this)
-
     val axes = mutableListOf<Axis>()
 
     val size: Int
@@ -119,10 +116,4 @@ class CartesianCoordinateSystem(size: Int) : CoordinateSystem2D() {
         }
     }
 
-    //TODO more functions
-    private class InputListenerForCartesianCoordinateSystem(val system: CartesianCoordinateSystem) : InputListenComponent() {
-        override fun mouseDragged(e: MouseEvent) {
-            super.mouseDragged(e)
-        }
-    }
 }

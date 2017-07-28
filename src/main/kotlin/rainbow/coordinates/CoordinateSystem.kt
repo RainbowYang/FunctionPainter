@@ -7,7 +7,6 @@ import rainbow.point.CoordinatePoint
 import rainbow.point.PointDouble
 import rainbow.utils.BufferedImage
 import rainbow.utils.CoordinateGraphics
-import rainbow.utils.drawImage
 import java.awt.Color
 import java.awt.Component
 import java.awt.Graphics2D
@@ -60,10 +59,6 @@ abstract class CoordinateSystem {
         open fun paintAxes(cg: CoordinateGraphics) {}
         open fun paintNumber(cg: CoordinateGraphics) {}
 
-        override fun paintImageTo(graphics: Graphics2D, width: Int, height: Int) {
-            graphics.drawImage(paintedImage(width, height))
-        }
-
         override fun paintedImage(width: Int, height: Int): BufferedImage = BufferedImage(width, height).also {
             val cg = CoordinateGraphics(it, coordinateSystem)
 
@@ -80,6 +75,4 @@ abstract class CoordinateSystem {
             paintNumber(cg)
         }
     }
-
-
 }

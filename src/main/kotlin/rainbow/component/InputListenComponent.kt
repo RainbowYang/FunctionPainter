@@ -10,15 +10,21 @@ import java.awt.event.*
  */
 abstract class InputListenComponent : MouseListener, MouseMotionListener, MouseWheelListener, KeyListener {
 
+    lateinit var component: Component
+
     /**
      * 为[Component]添加此类的监听
      */
     fun bindTo(component: Component) {
+        this.component = component
+
         component.addKeyListener(this)
         component.addMouseListener(this)
         component.addMouseMotionListener(this)
         component.addMouseWheelListener(this)
     }
+
+    fun repaint() = component.repaint()
 
     override fun mouseReleased(e: MouseEvent) {}
     override fun mouseEntered(e: MouseEvent) {}

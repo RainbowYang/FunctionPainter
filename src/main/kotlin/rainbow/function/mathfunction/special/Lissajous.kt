@@ -1,6 +1,6 @@
 package rainbow.function.mathfunction.special
 
-import rainbow.coordinate.function.mathfunction.DoubleUnaryOperator
+import rainbow.function.mathfunction.DoubleUnaryOperator
 import rainbow.function.mathfunction.MathFunction
 
 /**

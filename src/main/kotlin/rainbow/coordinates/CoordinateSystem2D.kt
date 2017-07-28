@@ -84,10 +84,14 @@ abstract class CoordinateSystem2D(
                 MouseEvent.BUTTON3 -> coordinateSystem.rotate(coordinateSystem.getDiffAngle(lastEvent, e))
             }
             lastEvent = e
+
+            repaint()
         }
 
         override fun mouseWheelMoved(e: MouseWheelEvent) {
             coordinateSystem.zoom(Math.pow(1.1, e.wheelRotation.toDouble()))
+
+            repaint()
         }
     }
 }
