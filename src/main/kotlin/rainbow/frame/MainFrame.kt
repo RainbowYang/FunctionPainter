@@ -1,8 +1,8 @@
 package rainbow.frame
 
-import rainbow.ables.addListener
-import rainbow.coordinate.System
+import rainbow.coordinates.CoordinateSystem
 import java.awt.Graphics
+import java.awt.Graphics2D
 import java.awt.event.ComponentAdapter
 import java.awt.event.ComponentEvent
 import javax.swing.JFrame
@@ -11,7 +11,7 @@ import javax.swing.JPanel
 /**
  * @author Rainbow Yang
  */
-class MainFrame(var system: System) : JFrame() {
+class MainFrame(var system: CoordinateSystem) : JFrame() {
 
     init {
         setSize(1000, 500)
@@ -19,20 +19,17 @@ class MainFrame(var system: System) : JFrame() {
 
         add(object : JPanel() {
             override fun paintComponent(g: Graphics) {
-                system.paintImage(g)
+                system.paintImageTo(g as Graphics2D)
             }
         })
 
         addComponentListener(object : ComponentAdapter() {
             override fun componentResized(e: ComponentEvent?) {
-                val size = this@MainFrame.size
-                system.repaint(size.width, size.height, this@MainFrame::repaint)
+                this@MainFrame.repaint()
             }
         })
 
-        addListener(system.coordinateSystem) {
-            system.repaint(size.width, size.height, this@MainFrame::repaint)
-        }
+        system.bindTo(this)
 
         defaultCloseOperation = EXIT_ON_CLOSE
         isVisible = true

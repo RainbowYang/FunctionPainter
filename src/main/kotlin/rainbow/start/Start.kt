@@ -1,8 +1,8 @@
 package rainbow.start
 
 import rainbow.coordinate.System
-import rainbow.coordinate.function.mathfunction.simple._2D.LogFunction
-import rainbow.coordinate.system.cartesian.CartesianCoordinateSystem
+import rainbow.function.mathfunction.simple._2D.LogFunction
+import rainbow.coordinates.CartesianCoordinateSystem
 import rainbow.frame.MainFrame
 
 fun main(args: Array<String>) {

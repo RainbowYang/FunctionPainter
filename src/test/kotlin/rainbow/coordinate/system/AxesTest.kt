@@ -1,7 +1,7 @@
 package rainbow.coordinate.system
 
 import io.kotlintest.specs.StringSpec
-import rainbow.coordinate.system.cartesian.Axis
+import rainbow.coordinates.cartesian.Axis
 
 /**
  * @author Rainbow Yang

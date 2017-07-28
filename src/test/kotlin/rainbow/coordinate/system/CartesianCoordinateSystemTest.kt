@@ -2,7 +2,7 @@ package rainbow.coordinate.system
 
 import io.kotlintest.matchers.shouldThrow
 import io.kotlintest.specs.StringSpec
-import rainbow.coordinate.system.cartesian.CartesianCoordinateSystem
+import rainbow.coordinates.CartesianCoordinateSystem
 
 /**
  * @author Rainbow Yang

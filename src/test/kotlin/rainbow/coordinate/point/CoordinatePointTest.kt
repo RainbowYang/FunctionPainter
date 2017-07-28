@@ -2,6 +2,7 @@ package rainbow.coordinate.point
 
 import io.kotlintest.matchers.shouldBe
 import io.kotlintest.specs.StringSpec
+import rainbow.point.PointForAxes
 
 /**
  * @author Rainbow Yang
