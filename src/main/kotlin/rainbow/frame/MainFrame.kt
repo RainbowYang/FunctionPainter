@@ -11,6 +11,7 @@ import javax.swing.JFrame
 import javax.swing.JPanel
 
 /**
+ * 主界面用于显示
  * @author Rainbow Yang
  */
 class MainFrame(var coordinateSystem: CoordinateSystem,

@@ -3,7 +3,7 @@ package rainbow
 import rainbow.coordinates.CartesianCoordinateSystem
 import rainbow.frame.MainFrame
 import rainbow.function.CoordinateFunction
-import rainbow.function.pointfunction.Hypercube
+import rainbow.function.pointfunction.RegularPolygon
 
 fun main(args: Array<String>) {
 
@@ -11,12 +11,13 @@ fun main(args: Array<String>) {
     with(coordinateSystem) {
         x = 500.0
         y = 500.0
+        paintComponent.isVisual = false
     }
 
     val functions = mutableListOf<CoordinateFunction>()
 
     functions.apply {
-        add(Hypercube(2, 5.5))
+        add(RegularPolygon(1600, 100.0, 123))
     }.forEach {
         it.coordinateSystem = coordinateSystem
         it.init()

@@ -54,6 +54,14 @@ abstract class CoordinateSystem {
         var colorOfAxes: Color = Color.BLACK
         var colorOfNumber: Color = Color.BLACK
 
+
+        var isVisual = true
+
+        var paintOrigin = true
+        var paintGrid = true
+        var paintAxes = true
+        var paintNumber = true
+
         open fun paintOrigin(cg: CoordinateGraphics) {}
         open fun paintGrid(cg: CoordinateGraphics) {}
         open fun paintAxes(cg: CoordinateGraphics) {}
@@ -62,17 +70,28 @@ abstract class CoordinateSystem {
         override fun paintedImage(width: Int, height: Int): BufferedImage = BufferedImage(width, height).also {
             val cg = CoordinateGraphics(it, coordinateSystem)
 
-            cg.color = colorOfOrigin
-            paintOrigin(cg)
+            if (isVisual) {
 
-            cg.color = colorOfGrid
-            paintGrid(cg)
+                if (paintOrigin) {
+                    cg.color = colorOfOrigin
+                    paintOrigin(cg)
+                }
 
-            cg.color = colorOfAxes
-            paintAxes(cg)
+                if (paintGrid) {
+                    cg.color = colorOfGrid
+                    paintGrid(cg)
+                }
 
-            cg.color = colorOfNumber
-            paintNumber(cg)
+                if (paintAxes) {
+                    cg.color = colorOfAxes
+                    paintAxes(cg)
+                }
+
+                if (paintNumber) {
+                    cg.color = colorOfNumber
+                    paintNumber(cg)
+                }
+            }
         }
     }
 }

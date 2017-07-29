@@ -10,6 +10,9 @@ val EMPTY_IMAGE = BufferedImage(1, 1, TYPE_3BYTE_BGR)
 
 fun BufferedImage(width: Int, height: Int) = BufferedImage(width, height, TYPE_4BYTE_ABGR)
 
+val screenWidth = Toolkit.getDefaultToolkit().screenSize.width
+val screenHeight = Toolkit.getDefaultToolkit().screenSize.height
+
 /**
  * 抗锯齿
  */

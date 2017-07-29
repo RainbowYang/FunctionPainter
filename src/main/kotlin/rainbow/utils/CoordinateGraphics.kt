@@ -44,7 +44,7 @@ class CoordinateGraphics(val g: Graphics2D,
         val p = Polygon()
 
         system.toScreenPoint(ps).forEach {
-            if (it.available && !it.isOutOfSize(width, height)) {
+            if (it.available) {
                 p.addPoint(it)
             } else {
                 g.drawPolyline(p)

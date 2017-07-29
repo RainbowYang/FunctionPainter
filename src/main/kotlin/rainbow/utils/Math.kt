@@ -17,3 +17,5 @@ fun CoordinateSystem2D.getDiffAngle(form: MouseEvent, to: MouseEvent): Double {
     val formAngle = atan2(y - form.y, form.x - x)
     return toAngle - formAngle
 }
+
+fun rangeTo(end: Int) = 0..end - 1

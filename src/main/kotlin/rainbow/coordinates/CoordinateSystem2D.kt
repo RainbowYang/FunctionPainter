@@ -3,6 +3,7 @@ package rainbow.coordinates
 import rainbow.component.InputListenComponent
 import rainbow.point.PointDouble
 import rainbow.utils.getDiffAngle
+import rainbow.utils.moveTo
 import java.awt.event.MouseEvent
 import java.awt.event.MouseWheelEvent
 
@@ -30,6 +31,11 @@ abstract class CoordinateSystem2D(
     fun move(x: Number, y: Number) {
         this.x += x.toDouble()
         this.y += y.toDouble()
+    }
+
+    fun moveTo(x: Number, y: Number) {
+        this.x = x.toDouble()
+        this.y = y.toDouble()
     }
 
     fun rotate(angle: Number) {
@@ -73,23 +79,30 @@ abstract class CoordinateSystem2D(
         lateinit var firstEvent: MouseEvent
         lateinit var lastEvent: MouseEvent
 
+        var zoomSpeed = 1.1
+
         override fun mousePressed(e: MouseEvent) {
             firstEvent = e
             lastEvent = e
         }
 
-        override fun mouseDragged(e: MouseEvent) {
+        override fun mouseDragged(e: MouseEvent) = with(coordinateSystem) {
             when (firstEvent.button) {
-                MouseEvent.BUTTON1 -> coordinateSystem.move(e.x - lastEvent.x, e.y - lastEvent.y)
-                MouseEvent.BUTTON3 -> coordinateSystem.rotate(coordinateSystem.getDiffAngle(lastEvent, e))
+                MouseEvent.BUTTON1 -> move(e.x - lastEvent.x, e.y - lastEvent.y)
+                MouseEvent.BUTTON3 -> rotate(getDiffAngle(lastEvent, e))
             }
             lastEvent = e
 
             repaint()
         }
 
-        override fun mouseWheelMoved(e: MouseWheelEvent) {
-            coordinateSystem.zoom(Math.pow(1.1, e.wheelRotation.toDouble()))
+
+        override fun mouseWheelMoved(e: MouseWheelEvent) = with(coordinateSystem) {
+            val now = toCoordinatePoint(PointDouble(e))
+
+            moveTo(now)
+            zoom(Math.pow(zoomSpeed, e.wheelRotation.toDouble()))
+            moveTo(-now)
 
             repaint()
         }

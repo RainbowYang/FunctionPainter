@@ -1,6 +1,8 @@
 package rainbow.point
 
+import rainbow.utils.rangeTo
 import java.util.*
+import java.lang.Math.max
 
 /**
  * 任意纬度的坐标轴点
@@ -30,23 +32,16 @@ class PointForAxes constructor(vararg initValues: Double) : CoordinatePoint {
     operator fun get(index: Int) = values.getOrElse(index, { 0.0 })//维度不够时补0
     fun getValue(index: Int) = get(index)
 
-    fun plusAtAndNew(index: Int, plus: Number): PointForAxes {
-        val newValues = DoubleArray(Math.max(index + 1, size)) { get(it) }
-        newValues[index] += plus.toDouble()
-        return PointForAxes(newValues)
-    }
+    fun plusAtAndNew(index: Int, plus: Number): PointForAxes =
+            PointForAxes(createNewArrayWithOldData(index).apply { this[index] += plus.toDouble() })
 
-    fun setAtAndNew(index: Int, value: Number): PointForAxes {
-        val newValues = DoubleArray(Math.max(index + 1, size)) { get(it) }
-        newValues[index] = value.toDouble()
-        return PointForAxes(newValues)
-    }
+    fun setAtAndNew(index: Int, value: Number): PointForAxes =
+            PointForAxes(createNewArrayWithOldData(index).apply { this[index] = value.toDouble() })
 
-    fun timesAtAndNew(index: Int, times: Number): PointForAxes {
-        val newValues = DoubleArray(Math.max(index + 1, size)) { get(it) }
-        newValues[index] *= times.toDouble()
-        return PointForAxes(newValues)
-    }
+    fun timesAtAndNew(index: Int, times: Number): PointForAxes =
+            PointForAxes(createNewArrayWithOldData(index).apply { this[index] *= times.toDouble() })
+
+    private fun createNewArrayWithOldData(index: Int) = DoubleArray(max(index + 1, size)) { get(it) }
 
     override operator fun times(times: Number) = PointForAxes(DoubleArray(size) { get(it) * times.toDouble() })
 
@@ -58,13 +53,13 @@ class PointForAxes constructor(vararg initValues: Double) : CoordinatePoint {
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other?.javaClass != javaClass) return false
+        if (other !is PointForAxes) return false
 
-        other as PointForAxes
+        if (this === other) return true
 
         //只要两个点不为0的值均相等即可
-        (0..Math.max(this.size, other.size) - 1).forEach {
+        //这意味着(1,1,0) equals (1,1,0,0) = true
+        rangeTo(max(this.size, other.size)).forEach {
             if (this[it] != other[it]) return false
         }
 
