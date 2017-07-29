@@ -1,5 +1,6 @@
 package rainbow.point
 
+import rainbow.utils.similarEquals
 import java.awt.event.MouseEvent
 
 /**
@@ -14,9 +15,9 @@ class PointDouble(var x: Double, var y: Double) {
     val available: Boolean
         get() = !x.isNaN() && !y.isNaN()
 
-    fun plus(other: PointDouble): PointDouble = PointDouble(x + other.x, y + other.y)
+    operator fun plus(other: PointDouble): PointDouble = PointDouble(x + other.x, y + other.y)
 
-    fun times(times: Double): PointDouble = PointDouble(x * times, y * times)
+    operator fun times(times: Number): PointDouble = PointDouble(x * times.toDouble(), y * times.toDouble())
 
     fun spin(angle: Double): PointDouble
             = PointDouble(x * Math.cos(angle) - y * Math.sin(angle), x * Math.sin(angle) + y * Math.cos(angle))
@@ -24,5 +25,18 @@ class PointDouble(var x: Double, var y: Double) {
     override fun toString(): String {
         return "PointDouble(x=$x, y=$y)"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (other !is PointDouble) return false
+
+        return x similarEquals other.x && y similarEquals other.y
+    }
+
+    override fun hashCode(): Int {
+        var result = x.hashCode()
+        result = 31 * result + y.hashCode()
+        return result
+    }
+
 
 }

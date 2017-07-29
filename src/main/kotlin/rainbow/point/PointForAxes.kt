@@ -30,7 +30,6 @@ class PointForAxes constructor(vararg initValues: Double) : CoordinatePoint {
         get() = values.size
 
     operator fun get(index: Int) = values.getOrElse(index, { 0.0 })//维度不够时补0
-    fun getValue(index: Int) = get(index)
 
     fun plusAtAndNew(index: Int, plus: Number): PointForAxes =
             PointForAxes(createNewArrayWithOldData(index).apply { this[index] += plus.toDouble() })
@@ -47,15 +46,10 @@ class PointForAxes constructor(vararg initValues: Double) : CoordinatePoint {
 
     override fun toPointForAxes() = this
 
-
-    override fun toString(): String {
-        return "PointForAxes(${Arrays.toString(values)})"
-    }
-
     override fun equals(other: Any?): Boolean {
-        if (other !is PointForAxes) return false
-
         if (this === other) return true
+
+        if (other !is PointForAxes) return false
 
         //只要两个点不为0的值均相等即可
         //这意味着(1,1,0) equals (1,1,0,0) = true
@@ -68,5 +62,9 @@ class PointForAxes constructor(vararg initValues: Double) : CoordinatePoint {
 
     override fun hashCode(): Int {
         return Arrays.hashCode(values)
+    }
+
+    override fun toString(): String {
+        return "PointForAxes(${Arrays.toString(values)})"
     }
 }

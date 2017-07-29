@@ -53,8 +53,8 @@ class CartesianCoordinateSystem(size: Int) : CoordinateSystem2D() {
             var py = 0.0
             for (i in 0..axes.size - 1) {
                 val (angle, length) = axes[i]
-                px += cos(angle) * length * form.getValue(i)
-                py += sin(angle) * length * form.getValue(i)
+                px += cos(angle) * length * form[i]
+                py += sin(angle) * length * form[i]
             }
             return rotateAndScaleAndMove(PointDouble(px, py))
         }

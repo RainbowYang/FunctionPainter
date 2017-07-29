@@ -11,7 +11,6 @@ fun main(args: Array<String>) {
     with(coordinateSystem) {
         x = 500.0
         y = 500.0
-        paintComponent.isVisual = false
     }
 
     val functions = mutableListOf<CoordinateFunction>()
