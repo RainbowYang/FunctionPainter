@@ -11,6 +11,9 @@ import rainbow.utils.toPointDouble
 class Point2DPolar(val r: Double, val angle: Double) : Point2D {
     constructor(r: Number, angle: Number) : this(r.toDouble(), angle.toDouble())
 
+    operator fun component1() = r
+    operator fun component2() = angle
+
     companion object {
         operator fun invoke(form: CoordinatePoint): Point2DPolar {
             val pd = form.toPointForAxes().toPointDouble()

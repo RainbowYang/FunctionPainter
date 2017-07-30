@@ -38,7 +38,7 @@ class Line(val a: Double, val b: Double, val c: Double) {
         val Y_AXIS = Line(1.0, 0.0, 0.0)
     }
 
-    fun getCross(l: Line): PointDouble {
+    infix fun crossTo(l: Line): PointDouble {
         //平行
         if (a * l.b - b * l.a == 0.0) {
             throw NoCrossException(this.toString() + "has no cross with" + l)

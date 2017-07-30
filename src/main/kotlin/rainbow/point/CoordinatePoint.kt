@@ -13,7 +13,7 @@ package rainbow.point
 interface CoordinatePoint {
     fun toPointForAxes(): PointForAxes
 
-    operator fun times(times: Double): CoordinatePoint
+    operator fun times(times: Double): CoordinatePoint = toPointForAxes().times(times)
 
     operator fun times(times: Number): CoordinatePoint = times(times.toDouble())
     operator fun div(divTimes: Number): CoordinatePoint = times(1 / divTimes.toDouble())

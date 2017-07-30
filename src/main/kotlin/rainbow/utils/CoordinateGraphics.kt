@@ -91,8 +91,8 @@ class CoordinateGraphics(val g: Graphics2D,
             val left = Line.Y_AXIS
             val right = Line(PointDouble(width, 0.0), PointDouble(width, height))
 
-            val start = line.getCross(left)
-            val end = line.getCross(right)
+            val start = line.crossTo(left)
+            val end = line.crossTo(right)
 
             paintLine(start, end)
         }
@@ -111,9 +111,9 @@ class CoordinateGraphics(val g: Graphics2D,
         } else {
             val line = Line(origin, towards)
             if (origin.x > towards.x) {
-                paintLine(origin, line.getCross(Line.Y_AXIS))
+                paintLine(origin, line.crossTo(Line.Y_AXIS))
             } else {
-                paintLine(origin, line.getCross(Line(PointDouble(width, 0), PointDouble(width, height))))
+                paintLine(origin, line.crossTo(Line(PointDouble(width, 0), PointDouble(width, height))))
             }
         }
     }

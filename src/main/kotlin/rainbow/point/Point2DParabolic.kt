@@ -10,10 +10,12 @@ import java.lang.Math.sqrt
  * @author Rainbow Yang
  */
 class Point2DParabolic(val σ: Double, val τ: Double) : Point2D {
+
     operator fun component1() = σ
     operator fun component2() = τ
-    val c1 get() = σ
-    val c2 get() = τ
+
+    private val c1 get() = σ
+    private val c2 get() = τ
 
     companion object {
         operator fun invoke(form: PointForAxes): Point2DParabolic {
@@ -24,7 +26,4 @@ class Point2DParabolic(val σ: Double, val τ: Double) : Point2D {
 
     override fun toPointForAxes() = PointForAxes(c1 * c2, 0.5 * (c1 * c1 + c2 * c2))
 
-    override fun times(times: Double): CoordinatePoint {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 }
