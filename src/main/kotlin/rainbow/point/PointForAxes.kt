@@ -10,10 +10,15 @@ import java.lang.Math.max
  * @author Rainbow Yang
  */
 class PointForAxes constructor(vararg initValues: Double) : CoordinatePoint {
+
+    //生成size维的值均为value的点
+    constructor(value: Double, size: Int) : this(*DoubleArray(size) { value })
+
     companion object {
+
         operator fun invoke(initValues: DoubleArray) = PointForAxes(*initValues)
-        operator fun invoke(vararg initValues: Number) =
-                invoke(DoubleArray(initValues.size) { initValues[it].toDouble() })
+
+        operator fun invoke(vararg initValues: Number) = this(initValues.asList())
 
         operator fun invoke(initValues: List<Number>) =
                 invoke(DoubleArray(initValues.size) { initValues[it].toDouble() })
@@ -21,13 +26,8 @@ class PointForAxes constructor(vararg initValues: Double) : CoordinatePoint {
         val ZERO = PointForAxes(0)
     }
 
-    //生成size维的值均为value的点
-    constructor(value: Double, size: Int) : this(*DoubleArray(size) { value })
-
-    val values: DoubleArray = initValues
-
-    val size: Int
-        get() = values.size
+    val values = initValues
+    val size get() = values.size
 
     operator fun get(index: Int) = values.getOrElse(index, { 0.0 })//维度不够时补0
 
@@ -42,7 +42,7 @@ class PointForAxes constructor(vararg initValues: Double) : CoordinatePoint {
 
     private fun createNewArrayWithOldData(index: Int) = DoubleArray(max(index + 1, size)) { get(it) }
 
-    override operator fun times(times: Number) = PointForAxes(DoubleArray(size) { get(it) * times.toDouble() })
+    override operator fun times(times: Double) = PointForAxes(DoubleArray(size) { get(it) * times.toDouble() })
 
     override fun toPointForAxes() = this
 

@@ -3,6 +3,8 @@ package rainbow.utils
 import rainbow.point.CoordinatePoint
 import rainbow.point.PointDouble
 import rainbow.coordinates.CoordinateSystem
+import rainbow.point.PointForAxes
+import rainbow.point.toPointDouble
 import java.awt.*
 import java.awt.image.BufferedImage
 
@@ -33,7 +35,7 @@ class CoordinateGraphics(val g: Graphics2D,
             g.color = value
         }
 
-    fun paintString(text: Any, location: CoordinatePoint) {
+    fun paintString(text: Any, location: CoordinatePoint = PointForAxes.ZERO) {
         val locationOnScreen = system.toScreenPoint(location)
         g.drawString(text.toString(), locationOnScreen.x.toInt(), locationOnScreen.y.toInt())
     }
@@ -119,4 +121,17 @@ class CoordinateGraphics(val g: Graphics2D,
     fun paintLine(from: CoordinatePoint, to: CoordinatePoint) = paintLine(system.toScreenPoint(from), system.toScreenPoint(to))
 
     fun paintLine(from: PointDouble, to: PointDouble) = g.drawLine(from.x.toInt(), from.y.toInt(), to.x.toInt(), to.y.toInt())
+
+    /**
+     * 以[center]为中心，[center]到[to]为半径
+     */
+    fun paintCircle(center: CoordinatePoint, to: CoordinatePoint) {
+        val centerPd = system.toScreenPoint(center)
+        val x = centerPd.x.toInt()
+        val y = centerPd.y.toInt()
+
+        val r = system.toScreenPoint(to).minus(centerPd).length.toInt()
+
+        g.drawOval(x - r, y - r, r * 2, r * 2)
+    }
 }

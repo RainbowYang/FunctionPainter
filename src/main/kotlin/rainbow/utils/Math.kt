@@ -22,3 +22,8 @@ fun CoordinateSystem2D.getDiffAngle(form: MouseEvent, to: MouseEvent): Double {
 }
 
 fun rangeTo(end: Int) = 0..end - 1
+
+fun length(x: Number, y: Number): Double {
+    x as Double;y as Double
+    return sqrt(x * x + y * y)
+}

@@ -1,42 +1,39 @@
 package rainbow.point
 
+import rainbow.utils.length
 import rainbow.utils.similarEquals
 import java.awt.event.MouseEvent
+import java.lang.Math.atan2
 
 /**
  * 用于表示屏幕上的位置
  *
  * @author Rainbow Yang
  */
-class PointDouble(var x: Double, var y: Double) {
+class PointDouble(var x: Double, var y: Double) : CoordinatePoint {
     constructor(x: Number, y: Number) : this(x.toDouble(), y.toDouble())
     constructor(event: MouseEvent) : this(event.x, event.y)
+    constructor(point: PointForAxes) : this(point[0], point[1])
 
-    val available: Boolean
-        get() = !x.isNaN() && !y.isNaN()
+    val available get() = !x.isNaN() && !y.isNaN()
+    val length get() = length(x, y)
+    val angle get() = atan2(y, x)
 
-    operator fun plus(other: PointDouble): PointDouble = PointDouble(x + other.x, y + other.y)
+    override operator fun times(times: Double) = PointDouble(x * times, y * times)
 
-    operator fun times(times: Number): PointDouble = PointDouble(x * times.toDouble(), y * times.toDouble())
+    operator fun plus(other: PointDouble) = PointDouble(x + other.x, y + other.y)
+    operator fun minus(other: PointDouble) = PointDouble(x - other.x, y - other.y)
 
-    fun spin(angle: Double): PointDouble
-            = PointDouble(x * Math.cos(angle) - y * Math.sin(angle), x * Math.sin(angle) + y * Math.cos(angle))
+    fun spin(angle: Double) = toPointPolar2D().spin(angle).toPointDouble()
+//    = PointDouble(x * cos(angle) - y * sin(angle), x * sin(angle) + y * cos(angle))
 
-    override fun toString(): String {
-        return "PointDouble(x=$x, y=$y)"
-    }
+    override fun toPointForAxes() = PointForAxes(x, y)
+
+    override fun toString() = "PointDouble(x=$x, y=$y)"
 
     override fun equals(other: Any?): Boolean {
         if (other !is PointDouble) return false
 
         return x similarEquals other.x && y similarEquals other.y
     }
-
-    override fun hashCode(): Int {
-        var result = x.hashCode()
-        result = 31 * result + y.hashCode()
-        return result
-    }
-
-
 }

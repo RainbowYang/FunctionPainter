@@ -9,7 +9,7 @@ class PointForAxesTest : StringSpec() {
     init {
 
         "create"{
-            PointForAxes(listOf(1, 1))
+            PointForAxes(listOf(1, 1)) shouldBe PointForAxes(1, 1)
         }
 
         "equal"{
