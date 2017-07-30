@@ -1,11 +1,12 @@
 package rainbow.utils
 
+import rainbow.coordinates.CoordinateSystem
 import rainbow.point.CoordinatePoint
 import rainbow.point.PointDouble
-import rainbow.coordinates.CoordinateSystem
 import rainbow.point.PointForAxes
-import rainbow.point.toPointDouble
-import java.awt.*
+import java.awt.Color
+import java.awt.Graphics2D
+import java.awt.Polygon
 import java.awt.image.BufferedImage
 
 /**
@@ -17,11 +18,11 @@ import java.awt.image.BufferedImage
  */
 class CoordinateGraphics(val g: Graphics2D,
                          val system: CoordinateSystem,
-                         val width: Int = 1920,
-                         val height: Int = 1080) {
+                         val width: Int = screenWidth,
+                         val height: Int = screenHeight) {
 
     constructor(g: Graphics2D, system: CoordinateSystem,
-                width: Number = 1920, height: Number = 1080) : this(g, system, width.toInt(), height.toInt())
+                width: Number = screenWidth, height: Number = screenHeight) : this(g, system, width.toInt(), height.toInt())
 
     constructor(image: BufferedImage, system: CoordinateSystem) : this(image.createGraphics(), system, image.width, image.height)
 

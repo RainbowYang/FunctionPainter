@@ -1,4 +1,6 @@
-package rainbow.point
+package rainbow.utils
+
+import rainbow.point.*
 
 /**
  * 这里放置所有的点转换为其他点的方法，但其逻辑应写在其对应的类中

@@ -3,6 +3,7 @@ package rainbow.coordinates
 import rainbow.component.InputListenComponent
 import rainbow.point.PointDouble
 import rainbow.utils.getDiffAngle
+import rainbow.utils.moveTo
 import java.awt.event.MouseEvent
 import java.awt.event.MouseWheelEvent
 
@@ -97,11 +98,11 @@ abstract class CoordinateSystem2D(
 
 
         override fun mouseWheelMoved(e: MouseWheelEvent) = with(coordinateSystem) {
-//            val now = toCoordinatePoint(PointDouble(e))
-//
-//            moveTo(now)
+            val now = toCoordinatePoint(PointDouble(e))
+
+            moveTo(now)
             zoom(Math.pow(zoomSpeed, e.wheelRotation.toDouble()))
-//            moveTo(-now)
+            moveTo(-now)
 
             repaint()
         }

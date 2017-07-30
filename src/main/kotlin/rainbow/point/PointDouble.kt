@@ -2,6 +2,8 @@ package rainbow.point
 
 import rainbow.utils.length
 import rainbow.utils.similarEquals
+import rainbow.utils.toPointDouble
+import rainbow.utils.toPointPolar2D
 import java.awt.event.MouseEvent
 import java.lang.Math.atan2
 

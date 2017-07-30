@@ -5,7 +5,7 @@ import rainbow.point.CoordinatePoint
 import rainbow.point.PointDouble
 import rainbow.point.PointForAxes.Companion.ZERO
 import rainbow.point.PointPolar2D
-import rainbow.point.toPointDouble
+import rainbow.utils.toPointDouble
 import rainbow.utils.CoordinateGraphics
 import rainbow.utils.PI2
 

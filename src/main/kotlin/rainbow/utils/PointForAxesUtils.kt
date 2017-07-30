@@ -1,4 +1,6 @@
-package rainbow.point
+package rainbow.utils
+
+import rainbow.point.PointForAxes
 
 operator fun PointForAxes.component1() = this[0]
 operator fun PointForAxes.component2() = this[1]

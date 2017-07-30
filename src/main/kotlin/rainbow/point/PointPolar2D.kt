@@ -1,6 +1,7 @@
 package rainbow.point
 
 import rainbow.utils.PI2
+import rainbow.utils.toPointDouble
 
 /**
  * 二维极坐标点

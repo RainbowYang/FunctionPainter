@@ -12,8 +12,8 @@ import java.lang.Math.*
 
 val PI2 = 2 * Math.PI
 
-//本方法用来解决0.9999999999999999 ！= 1 的尴尬情况
-infix fun Number.similarEquals(other: Number) = abs(this.toDouble() - other.toDouble()) < 1E-14
+//本方法用来解决0.9999999999 ！= 1 的尴尬情况
+infix fun Number.similarEquals(other: Number) = abs(this.toDouble() - other.toDouble()) < 1E-10
 
 fun CoordinateSystem2D.getDiffAngle(form: MouseEvent, to: MouseEvent): Double {
     val toAngle = atan2(y - to.y, to.x - x)
