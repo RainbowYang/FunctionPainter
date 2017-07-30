@@ -75,7 +75,7 @@ abstract class CoordinateSystem2D(
         return result
     }
 
-    protected open class CoordinateSystem2DInputListener(val coordinateSystem: CoordinateSystem2D) : InputListenComponent() {
+    open class CoordinateSystem2DInputListener(val coordinateSystem: CoordinateSystem2D) : InputListenComponent() {
         lateinit var firstEvent: MouseEvent
         lateinit var lastEvent: MouseEvent
 

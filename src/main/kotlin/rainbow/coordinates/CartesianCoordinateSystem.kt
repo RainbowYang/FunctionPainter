@@ -1,11 +1,14 @@
 package rainbow.coordinates
 
 import rainbow.component.CoordinateTransformComponent
+import rainbow.component.InputListenComponent
 import rainbow.point.CoordinatePoint
 import rainbow.point.PointDouble
 import rainbow.point.PointForAxes
 import rainbow.utils.CoordinateGraphics
 import rainbow.utils.rangeTo
+import rainbow.utils.length
+import java.awt.event.MouseEvent
 import java.lang.Math.*
 
 /**
@@ -25,26 +28,86 @@ class CartesianCoordinateSystem(size: Int) : CoordinateSystem2D() {
     override var paintComponent: CoordinateSystemPainter
             = PainterForCartesianCoordinateSystem(this)
 
-    val axes = mutableListOf<Axis>()
+    override var inputComponent: InputListenComponent
+            = InputListenerForCartesianCoordinateSystem(this)
 
+    val axes = mutableListOf<Axis>()
     val size: Int get() = axes.size
 
-    init {
-        when (size) {
-            2 -> addAxes(0, 90)
-            3 -> addAxes(225, 0, 90)
-            else -> addAxes(List(size) { 0 })
-        }
+    var paintAsBall = true
 
+    init {
+        setDefaultAxes(size)
     }
 
-    fun addAxes(angles: List<Number>) = addAxes(*angles.toTypedArray())
-    fun addAxes(vararg angles: Number) = angles.forEach { axes.add(Axis(toRadians(it.toDouble()))) }
+    private fun setDefaultAxes(size: Int) {
+        when (size) {
+            3 -> {
+                if (paintAsBall) {
+                    addAxes(0 to 0, 90 to 0, 0 to 90)
+                } else {
+                    addAxes(225, 0, 90)
+                }
+            }
+            2 -> {
+                paintAsBall = false
+
+                addAxes(0, 90)
+            }
+        }
+    }
+
+    fun addAxes(vararg axis: Pair<Number, Number>) = axis.forEach { axes.add(BallAxis(it.first, it.second)) }
+    fun addAxes(vararg angles: Number) = angles.forEach { axes.add(ClassicAxis(toRadians(it.toDouble()))) }
 
     /**
      * [angle]使用弧度
      */
-    data class Axis(var angle: Double = 0.0, var length: Double = 40.0)
+    abstract class Axis(var angle: Double = 0.0, open var length: Double = 40.0) {
+        operator fun component1() = angle
+        operator fun component2() = length
+    }
+
+    class ClassicAxis(angle: Double = 0.0, length: Double = 40.0) : Axis(angle, length)
+    class BallAxis(var xAngle: Double, var yAngle: Double) : Axis() {
+        constructor(xAngle: Number, yAngle: Number) : this(xAngle.toDouble(), yAngle.toDouble())
+
+        var originalLength: Double = 40.0
+        var lengthTimes: Double = 1.0
+            private set
+
+        override var length: Double
+            get() = originalLength * lengthTimes
+            set(value) {}
+
+        var location: Pair<Number, Number>
+            get() = xAngle to yAngle
+            set(value) {
+                xAngle = value.first.toDouble()
+                yAngle = value.second.toDouble()
+            }
+
+        fun resetAngleAndLength(xAngle: Double, yAngle: Double) {
+            val thisX = toRadians(this.xAngle)
+            val thisY = toRadians(this.yAngle)
+            val lookX = toRadians(xAngle)
+            val lookY = toRadians(yAngle)
+
+            //Axis所在的圆的半径
+            val R = cos(thisY)
+
+            //Axis所在的圆到赤道面的高度
+            val baseY = sin(thisY)
+
+            val x = R * sin(thisX - lookX)
+            val y = baseY * cos(lookY) - R * sin(lookY) * cos(thisX - lookX)
+
+            this.angle = atan2(y, x)
+            this.lengthTimes = length(x, y)
+        }
+
+    }
+
 
     open class CoordinateTransformComponentForCartesianCoordinateSystem(val system: CartesianCoordinateSystem) :
             CoordinateTransformComponent() {
@@ -118,4 +181,28 @@ class CartesianCoordinateSystem(size: Int) : CoordinateSystem2D() {
         }
     }
 
+    open class InputListenerForCartesianCoordinateSystem(val system: CartesianCoordinateSystem) :
+            CoordinateSystem2DInputListener(system) {
+
+        var xAngle = 0.0
+        var yAngle = 0.0
+
+        var look: Pair<Number, Number>
+            get() = xAngle to yAngle
+            set(value) {
+                xAngle = value.first.toDouble()
+                yAngle = value.second.toDouble()
+            }
+
+        override fun mouseDragged(e: MouseEvent) {
+            if (system.paintAsBall && firstEvent.button == MouseEvent.BUTTON2) {
+                xAngle -= (e.x - lastEvent.x) / 10
+                yAngle += (e.y - lastEvent.y) / 10
+
+                system.axes.forEach { (it as BallAxis).resetAngleAndLength(xAngle, yAngle) }
+            }
+
+            super.mouseDragged(e)
+        }
+    }
 }

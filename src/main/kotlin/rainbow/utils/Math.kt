@@ -2,7 +2,6 @@ package rainbow.utils
 
 import rainbow.coordinates.CoordinateSystem2D
 import java.awt.event.MouseEvent
-
 import java.lang.Math.*
 
 /**
