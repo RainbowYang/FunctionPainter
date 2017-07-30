@@ -16,7 +16,7 @@ fun main(args: Array<String>) {
     val functions = mutableListOf<CoordinateFunction>()
 
     functions.apply {
-//        add(RegularPolygon(6, 10.0, 2))
+        //        add(RegularPolygon(6, 10.0, 2))
     }.forEach {
         it.coordinateSystem = coordinateSystem
         it.init()
