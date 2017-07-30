@@ -5,6 +5,7 @@ import rainbow.point.CoordinatePoint
 import rainbow.point.PointDouble
 import rainbow.point.PointForAxes
 import rainbow.utils.CoordinateGraphics
+import rainbow.utils.rangeTo
 import java.lang.Math.*
 
 /**
@@ -82,7 +83,7 @@ class CartesianCoordinateSystem(size: Int) : CoordinateSystem2D() {
 
         var paintRange = 0..30
         val sizeRange
-            get() = 0..system.size
+            get() = rangeTo(system.size)
 
         override fun paintOrigin(cg: CoordinateGraphics) = cg.paintString("O", PointForAxes.ZERO)
 

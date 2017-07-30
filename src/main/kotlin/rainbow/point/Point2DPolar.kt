@@ -8,19 +8,19 @@ import rainbow.utils.toPointDouble
  * @author Rainbow Yang
  */
 
-class PointPolar2D(val r: Double, val angle: Double) : CoordinatePoint {
+class Point2DPolar(val r: Double, val angle: Double) : Point2D {
     constructor(r: Number, angle: Number) : this(r.toDouble(), angle.toDouble())
 
     companion object {
-        operator fun invoke(form: CoordinatePoint): PointPolar2D {
+        operator fun invoke(form: CoordinatePoint): Point2DPolar {
             val pd = form.toPointForAxes().toPointDouble()
-            return PointPolar2D(pd.length, pd.angle)
+            return Point2DPolar(pd.length, pd.angle)
         }
     }
 
-    override fun times(times: Double) = PointPolar2D(r * times, angle)
+    override fun times(times: Double) = Point2DPolar(r * times, angle)
 
-    fun spin(angle: Number) = PointPolar2D(r, this.angle + angle.toDouble())
+    fun spin(angle: Number) = Point2DPolar(r, this.angle + angle.toDouble())
 
 
     override fun toPointForAxes() = PointForAxes(r * Math.cos(angle), r * Math.sin(angle))
@@ -28,7 +28,7 @@ class PointPolar2D(val r: Double, val angle: Double) : CoordinatePoint {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
 
-        if (other !is PointPolar2D) return false
+        if (other !is Point2DPolar) return false
 
         return r == other.r && (angle % PI2) == (other.angle % PI2)
     }

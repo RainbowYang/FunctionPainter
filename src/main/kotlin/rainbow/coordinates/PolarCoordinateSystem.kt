@@ -4,7 +4,7 @@ import rainbow.component.CoordinateTransformComponent
 import rainbow.point.CoordinatePoint
 import rainbow.point.PointDouble
 import rainbow.point.PointForAxes.Companion.ZERO
-import rainbow.point.PointPolar2D
+import rainbow.point.Point2DPolar
 import rainbow.utils.toPointDouble
 import rainbow.utils.CoordinateGraphics
 import rainbow.utils.PI2
@@ -47,13 +47,13 @@ class PolarCoordinateSystem : CoordinateSystem2D() {
 
         override fun paintGrid(cg: CoordinateGraphics) {
             paintRange.forEach {
-                cg.paintCircle(ZERO, PointPolar2D(it, 0))
+                cg.paintCircle(ZERO, Point2DPolar(it, 0))
             }
         }
 
         override fun paintAxes(cg: CoordinateGraphics) {
             (0..axisNum).forEach {
-                cg.paintRayLine(ZERO, PointPolar2D(10, PI2 / axisNum * it))
+                cg.paintRayLine(ZERO, Point2DPolar(10, PI2 / axisNum * it))
             }
         }
 

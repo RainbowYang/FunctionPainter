@@ -1,7 +1,7 @@
 package rainbow.function.pointfunction
 
 import rainbow.function.PointsFunction
-import rainbow.point.PointPolar2D
+import rainbow.point.Point2DPolar
 
 /**
  * 正多边形
@@ -40,9 +40,9 @@ class RegularPolygon(var sides: Int = 6,
 
     private fun addPointByIndex(index: Int) = addPoint(getPoint(index))
 
-    private fun getPoint(index: Int): PointPolar2D {
+    private fun getPoint(index: Int): Point2DPolar {
         val stepAngle = Math.PI * 2 / sides
-        return PointPolar2D(radius, startAngle + index * stepAngle)
+        return Point2DPolar(radius, startAngle + index * stepAngle)
     }
 
     override fun toString(): String {

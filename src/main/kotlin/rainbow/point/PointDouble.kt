@@ -3,7 +3,7 @@ package rainbow.point
 import rainbow.utils.length
 import rainbow.utils.similarEquals
 import rainbow.utils.toPointDouble
-import rainbow.utils.toPointPolar2D
+import rainbow.utils.toPoint2DPolar
 import java.awt.event.MouseEvent
 import java.lang.Math.atan2
 
@@ -26,7 +26,7 @@ class PointDouble(var x: Double, var y: Double) : CoordinatePoint {
     operator fun plus(other: PointDouble) = PointDouble(x + other.x, y + other.y)
     operator fun minus(other: PointDouble) = PointDouble(x - other.x, y - other.y)
 
-    fun spin(angle: Double) = toPointPolar2D().spin(angle).toPointDouble()
+    fun spin(angle: Double) = toPoint2DPolar().spin(angle).toPointDouble()
 //    = PointDouble(x * cos(angle) - y * sin(angle), x * sin(angle) + y * cos(angle))
 
     override fun toPointForAxes() = PointForAxes(x, y)

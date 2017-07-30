@@ -9,16 +9,16 @@ import java.lang.Math.sqrt
  *
  * @author Rainbow Yang
  */
-class PointParabolic2D(val σ: Double, val τ: Double) : CoordinatePoint {
+class Point2DParabolic(val σ: Double, val τ: Double) : Point2D {
     operator fun component1() = σ
     operator fun component2() = τ
     val c1 get() = σ
     val c2 get() = τ
 
     companion object {
-        operator fun invoke(form: PointForAxes): PointParabolic2D {
+        operator fun invoke(form: PointForAxes): Point2DParabolic {
             val (x, y) = form
-            return PointParabolic2D(sqrt(-y + sqrt(x * x + y * y)), sqrt(y + sqrt(x * x + y * y)))
+            return Point2DParabolic(sqrt(-y + sqrt(x * x + y * y)), sqrt(y + sqrt(x * x + y * y)))
         }
     }
 
