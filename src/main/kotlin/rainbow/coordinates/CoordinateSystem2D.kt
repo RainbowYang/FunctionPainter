@@ -46,14 +46,16 @@ abstract class CoordinateSystem2D(
         zoomRate *= times.toDouble()
     }
 
-    fun Point2D.rotateAndScaleAndMove(): Point2D {
-        val result = (this.spin(rotatedAngle) * zoomRate).asPoint2D
+    fun Point2D.rotateAndScaleAndMove(): Point2D = with(this@CoordinateSystem2D) {
+        val result = (spin(rotatedAngle) * zoomRate).asPoint2D
 
-        return Point2D(x + result.x, y - result.y)
+        return Point2D(this.x + result.x, this.y - result.y)
     }
 
-    fun Point2D.inverseRotateAndScaleAndMove() =
-            (Point2D(this.x - x, y - this.y).spin(-rotatedAngle) / zoomRate).asPoint2D
+    fun Point2D.inverseRotateAndScaleAndMove() = with(this@CoordinateSystem2D) {
+        (Point2D(this@inverseRotateAndScaleAndMove.x - x, this@inverseRotateAndScaleAndMove.y - y)
+                .spin(-rotatedAngle) / zoomRate).asPoint2D
+    }
 
     open class CoordinateSystem2DInputListener(val coordinateSystem: CoordinateSystem2D) : InputListenComponent() {
         lateinit var firstEvent: MouseEvent

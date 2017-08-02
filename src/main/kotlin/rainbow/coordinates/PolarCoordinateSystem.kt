@@ -39,7 +39,7 @@ class PolarCoordinateSystem : CoordinateSystem2D() {
         }
     }
 
-    class PainterForPolarCoordinateSystem(val system: PolarCoordinateSystem) : CoordinateSystemPainter(system) {
+    class PainterForPolarCoordinateSystem(system: PolarCoordinateSystem) : CoordinateSystemPainter(system) {
 
         var paintRange = 0..30
         var axisNum = 12

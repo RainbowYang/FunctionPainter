@@ -9,7 +9,6 @@ import java.awt.event.MouseEvent
  * @author Rainbow Yang
  */
 class Point2D(val x: Double, val y: Double) : CoordinatePoint {
-
     constructor(x: Number, y: Number) : this(x.toDouble(), y.toDouble())
     constructor(event: MouseEvent) : this(event.x, event.y)
     constructor(point: PointAxes) : this(point[0], point[1])

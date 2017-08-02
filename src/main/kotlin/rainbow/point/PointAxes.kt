@@ -30,10 +30,10 @@ class PointAxes constructor(vararg initValues: Double) : CoordinatePoint {
 
     operator fun get(index: Int) = values.getOrElse(index, { 0.0 })//维度不够时补0
 
-    override val asAxes = this
+    override val asAxes get() = this
 
-    override val available = checkValues(values.asList())
-    override val length = lengthOf(values.asList())
+    override val available get() = checkValues(values.asList())
+    override val length get() = lengthOf(values.asList())
 
     override fun plus(other: CoordinatePoint): CoordinatePoint {
         val paOther = other.asAxes

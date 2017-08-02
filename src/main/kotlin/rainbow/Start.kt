@@ -1,14 +1,15 @@
 package rainbow
 
 import rainbow.coordinates.CartesianCoordinateSystem
+import rainbow.coordinates.PolarCoordinateSystem
 import rainbow.frame.MainFrame
 import rainbow.function.CoordinateFunction
 import rainbow.function.mathfunction.special.Lissajous
 
 
 fun main(args: Array<String>) {
-//    val coordinateSystem = PolarCoordinateSystem()
-    val coordinateSystem = CartesianCoordinateSystem(3)
+    val coordinateSystem = PolarCoordinateSystem()
+//    val coordinateSystem = CartesianCoordinateSystem(3)
     with(coordinateSystem) {
         x = 500.0
         y = 500.0
