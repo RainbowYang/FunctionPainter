@@ -7,7 +7,7 @@ import java.lang.Math.*
  *
  * @author Rainbow Yang
  */
-class Point2DElliptic(val μ: Double, val ν: Double, val a: Double) : Point2D {
+class Point2DElliptic(val μ: Double, val ν: Double, val a: Double) : CoordinatePoint {
 
     operator fun component1() = μ
     operator fun component2() = ν
@@ -15,6 +15,9 @@ class Point2DElliptic(val μ: Double, val ν: Double, val a: Double) : Point2D {
     private val c1 get() = component1()
     private val c2 get() = component2()
 
-    override fun toPointForAxes() = PointForAxes(a * cosh(c1) * cos(c2), a * sinh(c1) * sin(c2))
+    override val asAxes get() = PointAxes(a * cosh(c1) * cos(c2), a * sinh(c1) * sin(c2))
 
+    override fun toString(): String {
+        return "Point2DElliptic(μ=$μ, ν=$ν, a=$a)"
+    }
 }

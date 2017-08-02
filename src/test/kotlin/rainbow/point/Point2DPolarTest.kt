@@ -12,13 +12,13 @@ class Point2DPolarTest : StringSpec() {
             Point2DPolar(10, PI)
             Point2DPolar(10.0, PI)
 
-            Point2DPolar(PointForAxes(0, 1)) shouldBe Point2DPolar(1, PI / 2)
+            Point2DPolar(PointAxes(0, 1)) shouldBe Point2DPolar(1, PI / 2)
         }
         "equal"{
             Point2DPolar(10, PI) shouldBe Point2DPolar(10, PI * 3)
         }
         "toPointForAxes"{
-            Point2DPolar(10, 0).toPointForAxes() shouldBe PointForAxes(10, 0)
+            Point2DPolar(10, 0).toPointForAxes() shouldBe PointAxes(10, 0)
         }
         "change"{
             Point2DPolar(10, 1) * 2 shouldBe Point2DPolar(20, 1)

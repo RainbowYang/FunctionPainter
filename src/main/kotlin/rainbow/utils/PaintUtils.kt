@@ -1,6 +1,6 @@
 package rainbow.utils
 
-import rainbow.point.PointDouble
+import rainbow.point.Point2D
 import java.awt.*
 import java.awt.image.BufferedImage
 import java.awt.image.BufferedImage.TYPE_3BYTE_BGR
@@ -26,5 +26,5 @@ fun Graphics2D.drawImage(image: Image) = drawImage(image, 0, 0, null)
 //Graphics提供了fillPolygon(Polygon)，却没有drawPolyline(Polygon)，特此扩展
 fun Graphics.drawPolyline(p: Polygon) = drawPolyline(p.xpoints, p.ypoints, p.npoints)
 
-fun Polygon.addPoint(it: PointDouble) = addPoint(it.x.toInt(), it.y.toInt())
+fun Polygon.addPoint(it: Point2D) = addPoint(it.x.toInt(), it.y.toInt())
 

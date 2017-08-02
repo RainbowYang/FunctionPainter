@@ -4,7 +4,7 @@ import rainbow.component.CoordinateTransformComponent
 import rainbow.component.InputListenComponent
 import rainbow.component.PaintComponent
 import rainbow.point.CoordinatePoint
-import rainbow.point.PointDouble
+import rainbow.point.Point2D
 import rainbow.utils.BufferedImage
 import rainbow.utils.CoordinateGraphics
 import java.awt.Color
@@ -31,11 +31,11 @@ abstract class CoordinateSystem {
     abstract var inputComponent: InputListenComponent
 
 
-    fun toScreenPoint(cp: CoordinatePoint): PointDouble = coordinateTransformComponent.toScreenPoint(cp)
-    fun toCoordinatePoint(pd: PointDouble): CoordinatePoint = coordinateTransformComponent.toCoordinatePoint(pd)
+    fun toScreenPoint(cp: CoordinatePoint): Point2D = coordinateTransformComponent.toScreenPoint(cp)
+    fun toCoordinatePoint(pd: Point2D): CoordinatePoint = coordinateTransformComponent.toCoordinatePoint(pd)
 
     fun toScreenPoint(points: List<CoordinatePoint>) = List(points.size) { toScreenPoint(points[it]) }
-    fun toCoordinatePoint(points: List<PointDouble>) = List(points.size) { toCoordinatePoint(points[it]) }
+    fun toCoordinatePoint(points: List<Point2D>) = List(points.size) { toCoordinatePoint(points[it]) }
 
     fun paintImageTo(graphics: Graphics2D) = paintComponent.paintImageTo(graphics)
     fun paintedImage(): BufferedImage = paintComponent.paintedImage()

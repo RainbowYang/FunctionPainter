@@ -1,9 +1,8 @@
 package rainbow.function.space.body
 
-import rainbow.function.space.point.Point3D
-import rainbow.function.space.utils.G
-import rainbow.function.space.utils.DEFAULT_LOCATION
-import rainbow.function.space.utils.DEFAULT_VELOCITY
+import rainbow.point.Point3D
+import rainbow.utils.G
+import rainbow.utils.asPoint3D
 
 /**
  * 是一个有质量的物体
@@ -12,14 +11,14 @@ import rainbow.function.space.utils.DEFAULT_VELOCITY
  * 单位暂时不设置 均为国际标准单位
  * @author Rainbow Yang
  */
-abstract class Body(var location: Point3D = DEFAULT_LOCATION,
-                    var velocity: Point3D = DEFAULT_VELOCITY,
+abstract class Body(var location: Point3D = Point3D.ZERO,
+                    var velocity: Point3D = Point3D.ZERO,
                     var mass: Double = 0.0) {
     /**
      * 以当前速度运行[time]秒
      */
     fun move(time: Double) {
-        location += velocity * time
+        location = (location + velocity * time).asPoint3D
     }
 
     infix fun gravityFrom(from: Body): Point3D {
@@ -28,7 +27,7 @@ abstract class Body(var location: Point3D = DEFAULT_LOCATION,
 
         val distance = relativeLocation.length
 
-        return (relativeLocation / distance) * G * mass * from.mass / (distance * distance)
+        return ((relativeLocation / distance) * G * mass * from.mass / (distance * distance)).asPoint3D
 
     }
 

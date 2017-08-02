@@ -2,12 +2,12 @@ package rainbow.coordinates
 
 import rainbow.component.CoordinateTransformComponent
 import rainbow.point.CoordinatePoint
-import rainbow.point.PointDouble
-import rainbow.point.PointForAxes.Companion.ZERO
+import rainbow.point.Point2D
 import rainbow.point.Point2DPolar
-import rainbow.utils.toPointDouble
+import rainbow.point.PointAxes.Companion.ZERO
 import rainbow.utils.CoordinateGraphics
 import rainbow.utils.PI2
+import rainbow.utils.asPoint2D
 
 /**
  * 二维的极坐标系
@@ -29,11 +29,14 @@ class PolarCoordinateSystem : CoordinateSystem2D() {
             val system: PolarCoordinateSystem
     ) : CoordinateTransformComponent() {
 
-        override fun toScreenPoint(cp: CoordinatePoint) =
-                system.rotateAndScaleAndMove(cp.toPointDouble() * system.axisLength)
+        override fun toScreenPoint(cp: CoordinatePoint) = with(system) {
+            (cp.asPoint2D * system.axisLength).asPoint2D.rotateAndScaleAndMove()
+        }
 
-        override fun toCoordinatePoint(pd: PointDouble) =
-                (system.inverseRotateAndScaleAndMove(pd) / system.axisLength).toPointForAxes()
+
+        override fun toCoordinatePoint(pd: Point2D) = with(system) {
+            (pd.inverseRotateAndScaleAndMove() / axisLength).asAxes
+        }
     }
 
     class PainterForPolarCoordinateSystem(val system: PolarCoordinateSystem) : CoordinateSystemPainter(system) {

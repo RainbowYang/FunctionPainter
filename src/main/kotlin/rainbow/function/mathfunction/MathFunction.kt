@@ -2,7 +2,7 @@ package rainbow.function.mathfunction
 
 import rainbow.function.PointsFunction
 import rainbow.point.CoordinatePoint
-import rainbow.point.PointForAxes
+import rainbow.point.PointAxes
 
 typealias DoubleUnaryOperator = (Double) -> Double
 
@@ -71,7 +71,7 @@ open class MathFunction(initFunctions: List<DoubleUnaryOperator> = listOf()) : P
      * 需要创建的点,默认为PointForAxes
      * 子类如需创造不是坐标系的点，只要重写此方法即可。
      */
-    protected open fun createPoint(values: DoubleArray): CoordinatePoint = PointForAxes(values)
+    protected open fun createPoint(values: DoubleArray): CoordinatePoint = PointAxes(values)
 
     fun setRange(start: Double, end: Double, step: Double) {
         this.start = start

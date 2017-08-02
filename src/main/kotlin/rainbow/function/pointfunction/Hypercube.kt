@@ -1,7 +1,7 @@
 package rainbow.function.pointfunction;
 
 import rainbow.function.CoordinateFunction
-import rainbow.point.PointForAxes
+import rainbow.point.PointAxes
 import rainbow.utils.CoordinateGraphics
 
 /**
@@ -14,7 +14,7 @@ class Hypercube(var size: Int, var length: Double = 5.0) : CoordinateFunction() 
 
     override var paintComponent: CoordinateFunctionPainter = object : CoordinateFunctionPainter() {
         override fun paintMain(cg: CoordinateGraphics) {
-            cg.paintLocation(PointForAxes(length, size))
+            cg.paintLocation(PointAxes(length, size))
         }
     }
 }

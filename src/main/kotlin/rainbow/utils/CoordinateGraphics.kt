@@ -2,8 +2,8 @@ package rainbow.utils
 
 import rainbow.coordinates.CoordinateSystem
 import rainbow.point.CoordinatePoint
-import rainbow.point.PointDouble
-import rainbow.point.PointForAxes
+import rainbow.point.Point2D
+import rainbow.point.PointAxes
 import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.Polygon
@@ -36,7 +36,7 @@ class CoordinateGraphics(val g: Graphics2D,
             g.color = value
         }
 
-    fun paintString(text: Any, location: CoordinatePoint = PointForAxes.ZERO) {
+    fun paintString(text: Any, location: CoordinatePoint = PointAxes.ZERO) {
         val locationOnScreen = system.toScreenPoint(location)
         g.drawString(text.toString(), locationOnScreen.x.toInt(), locationOnScreen.y.toInt())
     }
@@ -64,7 +64,7 @@ class CoordinateGraphics(val g: Graphics2D,
      * 比如三维就是一个长方体，二维是一个长方形
      */
     fun paintLocation(p: CoordinatePoint) {
-        val pa = p.toPointForAxes()
+        val pa = p.asAxes
         for (i in 0..pa.size - 1) {
             if (pa[i] != 0.0) {
                 val p0 = pa.setAtAndNew(i, 0.0)
@@ -82,14 +82,14 @@ class CoordinateGraphics(val g: Graphics2D,
     fun paintStraightLine(origin: CoordinatePoint, towards: CoordinatePoint)
             = paintStraightLine(system.toScreenPoint(origin), system.toScreenPoint(towards))
 
-    fun paintStraightLine(origin: PointDouble, towards: PointDouble) {
-        if (origin.x similarEquals towards.x) {
+    fun paintStraightLine(origin: Point2D, towards: Point2D) {
+        if (origin.x almostEquals towards.x) {
             g.drawLine(origin.x, 0, towards.x, height)
         } else {
             val line = Line(origin, towards)
 
             val left = Line.Y_AXIS
-            val right = Line(PointDouble(width, 0.0), PointDouble(width, height))
+            val right = Line(Point2D(width, 0.0), Point2D(width, height))
 
             val start = line.crossTo(left)
             val end = line.crossTo(right)
@@ -101,8 +101,8 @@ class CoordinateGraphics(val g: Graphics2D,
     fun paintRayLine(origin: CoordinatePoint, towards: CoordinatePoint)
             = paintRayLine(system.toScreenPoint(origin), system.toScreenPoint(towards))
 
-    fun paintRayLine(origin: PointDouble, towards: PointDouble) {
-        if (origin.x similarEquals towards.x) {
+    fun paintRayLine(origin: Point2D, towards: Point2D) {
+        if (origin.x almostEquals towards.x) {
             if (origin.y < towards.y) {
                 g.drawLine(origin.x, origin.y, towards.x, height)
             } else {
@@ -113,7 +113,7 @@ class CoordinateGraphics(val g: Graphics2D,
             if (origin.x > towards.x) {
                 paintLine(origin, line.crossTo(Line.Y_AXIS))
             } else {
-                paintLine(origin, line.crossTo(Line(PointDouble(width, 0), PointDouble(width, height))))
+                paintLine(origin, line.crossTo(Line(Point2D(width, 0), Point2D(width, height))))
             }
         }
     }
@@ -121,7 +121,7 @@ class CoordinateGraphics(val g: Graphics2D,
     //线段
     fun paintLine(from: CoordinatePoint, to: CoordinatePoint) = paintLine(system.toScreenPoint(from), system.toScreenPoint(to))
 
-    fun paintLine(from: PointDouble, to: PointDouble) = g.drawLine(from.x.toInt(), from.y.toInt(), to.x.toInt(), to.y.toInt())
+    fun paintLine(from: Point2D, to: Point2D) = g.drawLine(from.x.toInt(), from.y.toInt(), to.x.toInt(), to.y.toInt())
 
     /**
      * 以[center]为中心，[center]到[to]为半径

@@ -1,7 +1,8 @@
 package rainbow.coordinates
 
 import rainbow.component.InputListenComponent
-import rainbow.point.PointDouble
+import rainbow.point.Point2D
+import rainbow.utils.asPoint2D
 import rainbow.utils.getDiffAngle
 import rainbow.utils.moveTo
 import java.awt.event.MouseEvent
@@ -19,7 +20,6 @@ abstract class CoordinateSystem2D(
         var zoomRate: Double = 1.0
 ) : CoordinateSystem() {
 
-    //default
     override var inputComponent: InputListenComponent = CoordinateSystem2DInputListener(this)
 
     var rotatedAngleAsDegree: Double
@@ -46,34 +46,14 @@ abstract class CoordinateSystem2D(
         zoomRate *= times.toDouble()
     }
 
-    fun rotateAndScaleAndMove(pd: PointDouble): PointDouble {
-        var result = pd
-        if (rotatedAngle != 0.0)
-            result = result.spin(rotatedAngle)
+    fun Point2D.rotateAndScaleAndMove(): Point2D {
+        val result = (this.spin(rotatedAngle) * zoomRate).asPoint2D
 
-        if (zoomRate != 1.0)
-            result = result.times(zoomRate)
-
-        result.x = x + result.x
-        // 屏幕的点是向右下角递增,而坐标点是向右上角递增
-        result.y = y - result.y
-
-        return result
+        return Point2D(x + result.x, y - result.y)
     }
 
-    fun inverseRotateAndScaleAndMove(pd: PointDouble): PointDouble {
-        var result = pd
-        result.x = result.x - x
-        // 屏幕的点是向右下角递增,而坐标点是向右上角递增
-        result.y = y - result.y
-
-        if (rotatedAngle != 0.0)
-            result = result.spin(-rotatedAngle)
-
-        if (zoomRate != 1.0)
-            result = result.times(1.0 / zoomRate)
-        return result
-    }
+    fun Point2D.inverseRotateAndScaleAndMove() =
+            (Point2D(this.x - x, y - this.y).spin(-rotatedAngle) / zoomRate).asPoint2D
 
     open class CoordinateSystem2DInputListener(val coordinateSystem: CoordinateSystem2D) : InputListenComponent() {
         lateinit var firstEvent: MouseEvent
@@ -98,7 +78,7 @@ abstract class CoordinateSystem2D(
 
 
         override fun mouseWheelMoved(e: MouseWheelEvent) = with(coordinateSystem) {
-            val now = toCoordinatePoint(PointDouble(e))
+            val now = toCoordinatePoint(Point2D(e))
 
             moveTo(now)
             zoom(Math.pow(zoomSpeed, e.wheelRotation.toDouble()))

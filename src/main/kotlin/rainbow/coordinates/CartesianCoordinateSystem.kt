@@ -3,10 +3,10 @@ package rainbow.coordinates
 import rainbow.component.CoordinateTransformComponent
 import rainbow.component.InputListenComponent
 import rainbow.point.CoordinatePoint
-import rainbow.point.PointDouble
-import rainbow.point.PointForAxes
+import rainbow.point.Point2D
+import rainbow.point.PointAxes
 import rainbow.utils.CoordinateGraphics
-import rainbow.utils.length
+import rainbow.utils.lengthOf
 import rainbow.utils.rangeTo
 import java.awt.event.MouseEvent
 import java.lang.Math.*
@@ -109,7 +109,7 @@ class CartesianCoordinateSystem(size: Int = 3,
             val y = baseY * cos(lookY) - R * sin(lookY) * cos(thisX - lookX)
 
             this.angle = atan2(y, x)
-            this.lengthTimes = length(x, y)
+            this.lengthTimes = lengthOf(x, y)
         }
 
     }
@@ -117,8 +117,8 @@ class CartesianCoordinateSystem(size: Int = 3,
 
     open class CoordinateTransformComponentForCartesianCoordinateSystem(val system: CartesianCoordinateSystem) :
             CoordinateTransformComponent() {
-        override fun toScreenPoint(cp: CoordinatePoint): PointDouble = with(system) {
-            val form = cp.toPointForAxes()
+        override fun toScreenPoint(cp: CoordinatePoint): Point2D = with(system) {
+            val form = cp.asAxes
             var px = 0.0
             var py = 0.0
             for (i in 0..axes.size - 1) {
@@ -126,12 +126,12 @@ class CartesianCoordinateSystem(size: Int = 3,
                 px += cos(angle) * length * form[i]
                 py += sin(angle) * length * form[i]
             }
-            return rotateAndScaleAndMove(PointDouble(px, py))
+            return Point2D(px, py).rotateAndScaleAndMove()
         }
 
 
-        override fun toCoordinatePoint(p: PointDouble): CoordinatePoint = with(system) {
-            val pd = inverseRotateAndScaleAndMove(p)
+        override fun toCoordinatePoint(p: Point2D): CoordinatePoint = with(system) {
+            val pd = p.inverseRotateAndScaleAndMove()
 
             val x = pd.spin(Math.PI / 2 - axes[1].angle).x
             val y = pd.spin(0 - axes[0].angle).y
@@ -142,7 +142,7 @@ class CartesianCoordinateSystem(size: Int = 3,
             val px = x / Math.cos(xAngle) / axes[0].length
             val py = y / Math.sin(yAngle) / axes[1].length
 
-            return PointForAxes(px, py)
+            return PointAxes(px, py)
 
         }
     }
@@ -154,7 +154,7 @@ class CartesianCoordinateSystem(size: Int = 3,
         val sizeRange
             get() = rangeTo(system.size)
 
-        override fun paintOrigin(cg: CoordinateGraphics) = cg.paintString("O", PointForAxes.ZERO)
+        override fun paintOrigin(cg: CoordinateGraphics) = cg.paintString("O", PointAxes.ZERO)
 
 
         override fun paintGrid(cg: CoordinateGraphics) = with(system) {
@@ -162,7 +162,7 @@ class CartesianCoordinateSystem(size: Int = 3,
             for (i in sizeRange) {
                 //值遍历
                 for (value in paintRange) {
-                    val p0 = PointForAxes.ZERO.plusAtAndNew(i, value)
+                    val p0 = PointAxes.ZERO.plusAtAndNew(i, value)
                     val p1 = p0.plusAtAndNew(if (i == axes.size - 1) 0 else i + 1, 1.0)
                     val p2 = p0.plusAtAndNew(if (i == 0) axes.size - 1 else i - 1, 1.0)
 
@@ -174,14 +174,14 @@ class CartesianCoordinateSystem(size: Int = 3,
 
         override fun paintAxes(cg: CoordinateGraphics) = with(system) {
             sizeRange.forEach {
-                cg.paintStraightLine(PointForAxes.ZERO, PointForAxes.ZERO.plusAtAndNew(it, 10))
+                cg.paintStraightLine(PointAxes.ZERO, PointAxes.ZERO.plusAtAndNew(it, 10))
             }
         }
 
         override fun paintNumber(cg: CoordinateGraphics) = with(system) {
             sizeRange.forEach { size ->
                 paintRange.filter { it != 0 }.forEach {
-                    cg.paintString(it, PointForAxes.ZERO.plusAtAndNew(size, it))
+                    cg.paintString(it, PointAxes.ZERO.plusAtAndNew(size, it))
                 }
             }
         }

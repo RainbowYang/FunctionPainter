@@ -1,6 +1,6 @@
 package rainbow.utils
 
-import rainbow.point.PointDouble
+import rainbow.point.Point2D
 
 /**
  * 数学意义上的线
@@ -16,7 +16,7 @@ class Line(val a: Double, val b: Double, val c: Double) {
         /**
          * 根据两个点生成线
          */
-        operator fun invoke(p1: PointDouble, p2: PointDouble): Line {
+        operator fun invoke(p1: Point2D, p2: Point2D): Line {
             val a = p1.y - p2.y
             val b = -(p1.x - p2.x)
             val c = p1.x * p2.y - p1.y * p2.x
@@ -26,8 +26,8 @@ class Line(val a: Double, val b: Double, val c: Double) {
         /**
          * 根据一个点和倾斜角生成线
          */
-        operator fun invoke(point: PointDouble, angle: Double) =
-                if ((angle - Math.PI / 2) % Math.PI similarEquals 0.0) {
+        operator fun invoke(point: Point2D, angle: Double) =
+                if ((angle - Math.PI / 2) % Math.PI almostEquals 0.0) {
                     Line(1, 0, -point.x)
                 } else {
                     val a = Math.tan(angle)
@@ -38,12 +38,12 @@ class Line(val a: Double, val b: Double, val c: Double) {
         val Y_AXIS = Line(1.0, 0.0, 0.0)
     }
 
-    infix fun crossTo(l: Line): PointDouble {
+    infix fun crossTo(l: Line): Point2D {
         //平行
         if (a * l.b - b * l.a == 0.0) {
             throw NoCrossException(this.toString() + "has no cross with" + l)
         }
-        return PointDouble(-(c * l.b - b * l.c) / (a * l.b - b * l.a), -(a * l.c - c * l.a) / (a * l.b - b * l.a))
+        return Point2D(-(c * l.b - b * l.c) / (a * l.b - b * l.a), -(a * l.c - c * l.a) / (a * l.b - b * l.a))
     }
 
     override fun toString(): String {

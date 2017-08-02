@@ -1,9 +1,6 @@
 package rainbow.function.space.body
 
-import moe.rainbow.body.Body
-import moe.rainbow.point.Point3D
-import moe.rainbow.utils.DEFAULT_LOCATION
-import moe.rainbow.utils.DEFAULT_VELOCITY
+import rainbow.point.Point3D
 
 /**
  * 一个球，拥有[radius]
@@ -11,8 +8,8 @@ import moe.rainbow.utils.DEFAULT_VELOCITY
  * @author Rainbow Yang
  */
 class Ball(var radius: Double = 0.0,
-           location: Point3D = DEFAULT_LOCATION,
-           velocity: Point3D = DEFAULT_VELOCITY,
+           location: Point3D = Point3D.ZERO,
+           velocity: Point3D = Point3D.ZERO,
            mass: Number = 0
 ) : Body(location, velocity, mass.toDouble()) {
 

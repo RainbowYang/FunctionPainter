@@ -2,8 +2,9 @@ package rainbow.function.space.world
 
 import rainbow.function.CoordinateFunction
 import rainbow.function.space.body.Body
-import rainbow.function.space.point.Point3D
+import rainbow.point.Point3D
 import rainbow.utils.CoordinateGraphics
+import rainbow.utils.asPoint3D
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -53,11 +54,11 @@ class World : CoordinateFunction() {
             var gravitySum = Point3D.ZERO
             bodies.forEach {
                 if (it !== now) {
-                    gravitySum += (now gravityFrom it)
+                    gravitySum = (gravitySum + (now gravityFrom it)).asPoint3D
                 }
             }
-            now.velocity += (gravitySum / now.mass) * time
-            now.location += now.velocity * time
+            now.velocity = ((now.velocity + gravitySum / now.mass) * time).asPoint3D
+            now.move(time)
         }
     }
 
