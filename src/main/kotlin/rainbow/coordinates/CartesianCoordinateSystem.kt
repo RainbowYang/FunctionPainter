@@ -6,8 +6,8 @@ import rainbow.point.CoordinatePoint
 import rainbow.point.PointDouble
 import rainbow.point.PointForAxes
 import rainbow.utils.CoordinateGraphics
-import rainbow.utils.rangeTo
 import rainbow.utils.length
+import rainbow.utils.rangeTo
 import java.awt.event.MouseEvent
 import java.lang.Math.*
 
@@ -20,7 +20,10 @@ import java.lang.Math.*
  * @author Rainbow Yang
  * @see CoordinateSystem2D
  */
-class CartesianCoordinateSystem(size: Int) : CoordinateSystem2D() {
+class CartesianCoordinateSystem(size: Int = 3,
+                                val paintAsBall: Boolean = true,
+                                init: CartesianCoordinateSystem.() -> Unit = { setDefaultAxes(size) }
+) : CoordinateSystem2D() {
 
     override var coordinateTransformComponent: CoordinateTransformComponent
             = CoordinateTransformComponentForCartesianCoordinateSystem(this)
@@ -31,34 +34,33 @@ class CartesianCoordinateSystem(size: Int) : CoordinateSystem2D() {
     override var inputComponent: InputListenComponent
             = InputListenerForCartesianCoordinateSystem(this)
 
-    val axes = mutableListOf<Axis>()
-    val size: Int get() = axes.size
-
-    var paintAsBall = true
-
     init {
-        setDefaultAxes(size)
+        init()
+
+        axes.forEach { }
     }
 
-    private fun setDefaultAxes(size: Int) {
-        when (size) {
-            3 -> {
-                if (paintAsBall) {
-                    addAxes(0 to 0, 90 to 0, 0 to 90)
-                } else {
-                    addAxes(225, 0, 90)
-                }
-            }
-            2 -> {
-                paintAsBall = false
 
-                addAxes(0, 90)
-            }
+    lateinit var axes: MutableList<Axis>
+
+    val size: Int get() = axes.size
+
+
+    fun setDefaultAxes(size: Int) {
+        axes = mutableListOf<Axis>()
+
+        when (size) {
+            3 -> if (paintAsBall) addAxes(0 to 0, 90 to 0, 0 to 90) else addAxes(225, 0, 90)
+            2 -> if (paintAsBall) addAxes(90 to 0, 0 to 90) else addAxes(0, 90)
         }
     }
 
     fun addAxes(vararg axis: Pair<Number, Number>) = axis.forEach { axes.add(BallAxis(it.first, it.second)) }
     fun addAxes(vararg angles: Number) = angles.forEach { axes.add(ClassicAxis(toRadians(it.toDouble()))) }
+
+    override fun toString(): String {
+        return "CartesianCoordinateSystem(axes=$axes, paintAsBall=$paintAsBall)"
+    }
 
     /**
      * [angle]使用弧度
@@ -86,6 +88,10 @@ class CartesianCoordinateSystem(size: Int) : CoordinateSystem2D() {
                 xAngle = value.first.toDouble()
                 yAngle = value.second.toDouble()
             }
+
+        init {
+            resetAngleAndLength(0.0, 0.0)
+        }
 
         fun resetAngleAndLength(xAngle: Double, yAngle: Double) {
             val thisX = toRadians(this.xAngle)
@@ -196,11 +202,14 @@ class CartesianCoordinateSystem(size: Int) : CoordinateSystem2D() {
 
         override fun mouseDragged(e: MouseEvent) {
             if (system.paintAsBall && firstEvent.button == MouseEvent.BUTTON2) {
-                xAngle -= (e.x - lastEvent.x) / 10
-                yAngle += (e.y - lastEvent.y) / 10
+                xAngle -= (e.x - lastEvent.x) / 10.0
+                yAngle += (e.y - lastEvent.y) / 10.0
 
                 system.axes.forEach { (it as BallAxis).resetAngleAndLength(xAngle, yAngle) }
             }
+
+            println("$xAngle...$yAngle")
+
 
             super.mouseDragged(e)
         }
