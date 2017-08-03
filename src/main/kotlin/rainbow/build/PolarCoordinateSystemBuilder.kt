@@ -26,6 +26,5 @@ class PolarCoordinateSystemBuilder : CoordinateSystem2DBuilder() {
     }
 }
 
-class PolarCoordinateSystemData : CoordinateSystem2DData() {
-    @SerializedName("Axis Length") var axisLength: Double? = null
-}
+class PolarCoordinateSystemData(
+        @SerializedName("Axis Length") var axisLength: Double? = null) : CoordinateSystem2DData()

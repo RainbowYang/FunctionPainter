@@ -32,8 +32,8 @@ class PolarCoordinateSystem : CoordinateSystem2D() {
 
 
     @Expose @SerializedName(inputName) override var inputComponent: InputListenComponent
-            = CoordinateSystem2DInputListener(this)
-    @Expose @SerializedName(paintName) override var paintComponent: CoordinateSystemPainter
+            = InputListenComponentOfCoordinateSystem2D(this)
+    @Expose @SerializedName(paintName) override var paintComponent: PaintComponentOfCoordinateSystem
             = PainterForPolarCoordinateSystem(this)
 
     override var coordinateTransformComponent: CoordinateTransformComponent
@@ -52,7 +52,7 @@ class PolarCoordinateSystem : CoordinateSystem2D() {
         }
     }
 
-    class PainterForPolarCoordinateSystem(system: PolarCoordinateSystem) : CoordinateSystemPainter(system) {
+    class PainterForPolarCoordinateSystem(system: PolarCoordinateSystem) : PaintComponentOfCoordinateSystem(system) {
 
         var paintRange = 0..30
         var axisNum = 12

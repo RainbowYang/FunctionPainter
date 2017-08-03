@@ -16,7 +16,8 @@ abstract class CoordinateSystem2DBuilder : CoordinateSystemBuilder() {
         if (data.rotatedAngle != null) system.rotatedAngle = data.rotatedAngle!!
         if (data.zoomRate != null) system.zoomRate = data.zoomRate!!
 
-        if (data.inputComponent?.zoomSpeed != null) (system.inputComponent as CoordinateSystem2D.CoordinateSystem2DInputListener).zoomSpeed = data.inputComponent?.zoomSpeed!!
+        if (data.inputComponent?.zoomSpeed != null)
+            (system.inputComponent as InputListenComponentOfCoordinateSystem2D).zoomSpeed = data.inputComponent?.zoomSpeed!!
     }
 }
 
@@ -35,7 +36,7 @@ open class CoordinateSystem2DData : CoordinateSystemData() {
 
     class PaintComponent {
         @SerializedName("Visible") var visible = true
-        val paints = mutableListOf<CoordinateSystem.CoordinateSystemPainter.PaintPart>()
+        val paints = mutableListOf<PaintComponentOfCoordinateSystem.PaintPart>()
     }
 }
 

@@ -1,14 +1,8 @@
 package rainbow.coordinates
 
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
 import rainbow.component.InputListenComponent
 import rainbow.point.Point2D
 import rainbow.utils.asPoint2D
-import rainbow.utils.getDiffAngle
-import rainbow.utils.moveTo
-import java.awt.event.MouseEvent
-import java.awt.event.MouseWheelEvent
 
 /**
  * 二维坐标系的接口
@@ -17,16 +11,20 @@ import java.awt.event.MouseWheelEvent
  */
 abstract class CoordinateSystem2D : CoordinateSystem() {
 
+    override var inputComponent: InputListenComponent = InputListenComponentOfCoordinateSystem2D(this)
+
     abstract var x: Double
     abstract var y: Double
-    abstract var rotatedAngle: Double
+
     abstract var zoomRate: Double
 
+    abstract var rotatedAngle: Double
     var rotatedAngleAsDegree: Double
         get() = Math.toDegrees(rotatedAngle)
         set(value) {
             rotatedAngle = Math.toRadians(value)
         }
+
 
     fun move(x: Number, y: Number) {
         this.x += x.toDouble()
@@ -58,36 +56,4 @@ abstract class CoordinateSystem2D : CoordinateSystem() {
         return result.asPoint2D
     }
 
-    open class CoordinateSystem2DInputListener(val coordinateSystem: CoordinateSystem2D) : InputListenComponent() {
-        lateinit var firstEvent: MouseEvent
-        lateinit var lastEvent: MouseEvent
-
-        @Expose @SerializedName("Zoom Speed") var zoomSpeed = 1.1
-
-        override fun mousePressed(e: MouseEvent) {
-            firstEvent = e
-            lastEvent = e
-        }
-
-        override fun mouseDragged(e: MouseEvent) = with(coordinateSystem) {
-            when (firstEvent.button) {
-                MouseEvent.BUTTON1 -> move(e.x - lastEvent.x, e.y - lastEvent.y)
-                MouseEvent.BUTTON3 -> rotate(getDiffAngle(lastEvent, e))
-            }
-            lastEvent = e
-
-            repaint()
-        }
-
-
-        override fun mouseWheelMoved(e: MouseWheelEvent) = with(coordinateSystem) {
-            val now = toCoordinatePoint(Point2D(e))
-
-            moveTo(now)
-            zoom(Math.pow(zoomSpeed, e.wheelRotation.toDouble()))
-            moveTo(-now)
-
-            repaint()
-        }
-    }
 }
