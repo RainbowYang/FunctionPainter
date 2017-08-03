@@ -5,6 +5,7 @@ import java.awt.*
 import java.awt.image.BufferedImage
 import java.awt.image.BufferedImage.TYPE_3BYTE_BGR
 import java.awt.image.BufferedImage.TYPE_4BYTE_ABGR
+import javax.print.attribute.IntegerSyntax
 
 val EMPTY_IMAGE = BufferedImage(1, 1, TYPE_3BYTE_BGR)
 
@@ -28,3 +29,4 @@ fun Graphics.drawPolyline(p: Polygon) = drawPolyline(p.xpoints, p.ypoints, p.npo
 
 fun Polygon.addPoint(it: Point2D) = addPoint(it.x.toInt(), it.y.toInt())
 
+fun parseColor(str: String) = Color.getColor(null, Integer.decode(str))!!

@@ -1,5 +1,7 @@
 package rainbow.coordinates
 
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 import rainbow.component.CoordinateTransformComponent
 import rainbow.component.InputListenComponent
 import rainbow.point.CoordinatePoint
@@ -24,15 +26,18 @@ class CartesianCoordinateSystem(size: Int = 3,
                                 val paintAsBall: Boolean = true,
                                 init: CartesianCoordinateSystem.() -> Unit = { setDefaultAxes(size) }
 ) : CoordinateSystem2D() {
-
+    @Expose @SerializedName(typeName) override var type = this::class.simpleName!!
+    @Expose override var x = 0.0
+    @Expose override var y = 0.0
+    @Expose @SerializedName(rotatedAngleName) override var rotatedAngle = 0.0
+    @Expose @SerializedName(zoomRateName) override var zoomRate = 1.0
+    @Expose @SerializedName(inputName) override var inputComponent: InputListenComponent
+            = InputListenerForCartesianCoordinateSystem(this)
     override var coordinateTransformComponent: CoordinateTransformComponent
             = CoordinateTransformComponentForCartesianCoordinateSystem(this)
 
     override var paintComponent: CoordinateSystemPainter
             = PainterForCartesianCoordinateSystem(this)
-
-    override var inputComponent: InputListenComponent
-            = InputListenerForCartesianCoordinateSystem(this)
 
     init {
         init()
@@ -151,13 +156,18 @@ class CartesianCoordinateSystem(size: Int = 3,
             CoordinateSystemPainter(system) {
 
         var paintRange = 0..30
-        val sizeRange
-            get() = rangeTo(system.size)
+        val sizeRange get() = rangeTo(system.size)
 
-        override fun paintOrigin(cg: CoordinateGraphics) = cg.paintString("O", PointAxes.ZERO)
+        init {
+            addPaintPart(ORIGIN) { paintOrigin(it) }
+            addPaintPart(GRID) { paintGrid(it) }
+            addPaintPart(AXES) { paintAxes(it) }
+            addPaintPart(NUMBER) { paintNumber(it) }
+        }
 
+        fun paintOrigin(cg: CoordinateGraphics) = cg.paintString("O", PointAxes.ZERO)
 
-        override fun paintGrid(cg: CoordinateGraphics) = with(system) {
+        fun paintGrid(cg: CoordinateGraphics) = with(system) {
             //维度遍历
             for (i in sizeRange) {
                 //值遍历
@@ -172,13 +182,13 @@ class CartesianCoordinateSystem(size: Int = 3,
             }
         }
 
-        override fun paintAxes(cg: CoordinateGraphics) = with(system) {
+        fun paintAxes(cg: CoordinateGraphics) = with(system) {
             sizeRange.forEach {
                 cg.paintStraightLine(PointAxes.ZERO, PointAxes.ZERO.plusAtAndNew(it, 10))
             }
         }
 
-        override fun paintNumber(cg: CoordinateGraphics) = with(system) {
+        fun paintNumber(cg: CoordinateGraphics) = with(system) {
             sizeRange.forEach { size ->
                 paintRange.filter { it != 0 }.forEach {
                     cg.paintString(it, PointAxes.ZERO.plusAtAndNew(size, it))
@@ -207,9 +217,6 @@ class CartesianCoordinateSystem(size: Int = 3,
 
                 system.axes.forEach { (it as BallAxis).resetAngleAndLength(xAngle, yAngle) }
             }
-
-            println("$xAngle...$yAngle")
-
 
             super.mouseDragged(e)
         }

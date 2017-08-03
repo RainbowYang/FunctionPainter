@@ -1,5 +1,7 @@
 package rainbow.coordinates
 
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 import rainbow.component.InputListenComponent
 import rainbow.point.Point2D
 import rainbow.utils.asPoint2D
@@ -13,14 +15,12 @@ import java.awt.event.MouseWheelEvent
  * 实现平移，旋转，伸缩
  * @author Rainbow Yang
  */
-abstract class CoordinateSystem2D(
-        var x: Double = 0.0,
-        var y: Double = 0.0,
-        var rotatedAngle: Double = 0.0,
-        var zoomRate: Double = 1.0
-) : CoordinateSystem() {
+abstract class CoordinateSystem2D : CoordinateSystem() {
 
-    override var inputComponent: InputListenComponent = CoordinateSystem2DInputListener(this)
+    abstract var x: Double
+    abstract var y: Double
+    abstract var rotatedAngle: Double
+    abstract var zoomRate: Double
 
     var rotatedAngleAsDegree: Double
         get() = Math.toDegrees(rotatedAngle)
@@ -61,7 +61,7 @@ abstract class CoordinateSystem2D(
         lateinit var firstEvent: MouseEvent
         lateinit var lastEvent: MouseEvent
 
-        var zoomSpeed = 1.1
+        @Expose @SerializedName("Zoom Speed") var zoomSpeed = 1.1
 
         override fun mousePressed(e: MouseEvent) {
             firstEvent = e

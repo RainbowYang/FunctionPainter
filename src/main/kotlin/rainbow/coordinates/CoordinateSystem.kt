@@ -1,5 +1,7 @@
 package rainbow.coordinates
 
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 import rainbow.component.CoordinateTransformComponent
 import rainbow.component.InputListenComponent
 import rainbow.component.PaintComponent
@@ -7,7 +9,7 @@ import rainbow.point.CoordinatePoint
 import rainbow.point.Point2D
 import rainbow.utils.BufferedImage
 import rainbow.utils.CoordinateGraphics
-import java.awt.Color
+import rainbow.utils.parseColor
 import java.awt.Component
 import java.awt.Graphics2D
 import java.awt.image.BufferedImage
@@ -15,8 +17,7 @@ import java.awt.image.BufferedImage
 /**
  * 坐标系接口
  *
- * 由[CoordinateTransformComponent]，[PaintComponent]，[InputListenComponent]组成
- * 子类应实现这三个类
+ * 由[CoordinateTransformComponent]，[PaintComponent]，[InputListenComponent]组成子类应实现这三个类
  *
  * @author Rainbow Yang
  *
@@ -25,11 +26,11 @@ import java.awt.image.BufferedImage
  * @see InputListenComponent
  */
 abstract class CoordinateSystem {
+    abstract var type: String
 
     abstract var coordinateTransformComponent: CoordinateTransformComponent
     abstract var paintComponent: CoordinateSystemPainter
     abstract var inputComponent: InputListenComponent
-
 
     fun toScreenPoint(cp: CoordinatePoint): Point2D = coordinateTransformComponent.toScreenPoint(cp)
     fun toCoordinatePoint(pd: Point2D): CoordinatePoint = coordinateTransformComponent.toCoordinatePoint(pd)
@@ -49,49 +50,39 @@ abstract class CoordinateSystem {
      * @author Rainbow Yang
      */
     abstract class CoordinateSystemPainter(val coordinateSystem: CoordinateSystem) : PaintComponent() {
-        var colorOfOrigin: Color = Color.BLACK
-        var colorOfGrid: Color = Color.BLACK
-        var colorOfAxes: Color = Color.BLACK
-        var colorOfNumber: Color = Color.BLACK
+        @Expose @SerializedName("Visible") var visible = true
 
+        @Expose val paints = mutableListOf<PaintPart>()
 
-        var isVisual = true
+        val ORIGIN: String = "Origin"
+        val GRID: String = "Grid"
+        val AXES: String = "Axes"
+        val NUMBER: String = "Number"
 
-        var paintOrigin = true
-        var paintGrid = true
-        var paintAxes = true
-        var paintNumber = true
+        fun addPaintPart(name: String,
+                         color: String = "#000000",
+                         needPaint: Boolean = true,
+                         paint: (CoordinateGraphics) -> Unit = {}) {
+            paints.add(PaintPart(name, color, needPaint, paint))
+        }
 
-        open fun paintOrigin(cg: CoordinateGraphics) {}
-        open fun paintGrid(cg: CoordinateGraphics) {}
-        open fun paintAxes(cg: CoordinateGraphics) {}
-        open fun paintNumber(cg: CoordinateGraphics) {}
+        class PaintPart(@Expose @SerializedName("Name") var name: String,
+                        @Expose @SerializedName("Color") var color: String,
+                        @Expose @SerializedName("Visible") var visible: Boolean,
+                        var paint: (CoordinateGraphics) -> Unit)
+
 
         override fun paintedImage(width: Int, height: Int): BufferedImage = BufferedImage(width, height).also {
-            val cg = CoordinateGraphics(it, coordinateSystem)
+            if (visible) {
+                val cg = CoordinateGraphics(it, coordinateSystem)
 
-            if (isVisual) {
-
-                if (paintOrigin) {
-                    cg.color = colorOfOrigin
-                    paintOrigin(cg)
-                }
-
-                if (paintGrid) {
-                    cg.color = colorOfGrid
-                    paintGrid(cg)
-                }
-
-                if (paintAxes) {
-                    cg.color = colorOfAxes
-                    paintAxes(cg)
-                }
-
-                if (paintNumber) {
-                    cg.color = colorOfNumber
-                    paintNumber(cg)
+                paints.filter { it.visible }.forEach {
+                    cg.color = parseColor(it.color)
+                    it.paint(cg)
                 }
             }
         }
+
     }
+
 }

@@ -63,16 +63,11 @@ class World : CoordinateFunction() {
     }
 
     class WorldPainter(val world: World) : CoordinateFunctionPainter() {
-        override fun paintBefore(cg: CoordinateGraphics) {
-            super.paintBefore(cg)
-        }
-
         override fun paintMain(cg: CoordinateGraphics) {
-            super.paintMain(cg)
-        }
-
-        override fun paintAfter(cg: CoordinateGraphics) {
-            super.paintAfter(cg)
+            world.bodies.forEach {
+                val location = cg.system.toScreenPoint(it.location)
+                cg.g.drawOval(location.x.toInt(), location.y.toInt(), 100, 100)
+            }
         }
     }
 }
