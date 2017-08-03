@@ -18,20 +18,26 @@ import rainbow.utils.asPoint2D
  * @author Rainbow Yang
  */
 class PolarCoordinateSystem : CoordinateSystem2D() {
+
     @Expose @SerializedName(typeName) override var type = this::class.simpleName!!
+
     @Expose override var x = 0.0
     @Expose override var y = 0.0
+
     @Expose @SerializedName(rotatedAngleName) override var rotatedAngle = 0.0
     @Expose @SerializedName(zoomRateName) override var zoomRate = 1.0
-    @Expose @SerializedName(inputName) override var inputComponent: InputListenComponent
-            = CoordinateSystem2DInputListener(this)
+
     //单位长度的像素数
     @Expose @SerializedName("Axis Length") var axisLength = 40.0
 
-    override var coordinateTransformComponent: CoordinateTransformComponent
-            = CoordinateTransformComponentForPolarCoordinateSystem(this)
+
+    @Expose @SerializedName(inputName) override var inputComponent: InputListenComponent
+            = CoordinateSystem2DInputListener(this)
     @Expose @SerializedName(paintName) override var paintComponent: CoordinateSystemPainter
             = PainterForPolarCoordinateSystem(this)
+
+    override var coordinateTransformComponent: CoordinateTransformComponent
+            = CoordinateTransformComponentForPolarCoordinateSystem(this)
 
     class CoordinateTransformComponentForPolarCoordinateSystem(val system: PolarCoordinateSystem)
         : CoordinateTransformComponent() {

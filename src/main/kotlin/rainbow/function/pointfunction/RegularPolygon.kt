@@ -1,5 +1,6 @@
 package rainbow.function.pointfunction
 
+import com.google.gson.annotations.Expose
 import rainbow.function.PointsFunction
 import rainbow.point.Point2DPolar
 
@@ -7,10 +8,10 @@ import rainbow.point.Point2DPolar
  * 正多边形
  * @author Rainbow Yang
  */
-class RegularPolygon(var sides: Int = 6,
-                     var radius: Double = 5.0,
-                     var step: Int = 1,
-                     var startAngle: Double = Math.PI / 2) : PointsFunction() {
+class RegularPolygon(@Expose var sides: Int = 6,
+                     @Expose var radius: Double = 5.0,
+                     @Expose var step: Int = 1,
+                     @Expose var startAngle: Double = Math.PI / 2) : PointsFunction() {
 
     override fun calcPoints() {
         cleanAllPoints()

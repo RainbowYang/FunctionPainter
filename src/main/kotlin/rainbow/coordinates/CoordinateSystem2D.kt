@@ -52,9 +52,10 @@ abstract class CoordinateSystem2D : CoordinateSystem() {
         return Point2D(this.x + result.x, this.y - result.y)
     }
 
-    fun Point2D.inverseRotateAndScaleAndMove() = with(this@CoordinateSystem2D) {
-        (Point2D(this@inverseRotateAndScaleAndMove.x - x, this@inverseRotateAndScaleAndMove.y - y)
-                .spin(-rotatedAngle) / zoomRate).asPoint2D
+    fun Point2D.inverseRotateAndScaleAndMove(): Point2D {
+        val system = this@CoordinateSystem2D
+        val result = Point2D(this.x - system.x, system.y - this.y).spin(-rotatedAngle) / zoomRate
+        return result.asPoint2D
     }
 
     open class CoordinateSystem2DInputListener(val coordinateSystem: CoordinateSystem2D) : InputListenComponent() {
