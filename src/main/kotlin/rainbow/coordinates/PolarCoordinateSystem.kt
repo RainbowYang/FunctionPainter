@@ -1,9 +1,7 @@
 package rainbow.coordinates
 
 import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
 import rainbow.component.CoordinateTransformComponent
-import rainbow.component.InputListenComponent
 import rainbow.point.CoordinatePoint
 import rainbow.point.Point2D
 import rainbow.point.Point2DPolar
@@ -18,22 +16,21 @@ import rainbow.utils.asPoint2D
  * @author Rainbow Yang
  */
 class PolarCoordinateSystem : CoordinateSystem2D() {
-
-    @Expose @SerializedName(typeName) override var type = this::class.simpleName!!
+    @Expose override var type = super.type
 
     @Expose override var x = 0.0
     @Expose override var y = 0.0
 
-    @Expose @SerializedName(rotatedAngleName) override var rotatedAngle = 0.0
-    @Expose @SerializedName(zoomRateName) override var zoomRate = 1.0
+    @Expose override var rotatedAngle = 0.0
+    @Expose override var zoomRate = 1.0
 
     //单位长度的像素数
-    @Expose @SerializedName("Axis Length") var axisLength = 40.0
+    @Expose var axisLength = 40.0
 
 
-    @Expose @SerializedName(inputName) override var inputComponent: InputListenComponent
-            = InputListenComponentOfCoordinateSystem2D(this)
-    @Expose @SerializedName(paintName) override var paintComponent: PaintComponentOfCoordinateSystem
+    @Expose override var inputComponent: rainbow.component.InputListenComponent
+            = InputListenComponent(this)
+    @Expose override var paintComponent: PaintComponent
             = PainterForPolarCoordinateSystem(this)
 
     override var coordinateTransformComponent: CoordinateTransformComponent
@@ -52,7 +49,7 @@ class PolarCoordinateSystem : CoordinateSystem2D() {
         }
     }
 
-    class PainterForPolarCoordinateSystem(system: PolarCoordinateSystem) : PaintComponentOfCoordinateSystem(system) {
+    class PainterForPolarCoordinateSystem(system: PolarCoordinateSystem) : PaintComponent(system) {
 
         var paintRange = 0..30
         var axisNum = 12

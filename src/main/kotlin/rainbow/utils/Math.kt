@@ -1,5 +1,6 @@
 package rainbow.utils
 
+import rainbow.coordinates.CartesianCoordinateSystem
 import rainbow.coordinates.CoordinateSystem2D
 import java.awt.event.MouseEvent
 import java.lang.Math.*
@@ -43,4 +44,3 @@ fun checkValues(values: List<Number>): Boolean {
     values.forEach { result = result && it.toDouble().isFinite() }
     return result
 }
-

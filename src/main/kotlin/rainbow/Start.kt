@@ -1,6 +1,5 @@
 package rainbow
 
-import rainbow.build.CoordinateSystemBuilderUser
 import rainbow.coordinates.PolarCoordinateSystem
 import rainbow.frame.MainFrame
 import rainbow.function.CoordinateFunction
@@ -15,10 +14,8 @@ fun main(args: Array<String>) {
     val json = coordinateSystem.toJsonWhenExpose()
 //            .fromJson<CoordinateSystemData>()
 
-    coordinateSystem = CoordinateSystemBuilderUser.build(json) as PolarCoordinateSystem
-
     with(coordinateSystem) {
-        //        coordinateSystem.paintComponent.visible = false
+        // coordinateSystem.paintComponent.visible = false
         x = 500.0
         y = 500.0
     }
@@ -28,7 +25,7 @@ fun main(args: Array<String>) {
 
     functions.apply {
         add(RegularPolygon(6, 10.0, 2).toJsonWhenExpose().fromJson<RegularPolygon>())
-//        add(Lissajous(3, 4, 5).toJson().fromJson())
+//      add(Lissajous(3, 4, 5).toJson().fromJson())
     }.forEach {
         it.coordinateSystem = coordinateSystem
         it.init()

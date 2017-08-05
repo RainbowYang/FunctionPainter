@@ -1,8 +1,12 @@
 package rainbow.coordinates
 
-import rainbow.component.InputListenComponent
+import com.google.gson.annotations.Expose
 import rainbow.point.Point2D
 import rainbow.utils.asPoint2D
+import rainbow.utils.getDiffAngle
+import rainbow.utils.moveTo
+import java.awt.event.MouseEvent
+import java.awt.event.MouseWheelEvent
 
 /**
  * 二维坐标系的接口
@@ -11,19 +15,19 @@ import rainbow.utils.asPoint2D
  */
 abstract class CoordinateSystem2D : CoordinateSystem() {
 
-    override var inputComponent: InputListenComponent = InputListenComponentOfCoordinateSystem2D(this)
+    open var x = 0.0
 
-    abstract var x: Double
-    abstract var y: Double
+    open var y = 0.0
+    open var zoomRate = 1.0
 
-    abstract var zoomRate: Double
-
-    abstract var rotatedAngle: Double
+    open var rotatedAngle = 0.0
     var rotatedAngleAsDegree: Double
         get() = Math.toDegrees(rotatedAngle)
         set(value) {
             rotatedAngle = Math.toRadians(value)
         }
+
+    override var inputComponent: rainbow.component.InputListenComponent = InputListenComponent(this)
 
 
     fun move(x: Number, y: Number) {
@@ -56,4 +60,35 @@ abstract class CoordinateSystem2D : CoordinateSystem() {
         return result.asPoint2D
     }
 
+    open class InputListenComponent(val system: CoordinateSystem2D) : rainbow.component.InputListenComponent() {
+        lateinit var firstEvent: MouseEvent
+        lateinit var lastEvent: MouseEvent
+
+        @Expose var zoomSpeed = 1.1
+
+        override fun mousePressed(e: MouseEvent) {
+            firstEvent = e
+            lastEvent = e
+        }
+
+        override fun mouseDragged(e: MouseEvent) = with(system) {
+            when (firstEvent.button) {
+                MouseEvent.BUTTON1 -> move(e.x - lastEvent.x, e.y - lastEvent.y)
+                MouseEvent.BUTTON3 -> rotate(getDiffAngle(lastEvent, e))
+            }
+            lastEvent = e
+
+            repaint()
+        }
+
+        override fun mouseWheelMoved(e: MouseWheelEvent) = with(system) {
+            val now = toCoordinatePoint(Point2D(e))
+
+            moveTo(now)
+            zoom(Math.pow(zoomSpeed, e.wheelRotation.toDouble()))
+            moveTo(-now)
+
+            repaint()
+        }
+    }
 }

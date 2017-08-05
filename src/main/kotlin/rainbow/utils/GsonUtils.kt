@@ -8,3 +8,5 @@ fun Any?.toJsonWhenExpose() = GsonBuilder().excludeFieldsWithoutExposeAnnotation
 fun Any?.toJson() = Gson().toJson(this)!!
 
 inline fun <reified T> String.fromJson() = Gson().fromJson<T>(this, T::class.java)!!
+
+fun Any?.println() = println(this)
