@@ -15,11 +15,18 @@ import java.awt.event.MouseWheelEvent
  */
 abstract class CoordinateSystem2D : CoordinateSystem() {
 
-    open var x = 0.0
+    open var origin = Point2D(0, 0)
 
-    open var y = 0.0
+    var x get() = origin.x
+        set(x) {
+            origin = Point2D(x, y)
+        }
+    var y get() = origin.y
+        set(y) {
+            origin = Point2D(x, y)
+        }
+
     open var zoomRate = 1.0
-
     open var rotatedAngle = 0.0
     var rotatedAngleAsDegree: Double
         get() = Math.toDegrees(rotatedAngle)

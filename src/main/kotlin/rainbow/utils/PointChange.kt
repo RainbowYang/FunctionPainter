@@ -2,10 +2,8 @@ package rainbow.utils
 
 import rainbow.point.*
 
-/**
+/*
  * 这里放置所有的点转换为其他点的方法，但其逻辑应写在其对应的类中
- *
- * 目前的类有[Point2D],[PointAxes],[Point2DPolar]
  */
 
 val PointAxes.asPoint2D get() = Point2D(this)

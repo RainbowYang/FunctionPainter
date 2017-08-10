@@ -1,31 +1,9 @@
 package rainbow.build
 
-import rainbow.coordinates.CartesianCoordinateSystem
-import rainbow.coordinates.CartesianCoordinateSystemBall
-import rainbow.coordinates.CartesianCoordinateSystemClassic
-import rainbow.coordinates.CoordinateSystem
+import rainbow.coordinates.*
 import rainbow.utils.fromJson
 
-/**
- * @author Rainbow Yang
- */
-
-abstract class CartesianCoordinateSystemBuilder : CoordinateSystem2DBuilder() {
-    override fun addDataToSystem(data: CoordinateSystemData, system: CoordinateSystem) {
-        super.addDataToSystem(data, system)
-
-        data as CoordinateSystem2DData
-        system as CartesianCoordinateSystem
-
-        if (data.inputComponent != null) {
-            val systemInput = system.inputComponent as CartesianCoordinateSystem.InputListenComponent
-            val dataInput = data.inputComponent as CoordinateSystemData.InputListenComponent
-
-            if (dataInput.xAngle != null) systemInput.xAngle = dataInput.xAngle!!
-            if (dataInput.yAngle != null) systemInput.yAngle = dataInput.yAngle!!
-        }
-    }
-}
+abstract class CartesianCoordinateSystemBuilder : CoordinateSystem2DBuilder()
 
 class CartesianCoordinateSystemClassicBuilder : CartesianCoordinateSystemBuilder() {
     override fun build(json: String) = CartesianCoordinateSystemClassic().also {
@@ -59,6 +37,14 @@ class CartesianCoordinateSystemBallBuilder : CartesianCoordinateSystemBuilder() 
         system as CartesianCoordinateSystemBall
 
         if (data.axes != null) data.axes?.forEach { system.axes.add(it) }
+
+        if (data.inputComponent != null) {
+            val systemInput = system.inputComponent as CartesianCoordinateSystem.InputListenComponent
+            val dataInput = data.inputComponent as CoordinateSystemData.InputListenComponent
+
+            if (dataInput.xAngle != null) systemInput.xAngle = dataInput.xAngle!!
+            if (dataInput.yAngle != null) systemInput.yAngle = dataInput.yAngle!!
+        }
     }
 
 }

@@ -11,7 +11,7 @@ abstract class CoordinateSystemBuilder {
         if (data.paintComponent?.visible != null) system.paintComponent.visible = data.paintComponent?.visible!!
 
         data.paintComponent?.paints?.forEach { dataPart ->
-            system.paintComponent.paints.find { it.name == dataPart.name }?.apply {
+            system.paintComponent.paintParts.find { it.name == dataPart.name }?.apply {
                 color = dataPart.color
                 visible = dataPart.visible
             }

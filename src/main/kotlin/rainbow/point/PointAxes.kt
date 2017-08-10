@@ -25,7 +25,14 @@ class PointAxes constructor(vararg initValues: Double) : CoordinatePoint {
         val ZERO = PointAxes()
     }
 
+    /**
+     * 所有维度的值
+     */
     val values = initValues
+
+    /**
+     * 维度数
+     */
     val size get() = values.size
 
     operator fun get(index: Int) = values.getOrElse(index, { 0.0 })//维度不够时补0
@@ -54,11 +61,14 @@ class PointAxes constructor(vararg initValues: Double) : CoordinatePoint {
 
     private fun createNewArrayWithOldData(index: Int) = DoubleArray(max(index + 1, size)) { get(it) }
 
+    override fun toString() = "PointForAxes(${Arrays.toString(values)})"
+
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
+        if (other?.javaClass != javaClass) return false
 
-        if (other !is PointAxes) return false
+        other as PointAxes
 
         //只要两个点不为0的值均相等即可 这意味着(1,1,0) equals (1,1,0,0) = true
         rangeTo(max(this.size, other.size)).forEach {
@@ -70,9 +80,5 @@ class PointAxes constructor(vararg initValues: Double) : CoordinatePoint {
 
     override fun hashCode(): Int {
         return Arrays.hashCode(values)
-    }
-
-    override fun toString(): String {
-        return "PointForAxes(${Arrays.toString(values)})"
     }
 }

@@ -1,9 +1,9 @@
 package rainbow.utils
 
-import rainbow.coordinates.CartesianCoordinateSystem
 import rainbow.coordinates.CoordinateSystem2D
 import java.awt.event.MouseEvent
-import java.lang.Math.*
+import java.lang.Math.abs
+import java.lang.Math.atan2
 
 /**
  * 一些与数学有关的方法

@@ -5,7 +5,7 @@ import rainbow.point.Point2D
 /**
  * 数学意义上的线
  * 提供求交点等功能
- * 表达式为a*x+b*y+c=0
+ * 表达式为ax+by+c=0
 
  * @author Rainbow Yang
  */
@@ -38,17 +38,21 @@ class Line(val a: Double, val b: Double, val c: Double) {
         val Y_AXIS = Line(1.0, 0.0, 0.0)
     }
 
-    infix fun crossTo(l: Line): Point2D {
+    /**
+     * 得到两条直线的交点
+     * @throws NoCrossException 当两条[Line]平行的时候抛出此异常
+     */
+    infix fun crossTo(other: Line): Point2D {
         //平行
-        if (a * l.b - b * l.a == 0.0) {
-            throw NoCrossException(this.toString() + "has no cross with" + l)
-        }
-        return Point2D(-(c * l.b - b * l.c) / (a * l.b - b * l.a), -(a * l.c - c * l.a) / (a * l.b - b * l.a))
+        if (a * other.b - b * other.a == 0.0) throw NoCrossException("$this has no cross with $other")
+
+        return Point2D(-(c * other.b - b * other.c) / (a * other.b - b * other.a),
+                -(a * other.c - c * other.a) / (a * other.b - b * other.a))
     }
 
     override fun toString(): String {
-        return "Line($a*x+$b*y+$c=0)"
+        return "Line(${a}x+${b}y+$c=0)"
     }
 
-    internal inner class NoCrossException(message: String) : RuntimeException(message)
+    class NoCrossException(message: String) : RuntimeException(message)
 }

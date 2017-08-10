@@ -1,6 +1,5 @@
 package rainbow.point
 
-import rainbow.utils.asPoint2DHyperbolic
 import rainbow.utils.component1
 import rainbow.utils.component2
 import java.lang.Math.*
@@ -21,10 +20,26 @@ class Point2DHyperbolic(val u: Double, val v: Double) : CoordinatePoint {
         }
     }
 
-    override val asAxes get() = PointAxes(v * pow(E, u), v * pow(-E, u))
+    override val asAxes by lazy { PointAxes(v * pow(E, u), v * pow(-E, u)) }
 
-    override fun toString(): String {
-        return "Point2DHyperbolic(u=$u, v=$v)"
+    override fun toString()= "Point2DHyperbolic(u=$u, v=$v)"
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other?.javaClass != javaClass) return false
+
+        other as Point2DHyperbolic
+
+        if (u != other.u) return false
+        if (v != other.v) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = u.hashCode()
+        result = 31 * result + v.hashCode()
+        return result
     }
 
 }

@@ -1,12 +1,11 @@
 package rainbow.point
 
 /**
- * 用于表示坐标系上的一个点
+ * 表示坐标系上的一个点
  *
- * 所有子类的所有操作均不应修改其本身
+ * 所有子类的所有操作均不应修改其本身，而是返回一个新的类
  *
- * 所有点之间都应能够进行互相转换
- * 可以用[PointAxes]作为中介
+ * 所有点之间都应能够进行互相转换，可以用[PointAxes]作为中介
  *
  * @author Rainbow Yang
  */
@@ -18,7 +17,7 @@ interface CoordinatePoint {
     val asAxes: PointAxes
 
     /**
-     * 该点中是否没有Double.NaN之类的值
+     * 该点中是否没有Double.NaN之类无效的值
      */
     val available: Boolean get() = asAxes.available
 
@@ -27,14 +26,7 @@ interface CoordinatePoint {
      */
     val length: Double get() = asAxes.length
 
-    /**
-     * 这样的得到的类会是[PointAxes]
-     */
     operator fun plus(other: CoordinatePoint): CoordinatePoint = asAxes.plus(other.asAxes)
-
-    /**
-     * 这样的得到的类会是[PointAxes]
-     */
     operator fun times(times: Double): CoordinatePoint = asAxes * times
 
     operator fun minus(other: CoordinatePoint) = plus(-other)

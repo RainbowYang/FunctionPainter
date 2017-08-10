@@ -15,7 +15,7 @@ abstract class InputListenComponent : MouseListener, MouseMotionListener, MouseW
      */
     lateinit var component: Component
 
-
+    //TODO callback 在绘画完毕之后回调 可能取消 使用定时绘画机制
     protected fun repaint() = component.repaint()
 
     /**

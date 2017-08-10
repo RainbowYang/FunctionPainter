@@ -34,6 +34,8 @@ class MainFrame(var coordinateSystem: CoordinateSystem,
         })
 
         coordinateSystem.bindTo(this)
+
+        repaint()
     }
 
     fun defaultInit() {

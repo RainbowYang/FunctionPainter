@@ -6,24 +6,23 @@ import rainbow.point.Point2D
 import rainbow.point.PointAxes
 import rainbow.utils.CoordinateGraphics
 import rainbow.utils.lengthOf
+import rainbow.utils.println
 import rainbow.utils.rangeTo
 import java.awt.event.MouseEvent
 
 /**
  * 任意维度的轴坐标系
  *
- * 但由于其任意纬度的特性，可能不会有专门的立体效果
- * 故继承[CoordinateSystem2D]
+ * 但由于其任意纬度的特性，故继承[CoordinateSystem2D]
  *
  * @author Rainbow Yang
  * @see CoordinateSystem2D
  */
 abstract class CartesianCoordinateSystem : CoordinateSystem2D() {
 
-    @Expose override var type: String = super.type
+    @Expose override var type = super.type
 
-    @Expose override var x = super.x
-    @Expose override var y = super.y
+    override var origin = super.origin
     @Expose override var zoomRate = super.zoomRate
     @Expose override var rotatedAngle = super.rotatedAngle
 
@@ -41,11 +40,24 @@ abstract class CartesianCoordinateSystem : CoordinateSystem2D() {
     fun addAxes(vararg axes: Axis) = axes.forEach { this.axes.add(it) }
     fun addAxes(axes: List<out Axis>) = axes.forEach { this.axes.add(it) }
 
+    override fun toString(): String {
+        return "CartesianCoordinateSystem(type='$type', x=$x, y=$y, zoomRate=$zoomRate, rotatedAngle=$rotatedAngle, axes=$axes, inputComponent=$inputComponent, paintComponent=$paintComponent, coordinateTransformComponent=$coordinateTransformComponent)"
+    }
+
+    /**
+     * [CartesianCoordinateSystem]的核心組成部分，每根轴都应该使用[Axis]的子类来表示
+     *
+     * 必须要提供[angle]和[length]
+     */
     abstract class Axis {
         abstract var angle: Double
-        abstract var length: Double
+        open var length: Double = 40.0
         operator fun component1() = angle
         operator fun component2() = length
+
+        override fun toString(): String {
+            return "Axis(angle=$angle, length=$length)"
+        }
     }
 
 
@@ -78,6 +90,8 @@ abstract class CartesianCoordinateSystem : CoordinateSystem2D() {
 
     open class CoordinateTransformComponent(val system: CartesianCoordinateSystem) :
             rainbow.component.CoordinateTransformComponent() {
+
+        // todo 弧度与角度
         override fun toScreenPoint(cp: CoordinatePoint): Point2D = with(system) {
             val form = cp.asAxes
             var px = 0.0
@@ -162,16 +176,15 @@ class CartesianCoordinateSystemClassic(size: Int = -1) : CartesianCoordinateSyst
     override fun setDefaultAxes(size: Int) {
         when (size) {
             2 -> addAxes(0, 90)
-            3 -> addAxes(225, 0, 90)
+            3 -> addAxes(180, 0, 90)
         }
     }
 
     fun addAxes(vararg angles: Number) = angles.forEach { axes.add(ClassicAxis(it)) }
 
     class ClassicAxis(@Expose override var angle: Double = 0.0, @Expose override var length: Double = 40.0) : Axis() {
-        constructor(angle: Number, length: Number = 0.0) : this(angle.toDouble(), length.toDouble())
+        constructor(angle: Number, length: Number = 40.0) : this(angle.toDouble(), length.toDouble())
     }
-
 }
 
 class CartesianCoordinateSystemBall(size: Int = -1) : CartesianCoordinateSystem() {
@@ -233,6 +246,11 @@ class CartesianCoordinateSystemBall(size: Int = -1) : CartesianCoordinateSystem(
             this.angle = Math.atan2(y, x)
             this.lengthTimes = lengthOf(x, y)
         }
+
+        override fun toString(): String {
+            return "BallAxis(xAngle=$xAngle, yAngle=$yAngle, angle=$angle, originalLength=$originalLength, lengthTimes=$lengthTimes)"
+        }
+
 
     }
 }

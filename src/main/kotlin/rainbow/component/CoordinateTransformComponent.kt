@@ -10,8 +10,14 @@ import rainbow.point.Point2D
  */
 abstract class CoordinateTransformComponent {
 
+    /**
+     * 将[CoordinatePoint] (坐标系中的点)转换为[Point2D] (屏幕上的点)
+     */
     abstract fun toScreenPoint(cp: CoordinatePoint): Point2D
 
+    /**
+     * 将[Point2D] (屏幕上的点)转换为[CoordinatePoint] (坐标系中的点)
+     */
     abstract fun toCoordinatePoint(pd: Point2D): CoordinatePoint
 
 }

@@ -1,7 +1,6 @@
 package rainbow.coordinates
 
 import com.google.gson.annotations.Expose
-import rainbow.component.CoordinateTransformComponent
 import rainbow.point.CoordinatePoint
 import rainbow.point.Point2D
 import rainbow.point.Point2DPolar
@@ -18,9 +17,7 @@ import rainbow.utils.asPoint2D
 class PolarCoordinateSystem : CoordinateSystem2D() {
     @Expose override var type = super.type
 
-    @Expose override var x = 0.0
-    @Expose override var y = 0.0
-
+    @Expose override var origin = super.origin
     @Expose override var rotatedAngle = 0.0
     @Expose override var zoomRate = 1.0
 
@@ -28,16 +25,13 @@ class PolarCoordinateSystem : CoordinateSystem2D() {
     @Expose var axisLength = 40.0
 
 
-    @Expose override var inputComponent: rainbow.component.InputListenComponent
-            = InputListenComponent(this)
-    @Expose override var paintComponent: PaintComponent
-            = PainterForPolarCoordinateSystem(this)
+    @Expose override var inputComponent: rainbow.component.InputListenComponent = InputListenComponent(this)
+    @Expose override var paintComponent: CoordinateSystem.PaintComponent = PaintComponent(this)
 
-    override var coordinateTransformComponent: CoordinateTransformComponent
-            = CoordinateTransformComponentForPolarCoordinateSystem(this)
+    override var coordinateTransformComponent: rainbow.component.CoordinateTransformComponent
+            = CoordinateTransformComponent(this)
 
-    class CoordinateTransformComponentForPolarCoordinateSystem(val system: PolarCoordinateSystem)
-        : CoordinateTransformComponent() {
+    class CoordinateTransformComponent(val system: PolarCoordinateSystem) : rainbow.component.CoordinateTransformComponent() {
 
         override fun toScreenPoint(cp: CoordinatePoint) = with(system) {
             (cp.asPoint2D * system.axisLength).asPoint2D.rotateAndScaleAndMove()
@@ -49,7 +43,7 @@ class PolarCoordinateSystem : CoordinateSystem2D() {
         }
     }
 
-    class PainterForPolarCoordinateSystem(system: PolarCoordinateSystem) : PaintComponent(system) {
+    class PaintComponent(system: PolarCoordinateSystem) : CoordinateSystem.PaintComponent(system) {
 
         var paintRange = 0..30
         var axisNum = 12

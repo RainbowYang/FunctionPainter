@@ -15,12 +15,32 @@ class Point2D(val x: Double, val y: Double) : CoordinatePoint {
 
     val angle get() = Math.atan2(y, x)
 
-    override val asAxes = PointAxes(x, y)
+    override val asAxes by lazy { PointAxes(x, y) }
 
+    /**
+     * 逆时针旋转[angle]【弧度】
+     */
     fun spin(angle: Double) = asPoint2DPolar.spin(angle).asPoint2D
 
-    override fun toString(): String {
-        return "Point2D(x=$x, y=$y)"
+    override fun toString() = "Point2D(x=$x, y=$y)"
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other?.javaClass != javaClass) return false
+
+        other as Point2D
+
+        if (x != other.x) return false
+        if (y != other.y) return false
+
+        return true
     }
+
+    override fun hashCode(): Int {
+        var result = x.hashCode()
+        result = 31 * result + y.hashCode()
+        return result
+    }
+
 
 }

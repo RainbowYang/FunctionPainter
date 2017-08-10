@@ -25,6 +25,9 @@ import java.awt.image.BufferedImage
  * @see InputListenComponent
  */
 abstract class CoordinateSystem {
+    /**
+     * 实现类的类名
+     */
     open var type = this::class.simpleName.toString()
 
     abstract var coordinateTransformComponent: CoordinateTransformComponent
@@ -49,9 +52,14 @@ abstract class CoordinateSystem {
      */
     abstract class PaintComponent(val coordinateSystem: CoordinateSystem) : rainbow.component.PaintComponent() {
 
+        /**
+         * 可视化，为false时，将不会进行绘画
+         *
+         * 默认为true
+         */
         @Expose var visible = true
 
-        @Expose val paints = mutableListOf<PaintPart>()
+        @Expose val paintParts = mutableListOf<PaintPart>()
 
         val ORIGIN: String = "Origin"
         val GRID: String = "Grid"
@@ -60,16 +68,16 @@ abstract class CoordinateSystem {
 
         fun addPaintPart(name: String,
                          color: String = "#000000",
-                         needPaint: Boolean = true,
+                         visible: Boolean = true,
                          paint: (CoordinateGraphics) -> Unit = {}) {
-            paints.add(PaintPart(name, color, needPaint, paint))
+            paintParts.add(PaintPart(name, color, visible, paint))
         }
 
         override fun paintedImage(width: Int, height: Int): BufferedImage = BufferedImage(width, height).also {
             if (visible) {
                 val cg = CoordinateGraphics(it, coordinateSystem)
 
-                paints.filter { it.visible }.forEach {
+                paintParts.filter { it.visible }.forEach {
                     cg.color = parseColor(it.color)
                     it.paint(cg)
                 }
