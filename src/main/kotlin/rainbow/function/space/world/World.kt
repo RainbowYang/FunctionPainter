@@ -18,7 +18,7 @@ import kotlin.concurrent.schedule
  */
 class World : CoordinateFunction() {
 
-    override var paintComponent: CoordinateFunctionPainter = WorldPainter(this)
+    override var painter: Painter = WorldPainter()
 
     var fps: Double = 60.0
 
@@ -62,9 +62,9 @@ class World : CoordinateFunction() {
         }
     }
 
-    class WorldPainter(val world: World) : CoordinateFunctionPainter() {
+    inner class WorldPainter : CoordinateFunction.Painter() {
         override fun paintMain(cg: CoordinateGraphics) {
-            world.bodies.forEach {
+            bodies.forEach {
                 val location = cg.system.toScreenPoint(it.location)
                 cg.g.drawOval(location.x.toInt(), location.y.toInt(), 100, 100)
             }

@@ -3,26 +3,27 @@ package rainbow
 import rainbow.coordinates.CartesianCoordinateSystemBall
 import rainbow.frame.MainFrame
 import rainbow.function.CoordinateFunction
-import rainbow.function.mathfunction.special.Lissajous
 import rainbow.function.pointfunction.RegularPolygon
-import rainbow.utils.fromJson
-import rainbow.utils.toJsonWhenExpose
+import rainbow.point.Point2D
 
 
 fun main(args: Array<String>) {
-    var coordinateSystem = CartesianCoordinateSystemBall(3)
+    val coordinateSystem = CartesianCoordinateSystemBall()
 
     with(coordinateSystem) {
         x = 500.0
         y = 500.0
+        sightAsDegree = 30 to 30
+        resetAngleAndLength()
     }
+
+    val point = coordinateSystem.toScreenPoint(Point2D(1, 1))
 
 
     val functions = mutableListOf<CoordinateFunction>()
 
     functions.apply {
-        add(RegularPolygon(6, 10.0, 2).toJsonWhenExpose().fromJson<RegularPolygon>())
-        add(Lissajous(3, 4, 5))
+        add(RegularPolygon(100, 10.0, 60))
     }.forEach {
         it.coordinateSystem = coordinateSystem
         it.init()

@@ -1,41 +1,38 @@
 package rainbow.coordinates
 
-import com.google.gson.annotations.Expose
+import rainbow.point.CoordinatePoint
 import rainbow.point.Point2D
 import rainbow.utils.asPoint2D
-import rainbow.utils.getDiffAngle
-import rainbow.utils.moveTo
-import java.awt.event.MouseEvent
-import java.awt.event.MouseWheelEvent
+import java.lang.Math.toDegrees
+import java.lang.Math.toRadians
 
 /**
  * 二维坐标系的接口
  * 实现平移，旋转，伸缩
  * @author Rainbow Yang
  */
-abstract class CoordinateSystem2D : CoordinateSystem() {
+abstract class CoordinateSystem2D(x: Number = 0, y: Number = 0, zoomRate: Number = 1.0, rotatedAngle: Number = 0.0) : CoordinateSystem() {
 
-    open var origin = Point2D(0, 0)
+    open var origin = Point2D(x, y)
 
-    var x get() = origin.x
+    var x
+        get() = origin.x
         set(x) {
             origin = Point2D(x, y)
         }
-    var y get() = origin.y
+    var y
+        get() = origin.y
         set(y) {
             origin = Point2D(x, y)
         }
 
-    open var zoomRate = 1.0
-    open var rotatedAngle = 0.0
+    open var zoomRate = zoomRate.toDouble()
+    open var rotatedAngle = rotatedAngle.toDouble()
     var rotatedAngleAsDegree: Double
-        get() = Math.toDegrees(rotatedAngle)
+        get() = toDegrees(rotatedAngle)
         set(value) {
-            rotatedAngle = Math.toRadians(value)
+            rotatedAngle = toRadians(value)
         }
-
-    override var inputComponent: rainbow.component.InputListenComponent = InputListenComponent(this)
-
 
     fun move(x: Number, y: Number) {
         this.x += x.toDouble()
@@ -46,6 +43,9 @@ abstract class CoordinateSystem2D : CoordinateSystem() {
         this.x = x.toDouble()
         this.y = y.toDouble()
     }
+
+    fun moveTo(to: Point2D) = moveTo(to.x, to.y)
+    fun moveTo(to: CoordinatePoint) = moveTo(toScreenPoint(to))
 
     fun rotate(angle: Number) {
         rotatedAngle += angle.toDouble()
@@ -65,37 +65,5 @@ abstract class CoordinateSystem2D : CoordinateSystem() {
         val system = this@CoordinateSystem2D
         val result = Point2D(this.x - system.x, system.y - this.y).spin(-rotatedAngle) / zoomRate
         return result.asPoint2D
-    }
-
-    open class InputListenComponent(val system: CoordinateSystem2D) : rainbow.component.InputListenComponent() {
-        lateinit var firstEvent: MouseEvent
-        lateinit var lastEvent: MouseEvent
-
-        @Expose var zoomSpeed = 1.1
-
-        override fun mousePressed(e: MouseEvent) {
-            firstEvent = e
-            lastEvent = e
-        }
-
-        override fun mouseDragged(e: MouseEvent) = with(system) {
-            when (firstEvent.button) {
-                MouseEvent.BUTTON1 -> move(e.x - lastEvent.x, e.y - lastEvent.y)
-                MouseEvent.BUTTON3 -> rotate(getDiffAngle(lastEvent, e))
-            }
-            lastEvent = e
-
-            repaint()
-        }
-
-        override fun mouseWheelMoved(e: MouseWheelEvent) = with(system) {
-            val now = toCoordinatePoint(Point2D(e))
-
-            moveTo(now)
-            zoom(Math.pow(zoomSpeed, e.wheelRotation.toDouble()))
-            moveTo(-now)
-
-            repaint()
-        }
     }
 }

@@ -16,15 +16,10 @@ import java.awt.image.BufferedImage
  * @see CoordinatePoint
  * @author Rainbow Yang
  */
-class CoordinateGraphics(val g: Graphics2D,
-                         val system: CoordinateSystem,
-                         val width: Int = screenWidth,
-                         val height: Int = screenHeight) {
+class CoordinateGraphics(val g: Graphics2D, val system: CoordinateSystem,
+                         var width: Number = screenWidth, var height: Number = screenHeight) {
 
-    constructor(g: Graphics2D, system: CoordinateSystem,
-                width: Number = screenWidth, height: Number = screenHeight) : this(g, system, width.toInt(), height.toInt())
-
-    constructor(image: BufferedImage, system: CoordinateSystem) : this(image.createGraphics(), system, image.width, image.height)
+    constructor(image: BufferedImage, system: CoordinateSystem) : this(image.createGraphics(), system)
 
     init {
         g.antialias()
@@ -35,6 +30,13 @@ class CoordinateGraphics(val g: Graphics2D,
         set(value) {
             g.color = value
         }
+
+    fun setSize(width: Number, height: Number): CoordinateGraphics {
+        this.width = width
+        this.height = height
+
+        return this
+    }
 
     fun paintString(text: Any, location: CoordinatePoint = PointAxes.ZERO) {
         val locationOnScreen = system.toScreenPoint(location)
@@ -65,9 +67,9 @@ class CoordinateGraphics(val g: Graphics2D,
      */
     fun paintLocation(p: CoordinatePoint) {
         val pa = p.asAxes
-        for (i in 0..pa.size - 1) {
-            if (pa[i] != 0.0) {
-                val p0 = pa.setAtAndNew(i, 0.0)
+        until(pa.size).forEach {
+            if (pa[it] != 0.0) {
+                val p0 = pa.setAtAndNew(it, 0.0)
                 paintLine(pa, p0)
 
                 paintLocation(p0)

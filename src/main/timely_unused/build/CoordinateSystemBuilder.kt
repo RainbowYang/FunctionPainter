@@ -8,10 +8,10 @@ abstract class CoordinateSystemBuilder {
     abstract fun build(json: String): CoordinateSystem
 
     open protected fun addDataToSystem(data: CoordinateSystemData, system: CoordinateSystem) {
-        if (data.paintComponent?.visible != null) system.paintComponent.visible = data.paintComponent?.visible!!
+        if (data.paintComponent?.visible != null) system.painter.visible = data.paintComponent?.visible!!
 
         data.paintComponent?.paints?.forEach { dataPart ->
-            system.paintComponent.paintParts.find { it.name == dataPart.name }?.apply {
+            system.painter.paintParts.find { it.name == dataPart.name }?.apply {
                 color = dataPart.color
                 visible = dataPart.visible
             }
@@ -27,7 +27,7 @@ open class CoordinateSystemData {
 
     open class PaintComponent {
         @SerializedName("Visible") var visible: Boolean? = null
-        var paints: List<CoordinateSystem.PaintComponent.PaintPart>? = null
+        var paints: List<CoordinateSystem.Painter.PaintPart>? = null
     }
 
     open class InputListenComponent {

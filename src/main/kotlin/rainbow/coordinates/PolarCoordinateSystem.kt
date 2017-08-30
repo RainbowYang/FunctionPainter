@@ -1,6 +1,5 @@
 package rainbow.coordinates
 
-import com.google.gson.annotations.Expose
 import rainbow.point.CoordinatePoint
 import rainbow.point.Point2D
 import rainbow.point.Point2DPolar
@@ -15,66 +14,39 @@ import rainbow.utils.asPoint2D
  * @author Rainbow Yang
  */
 class PolarCoordinateSystem : CoordinateSystem2D() {
-    @Expose override var type = super.type
 
-    @Expose override var origin = super.origin
-    @Expose override var rotatedAngle = 0.0
-    @Expose override var zoomRate = 1.0
+    /**
+     * 单位长度
+     */
+    var axisLength = 40.0
 
-    //单位长度的像素数
-    @Expose var axisLength = 40.0
+    override var coordinateTransformComponent = CoordinateTransformComponent()
+    override var painter: CoordinateSystem.Painter = Painter()
 
+    inner class CoordinateTransformComponent : CoordinateSystem.CoordinateTransformComponent() {
+        override fun toScreenPoint(cp: CoordinatePoint) = (cp.asPoint2D * axisLength).asPoint2D.rotateAndScaleAndMove()
 
-    @Expose override var inputComponent: rainbow.component.InputListenComponent = InputListenComponent(this)
-    @Expose override var paintComponent: CoordinateSystem.PaintComponent = PaintComponent(this)
-
-    override var coordinateTransformComponent: rainbow.component.CoordinateTransformComponent
-            = CoordinateTransformComponent(this)
-
-    class CoordinateTransformComponent(val system: PolarCoordinateSystem) : rainbow.component.CoordinateTransformComponent() {
-
-        override fun toScreenPoint(cp: CoordinatePoint) = with(system) {
-            (cp.asPoint2D * system.axisLength).asPoint2D.rotateAndScaleAndMove()
-        }
-
-
-        override fun toCoordinatePoint(pd: Point2D) = with(system) {
-            (pd.inverseRotateAndScaleAndMove() / axisLength).asAxes
-        }
+        override fun toCoordinatePoint(pd: Point2D) = (pd.inverseRotateAndScaleAndMove() / axisLength).asAxes
     }
 
-    class PaintComponent(system: PolarCoordinateSystem) : CoordinateSystem.PaintComponent(system) {
+    inner class Painter : CoordinateSystem.Painter() {
 
         var paintRange = 0..30
         var axisNum = 12
 
-        init {
-            addPaintPart(ORIGIN) { paintOrigin(it) }
-            addPaintPart(GRID) { paintGrid(it) }
-            addPaintPart(AXES) { paintAxes(it) }
-            addPaintPart(NUMBER) { paintNumber(it) }
-        }
 
-        fun paintOrigin(cg: CoordinateGraphics) {
-            cg.paintString("0")
-        }
+        override fun paintOrigin(cg: CoordinateGraphics) =
+                cg.paintString("O")
 
-        fun paintGrid(cg: CoordinateGraphics) {
-            paintRange.forEach {
-                cg.paintCircle(ZERO, Point2DPolar(it, 0))
-            }
-        }
+        override fun paintGrid(cg: CoordinateGraphics) =
+                paintRange.forEach { cg.paintCircle(ZERO, Point2DPolar(it, 0)) }
 
-        fun paintAxes(cg: CoordinateGraphics) {
-            (0..axisNum).forEach {
-                cg.paintRayLine(ZERO, Point2DPolar(10, PI2 / axisNum * it))
-            }
-        }
+        override fun paintAxes(cg: CoordinateGraphics) =
+                (0..axisNum).forEach { cg.paintRayLine(ZERO, Point2DPolar(10, PI2 / axisNum * it)) }
 
-        fun paintNumber(cg: CoordinateGraphics) {
-            paintRange.filter { it != 0 }.forEach {
-                cg.paintString(it, ZERO.plusAtAndNew(0, it))
-            }
-        }
+        override fun paintNumber(cg: CoordinateGraphics) =
+                paintRange.filter { it != 0 }.forEach { cg.paintString(it, ZERO.plusAtAndNew(0, it)) }
+
     }
+
 }

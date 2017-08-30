@@ -12,7 +12,9 @@ import rainbow.utils.CoordinateGraphics
  */
 class Hypercube(var size: Int, var length: Double = 5.0) : CoordinateFunction() {
 
-    override var paintComponent: CoordinateFunctionPainter = object : CoordinateFunctionPainter() {
+    override var painter: Painter = HypercubePainter()
+
+    inner class HypercubePainter : CoordinateFunction.Painter() {
         override fun paintMain(cg: CoordinateGraphics) {
             cg.paintLocation(PointAxes(length, size))
         }

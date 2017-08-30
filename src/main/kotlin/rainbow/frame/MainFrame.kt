@@ -2,6 +2,7 @@ package rainbow.frame
 
 import rainbow.coordinates.CoordinateSystem
 import rainbow.function.CoordinateFunction
+import rainbow.utils.drawImageOfPainter
 import java.awt.Component
 import java.awt.Graphics
 import java.awt.Graphics2D
@@ -22,8 +23,8 @@ class MainFrame(var coordinateSystem: CoordinateSystem,
         add(object : JPanel() {
             override fun paintComponent(g: Graphics) {
                 g as Graphics2D
-                coordinateSystem.paintImageTo(g)
-                functions.forEach { it.paintImageTo(g) }
+                g.drawImageOfPainter(coordinateSystem, width, height)
+                functions.forEach { g.drawImageOfPainter(it, width, height) }
             }
         })
 
@@ -32,8 +33,6 @@ class MainFrame(var coordinateSystem: CoordinateSystem,
                 this@MainFrame.repaint()
             }
         })
-
-        coordinateSystem.bindTo(this)
 
         repaint()
     }

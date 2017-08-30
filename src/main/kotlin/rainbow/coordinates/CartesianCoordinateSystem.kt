@@ -1,14 +1,10 @@
 package rainbow.coordinates
 
-import com.google.gson.annotations.Expose
 import rainbow.point.CoordinatePoint
 import rainbow.point.Point2D
 import rainbow.point.PointAxes
-import rainbow.utils.CoordinateGraphics
-import rainbow.utils.lengthOf
-import rainbow.utils.println
-import rainbow.utils.rangeTo
-import java.awt.event.MouseEvent
+import rainbow.utils.*
+import java.lang.Math.*
 
 /**
  * 任意维度的轴坐标系
@@ -20,38 +16,32 @@ import java.awt.event.MouseEvent
  */
 abstract class CartesianCoordinateSystem : CoordinateSystem2D() {
 
-    @Expose override var type = super.type
-
-    override var origin = super.origin
-    @Expose override var zoomRate = super.zoomRate
-    @Expose override var rotatedAngle = super.rotatedAngle
-
-    @Expose var axes = mutableListOf<Axis>()
+    var axes = mutableListOf<Axis>()
     val size get() = axes.size
 
-    @Expose override var inputComponent: rainbow.component.InputListenComponent = super.inputComponent
-    @Expose override var paintComponent: CoordinateSystem.PaintComponent = PaintComponent(this)
-
-    override var coordinateTransformComponent: rainbow.component.CoordinateTransformComponent
-            = CoordinateTransformComponent(this)
+    override var coordinateTransformComponent = CoordinateTransformComponent()
+    override var painter: CoordinateSystem.Painter = Painter()
 
     abstract fun setDefaultAxes(size: Int)
 
     fun addAxes(vararg axes: Axis) = axes.forEach { this.axes.add(it) }
     fun addAxes(axes: List<out Axis>) = axes.forEach { this.axes.add(it) }
 
-    override fun toString(): String {
-        return "CartesianCoordinateSystem(type='$type', x=$x, y=$y, zoomRate=$zoomRate, rotatedAngle=$rotatedAngle, axes=$axes, inputComponent=$inputComponent, paintComponent=$paintComponent, coordinateTransformComponent=$coordinateTransformComponent)"
-    }
-
     /**
-     * [CartesianCoordinateSystem]的核心組成部分，每根轴都应该使用[Axis]的子类来表示
+     * [CartesianCoordinateSystem]的核心组成部分，每根轴都应该使用[Axis]的子类来表示
      *
-     * 必须要提供[angle]和[length]
+     * 须提供[angle] (弧度)和[length]
      */
     abstract class Axis {
         abstract var angle: Double
+        var angleAsDegree: Double
+            get() = angle.toDegrees()
+            set(value) {
+                angle = value.toRadians()
+            }
+
         open var length: Double = 40.0
+
         operator fun component1() = angle
         operator fun component2() = length
 
@@ -60,105 +50,67 @@ abstract class CartesianCoordinateSystem : CoordinateSystem2D() {
         }
     }
 
+    inner class CoordinateTransformComponent : CoordinateSystem.CoordinateTransformComponent() {
 
-    open class InputListenComponent(system: CartesianCoordinateSystem) :
-            CoordinateSystem2D.InputListenComponent(system) {
-
-        @Expose var xAngle = 0.0
-        @Expose var yAngle = 0.0
-
-        var look: Pair<Number, Number>
-            get() = xAngle to yAngle
-            set(value) {
-                xAngle = value.first.toDouble()
-                yAngle = value.second.toDouble()
-            }
-
-        override fun mouseDragged(e: MouseEvent) {
-            system as CartesianCoordinateSystem
-
-            if (firstEvent.button == MouseEvent.BUTTON2) {
-                xAngle -= (e.x - lastEvent.x) / 10.0
-                yAngle += (e.y - lastEvent.y) / 10.0
-
-                system.axes.forEach { (it as CartesianCoordinateSystemBall.BallAxis).resetAngleAndLength(xAngle, yAngle) }
-            }
-
-            super.mouseDragged(e)
-        }
-    }
-
-    open class CoordinateTransformComponent(val system: CartesianCoordinateSystem) :
-            rainbow.component.CoordinateTransformComponent() {
-
-        // todo 弧度与角度
-        override fun toScreenPoint(cp: CoordinatePoint): Point2D = with(system) {
+        override fun toScreenPoint(cp: CoordinatePoint): Point2D {
             val form = cp.asAxes
             var px = 0.0
             var py = 0.0
-            for (i in 0..axes.size - 1) {
-                val (angle, length) = axes[i]
-                px += Math.cos(angle) * length * form[i]
-                py += Math.sin(angle) * length * form[i]
+            until(axes.size).forEach {
+                val (angle, length) = axes[it]
+                val value = form[it]
+                px += cos(angle) * length * value
+                py += sin(angle) * length * value
             }
             return Point2D(px, py).rotateAndScaleAndMove()
         }
 
-
-        override fun toCoordinatePoint(p: Point2D): CoordinatePoint = with(system) {
+        override fun toCoordinatePoint(p: Point2D): CoordinatePoint {
             val pd = p.inverseRotateAndScaleAndMove()
 
-            val x = pd.spin(Math.PI / 2 - axes[1].angle).x
-            val y = pd.spin(0 - axes[0].angle).y
+            val (angle0, length0) = axes[0]
+            val (angle1, length1) = axes[1]
 
-            val xAngle = axes[0].angle + Math.PI / 2 - axes[1].angle
-            val yAngle = axes[1].angle - axes[0].angle
+            val x = pd.spin(PI / 2 - angle1).x
+            val y = pd.spin(0 - angle0).y
 
-            val px = x / Math.cos(xAngle) / axes[0].length
-            val py = y / Math.sin(yAngle) / axes[1].length
+            val xAngle = angle0 + PI / 2 - angle1
+            val yAngle = angle1 - angle0
+
+            val px = x / cos(xAngle) / length0
+            val py = y / sin(yAngle) / length1
 
             return PointAxes(px, py)
-
         }
     }
 
 
-    open class PaintComponent(val system: CartesianCoordinateSystem) : CoordinateSystem.PaintComponent(system) {
+    inner class Painter : CoordinateSystem.Painter() {
 
         var paintRange = 0..30
-        val sizeRange get() = rangeTo(system.size)
+        val sizeRange get() = until(size)
 
-        init {
-            addPaintPart(ORIGIN) { paintOrigin(it) }
-            addPaintPart(GRID) { paintGrid(it) }
-            addPaintPart(AXES) { paintAxes(it) }
-            addPaintPart(NUMBER) { paintNumber(it) }
-        }
+        override fun paintOrigin(cg: CoordinateGraphics) = cg.paintString("O", PointAxes.ZERO)
 
-        fun paintOrigin(cg: CoordinateGraphics) = cg.paintString("O", PointAxes.ZERO)
+        override fun paintGrid(cg: CoordinateGraphics) =
+                //维度遍历
+                sizeRange.forEach {
+                    //向别的维度遍历
+                    paintRange.forEach { value ->
+                        val p0 = PointAxes.ZERO.plusAtAndNew(it, value)
+                        val p1 = p0.plusAtAndNew(if (it == axes.size - 1) 0 else it + 1, 1.0)
+                        val p2 = p0.plusAtAndNew(if (it == 0) axes.size - 1 else it - 1, 1.0)
 
-        fun paintGrid(cg: CoordinateGraphics) = with(system) {
-            //维度遍历
-            for (i in sizeRange) {
-                //值遍历
-                for (value in paintRange) {
-                    val p0 = PointAxes.ZERO.plusAtAndNew(i, value)
-                    val p1 = p0.plusAtAndNew(if (i == axes.size - 1) 0 else i + 1, 1.0)
-                    val p2 = p0.plusAtAndNew(if (i == 0) axes.size - 1 else i - 1, 1.0)
-
-                    cg.paintRayLine(p0, p1)
-                    cg.paintRayLine(p0, p2)
+                        cg.paintRayLine(p0, p1)
+                        cg.paintRayLine(p0, p2)
+                    }
                 }
-            }
-        }
 
-        fun paintAxes(cg: CoordinateGraphics) = with(system) {
-            sizeRange.forEach {
-                cg.paintStraightLine(PointAxes.ZERO, PointAxes.ZERO.plusAtAndNew(it, 10))
-            }
-        }
+        override fun paintAxes(cg: CoordinateGraphics) =
+                sizeRange.forEach { cg.paintStraightLine(PointAxes.ZERO, PointAxes.ZERO.plusAtAndNew(it, 10)) }
 
-        fun paintNumber(cg: CoordinateGraphics) = with(system) {
+
+        override fun paintNumber(cg: CoordinateGraphics) {
             sizeRange.forEach { size ->
                 paintRange.filter { it != 0 }.forEach {
                     cg.paintString(it, PointAxes.ZERO.plusAtAndNew(size, it))
@@ -168,42 +120,53 @@ abstract class CartesianCoordinateSystem : CoordinateSystem2D() {
     }
 }
 
-class CartesianCoordinateSystemClassic(size: Int = -1) : CartesianCoordinateSystem() {
+class CartesianCoordinateSystemClassic(size: Int = 3) : CartesianCoordinateSystem() {
+
     init {
         setDefaultAxes(size)
     }
 
     override fun setDefaultAxes(size: Int) {
         when (size) {
-            2 -> addAxes(0, 90)
-            3 -> addAxes(180, 0, 90)
+            2 -> addAxesAsDegree(0, 90)
+            3 -> addAxesAsDegree(225, 0, 90)
         }
     }
 
-    fun addAxes(vararg angles: Number) = angles.forEach { axes.add(ClassicAxis(it)) }
+    fun addAxesAsDegree(vararg angles: Number) = angles.forEach { axes.add(ClassicAxis(it.toRadians())) }
 
-    class ClassicAxis(@Expose override var angle: Double = 0.0, @Expose override var length: Double = 40.0) : Axis() {
+    class ClassicAxis(override var angle: Double = 0.0, override var length: Double = 40.0) : Axis() {
         constructor(angle: Number, length: Number = 40.0) : this(angle.toDouble(), length.toDouble())
     }
 }
 
-class CartesianCoordinateSystemBall(size: Int = -1) : CartesianCoordinateSystem() {
+class CartesianCoordinateSystemBall(size: Int = 3) : CartesianCoordinateSystem() {
+
+    var sight: Pair<Number, Number> = 0 to 0
+
+    var sightAsDegree: Pair<Number, Number>
+        get() = sight.first.toDegrees() to sight.second.toDegrees()
+        set(value) {
+            sight = value.first.toRadians() to value.second.toRadians()
+        }
 
     init {
         setDefaultAxes(size)
-        inputComponent = InputListenComponent(this)
     }
 
     override fun setDefaultAxes(size: Int) {
         when (size) {
-            2 -> addAxes(90 to 0, 0 to 90)
-            3 -> addAxes(0 to 0, 90 to 0, 0 to 90)
+            2 -> addAxesAsDegree(90 to 0, 0 to 90)
+            3 -> addAxesAsDegree(0 to 0, 90 to 0, 0 to 90)
         }
     }
 
-    fun addAxes(vararg locations: Pair<Number, Number>) = locations.forEach { axes.add(BallAxis(it)) }
+    fun addAxesAsDegree(vararg locations: Pair<Number, Number>) =
+            locations.forEach { axes.add(BallAxis(it.first.toRadians() to it.second.toRadians())) }
 
-    class BallAxis(@Expose var xAngle: Double, @Expose var yAngle: Double) : Axis() {
+    fun resetAngleAndLength() = axes.forEach { (it as BallAxis).resetAngleAndLength(sight) }
+
+    class BallAxis(var xAngle: Double, var yAngle: Double) : Axis() {
         constructor(xAngle: Number, yAngle: Number) : this(xAngle.toDouble(), yAngle.toDouble())
         constructor(location: Pair<Number, Number>) : this(location.first, location.second)
 
@@ -212,7 +175,8 @@ class CartesianCoordinateSystemBall(size: Int = -1) : CartesianCoordinateSystem(
             get() = originalLength * lengthTimes
             set(value) {}
 
-        @Expose var originalLength: Double = 40.0
+
+        var originalLength: Double = 40.0
 
         var lengthTimes: Double = 1.0
             private set
@@ -224,33 +188,40 @@ class CartesianCoordinateSystemBall(size: Int = -1) : CartesianCoordinateSystem(
                 yAngle = value.second.toDouble()
             }
 
+        var locationAsDegree: Pair<Number, Number>
+            get() = xAngle.toRadians() to yAngle.toRadians()
+            set(value) {
+                xAngle = value.first.toRadians()
+                yAngle = value.second.toRadians()
+            }
+
         init {
             resetAngleAndLength(0.0, 0.0)
         }
 
-        fun resetAngleAndLength(xAngle: Double, yAngle: Double) {
-            val thisX = Math.toRadians(this.xAngle)
-            val thisY = Math.toRadians(this.yAngle)
-            val lookX = Math.toRadians(xAngle)
-            val lookY = Math.toRadians(yAngle)
+        fun resetAngleAndLength(sight: Pair<Number, Number>) = resetAngleAndLength(sight.first, sight.second)
+
+        fun resetAngleAndLength(xSight: Number, ySight: Number) {
+            val thisX = this.xAngle
+            val thisY = this.yAngle
+            val lookX = xSight.toDouble()
+            val lookY = ySight.toDouble()
 
             //Axis所在的圆的半径
-            val R = Math.cos(thisY)
+            val R = cos(thisY)
 
             //Axis所在的圆到赤道面的高度
-            val baseY = Math.sin(thisY)
+            val baseY = sin(thisY)
 
-            val x = R * Math.sin(thisX - lookX)
-            val y = baseY * Math.cos(lookY) - R * Math.sin(lookY) * Math.cos(thisX - lookX)
+            val x = R * sin(thisX - lookX)
+            val y = baseY * cos(lookY) - R * sin(lookY) * cos(thisX - lookX)
 
-            this.angle = Math.atan2(y, x)
+            this.angle = atan2(y, x)
             this.lengthTimes = lengthOf(x, y)
         }
 
         override fun toString(): String {
             return "BallAxis(xAngle=$xAngle, yAngle=$yAngle, angle=$angle, originalLength=$originalLength, lengthTimes=$lengthTimes)"
         }
-
-
     }
 }

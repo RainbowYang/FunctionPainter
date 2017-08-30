@@ -9,8 +9,7 @@ import rainbow.utils.CoordinateGraphics
  */
 abstract class PointsFunction : CoordinateFunction() {
 
-    override var paintComponent: CoordinateFunctionPainter
-            = PointsFunctionPainter(this)
+    override var painter: Painter = PointsFunctionPainter()
 
     var pointsList = mutableListOf<MutableList<CoordinatePoint>>()
 
@@ -26,9 +25,9 @@ abstract class PointsFunction : CoordinateFunction() {
         pointsList.last().add(coordinatePoint)
     }
 
-    class PointsFunctionPainter(val function: PointsFunction) : CoordinateFunctionPainter() {
+    inner class PointsFunctionPainter : CoordinateFunction.Painter() {
         override fun paintMain(cg: CoordinateGraphics) {
-            function.pointsList.forEach { cg.paintCoordinatePoints(it) }
+            pointsList.forEach { cg.paintCoordinatePoints(it) }
         }
     }
 

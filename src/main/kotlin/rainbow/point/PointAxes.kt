@@ -2,7 +2,7 @@ package rainbow.point
 
 import rainbow.utils.checkValues
 import rainbow.utils.lengthOf
-import rainbow.utils.rangeTo
+import rainbow.utils.until
 import java.lang.Math.max
 import java.util.*
 
@@ -71,7 +71,7 @@ class PointAxes constructor(vararg initValues: Double) : CoordinatePoint {
         other as PointAxes
 
         //只要两个点不为0的值均相等即可 这意味着(1,1,0) equals (1,1,0,0) = true
-        rangeTo(max(this.size, other.size)).forEach {
+        until(max(this.size, other.size)).forEach {
             if (this[it] != other[it]) return false
         }
 
