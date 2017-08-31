@@ -2,6 +2,8 @@ package rainbow.coordinates
 
 import rainbow.component.Paintable
 import rainbow.component.Painter
+import rainbow.input.KeyControllable
+import rainbow.input.KeyMap
 import rainbow.point.CoordinatePoint
 import rainbow.point.Point2D
 import rainbow.utils.CoordinateGraphics
@@ -13,7 +15,7 @@ import java.awt.Graphics2D
  *
  * @author Rainbow Yang
  */
-abstract class CoordinateSystem : Paintable {
+abstract class CoordinateSystem : Paintable, KeyControllable {
 
     val ORIGIN: String = "Origin"
     val GRID: String = "Grid"

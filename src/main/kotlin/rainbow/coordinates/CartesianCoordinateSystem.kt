@@ -143,6 +143,22 @@ class CartesianCoordinateSystemClassic(size: Int = 3) : CartesianCoordinateSyste
 class CartesianCoordinateSystemBall(size: Int = 3) : CartesianCoordinateSystem() {
 
     var sight: Pair<Number, Number> = 0 to 0
+        set(value) {
+            field = value
+            resetAngleAndLength()
+        }
+
+    var xSight
+        get() = sight.first
+        set(xSight) {
+            sight = xSight to ySight
+        }
+
+    var ySight
+        get() = sight.second
+        set(ySight) {
+            sight = xSight to ySight
+        }
 
     var sightAsDegree: Pair<Number, Number>
         get() = sight.first.toDegrees() to sight.second.toDegrees()

@@ -1,8 +1,10 @@
 package rainbow.coordinates
 
+import rainbow.input.KeyMap
 import rainbow.point.CoordinatePoint
 import rainbow.point.Point2D
 import rainbow.utils.asPoint2D
+import java.awt.event.KeyEvent.*
 import java.lang.Math.toDegrees
 import java.lang.Math.toRadians
 
@@ -65,5 +67,20 @@ abstract class CoordinateSystem2D(x: Number = 0, y: Number = 0, zoomRate: Number
         val system = this@CoordinateSystem2D
         val result = Point2D(this.x - system.x, system.y - this.y).spin(-rotatedAngle) / zoomRate
         return result.asPoint2D
+    }
+
+    override fun addKeyHandlesTo(keyMap: KeyMap) {
+        with(keyMap) {
+            VK_UP { move(0, -1) }
+            VK_DOWN { move(0, 1) }
+            VK_RIGHT { move(1, 0) }
+            VK_LEFT { move(-1, 0) }
+
+            VK_Q { rotate(0.001) }
+            VK_E { rotate(-0.001) }
+
+            VK_R { zoom(1.001) }
+            VK_F { zoom(0.999) }
+        }
     }
 }
