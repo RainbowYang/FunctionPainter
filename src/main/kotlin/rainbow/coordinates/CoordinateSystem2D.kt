@@ -36,6 +36,12 @@ abstract class CoordinateSystem2D(x: Number = 0, y: Number = 0, zoomRate: Number
             rotatedAngle = toRadians(value)
         }
 
+
+    var moveSpeed = 100
+    var zoomSpeed = 1.1
+    var rotateSpeed = 0.1
+
+
     fun move(x: Number, y: Number) {
         this.x += x.toDouble()
         this.y += y.toDouble()
@@ -71,16 +77,16 @@ abstract class CoordinateSystem2D(x: Number = 0, y: Number = 0, zoomRate: Number
 
     override fun addKeyHandlesTo(keyMap: KeyMap) {
         with(keyMap) {
-            VK_UP { move(0, -1) }
-            VK_DOWN { move(0, 1) }
-            VK_RIGHT { move(1, 0) }
-            VK_LEFT { move(-1, 0) }
+            VK_UP { move(0, -moveSpeed * it) }
+            VK_DOWN { move(0, moveSpeed * it) }
+            VK_RIGHT { move(moveSpeed * it, 0) }
+            VK_LEFT { move(-moveSpeed * it, 0) }
 
-            VK_Q { rotate(0.001) }
-            VK_E { rotate(-0.001) }
+            VK_Q { rotate(rotateSpeed * it) }
+            VK_E { rotate(-rotateSpeed * it) }
 
-            VK_R { zoom(1.001) }
-            VK_F { zoom(0.999) }
+            VK_R { zoom(Math.pow(zoomSpeed, it)) }
+            VK_F { zoom(Math.pow(zoomSpeed, -it)) }
         }
     }
 }

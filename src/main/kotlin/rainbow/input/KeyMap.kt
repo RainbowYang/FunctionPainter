@@ -11,19 +11,10 @@ import kotlin.concurrent.schedule
  */
 class KeyMap {
 
-    init {
-        Timer().schedule(0, 10) {
-            pressedKeys.forEach { key ->
-                handles.forEach { handle ->
-                    if (handle.isRightInput(key, isAltDown, isCtrlDown, isShiftDown)) {
-                        handle.runHandle()
-                    }
-                }
-            }
-        }
-    }
+    //多少 ms 执行一次
+    var period: Number = 10
 
-    val pressedKeys = mutableSetOf<Int>()
+    val pressedKeys = Collections.synchronizedSet(mutableSetOf<Int>())
 
     var isAltDown = false
     var isCtrlDown = false
@@ -36,8 +27,20 @@ class KeyMap {
     operator fun Int.invoke(isAltDown: Boolean = false,
                             isCtrlDown: Boolean = false,
                             isShiftDown: Boolean = false,
-                            handle: () -> Unit) =
+                            handle: (Double) -> Unit) =
             addHandle(KeyHandle(this, isAltDown, isCtrlDown, isShiftDown, handle))
+
+    fun startToRunHandles() {
+        Timer().schedule(0, period.toLong()) {
+            pressedKeys.forEach { key ->
+                handles.forEach { handle ->
+                    if (handle.isRightInput(key, isAltDown, isCtrlDown, isShiftDown)) {
+                        handle.runHandle(period.toInt() / 1000.0)
+                    }
+                }
+            }
+        }
+    }
 
     fun getListener() = object : KeyAdapter() {
         override fun keyPressed(e: KeyEvent) {

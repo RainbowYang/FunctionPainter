@@ -7,9 +7,9 @@ class KeyHandle(var key: Int,
                 var needAlt: Boolean = false,
                 var needCtrl: Boolean = false,
                 var needShift: Boolean = false,
-                var handle: () -> Unit) {
+                var handle: (Double) -> Unit) {
 
-    fun runHandle() = handle()
+    fun runHandle(time: Number) = handle(time.toDouble())
 
     fun isRightInput(key: Int, isAltDown: Boolean, isCtrlDown: Boolean, isShiftDown: Boolean) =
             this.key == key && isAltAndCtrlAndShiftRight(isAltDown, isCtrlDown, isShiftDown)

@@ -3,7 +3,6 @@ package rainbow.coordinates
 import rainbow.component.Paintable
 import rainbow.component.Painter
 import rainbow.input.KeyControllable
-import rainbow.input.KeyMap
 import rainbow.point.CoordinatePoint
 import rainbow.point.Point2D
 import rainbow.utils.CoordinateGraphics
@@ -35,10 +34,8 @@ abstract class CoordinateSystem : Paintable, KeyControllable {
     abstract var painter: Painter
 
     fun toScreenPoint(cp: CoordinatePoint) = coordinateTransformComponent.toScreenPoint(cp)
-
     fun toCoordinatePoint(pd: Point2D) = coordinateTransformComponent.toCoordinatePoint(pd)
     fun toScreenPoint(points: List<CoordinatePoint>) = List(points.size) { toScreenPoint(points[it]) }
-
     fun toCoordinatePoint(points: List<Point2D>) = List(points.size) { toCoordinatePoint(points[it]) }
 
     override fun paintedImage(width: Int, height: Int) = painter.paintedImage(width, height)
@@ -65,10 +62,10 @@ abstract class CoordinateSystem : Paintable, KeyControllable {
     abstract inner class Painter : rainbow.component.Painter() {
 
         init {
-            ORIGIN { paintOrigin(it) }
-            GRID { paintGrid(it) }
-            AXES { paintAxes(it) }
-            NUMBER { paintNumber(it) }
+            ORIGIN { paintOrigin(getCoordinateGraphicsAndSetSize(it)) }
+            GRID { paintGrid(getCoordinateGraphicsAndSetSize(it)) }
+            AXES { paintAxes(getCoordinateGraphicsAndSetSize(it)) }
+            NUMBER { paintNumber(getCoordinateGraphicsAndSetSize(it)) }
         }
 
         private fun paintOrigin(g: Graphics2D) = paintOrigin(getCoordinateGraphicsAndSetSize(g))

@@ -1,10 +1,12 @@
 package rainbow.coordinates
 
+import rainbow.input.KeyMap
 import rainbow.point.CoordinatePoint
 import rainbow.point.Point2D
 import rainbow.point.PointAxes
 import rainbow.utils.*
 import java.lang.Math.*
+import java.awt.event.KeyEvent.*
 
 /**
  * 任意维度的轴坐标系
@@ -148,14 +150,14 @@ class CartesianCoordinateSystemBall(size: Int = 3) : CartesianCoordinateSystem()
             resetAngleAndLength()
         }
 
-    var xSight
-        get() = sight.first
+    var xSight: Double
+        get() = sight.first.toDouble()
         set(xSight) {
             sight = xSight to ySight
         }
 
-    var ySight
-        get() = sight.second
+    var ySight: Double
+        get() = sight.second.toDouble()
         set(ySight) {
             sight = xSight to ySight
         }
@@ -165,6 +167,8 @@ class CartesianCoordinateSystemBall(size: Int = 3) : CartesianCoordinateSystem()
         set(value) {
             sight = value.first.toRadians() to value.second.toRadians()
         }
+
+    var sightRotateSpeed = 1.01
 
     init {
         setDefaultAxes(size)
@@ -181,6 +185,17 @@ class CartesianCoordinateSystemBall(size: Int = 3) : CartesianCoordinateSystem()
             locations.forEach { axes.add(BallAxis(it.first.toRadians() to it.second.toRadians())) }
 
     fun resetAngleAndLength() = axes.forEach { (it as BallAxis).resetAngleAndLength(sight) }
+
+    override fun addKeyHandlesTo(keyMap: KeyMap) {
+        super.addKeyHandlesTo(keyMap)
+
+        with(keyMap) {
+            VK_W { ySight += sightRotateSpeed * it }
+            VK_S { ySight -= sightRotateSpeed * it }
+            VK_A { xSight -= sightRotateSpeed * it }
+            VK_D { xSight += sightRotateSpeed * it }
+        }
+    }
 
     class BallAxis(var xAngle: Double, var yAngle: Double) : Axis() {
         constructor(xAngle: Number, yAngle: Number) : this(xAngle.toDouble(), yAngle.toDouble())

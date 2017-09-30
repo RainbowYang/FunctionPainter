@@ -3,6 +3,7 @@ package rainbow
 import rainbow.coordinates.CoordinateSystem
 import rainbow.function.CoordinateFunction
 import rainbow.input.KeyMap
+import rainbow.utils.antialias
 import rainbow.utils.buildJFrame
 import rainbow.utils.drawImageOfPainter
 import java.awt.Graphics
@@ -22,7 +23,7 @@ class MainSystem(init: MainSystem.() -> Unit) {
     var width: Number = 1000
     var height: Number = 500
 
-    var fps: Number = 60
+    var fps: Number = 10
     var period: Number
         get() = 1000.0 / fps.toDouble()
         set(value) {
@@ -41,6 +42,8 @@ class MainSystem(init: MainSystem.() -> Unit) {
 
     init {
         init()
+
+        run()
     }
 
     fun <S : CoordinateSystem> setCoordinateSystem(coordinateSystem: S, init: S.() -> Unit) {
@@ -51,6 +54,14 @@ class MainSystem(init: MainSystem.() -> Unit) {
 
     fun addFunction(function: CoordinateFunction) = functionList.add(function)
 
+
+    fun run() {
+        initForFunctions()
+        initForFrame()
+        initForKeyMap()
+        initForRepaintTimer()
+    }
+
     fun initForFunctions() {
         functionList.forEach {
             it.init()
@@ -58,10 +69,7 @@ class MainSystem(init: MainSystem.() -> Unit) {
         }
     }
 
-    fun run() {
-
-        initForFunctions()
-
+    fun initForFrame() {
         frame = buildJFrame(width, height).apply {
             add(object : JPanel() {
                 override fun paintComponent(g: Graphics) {
@@ -70,9 +78,17 @@ class MainSystem(init: MainSystem.() -> Unit) {
                     functionList.forEach { g.drawImageOfPainter(it, width, height) }
                 }
             })
-            addKeyListener(keyMap.getListener())
         }
+    }
 
+
+    fun initForKeyMap() {
+        frame.addKeyListener(keyMap.getListener())
+        keyMap.startToRunHandles()
+    }
+
+
+    fun initForRepaintTimer() {
         RepaintTimer().run()
     }
 
