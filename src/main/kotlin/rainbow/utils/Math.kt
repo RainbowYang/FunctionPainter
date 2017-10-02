@@ -1,13 +1,10 @@
 package rainbow.utils
 
-import rainbow.coordinates.CoordinateSystem2D
+import rainbow.coordinates.AbstractCoordinateSystem
 import java.awt.event.MouseEvent
 import java.lang.Math.*
 
-/**
- * 一些与数学有关的方法
- * @author Rainbow Yang
- */
+// 一些与数学有关的方法
 
 val PI2 = 2 * Math.PI
 
@@ -17,7 +14,7 @@ infix fun Number.almostEquals(other: Number) = abs(this.toDouble() - other.toDou
 fun Number.toRadians() = toRadians(this.toDouble())
 fun Number.toDegrees() = toDegrees(this.toDouble())
 
-fun CoordinateSystem2D.getDiffAngle(form: MouseEvent, to: MouseEvent): Double {
+fun AbstractCoordinateSystem.getDiffAngle(form: MouseEvent, to: MouseEvent): Double {
     val toAngle = atan2(y - to.y, to.x - x)
     val formAngle = atan2(y - form.y, form.x - x)
     return toAngle - formAngle

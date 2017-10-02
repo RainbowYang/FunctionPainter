@@ -3,13 +3,11 @@ package rainbow
 import rainbow.coordinates.CoordinateSystem
 import rainbow.function.CoordinateFunction
 import rainbow.input.KeyMap
-import rainbow.utils.antialias
 import rainbow.utils.buildJFrame
 import rainbow.utils.drawImageOfPainter
+import java.awt.Color
 import java.awt.Graphics
 import java.awt.Graphics2D
-import java.awt.event.KeyEvent
-import java.awt.event.KeyListener
 import javax.swing.JFrame
 import javax.swing.JPanel
 import kotlin.concurrent.schedule
@@ -49,7 +47,7 @@ class MainSystem(init: MainSystem.() -> Unit) {
     fun <S : CoordinateSystem> setCoordinateSystem(coordinateSystem: S, init: S.() -> Unit) {
         coordinateSystem.init()
         this.coordinateSystem = coordinateSystem
-        coordinateSystem.addKeyHandlesTo(keyMap)
+        coordinateSystem.setKey(keyMap)
     }
 
     fun addFunction(function: CoordinateFunction) = functionList.add(function)
@@ -71,6 +69,8 @@ class MainSystem(init: MainSystem.() -> Unit) {
 
     fun initForFrame() {
         frame = buildJFrame(width, height).apply {
+            title = "FunctionPainter2 By Rainbow_Yang"
+            background = Color.BLACK
             add(object : JPanel() {
                 override fun paintComponent(g: Graphics) {
                     g as Graphics2D

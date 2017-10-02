@@ -9,11 +9,15 @@ import java.lang.Math.toDegrees
 import java.lang.Math.toRadians
 
 /**
- * 二维坐标系的接口
  * 实现平移，旋转，伸缩
  * @author Rainbow Yang
  */
-abstract class CoordinateSystem2D(x: Number = 0, y: Number = 0, zoomRate: Number = 1.0, rotatedAngle: Number = 0.0) : CoordinateSystem() {
+abstract class AbstractCoordinateSystem(
+        x: Number = 0,
+        y: Number = 0,
+        zoomRate: Number = 1.0,
+        rotatedAngle: Number = 0.0
+) : CoordinateSystem() {
 
     open var origin = Point2D(x, y)
 
@@ -63,24 +67,24 @@ abstract class CoordinateSystem2D(x: Number = 0, y: Number = 0, zoomRate: Number
         zoomRate *= times.toDouble()
     }
 
-    fun Point2D.rotateAndScaleAndMove(): Point2D = with(this@CoordinateSystem2D) {
+    fun Point2D.rotateAndScaleAndMove(): Point2D = with(this@AbstractCoordinateSystem) {
         val result = (spin(rotatedAngle) * zoomRate).asPoint2D
 
         return Point2D(this.x + result.x, this.y - result.y)
     }
 
     fun Point2D.inverseRotateAndScaleAndMove(): Point2D {
-        val system = this@CoordinateSystem2D
+        val system = this@AbstractCoordinateSystem
         val result = Point2D(this.x - system.x, system.y - this.y).spin(-rotatedAngle) / zoomRate
         return result.asPoint2D
     }
 
-    override fun addKeyHandlesTo(keyMap: KeyMap) {
+    override fun setKey(keyMap: KeyMap) {
         with(keyMap) {
-            VK_UP { move(0, -moveSpeed * it) }
-            VK_DOWN { move(0, moveSpeed * it) }
-            VK_RIGHT { move(moveSpeed * it, 0) }
-            VK_LEFT { move(-moveSpeed * it, 0) }
+            VK_W { move(0, -moveSpeed * it) }
+            VK_S { move(0, moveSpeed * it) }
+            VK_A { move(-moveSpeed * it, 0) }
+            VK_D { move(moveSpeed * it, 0) }
 
             VK_Q { rotate(rotateSpeed * it) }
             VK_E { rotate(-rotateSpeed * it) }

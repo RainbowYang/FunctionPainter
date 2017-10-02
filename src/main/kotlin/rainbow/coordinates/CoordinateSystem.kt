@@ -16,16 +16,11 @@ import java.awt.Graphics2D
  */
 abstract class CoordinateSystem : Paintable, KeyControllable {
 
-    val ORIGIN: String = "Origin"
-    val GRID: String = "Grid"
-    val AXES: String = "Axes"
-    val NUMBER: String = "Number"
-
     /**
      * 坐标转换组件
-     * @see CoordinateTransformComponent
+     * @see Coordinator
      */
-    abstract val coordinateTransformComponent: CoordinateTransformComponent
+    abstract val coordinator: Coordinator
 
     /**
      * 绘画组件
@@ -33,8 +28,8 @@ abstract class CoordinateSystem : Paintable, KeyControllable {
      */
     abstract var painter: Painter
 
-    fun toScreenPoint(cp: CoordinatePoint) = coordinateTransformComponent.toScreenPoint(cp)
-    fun toCoordinatePoint(pd: Point2D) = coordinateTransformComponent.toCoordinatePoint(pd)
+    fun toScreenPoint(cp: CoordinatePoint) = coordinator.toScreenPoint(cp)
+    fun toCoordinatePoint(pd: Point2D) = coordinator.toCoordinatePoint(pd)
     fun toScreenPoint(points: List<CoordinatePoint>) = List(points.size) { toScreenPoint(points[it]) }
     fun toCoordinatePoint(points: List<Point2D>) = List(points.size) { toCoordinatePoint(points[it]) }
 
@@ -45,7 +40,7 @@ abstract class CoordinateSystem : Paintable, KeyControllable {
      * 负责[CoordinatePoint]和[Point2D]之间的相互转换
      * @author Rainbow Yang
      */
-    abstract inner class CoordinateTransformComponent {
+    abstract inner class Coordinator {
 
         /**
          * 将[CoordinatePoint] (坐标系中的点)转换为[Point2D] (屏幕上的点)
@@ -53,25 +48,36 @@ abstract class CoordinateSystem : Paintable, KeyControllable {
         abstract fun toScreenPoint(cp: CoordinatePoint): Point2D
 
         /**
+         * 将[CoordinatePoint] (坐标系中的点)转换为[Point2D] (屏幕上的点)
+         */
+        fun toScreenPoint(points: List<CoordinatePoint>) =
+                List(points.size) { toScreenPoint(points[it]) }
+
+        /**
          * 将[Point2D] (屏幕上的点)转换为[CoordinatePoint] (坐标系中的点)
          */
         abstract fun toCoordinatePoint(pd: Point2D): CoordinatePoint
 
+        /**
+         * 将[Point2D] (屏幕上的点)转换为[CoordinatePoint] (坐标系中的点)
+         */
+        fun toCoordinatePoint(points: List<Point2D>) =
+                List(points.size) { toCoordinatePoint(points[it]) }
     }
 
     abstract inner class Painter : rainbow.component.Painter() {
 
-        init {
-            ORIGIN { paintOrigin(getCoordinateGraphicsAndSetSize(it)) }
-            GRID { paintGrid(getCoordinateGraphicsAndSetSize(it)) }
-            AXES { paintAxes(getCoordinateGraphicsAndSetSize(it)) }
-            NUMBER { paintNumber(getCoordinateGraphicsAndSetSize(it)) }
-        }
+        val ORIGIN: String = "Origin"
+        val GRID: String = "Grid"
+        val AXES: String = "Axes"
+        val NUMBER: String = "Number"
 
-        private fun paintOrigin(g: Graphics2D) = paintOrigin(getCoordinateGraphicsAndSetSize(g))
-        private fun paintGrid(g: Graphics2D) = paintGrid(getCoordinateGraphicsAndSetSize(g))
-        private fun paintAxes(g: Graphics2D) = paintAxes(getCoordinateGraphicsAndSetSize(g))
-        private fun paintNumber(g: Graphics2D) = paintNumber(getCoordinateGraphicsAndSetSize(g))
+        init {
+            ORIGIN("#FFFFFF") { paintOrigin(getCoordinateGraphicsAndSetSize(it)) }
+            GRID("#539EB7") { paintGrid(getCoordinateGraphicsAndSetSize(it)) }
+            AXES("#FFFFFF") { paintAxes(getCoordinateGraphicsAndSetSize(it)) }
+            NUMBER("#FFFFFF") { paintNumber(getCoordinateGraphicsAndSetSize(it)) }
+        }
 
         private fun getCoordinateGraphicsAndSetSize(g: Graphics2D) =
                 g.with(this@CoordinateSystem).setSize(width, height)

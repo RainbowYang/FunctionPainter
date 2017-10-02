@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/RainbowYang/FunctionPainter2.svg?branch=master)](https://travis-ci.org/RainbowYang/FunctionPainter2)
 
+(README暂时不修改，已过期)
+
 ## 简介 | Introduction
 一个用来绘画的数学空间。
 

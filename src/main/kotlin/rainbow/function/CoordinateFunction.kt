@@ -23,7 +23,7 @@ abstract class CoordinateFunction : Paintable {
 
         init {
             "before"{ paintBefore(it) }
-            "main"{ paintMain(it) }
+            "main"("#FFFFFF"){ paintMain(it) }
             "after"{ paintAfter(it) }
         }
 
