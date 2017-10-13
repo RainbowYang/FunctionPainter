@@ -5,11 +5,15 @@ import rainbow.utils.component2
 import rainbow.utils.component3
 
 /**
- * 三维点
+ * 三维轴坐标点
  * @author Rainbow Yang
  */
 class Point3D(val x: Double = 0.0, val y: Double = 0.0, val z: Double = 0.0) : CoordinatePoint {
     constructor(x: Number = 0, y: Number = 0, z: Number = 0) : this(x.toDouble(), y.toDouble(), z.toDouble())
+
+    operator fun component1() = x
+    operator fun component2() = y
+    operator fun component3() = z
 
     companion object {
         operator fun invoke(form: CoordinatePoint): Point3D {
@@ -21,6 +25,13 @@ class Point3D(val x: Double = 0.0, val y: Double = 0.0, val z: Double = 0.0) : C
     }
 
     override val asAxes by lazy { PointAxes(x, y, z) }
+
+    fun spinAtXY(angle: Number) = this.asAxes.spinAtAndNew(0, 1, angle)
+    fun spinAtXZ(angle: Number) = this.asAxes.spinAtAndNew(0, 2, angle)
+    fun spinAtYX(angle: Number) = this.asAxes.spinAtAndNew(1, 0, angle)
+    fun spinAtYZ(angle: Number) = this.asAxes.spinAtAndNew(1, 2, angle)
+    fun spinAtZX(angle: Number) = this.asAxes.spinAtAndNew(2, 0, angle)
+    fun spinAtZY(angle: Number) = this.asAxes.spinAtAndNew(2, 1, angle)
 
     override fun toString() = "Point3D(x=$x, y=$y, z=$z)"
 

@@ -11,10 +11,13 @@ val PointAxes.asPoint2DPolar get() = Point2DPolar(this)
 val PointAxes.asPoint2DHyperbolic get() = Point2DHyperbolic(this)
 val PointAxes.asPoint2DParabolic get() = Point2DParabolic(this)
 val PointAxes.asPoint3D get() = Point3D(this)
+val PointAxes.asPoint3DSpherical get() = Point3DSpherical(this)
+val PointAxes.asPointSpherical get() = PointSpherical(this)
 
 val CoordinatePoint.asPoint2D get() = asAxes.asPoint2D
 val CoordinatePoint.asPoint2DPolar get() = asAxes.asPoint2DPolar
 val CoordinatePoint.asPoint2DHyperbolic get() = asAxes.asPoint2DHyperbolic
 val CoordinatePoint.asPoint2DParabolic get() = asAxes.asPoint2DParabolic
 val CoordinatePoint.asPoint3D get() = asAxes.asPoint3D
-
+val CoordinatePoint.asPoint3DSpherical get() = asAxes.asPoint3DSpherical
+val CoordinatePoint.asPointSpherical get() = asAxes.asPointSpherical

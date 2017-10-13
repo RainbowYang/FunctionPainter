@@ -32,6 +32,9 @@ fun Graphics2D.drawImage(image: Image) = drawImage(image, 0, 0, null)
 fun Graphics2D.drawImageOfPainter(painter: Paintable, width: Number, height: Number)
         = drawImage(painter.paintedImage(width, height))
 
+fun Graphics2D.drawImageOfPainter(painter: Paintable, size: Dimension)
+        = drawImage(painter.paintedImage(size.width, size.height))
+
 fun Graphics2D.with(coordinateSystem: CoordinateSystem) = CoordinateGraphics(this, coordinateSystem)
 
 //Graphics提供了fillPolygon(Polygon)，却没有drawPolyline(Polygon)，特此扩展

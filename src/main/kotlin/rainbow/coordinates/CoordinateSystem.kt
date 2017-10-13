@@ -3,6 +3,7 @@ package rainbow.coordinates
 import rainbow.component.Paintable
 import rainbow.component.Painter
 import rainbow.input.KeyControllable
+import rainbow.input.KeyMap
 import rainbow.point.CoordinatePoint
 import rainbow.point.Point2D
 import rainbow.utils.CoordinateGraphics
@@ -26,7 +27,7 @@ abstract class CoordinateSystem : Paintable, KeyControllable {
      * 绘画组件
      * @see Painter
      */
-    abstract var painter: Painter
+    open var painter: Painter = Painter()
 
     fun toScreenPoint(cp: CoordinatePoint) = coordinator.toScreenPoint(cp)
     fun toCoordinatePoint(pd: Point2D) = coordinator.toCoordinatePoint(pd)
@@ -34,6 +35,8 @@ abstract class CoordinateSystem : Paintable, KeyControllable {
     fun toCoordinatePoint(points: List<Point2D>) = List(points.size) { toCoordinatePoint(points[it]) }
 
     override fun paintedImage(width: Int, height: Int) = painter.paintedImage(width, height)
+
+    override fun setKey(keyMap: KeyMap) {}
 
     /**
      * 坐标转换组件
@@ -56,7 +59,9 @@ abstract class CoordinateSystem : Paintable, KeyControllable {
         /**
          * 将[Point2D] (屏幕上的点)转换为[CoordinatePoint] (坐标系中的点)
          */
-        abstract fun toCoordinatePoint(pd: Point2D): CoordinatePoint
+        open fun toCoordinatePoint(pd: Point2D): CoordinatePoint {
+            throw UnsupportedOperationException("toCoordinatePoint is not supported")
+        }
 
         /**
          * 将[Point2D] (屏幕上的点)转换为[CoordinatePoint] (坐标系中的点)
@@ -65,7 +70,7 @@ abstract class CoordinateSystem : Paintable, KeyControllable {
                 List(points.size) { toCoordinatePoint(points[it]) }
     }
 
-    abstract inner class Painter : rainbow.component.Painter() {
+    open inner class Painter : rainbow.component.Painter() {
 
         val ORIGIN: String = "Origin"
         val GRID: String = "Grid"
@@ -82,10 +87,10 @@ abstract class CoordinateSystem : Paintable, KeyControllable {
         private fun getCoordinateGraphicsAndSetSize(g: Graphics2D) =
                 g.with(this@CoordinateSystem).setSize(width, height)
 
-        abstract fun paintOrigin(cg: CoordinateGraphics)
-        abstract fun paintGrid(cg: CoordinateGraphics)
-        abstract fun paintAxes(cg: CoordinateGraphics)
-        abstract fun paintNumber(cg: CoordinateGraphics)
+        open fun paintOrigin(cg: CoordinateGraphics) {}
+        open fun paintGrid(cg: CoordinateGraphics) {}
+        open fun paintAxes(cg: CoordinateGraphics) {}
+        open fun paintNumber(cg: CoordinateGraphics) {}
 
     }
 

@@ -1,8 +1,6 @@
 package rainbow.point
 
-import rainbow.utils.checkValues
-import rainbow.utils.lengthOf
-import rainbow.utils.until
+import rainbow.utils.*
 import java.lang.Math.max
 import java.util.*
 
@@ -59,6 +57,16 @@ class PointAxes constructor(vararg initValues: Double) : CoordinatePoint {
     fun timesAtAndNew(index: Int, times: Number): PointAxes =
             PointAxes(createNewArrayWithOldData(index).apply { this[index] *= times.toDouble() })
 
+    fun spinAtAndNew(firstIndex: Int, secondIndex: Int, angle: Number): PointAxes {
+        val newValues = createNewArrayWithOldData(firstIndex, secondIndex)
+        val (x, y) = Point2D(this[firstIndex], this[secondIndex]).asPoint2DPolar.spin(angle).asAxes
+        newValues[firstIndex] = x
+        newValues[secondIndex] = y
+
+        return PointAxes(newValues)
+    }
+
+    private fun createNewArrayWithOldData(index1: Int, index2: Int) = createNewArrayWithOldData(max(index1, index2))
     private fun createNewArrayWithOldData(index: Int) = DoubleArray(max(index + 1, size)) { get(it) }
 
     override fun toString() = "PointForAxes(${Arrays.toString(values)})"

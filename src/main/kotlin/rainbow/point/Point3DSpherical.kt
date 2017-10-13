@@ -1,0 +1,35 @@
+package rainbow.point
+
+import rainbow.utils.*
+
+/**
+ * 三维球坐标系点
+ * @author Rainbow Yang
+ */
+class Point3DSpherical(val r: Double, val theta: Double, val phi: Double) : CoordinatePoint {
+    constructor(r: Number = 0, θ: Number = 0, φ: Number = 0) : this(r.toDouble(), θ.toDouble(), φ.toDouble())
+
+    operator fun component1() = r
+    operator fun component2() = theta
+    operator fun component3() = phi
+
+    companion object {
+        operator fun invoke(form: CoordinatePoint): Point3DSpherical {
+            val (x, y, z) = form.asAxes
+
+            val r = form.length
+            val theta = Math.acos(z / r)
+            val phi = Point2D(x, y).asPoint2DPolar.angle
+
+            return Point3DSpherical(r, theta, phi)
+        }
+    }
+
+    override val asAxes by lazy {
+        PointAxes(r * Math.sin(theta) * Math.cos(phi), r * Math.sin(theta) * Math.sin(phi), r * Math.cos(theta))
+    }
+
+    override fun toString(): String {
+        return "Point3DSpherical(r=$r, theta=$theta, phi=$phi)"
+    }
+}

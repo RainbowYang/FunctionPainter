@@ -74,8 +74,8 @@ class MainSystem(init: MainSystem.() -> Unit) {
             add(object : JPanel() {
                 override fun paintComponent(g: Graphics) {
                     g as Graphics2D
-                    g.drawImageOfPainter(coordinateSystem, width, height)
-                    functionList.forEach { g.drawImageOfPainter(it, width, height) }
+                    g.drawImageOfPainter(coordinateSystem, this.size)
+                    functionList.forEach { g.drawImageOfPainter(it, this.size) }
                 }
             })
         }
