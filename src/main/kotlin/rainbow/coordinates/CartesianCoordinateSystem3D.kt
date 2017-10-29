@@ -1,6 +1,6 @@
 package rainbow.coordinates
 
-import rainbow.input.KeyMap
+import rainbow.component.input.KeyMap
 import rainbow.point.*
 import rainbow.utils.*
 import java.awt.event.KeyEvent.*

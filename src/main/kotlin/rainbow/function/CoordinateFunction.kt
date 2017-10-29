@@ -1,6 +1,6 @@
 package rainbow.function
 
-import rainbow.component.Paintable
+import rainbow.component.paint.Paintable
 import rainbow.coordinates.CoordinateSystem
 import rainbow.utils.CoordinateGraphics
 import rainbow.utils.with
@@ -15,11 +15,11 @@ abstract class CoordinateFunction : Paintable {
 
     lateinit var coordinateSystem: CoordinateSystem
 
-    override fun paintedImage(width: Int, height: Int) = painter.paintedImage(width, height)
+    override fun getPaintedImage(width: Int, height: Int) = painter.getPaintedImage(width, height)
 
     open fun init() {}
 
-    abstract inner class Painter : rainbow.component.Painter() {
+    abstract inner class Painter : rainbow.component.paint.Painter() {
 
         init {
             "before"{ paintBefore(it) }

@@ -1,6 +1,6 @@
 package rainbow.coordinates
 
-import rainbow.input.KeyMap
+import rainbow.component.input.KeyMap
 import rainbow.point.CoordinatePoint
 import rainbow.point.Point2D
 import rainbow.utils.asPoint2D
@@ -18,6 +18,8 @@ abstract class AbstractCoordinateSystem(
         zoomRate: Number = 1.0,
         rotatedAngle: Number = 0.0
 ) : CoordinateSystem() {
+
+    override var controller: rainbow.component.input.KeyController = KeyController()
 
     open var origin = Point2D(x, y)
 
@@ -79,18 +81,21 @@ abstract class AbstractCoordinateSystem(
         return result.asPoint2D
     }
 
-    override fun setKey(keyMap: KeyMap) {
-        with(keyMap) {
-            VK_W { move(0, -moveSpeed * it) }
-            VK_S { move(0, moveSpeed * it) }
-            VK_A { move(-moveSpeed * it, 0) }
-            VK_D { move(moveSpeed * it, 0) }
+    inner class KeyController : rainbow.component.input.KeyController() {
 
-            VK_Q { rotate(rotateSpeed * it) }
-            VK_E { rotate(-rotateSpeed * it) }
+        override fun setKey(keyMap: KeyMap) {
+            with(keyMap) {
+                VK_W { move(0, -moveSpeed * it) }
+                VK_S { move(0, moveSpeed * it) }
+                VK_A { move(-moveSpeed * it, 0) }
+                VK_D { move(moveSpeed * it, 0) }
 
-            VK_R { zoom(Math.pow(zoomSpeed, it)) }
-            VK_F { zoom(Math.pow(zoomSpeed, -it)) }
+                VK_Q { rotate(rotateSpeed * it) }
+                VK_E { rotate(-rotateSpeed * it) }
+
+                VK_R { zoom(Math.pow(zoomSpeed, it)) }
+                VK_F { zoom(Math.pow(zoomSpeed, -it)) }
+            }
         }
     }
 }

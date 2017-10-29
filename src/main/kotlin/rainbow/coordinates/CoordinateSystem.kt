@@ -1,9 +1,9 @@
 package rainbow.coordinates
 
-import rainbow.component.Paintable
-import rainbow.component.Painter
-import rainbow.input.KeyControllable
-import rainbow.input.KeyMap
+import rainbow.component.input.KeyControllable
+import rainbow.component.input.KeyController
+import rainbow.component.input.KeyMap
+import rainbow.component.paint.Paintable
 import rainbow.point.CoordinatePoint
 import rainbow.point.Point2D
 import rainbow.utils.CoordinateGraphics
@@ -29,18 +29,21 @@ abstract class CoordinateSystem : Paintable, KeyControllable {
      */
     open var painter: Painter = Painter()
 
+    open var controller = KeyController()
+
     fun toScreenPoint(cp: CoordinatePoint) = coordinator.toScreenPoint(cp)
     fun toCoordinatePoint(pd: Point2D) = coordinator.toCoordinatePoint(pd)
     fun toScreenPoint(points: List<CoordinatePoint>) = List(points.size) { toScreenPoint(points[it]) }
     fun toCoordinatePoint(points: List<Point2D>) = List(points.size) { toCoordinatePoint(points[it]) }
 
-    override fun paintedImage(width: Int, height: Int) = painter.paintedImage(width, height)
+    override fun getPaintedImage(width: Int, height: Int) = painter.getPaintedImage(width, height)
 
-    override fun setKey(keyMap: KeyMap) {}
+    override fun setKey(keyMap: KeyMap) = controller.setKey(keyMap)
 
     /**
      * 坐标转换组件
      * 负责[CoordinatePoint]和[Point2D]之间的相互转换
+     *
      * @author Rainbow Yang
      */
     abstract inner class Coordinator {
@@ -70,7 +73,7 @@ abstract class CoordinateSystem : Paintable, KeyControllable {
                 List(points.size) { toCoordinatePoint(points[it]) }
     }
 
-    open inner class Painter : rainbow.component.Painter() {
+    open inner class Painter : rainbow.component.paint.Painter() {
 
         val ORIGIN: String = "Origin"
         val GRID: String = "Grid"

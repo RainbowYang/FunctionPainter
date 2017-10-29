@@ -1,6 +1,6 @@
 package rainbow.utils
 
-import rainbow.component.Paintable
+import rainbow.component.paint.Paintable
 import rainbow.coordinates.CoordinateSystem
 import rainbow.point.Point2D
 import java.awt.*
@@ -30,10 +30,10 @@ fun Graphics2D.antialias() {
 fun Graphics2D.drawImage(image: Image) = drawImage(image, 0, 0, null)
 
 fun Graphics2D.drawImageOfPainter(painter: Paintable, width: Number, height: Number)
-        = drawImage(painter.paintedImage(width, height))
+        = drawImage(painter.getPaintedImage(width, height))
 
 fun Graphics2D.drawImageOfPainter(painter: Paintable, size: Dimension)
-        = drawImage(painter.paintedImage(size.width, size.height))
+        = drawImage(painter.getPaintedImage(size.width, size.height))
 
 fun Graphics2D.with(coordinateSystem: CoordinateSystem) = CoordinateGraphics(this, coordinateSystem)
 

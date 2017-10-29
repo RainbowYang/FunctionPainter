@@ -1,6 +1,6 @@
 package rainbow.coordinates
 
-import rainbow.input.KeyMap
+import rainbow.component.input.KeyMap
 
 import rainbow.point.*
 import rainbow.utils.*
@@ -13,8 +13,9 @@ import java.awt.image.BufferedImage
 class CartesianCoordinateSystem4D : CoordinateSystem() {
 
 
-    var camera: CoordinatePoint = Point3D(0, 0, 10)
-    var towards: CoordinatePoint = Point3DSpherical(Point3D(10, 0, -10))
+    var camera: CoordinatePoint = PointAxes(0, 0, 10)
+    var towards: CoordinatePoint = PointSpherical(PointAxes(10, 0, -10, 10))
+
     /**
      * 单位长度
      */
@@ -97,8 +98,5 @@ class CartesianCoordinateSystem4D : CoordinateSystem() {
             cg.paintRayLine(PointAxes.ZERO, Point3D(0, 0, 1))
         }
 
-        override fun paintNumber(cg: CoordinateGraphics) {
-            super.paintNumber(cg)
-        }
     }
 }

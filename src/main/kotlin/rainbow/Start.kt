@@ -17,7 +17,7 @@ fun main(args: Array<String>) {
 
         setCoordinateSystem(CartesianCoordinateSystem4D()) {
 
-            camera = Point3D(-5, 0, 10)
+            camera = PointAxes(-5, 0, 10,10)
 
             //            painter.visible = false
         }

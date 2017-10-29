@@ -1,4 +1,4 @@
-package rainbow.input
+package rainbow.component.input
 
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyEvent

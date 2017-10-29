@@ -2,7 +2,7 @@ package rainbow
 
 import rainbow.coordinates.CoordinateSystem
 import rainbow.function.CoordinateFunction
-import rainbow.input.KeyMap
+import rainbow.component.input.KeyMap
 import rainbow.utils.buildJFrame
 import rainbow.utils.drawImageOfPainter
 import java.awt.Color

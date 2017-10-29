@@ -1,4 +1,4 @@
-package rainbow.input
+package rainbow.component.input
 
 /**
  * @author Rainbow Yang
