@@ -1,9 +1,5 @@
 package rainbow.point
 
-import rainbow.utils.component1
-import rainbow.utils.component2
-import rainbow.utils.component3
-
 /**
  * 三维轴坐标点
  * @author Rainbow Yang

@@ -4,15 +4,10 @@ import rainbow.coordinates.AbstractCoordinateSystem
 import java.awt.event.MouseEvent
 import java.lang.Math.*
 
-// 一些与数学有关的方法
-
 val PI2 = 2 * Math.PI
 
 //本方法用来解决0.9999999999 ！= 1 的尴尬情况
 infix fun Number.almostEquals(other: Number) = abs(this.toDouble() - other.toDouble()) < 1E-10
-
-fun Number.toRadians() = toRadians(this.toDouble())
-fun Number.toDegrees() = toDegrees(this.toDouble())
 
 fun AbstractCoordinateSystem.getDiffAngle(form: MouseEvent, to: MouseEvent): Double {
     val toAngle = atan2(y - to.y, to.x - x)
@@ -27,19 +22,9 @@ fun until(end: Int) = 0 until end
  */
 fun lengthOf(vararg values: Number) = lengthOf(values.asList())
 
-fun lengthOf(values: List<Number>): Double {
-    var sum = 0.0
-    values.forEach {
-        val now = it.toDouble()
-        sum += now * now
-    }
-    return Math.sqrt(sum)
-}
+fun lengthOf(values: List<Number>) = Math.sqrt(values.sumByDouble { it.toDouble() * it.toDouble() })
 
 fun checkValues(vararg values: Number) = checkValues(values.asList())
 
-fun checkValues(values: List<Number>): Boolean {
-    var result = true
-    values.forEach { result = result && it.toDouble().isFinite() }
-    return result
-}
+fun checkValues(values: List<Number>) = values.any { it.toDouble().isNaN() || it.toDouble().isInfinite() }
+

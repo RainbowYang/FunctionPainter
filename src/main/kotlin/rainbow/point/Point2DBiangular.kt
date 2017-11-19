@@ -8,9 +8,6 @@ import rainbow.utils.Line
  */
 class Point2DBiangular(val angle1: Double, val angle2: Double, val a: Double) : CoordinatePoint {
 
-    operator fun component1() = angle1
-    operator fun component2() = angle2
-
     override val asAxes by lazy { (Line(Point2D(a, 0), angle1) crossTo Line(Point2D(-a, 0), angle2)).asAxes }
 
     override fun toString() = "Point2DBiangular(angle1=$angle1, angle2=$angle2, a=$a)"

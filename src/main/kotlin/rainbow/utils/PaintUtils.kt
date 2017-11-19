@@ -10,8 +10,6 @@ import java.awt.image.BufferedImage
 import java.awt.image.BufferedImage.TYPE_3BYTE_BGR
 import java.awt.image.BufferedImage.TYPE_4BYTE_ABGR
 
-val DEFAULT_COLOR = BLACK
-
 val EMPTY_IMAGE = BufferedImage(1, 1, TYPE_3BYTE_BGR)
 
 fun BufferedImage(width: Int, height: Int) = BufferedImage(width, height, TYPE_4BYTE_ABGR)
@@ -23,8 +21,8 @@ val screenHeight = Toolkit.getDefaultToolkit().screenSize.height
  * 抗锯齿
  */
 fun Graphics2D.antialias() {
-    this.setRenderingHint(KEY_ANTIALIASING, VALUE_ANTIALIAS_ON);
-    this.setRenderingHint(KEY_TEXT_ANTIALIASING, VALUE_TEXT_ANTIALIAS_ON);
+    setRenderingHint(KEY_ANTIALIASING, VALUE_ANTIALIAS_ON)
+    setRenderingHint(KEY_TEXT_ANTIALIASING, VALUE_TEXT_ANTIALIAS_ON)
 }
 
 fun Graphics2D.drawImage(image: Image) = drawImage(image, 0, 0, null)

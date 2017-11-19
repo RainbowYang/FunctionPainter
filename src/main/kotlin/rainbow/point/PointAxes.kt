@@ -23,6 +23,17 @@ class PointAxes constructor(vararg initValues: Double) : CoordinatePoint {
         val ZERO = PointAxes()
     }
 
+    operator fun component1() = this[0]
+    operator fun component2() = this[1]
+    operator fun component3() = this[2]
+    operator fun component4() = this[3]
+    operator fun component5() = this[4]
+    operator fun component6() = this[5]
+    operator fun component7() = this[6]
+    operator fun component8() = this[7]
+    operator fun component9() = this[8]
+    operator fun component10() = this[9]
+
     /**
      * 所有维度的值
      */

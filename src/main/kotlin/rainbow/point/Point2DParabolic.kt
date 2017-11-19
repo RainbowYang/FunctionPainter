@@ -1,7 +1,5 @@
 package rainbow.point
 
-import rainbow.utils.component1
-import rainbow.utils.component2
 import java.lang.Math.sqrt
 
 /**

@@ -12,8 +12,8 @@ class Point2DElliptic(val μ: Double, val ν: Double, val a: Double) : Coordinat
     operator fun component1() = μ
     operator fun component2() = ν
 
-    private val c1 get() = component1()
-    private val c2 get() = component2()
+    private val c1 get() = μ
+    private val c2 get() = ν
 
     override val asAxes by lazy { PointAxes(a * cosh(c1) * cos(c2), a * sinh(c1) * sin(c2)) }
 
