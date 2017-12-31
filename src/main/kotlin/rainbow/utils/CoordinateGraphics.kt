@@ -86,6 +86,8 @@ class CoordinateGraphics(val g: Graphics2D, val system: CoordinateSystem,
 
     private fun paintStraightLine(origin: Point2D, towards: Point2D) {
 
+        if (origin == towards) return
+
         val line = Line(origin, towards)
 
         if (Math.abs(line.slope) > 1) {
@@ -104,6 +106,8 @@ class CoordinateGraphics(val g: Graphics2D, val system: CoordinateSystem,
             = paintRayLine(system.toScreenPoint(origin), system.toScreenPoint(towards))
 
     private fun paintRayLine(origin: Point2D, towards: Point2D) {
+
+        if (origin == towards) return
 
         val line = Line(origin, towards)
 

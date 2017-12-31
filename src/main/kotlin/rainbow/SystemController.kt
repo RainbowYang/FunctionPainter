@@ -8,6 +8,7 @@ import rainbow.utils.drawImageOfPainter
 import java.awt.Color
 import java.awt.Graphics
 import java.awt.Graphics2D
+import java.util.*
 import javax.swing.JFrame
 import javax.swing.JPanel
 import kotlin.concurrent.schedule
@@ -23,7 +24,7 @@ class SystemController(extraInit: SystemController.() -> Unit) {
     /**
      * 刷新周期
      */
-    var period: Int = 10
+    var period: Int = 25
 
     var task: () -> Unit = {}
 
@@ -91,7 +92,7 @@ class SystemController(extraInit: SystemController.() -> Unit) {
 
     inner class RepaintTimer {
         fun run() {
-            java.util.Timer().schedule(0, period.toLong()) {
+            Timer().schedule(0, period.toLong()) {
                 task()
                 frame.repaint()
             }
