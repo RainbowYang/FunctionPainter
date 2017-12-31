@@ -59,8 +59,8 @@ class SystemController(extraInit: SystemController.() -> Unit) {
 
     fun initForFunctions() {
         functionList.forEach {
-            it.init()
             it.coordinateSystem = coordinateSystem
+            it.init()
         }
     }
 

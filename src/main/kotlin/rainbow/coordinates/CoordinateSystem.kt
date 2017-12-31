@@ -3,12 +3,11 @@ package rainbow.coordinates
 import rainbow.component.input.key.KeyHandles
 import rainbow.component.input.key.KeyObservable
 import rainbow.component.input.key.KeyObserver
+import rainbow.component.paint.CoordinatePainter
 import rainbow.component.paint.Paintable
 import rainbow.point.CoordinatePoint
 import rainbow.point.Point2D
 import rainbow.utils.CoordinateGraphics
-import rainbow.utils.with
-import java.awt.Graphics2D
 
 /**
  * 坐标系
@@ -16,6 +15,12 @@ import java.awt.Graphics2D
  * @author Rainbow Yang
  */
 abstract class CoordinateSystem : Paintable, KeyObserver {
+
+    companion object {
+        val Empty = object : CoordinateSystem() {
+            override val coordinator = object : Coordinator() {}
+        }
+    }
 
     /**
      * 坐标转换组件
@@ -51,7 +56,9 @@ abstract class CoordinateSystem : Paintable, KeyObserver {
         /**
          * 将[CoordinatePoint] (坐标系中的点)转换为[Point2D] (屏幕上的点)
          */
-        abstract fun toScreenPoint(cp: CoordinatePoint): Point2D
+        open fun toScreenPoint(cp: CoordinatePoint): Point2D {
+            throw UnsupportedOperationException("toCoordinatePoint is not supported")
+        }
 
         /**
          * 将[CoordinatePoint] (坐标系中的点)转换为[Point2D] (屏幕上的点)
@@ -73,7 +80,7 @@ abstract class CoordinateSystem : Paintable, KeyObserver {
                 List(points.size) { toCoordinatePoint(points[it]) }
     }
 
-    open inner class Painter : rainbow.component.paint.Painter() {
+    open inner class Painter : CoordinatePainter(this@CoordinateSystem) {
 
         val ORIGIN: String = "Origin"
         val GRID: String = "Grid"
@@ -81,14 +88,11 @@ abstract class CoordinateSystem : Paintable, KeyObserver {
         val NUMBER: String = "Number"
 
         init {
-            ORIGIN("#FFFFFF") { paintOrigin(getCoordinateGraphicsAndSetSize(it)) }
-            GRID("#539EB7") { paintGrid(getCoordinateGraphicsAndSetSize(it)) }
-            AXES("#FFFFFF") { paintAxes(getCoordinateGraphicsAndSetSize(it)) }
-            NUMBER("#FFFFFF") { paintNumber(getCoordinateGraphicsAndSetSize(it)) }
+            ORIGIN("#FFFFFF") { paintOrigin(it) }
+            GRID("#539EB7") { paintGrid(it) }
+            AXES("#FFFFFF") { paintAxes(it) }
+            NUMBER("#FFFFFF") { paintNumber(it) }
         }
-
-        private fun getCoordinateGraphicsAndSetSize(g: Graphics2D) =
-                g.with(this@CoordinateSystem).setSize(width, height)
 
         open fun paintOrigin(cg: CoordinateGraphics) {}
         open fun paintGrid(cg: CoordinateGraphics) {}

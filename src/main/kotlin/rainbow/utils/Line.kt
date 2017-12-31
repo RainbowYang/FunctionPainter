@@ -10,6 +10,12 @@ import rainbow.point.Point2D
  * @author Rainbow Yang
  */
 class Line(val a: Double, val b: Double, val c: Double) {
+
+    /** 斜率 */
+    val slope get() = -a / b
+    /** 倾斜角 */
+    val tiltAngle get() = Math.atan(slope)
+
     constructor(a: Number, b: Number, c: Number) : this(a.toDouble(), b.toDouble(), c.toDouble())
 
     companion object {

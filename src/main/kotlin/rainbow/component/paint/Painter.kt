@@ -50,16 +50,12 @@ abstract class Painter(var visible: Boolean = true) : Paintable {
         }
     }
 
-    open fun addPaintPart(name: String,
-                          color: String = "#000000",
-                          visible: Boolean = true,
-                          paint: (Graphics2D) -> Unit = {}) =
-            paintParts.add(PaintPart(name, color, visible, paint))
-
-    operator fun String.invoke(color: String = "#000000",
-                               visible: Boolean = true,
-                               paint: (Graphics2D) -> Unit) =
-            addPaintPart(this, color, visible, paint)
+    fun addPaintPart(name: String,
+                     color: String = "#000000",
+                     visible: Boolean = true,
+                     paint: (Graphics2D) -> Unit = {}) {
+        paintParts.add(PaintPart(name, color, visible, paint))
+    }
 
     open class PaintPart(var name: String, var color: String, var visible: Boolean, var paint: (Graphics2D) -> Unit)
 
