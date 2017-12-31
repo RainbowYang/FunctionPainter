@@ -2,6 +2,7 @@ package rainbow.component.input.key
 
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyEvent
+import java.awt.event.KeyEvent.*
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -41,20 +42,20 @@ class KeyObservable {
         override fun keyPressed(e: KeyEvent) {
             val code = e.keyCode
             when (code) {
-                KeyEvent.VK_ALT -> isAltDown = true
-                KeyEvent.VK_SHIFT -> isShiftDown = true
-                KeyEvent.VK_CONTROL -> isCtrlDown = true
-                else -> this@KeyObservable.pressedKeys.add(code)
+                VK_ALT -> isAltDown = true
+                VK_SHIFT -> isShiftDown = true
+                VK_CONTROL -> isCtrlDown = true
+                else -> pressedKeys.add(code)
             }
         }
 
         override fun keyReleased(e: KeyEvent) {
             val code = e.keyCode
             when (code) {
-                KeyEvent.VK_ALT -> isAltDown = false
-                KeyEvent.VK_SHIFT -> isShiftDown = false
-                KeyEvent.VK_CONTROL -> isCtrlDown = false
-                else -> this@KeyObservable.pressedKeys.remove(code)
+                VK_ALT -> isAltDown = false
+                VK_SHIFT -> isShiftDown = false
+                VK_CONTROL -> isCtrlDown = false
+                else -> pressedKeys.remove(code)
             }
         }
     }

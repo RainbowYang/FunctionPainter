@@ -7,6 +7,7 @@ package rainbow.component.input.key
 class KeyHandle(
         val description: String = "no description",
         var trigger: Key,
+        /** 小于这个时间将无法被触发,单位:ms */
         var minTime: Int = 0,
         private val handle: (Int) -> Unit
 ) {

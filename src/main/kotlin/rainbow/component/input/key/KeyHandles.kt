@@ -1,6 +1,7 @@
 package rainbow.component.input.key
 
 /**
+ * 用于存贮所有的[KeyHandle]
  * @author Rainbow Yang
  */
 abstract class KeyHandles : KeyObserver {
