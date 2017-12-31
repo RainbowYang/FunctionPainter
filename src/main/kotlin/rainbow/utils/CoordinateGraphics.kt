@@ -85,18 +85,18 @@ class CoordinateGraphics(val g: Graphics2D, val system: CoordinateSystem,
             = paintStraightLine(system.toScreenPoint(origin), system.toScreenPoint(towards))
 
     private fun paintStraightLine(origin: Point2D, towards: Point2D) {
-        if (origin.x almostEquals towards.x) {
-            g.drawLine(origin.x, 0, towards.x, height)
+
+        val line = Line(origin, towards)
+
+        if (Math.abs(line.slope) > 1) {
+            val bottom = Line.X_AXIS
+            val top = Line(Point2D(0, height), 0.0)
+            paintLine(line crossTo bottom, line crossTo top)
         } else {
-            val line = Line(origin, towards)
-
             val left = Line.Y_AXIS
-            val right = Line(Point2D(width, 0.0), Point2D(width, height))
+            val right = Line(Point2D(width, 0.0), Math.PI / 2)
+            paintLine(line crossTo left, line crossTo right)
 
-            val start = line.crossTo(left)
-            val end = line.crossTo(right)
-
-            paintLine(start, end)
         }
     }
 
@@ -104,26 +104,35 @@ class CoordinateGraphics(val g: Graphics2D, val system: CoordinateSystem,
             = paintRayLine(system.toScreenPoint(origin), system.toScreenPoint(towards))
 
     private fun paintRayLine(origin: Point2D, towards: Point2D) {
-        if (origin.x almostEquals towards.x) {
-            if (origin.y < towards.y) {
-                g.drawLine(origin.x, origin.y, towards.x, height)
+
+        val line = Line(origin, towards)
+
+        if (Math.abs(line.slope) > 1) {
+            if (towards.y > origin.y) {
+                val top = Line(Point2D(0, height), 0.0)
+                paintLine(origin, line crossTo top)
             } else {
-                g.drawLine(origin.x, origin.y, towards.x, 0)
+                val bottom = Line.X_AXIS
+                paintLine(origin, line crossTo bottom)
             }
         } else {
-            val line = Line(origin, towards)
-            if (origin.x > towards.x) {
-                paintLine(origin, line.crossTo(Line.Y_AXIS))
+            if (towards.x > origin.x) {
+                val right = Line(Point2D(width, 0.0), Math.PI / 2)
+                paintLine(origin, line crossTo right)
             } else {
-                paintLine(origin, line.crossTo(Line(Point2D(width, 0), Point2D(width, height))))
+                val left = Line.Y_AXIS
+                paintLine(origin, line crossTo left)
             }
         }
+
     }
 
     //线段
-    fun paintLine(from: CoordinatePoint, to: CoordinatePoint) = paintLine(system.toScreenPoint(from), system.toScreenPoint(to))
+    fun paintLine(from: CoordinatePoint, to: CoordinatePoint) =
+            paintLine(system.toScreenPoint(from), system.toScreenPoint(to))
 
-    private fun paintLine(from: Point2D, to: Point2D) = g.drawLine(from.x.toInt(), from.y.toInt(), to.x.toInt(), to.y.toInt())
+    private fun paintLine(from: Point2D, to: Point2D) =
+            g.drawLine(from.x.toInt(), from.y.toInt(), to.x.toInt(), to.y.toInt())
 
     /**
      * 以[center]为中心，[center]到[to]为半径
