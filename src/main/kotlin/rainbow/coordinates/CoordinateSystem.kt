@@ -1,8 +1,8 @@
 package rainbow.coordinates
 
-import rainbow.component.input.KeyControllable
-import rainbow.component.input.KeyController
-import rainbow.component.input.KeyMap
+import rainbow.component.input.key.KeyHandles
+import rainbow.component.input.key.KeyObservable
+import rainbow.component.input.key.KeyObserver
 import rainbow.component.paint.Paintable
 import rainbow.point.CoordinatePoint
 import rainbow.point.Point2D
@@ -15,7 +15,7 @@ import java.awt.Graphics2D
  *
  * @author Rainbow Yang
  */
-abstract class CoordinateSystem : Paintable, KeyControllable {
+abstract class CoordinateSystem : Paintable, KeyObserver {
 
     /**
      * 坐标转换组件
@@ -29,7 +29,7 @@ abstract class CoordinateSystem : Paintable, KeyControllable {
      */
     open var painter: Painter = Painter()
 
-    open var controller = KeyController()
+    open val keyHandles: KeyHandles = KeyHandles.Empty
 
     fun toScreenPoint(cp: CoordinatePoint) = coordinator.toScreenPoint(cp)
     fun toCoordinatePoint(pd: Point2D) = coordinator.toCoordinatePoint(pd)
@@ -38,7 +38,7 @@ abstract class CoordinateSystem : Paintable, KeyControllable {
 
     override fun getPaintedImage(width: Int, height: Int) = painter.getPaintedImage(width, height)
 
-    override fun setKey(keyMap: KeyMap) = controller.setKey(keyMap)
+    override fun registerTo(observable: KeyObservable) = keyHandles.registerTo(observable)
 
     /**
      * 坐标转换组件

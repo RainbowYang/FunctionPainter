@@ -1,9 +1,12 @@
 package rainbow.coordinates
 
-import rainbow.component.input.KeyMap
 import rainbow.point.*
-import rainbow.utils.*
-import java.awt.event.KeyEvent.*
+import rainbow.utils.CoordinateGraphics
+import rainbow.utils.asPoint2D
+import rainbow.utils.asPoint3D
+import rainbow.utils.asPoint3DSpherical
+import java.awt.event.KeyEvent.VK_E
+import java.awt.event.KeyEvent.VK_Q
 import java.awt.image.BufferedImage
 
 /**
@@ -23,6 +26,7 @@ class CartesianCoordinateSystem3D : CoordinateSystem() {
 
     override val coordinator = Coordinator()
     override var painter: CoordinateSystem.Painter = Painter()
+    override val keyHandles: rainbow.component.input.key.KeyHandles = KeyHandles()
 
     inner class Coordinator : CoordinateSystem.Coordinator() {
 
@@ -69,8 +73,8 @@ class CartesianCoordinateSystem3D : CoordinateSystem() {
         towards = towards.asPoint3D.spinAtXY(angle).asPoint3DSpherical
     }
 
-    override fun setKey(keyMap: KeyMap) {
-        with(keyMap) {
+    inner class KeyHandles : rainbow.component.input.key.KeyHandles() {
+        init {
             VK_Q {
                 rotate(1 * it)
             }

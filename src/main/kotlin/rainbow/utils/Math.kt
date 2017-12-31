@@ -1,8 +1,9 @@
 package rainbow.utils
 
-import rainbow.coordinates.AbstractCoordinateSystem
+import rainbow.coordinates.two.AbstractCoordinateSystem
 import java.awt.event.MouseEvent
-import java.lang.Math.*
+import java.lang.Math.abs
+import java.lang.Math.atan2
 
 val PI2 = 2 * Math.PI
 

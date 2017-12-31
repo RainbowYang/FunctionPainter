@@ -3,6 +3,7 @@ package rainbow
 import rainbow.coordinates.CoordinateSystem
 import rainbow.function.CoordinateFunction
 import rainbow.component.input.KeyMap
+import rainbow.component.input.key.KeyObservable
 import rainbow.utils.buildJFrame
 import rainbow.utils.drawImageOfPainter
 import java.awt.Color
@@ -36,7 +37,7 @@ class MainSystem(init: MainSystem.() -> Unit) {
 
     private lateinit var frame: JFrame
 
-    val keyMap = KeyMap()
+    val keyObservable = KeyObservable()
 
     init {
         init()
@@ -47,7 +48,7 @@ class MainSystem(init: MainSystem.() -> Unit) {
     fun <S : CoordinateSystem> setCoordinateSystem(coordinateSystem: S, init: S.() -> Unit) {
         coordinateSystem.init()
         this.coordinateSystem = coordinateSystem
-        coordinateSystem.setKey(keyMap)
+        coordinateSystem.registerTo(keyObservable)
     }
 
     fun addFunction(function: CoordinateFunction) = functionList.add(function)
@@ -83,8 +84,8 @@ class MainSystem(init: MainSystem.() -> Unit) {
 
 
     fun initForKeyMap() {
-        frame.addKeyListener(keyMap.getListener())
-        keyMap.startToRunHandles()
+        frame.addKeyListener(keyObservable.getListener())
+        keyObservable.startToRunHandles()
     }
 
 

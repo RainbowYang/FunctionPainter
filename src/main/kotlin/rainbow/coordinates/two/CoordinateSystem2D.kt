@@ -1,7 +1,7 @@
 package rainbow.coordinates.two
 
-import rainbow.coordinates.AbstractCoordinateSystem
 import rainbow.coordinates.CoordinateSystem
+import rainbow.coordinates.two.CoordinateSystem2D.Coordinator
 import rainbow.point.CoordinatePoint
 import rainbow.point.Point2D
 import rainbow.utils.asPoint2D

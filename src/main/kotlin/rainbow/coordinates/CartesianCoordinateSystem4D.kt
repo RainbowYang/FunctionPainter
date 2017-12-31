@@ -1,7 +1,5 @@
 package rainbow.coordinates
 
-import rainbow.component.input.KeyMap
-
 import rainbow.point.*
 import rainbow.utils.*
 import java.awt.event.KeyEvent.*
@@ -27,33 +25,14 @@ class CartesianCoordinateSystem4D : CoordinateSystem() {
         towards = towards.asPoint3D.spinAtXY(angle).asPoint3DSpherical
     }
 
-    override fun setKey(keyMap: KeyMap) {
-        with(keyMap) {
-            VK_Q { rotate(1 * it) }
-            VK_E { rotate(-1 * it) }
-
-            VK_W { camera += (towards.asAxes.setAtAndNew(2, 0) * it) }
-            VK_S { camera += (towards.asAxes.setAtAndNew(2, 0) * -it) }
-            VK_A {
-                camera += (towards.asAxes.setAtAndNew(2, 0)
-                        .spinAtAndNew(0, 1, Math.PI / 2) * it)
-            }
-            VK_D {
-                camera += (towards.asAxes.setAtAndNew(2, 0)
-                        .spinAtAndNew(0, 1, Math.PI / 2) * -it)
-            }
-
-            VK_SPACE { camera += Point3D(0, 0, 3) * it }
-            VK_Z { camera -= Point3D(0, 0, 3) * it }
-
-        }
-    }
-
     override val coordinator = Coordinator()
 
     override var painter: CoordinateSystem.Painter = Painter()
 
+    override val keyHandles: rainbow.component.input.key.KeyHandles = KeyHandles()
+
     inner class Coordinator : CoordinateSystem.Coordinator() {
+
         override fun toScreenPoint(cp: CoordinatePoint): Point2D {
             var location = (cp - camera).asAxes
 
@@ -71,7 +50,6 @@ class CartesianCoordinateSystem4D : CoordinateSystem() {
             return (Point2D(-y, -z) * (axisLength * towards.length / length) + centerOfSight).asPoint2D
 
         }
-
     }
 
     inner class Painter : CoordinateSystem.Painter() {
@@ -98,5 +76,27 @@ class CartesianCoordinateSystem4D : CoordinateSystem() {
             cg.paintRayLine(PointAxes.ZERO, Point3D(0, 0, 1))
         }
 
+    }
+
+    inner class KeyHandles : rainbow.component.input.key.KeyHandles() {
+        init {
+            VK_Q { rotate(1 * it * 0.001) }
+            VK_E { rotate(-1 * it * 0.001) }
+
+            VK_W { camera += (towards.asAxes.setAtAndNew(2, 0) * it * 0.001) }
+            VK_S { camera += (towards.asAxes.setAtAndNew(2, 0) * -it * 0.001) }
+            VK_A {
+                camera += (towards.asAxes.setAtAndNew(2, 0)
+                        .spinAtAndNew(0, 1, Math.PI / 2) * it * 0.001)
+            }
+            VK_D {
+                camera += (towards.asAxes.setAtAndNew(2, 0)
+                        .spinAtAndNew(0, 1, Math.PI / 2) * -it * 0.001)
+            }
+
+            VK_SPACE { camera += Point3D(0, 0, 3) * it * 0.001 }
+            VK_Z { camera -= Point3D(0, 0, 3) * it * 0.001 }
+
+        }
     }
 }
