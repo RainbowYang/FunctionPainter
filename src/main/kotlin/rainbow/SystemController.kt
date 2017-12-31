@@ -1,9 +1,8 @@
 package rainbow
 
+import rainbow.component.input.key.KeyObservable
 import rainbow.coordinates.CoordinateSystem
 import rainbow.function.CoordinateFunction
-import rainbow.component.input.KeyMap
-import rainbow.component.input.key.KeyObservable
 import rainbow.utils.buildJFrame
 import rainbow.utils.drawImageOfPainter
 import java.awt.Color
@@ -14,20 +13,17 @@ import javax.swing.JPanel
 import kotlin.concurrent.schedule
 
 /**
- * 此类负责各方面的联系
  * @author Rainbow Yang
  */
-class MainSystem(init: MainSystem.() -> Unit) {
+class SystemController(extraInit: SystemController.() -> Unit) {
 
     var width: Number = 1000
     var height: Number = 500
 
-    var fps: Number = 10
-    var period: Number
-        get() = 1000.0 / fps.toDouble()
-        set(value) {
-            fps = 1000.0 / value.toDouble()
-        }
+    /**
+     * 刷新周期
+     */
+    var period: Int = 10
 
     var task: () -> Unit = {}
 
@@ -40,7 +36,7 @@ class MainSystem(init: MainSystem.() -> Unit) {
     val keyObservable = KeyObservable()
 
     init {
-        init()
+        extraInit()
 
         run()
     }
@@ -57,7 +53,7 @@ class MainSystem(init: MainSystem.() -> Unit) {
     fun run() {
         initForFunctions()
         initForFrame()
-        initForKeyMap()
+        initForkeyObservable()
         initForRepaintTimer()
     }
 
@@ -83,7 +79,7 @@ class MainSystem(init: MainSystem.() -> Unit) {
     }
 
 
-    fun initForKeyMap() {
+    fun initForkeyObservable() {
         frame.addKeyListener(keyObservable.getListener())
         keyObservable.startToRunHandles()
     }
