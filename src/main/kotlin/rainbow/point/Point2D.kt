@@ -13,6 +13,9 @@ class Point2D(val x: Double, val y: Double) : CoordinatePoint {
     constructor(event: MouseEvent) : this(event.x, event.y)
     constructor(point: PointAxes) : this(point[0], point[1])
 
+    operator fun component1() = x
+    operator fun component2() = y
+
     val angle get() = Math.atan2(y, x)
 
     override val asAxes by lazy { PointAxes(x, y) }

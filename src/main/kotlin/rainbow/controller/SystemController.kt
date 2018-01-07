@@ -1,4 +1,4 @@
-package rainbow
+package rainbow.controller
 
 import rainbow.component.input.key.KeyObservable
 import rainbow.coordinates.CoordinateSystem
@@ -28,7 +28,7 @@ class SystemController(extraInit: SystemController.() -> Unit) {
 
     var task: () -> Unit = {}
 
-    lateinit var coordinateSystem: CoordinateSystem
+    var coordinateSystem: CoordinateSystem = CoordinateSystem.Empty
 
     var functionList = mutableListOf<CoordinateFunction>()
 
@@ -46,24 +46,23 @@ class SystemController(extraInit: SystemController.() -> Unit) {
         coordinateSystem.init()
         this.coordinateSystem = coordinateSystem
         coordinateSystem.registerTo(keyObservable)
+
+        functionList.forEach { it.coordinateSystem = coordinateSystem }
     }
 
-    fun addFunction(function: CoordinateFunction) = functionList.add(function)
+    fun addFunction(function: CoordinateFunction) {
+        function.init()
+        functionList.add(function)
+        function.coordinateSystem = coordinateSystem
+    }
 
 
     fun run() {
-        initForFunctions()
         initForFrame()
         initForkeyObservable()
         initForRepaintTimer()
     }
 
-    fun initForFunctions() {
-        functionList.forEach {
-            it.coordinateSystem = coordinateSystem
-            it.init()
-        }
-    }
 
     fun initForFrame() {
         frame = buildJFrame(width, height).apply {
