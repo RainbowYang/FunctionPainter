@@ -1,6 +1,9 @@
 package rainbow.point
 
 import rainbow.utils.*
+import rainbow.utils.math.checkValues
+import rainbow.utils.math.lengthOf
+import rainbow.utils.math.until
 import java.lang.Math.max
 import java.util.*
 

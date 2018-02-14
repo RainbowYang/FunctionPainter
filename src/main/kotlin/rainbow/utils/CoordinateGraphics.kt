@@ -4,6 +4,8 @@ import rainbow.coordinates.CoordinateSystem
 import rainbow.point.CoordinatePoint
 import rainbow.point.Point2D
 import rainbow.point.PointAxes
+import rainbow.utils.math.Line
+import rainbow.utils.math.until
 import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.Polygon

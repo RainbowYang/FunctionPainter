@@ -4,7 +4,7 @@ import rainbow.coordinates.CoordinateSystem
 import rainbow.point.Point2DPolar
 import rainbow.point.PointAxes.Companion.ZERO
 import rainbow.utils.CoordinateGraphics
-import rainbow.utils.PI2
+import rainbow.utils.math.PI2
 
 /**
  * 二维极坐标系

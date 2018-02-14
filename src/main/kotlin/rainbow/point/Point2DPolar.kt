@@ -1,6 +1,6 @@
 package rainbow.point
 
-import rainbow.utils.PI2
+import rainbow.utils.math.PI2
 import rainbow.utils.asPoint2D
 import java.lang.Math.cos
 import java.lang.Math.sin

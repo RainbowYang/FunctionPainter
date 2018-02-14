@@ -1,6 +1,6 @@
 package rainbow.point
 
-import rainbow.utils.Line
+import rainbow.utils.math.Line
 
 /**
  * 二维双角坐标点

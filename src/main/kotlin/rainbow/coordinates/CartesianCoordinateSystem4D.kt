@@ -2,6 +2,7 @@ package rainbow.coordinates
 
 import rainbow.point.*
 import rainbow.utils.*
+import rainbow.utils.math.lengthOf
 import java.awt.event.KeyEvent.*
 import java.awt.image.BufferedImage
 
