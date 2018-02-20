@@ -31,7 +31,7 @@ class CartesianCoordinateSystem3D : CoordinateSystem() {
     inner class Coordinator : CoordinateSystem.Coordinator() {
 
         override fun toScreenPoint(cp: CoordinatePoint): Point2D {
-            val (r, theta, phi) = (towards).asPoint3DSpherical
+            val (r, theta, phi) = towards.asPoint3DSpherical
             val location = (cp - camera)
             val (x, y, z) = location.asPoint3D.spinAtYX(phi).asPoint3D.spinAtXZ(theta)
 
@@ -76,10 +76,10 @@ class CartesianCoordinateSystem3D : CoordinateSystem() {
     inner class KeyHandles : rainbow.component.input.key.KeyHandles() {
         init {
             VK_Q {
-                rotate(1 * it)
+                rotate(1 * it * 0.001)
             }
             VK_E {
-                rotate(-1 * it)
+                rotate(-1 * it * 0.001)
             }
         }
     }

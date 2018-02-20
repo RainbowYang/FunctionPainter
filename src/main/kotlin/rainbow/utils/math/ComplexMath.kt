@@ -34,3 +34,7 @@ fun cos(number: ComplexNumber): ComplexNumber {
     val (a, b) = number
     return cos(a) * cosi(b) - sini(b) * sin(a)
 }
+
+fun main(args: Array<String>) {
+    println(power(ComplexNumber(-1, 0), 1.0 / 2))
+}
