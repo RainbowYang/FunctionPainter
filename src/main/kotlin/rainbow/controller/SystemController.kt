@@ -27,7 +27,6 @@ class SystemController(extraInit: SystemController.() -> Unit) {
     var period: Int = 25
 
     var task: () -> Unit = {}
-
     var coordinateSystem: CoordinateSystem = CoordinateSystem.Empty
 
     var functionList = mutableListOf<CoordinateFunction>()

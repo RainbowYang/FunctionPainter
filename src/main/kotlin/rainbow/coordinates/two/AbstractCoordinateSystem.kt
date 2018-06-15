@@ -83,16 +83,16 @@ abstract class AbstractCoordinateSystem(
 
     inner class KeyHandles : rainbow.component.input.key.KeyHandles() {
         init {
-            VK_W { move(0, -moveSpeed * it) }
-            VK_S { move(0, moveSpeed * it) }
-            VK_A { move(-moveSpeed * it, 0) }
-            VK_D { move(moveSpeed * it, 0) }
+            VK_W { move(0, -moveSpeed * it * 0.001) }
+            VK_S { move(0, moveSpeed * it * 0.001) }
+            VK_A { move(-moveSpeed * it * 0.001, 0) }
+            VK_D { move(moveSpeed * it * 0.001, 0) }
 
-            VK_Q { rotate(rotateSpeed * it) }
-            VK_E { rotate(-rotateSpeed * it) }
+            VK_Q { rotate(rotateSpeed * it * 0.001) }
+            VK_E { rotate(-rotateSpeed * it * 0.001) }
 
-            VK_R { zoom(Math.pow(zoomSpeed, it.toDouble())) }
-            VK_F { zoom(Math.pow(zoomSpeed, -it.toDouble())) }
+            VK_R { zoom(Math.pow(zoomSpeed, it * 0.001)) }
+            VK_F { zoom(Math.pow(zoomSpeed, -it * 0.001)) }
         }
     }
 }
