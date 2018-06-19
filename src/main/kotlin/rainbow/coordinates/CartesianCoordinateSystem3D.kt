@@ -24,19 +24,15 @@ class CartesianCoordinateSystem3D : CoordinateSystem() {
 
     var centerOfSight = Point2D(0, 0)
 
-    override val coordinator = Coordinator()
     override var painter: CoordinateSystem.Painter = Painter()
     override val keyHandles: rainbow.component.input.key.KeyHandles = KeyHandles()
 
-    inner class Coordinator : CoordinateSystem.Coordinator() {
+    override fun toScreenPoint(cp: CoordinatePoint): Point2D {
+        val (r, theta, phi) = towards.asPoint3DSpherical
+        val location = (cp - camera)
+        val (x, y, z) = location.asPoint3D.spinAtYX(phi).asPoint3D.spinAtXZ(theta)
 
-        override fun toScreenPoint(cp: CoordinatePoint): Point2D {
-            val (r, theta, phi) = towards.asPoint3DSpherical
-            val location = (cp - camera)
-            val (x, y, z) = location.asPoint3D.spinAtYX(phi).asPoint3D.spinAtXZ(theta)
-
-            return ((Point2D(-y, x) * (axisLength * r / z)) + centerOfSight).asPoint2D
-        }
+        return ((Point2D(-y, x) * (axisLength * r / z)) + centerOfSight).asPoint2D
     }
 
     inner class Painter : CoordinateSystem.Painter() {

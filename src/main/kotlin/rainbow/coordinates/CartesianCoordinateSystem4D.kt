@@ -26,31 +26,26 @@ class CartesianCoordinateSystem4D : CoordinateSystem() {
         towards = towards.asPoint3D.spinAtXY(angle).asPoint3DSpherical
     }
 
-    override val coordinator = Coordinator()
-
     override var painter: CoordinateSystem.Painter = Painter()
 
     override val keyHandles: rainbow.component.input.key.KeyHandles = KeyHandles()
 
-    inner class Coordinator : CoordinateSystem.Coordinator() {
+    override fun toScreenPoint(cp: CoordinatePoint): Point2D {
+        var location = (cp - camera).asAxes
 
-        override fun toScreenPoint(cp: CoordinatePoint): Point2D {
-            var location = (cp - camera).asAxes
+        val (_, angles) = towards.asPointSpherical
 
-            val (radius, angles) = towards.asPointSpherical
-
-            angles.indices.forEach {
-                location = location.spinAtAndNew(0, it + 1, -angles[it])
-            }
-
-            val (_, y, z) = location
-            val xyLength = lengthOf(y, z)
-
-            val length = location.setAtAndNew(1, 0).setAtAndNew(2, 0).length
-
-            return (Point2D(-y, -z) * (axisLength * towards.length / length) + centerOfSight).asPoint2D
-
+        angles.indices.forEach {
+            location = location.spinAtAndNew(0, it + 1, -angles[it])
         }
+
+        val (_, y, z) = location
+//        val xyLength = lengthOf(y, z)
+
+        val length = location.setAtAndNew(1, 0).setAtAndNew(2, 0).length
+
+        return (Point2D(-y, -z) * (axisLength * towards.length / length) + centerOfSight).asPoint2D
+
     }
 
     inner class Painter : CoordinateSystem.Painter() {

@@ -17,12 +17,14 @@ fun main(args: Array<String>) {
 
         setCoordinateSystem(PolarCoordinateSystem()) {
 
+//            this.painter.paintParts[0].visible = false
+
 //            camera = Point3D(-5, 0, 10)
 
             //            painter.visible = false
         }
 
-        addFunction(Sin(5.0,2.0,4.0))
+        addFunction(Sin(5.0, 2.0, 4.0))
 
     }
 }

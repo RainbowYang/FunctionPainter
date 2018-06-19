@@ -50,7 +50,7 @@ class CoordinateGraphics(val g: Graphics2D, val system: CoordinateSystem,
     fun paintCoordinatePoints(ps: List<CoordinatePoint>) {
         val p = Polygon()
 
-        system.coordinator.toScreenPoint(ps).forEach {
+        system.toScreenPoint(ps).forEach {
             if (it.available) {
                 p.addPoint(it)
             } else {
@@ -79,12 +79,10 @@ class CoordinateGraphics(val g: Graphics2D, val system: CoordinateSystem,
         }
     }
 
-    fun Graphics2D.drawLine(x1: Number, y1: Number, x2: Number, y2: Number)
-            = drawLine(x1.toInt(), y1.toInt(), x2.toInt(), y2.toInt())
+    fun Graphics2D.drawLine(x1: Number, y1: Number, x2: Number, y2: Number) = drawLine(x1.toInt(), y1.toInt(), x2.toInt(), y2.toInt())
 
     //直线
-    fun paintStraightLine(origin: CoordinatePoint, towards: CoordinatePoint)
-            = paintStraightLine(system.toScreenPoint(origin), system.toScreenPoint(towards))
+    fun paintStraightLine(origin: CoordinatePoint, towards: CoordinatePoint) = paintStraightLine(system.toScreenPoint(origin), system.toScreenPoint(towards))
 
     private fun paintStraightLine(origin: Point2D, towards: Point2D) {
 
@@ -104,8 +102,7 @@ class CoordinateGraphics(val g: Graphics2D, val system: CoordinateSystem,
         }
     }
 
-    fun paintRayLine(origin: CoordinatePoint, towards: CoordinatePoint)
-            = paintRayLine(system.toScreenPoint(origin), system.toScreenPoint(towards))
+    fun paintRayLine(origin: CoordinatePoint, towards: CoordinatePoint) = paintRayLine(system.toScreenPoint(origin), system.toScreenPoint(towards))
 
     private fun paintRayLine(origin: Point2D, towards: Point2D) {
 
