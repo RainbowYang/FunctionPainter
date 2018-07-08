@@ -1,6 +1,6 @@
 package rainbow.utils.math
 
-import rainbow.coordinates.two.AbstractCoordinateSystem
+import rainbow.coordinates.AbstractCoordinateSystem
 import java.awt.event.MouseEvent
 import java.lang.Math.abs
 import java.lang.Math.atan2

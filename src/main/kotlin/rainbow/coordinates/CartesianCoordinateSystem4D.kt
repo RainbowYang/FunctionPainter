@@ -26,7 +26,7 @@ class CartesianCoordinateSystem4D : CoordinateSystem() {
         towards = towards.asPoint3D.spinAtXY(angle).asPoint3DSpherical
     }
 
-    override var painter: CoordinateSystem.Painter = Painter()
+    override var painter: CoordinateSystem.Painter<out CoordinateSystem> = Painter(this)
 
     override val keyHandles: rainbow.component.input.key.KeyHandles = KeyHandles()
 
@@ -48,11 +48,11 @@ class CartesianCoordinateSystem4D : CoordinateSystem() {
 
     }
 
-    inner class Painter : CoordinateSystem.Painter() {
+    class Painter(cs: CartesianCoordinateSystem4D) : CoordinateSystem.Painter<CartesianCoordinateSystem4D>(cs) {
 
         override fun paintImage(width: Int, height: Int): BufferedImage {
 
-            centerOfSight = Point2D(width / 2.0, height / 2.0)
+            cs.centerOfSight = Point2D(width / 2.0, height / 2.0)
 
             return super.paintImage(width, height)
         }

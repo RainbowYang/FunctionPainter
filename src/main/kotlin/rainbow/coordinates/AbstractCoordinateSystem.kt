@@ -1,20 +1,21 @@
-package rainbow.coordinates.two
+package rainbow.coordinates
 
-import rainbow.coordinates.CoordinateSystem
 import rainbow.point.CoordinatePoint
 import rainbow.point.Point2D
 import rainbow.utils.asPoint2D
+import rainbow.utils.screenHeight
+import rainbow.utils.screenWidth
 import java.awt.event.KeyEvent.*
 import java.lang.Math.toDegrees
 import java.lang.Math.toRadians
 
 /**
- * 实现平移，旋转，伸缩
+ * 默认实现平移，旋转，伸缩
  * @author Rainbow Yang
  */
 abstract class AbstractCoordinateSystem(
-        x: Number = 0,
-        y: Number = 0,
+        x: Number = screenWidth / 2,
+        y: Number = screenHeight / 2,
         zoomRate: Number = 1.0,
         rotatedAngle: Number = 0.0
 ) : CoordinateSystem() {

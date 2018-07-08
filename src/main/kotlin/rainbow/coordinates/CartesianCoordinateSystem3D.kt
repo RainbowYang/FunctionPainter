@@ -24,7 +24,7 @@ class CartesianCoordinateSystem3D : CoordinateSystem() {
 
     var centerOfSight = Point2D(0, 0)
 
-    override var painter: CoordinateSystem.Painter = Painter()
+    override var painter: CoordinateSystem.Painter<out CoordinateSystem> = Painter(this)
     override val keyHandles: rainbow.component.input.key.KeyHandles = KeyHandles()
 
     override fun toScreenPoint(cp: CoordinatePoint): Point2D {
@@ -35,11 +35,11 @@ class CartesianCoordinateSystem3D : CoordinateSystem() {
         return ((Point2D(-y, x) * (axisLength * r / z)) + centerOfSight).asPoint2D
     }
 
-    inner class Painter : CoordinateSystem.Painter() {
+    class Painter(cs: CartesianCoordinateSystem3D) : CoordinateSystem.Painter<CartesianCoordinateSystem3D>(cs) {
 
         override fun paintImage(width: Int, height: Int): BufferedImage {
 
-            centerOfSight = Point2D(width / 2.0, height / 2.0)
+            cs.centerOfSight = Point2D(width / 2.0, height / 2.0)
 
             return super.paintImage(width, height)
         }

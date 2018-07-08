@@ -20,7 +20,7 @@ abstract class CoordinateSystem : Paintable, KeyObserver {
         val Empty = object : CoordinateSystem() {}
     }
 
-    open var painter: Painter = Painter()
+    open lateinit var painter: Painter<out CoordinateSystem>
     override fun getPaintedImage(width: Int, height: Int) = painter.getPaintedImage(width, height)
 
     open val keyHandles: KeyHandles = KeyHandles.Empty
@@ -34,8 +34,7 @@ abstract class CoordinateSystem : Paintable, KeyObserver {
         throw UnsupportedOperationException("toCoordinatePoint is not supported")
     }
 
-    fun toScreenPoint(points: List<CoordinatePoint>) =
-            List(points.size) { toScreenPoint(points[it]) }
+    fun toScreenPoint(points: List<CoordinatePoint>) = List(points.size) { toScreenPoint(points[it]) }
 
     /**
      * 将[Point2D] (屏幕上的点)转换为[CoordinatePoint] (坐标系中的点)
@@ -47,7 +46,7 @@ abstract class CoordinateSystem : Paintable, KeyObserver {
     fun toCoordinatePoint(points: List<Point2D>) =
             List(points.size) { toCoordinatePoint(points[it]) }
 
-    open inner class Painter : CoordinatePainter(this@CoordinateSystem) {
+    open class Painter<CS : CoordinateSystem>(cs: CS) : CoordinatePainter<CS>(cs) {
 
         val ORIGIN: String = "Origin"
         val GRID: String = "Grid"

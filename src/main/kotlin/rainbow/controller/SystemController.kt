@@ -8,6 +8,7 @@ import rainbow.utils.drawImageOfPainter
 import java.awt.Color
 import java.awt.Graphics
 import java.awt.Graphics2D
+import java.awt.GraphicsEnvironment
 import java.util.*
 import javax.swing.JFrame
 import javax.swing.JPanel
