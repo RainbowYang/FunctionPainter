@@ -1,6 +1,7 @@
 package rainbow
 
 import rainbow.controller.SystemController
+import rainbow.coordinates.CartesianCoordinateSystem3D
 import rainbow.coordinates.two.CartesianCoordinateSystem2D
 import rainbow.coordinates.two.PolarCoordinateSystem
 import rainbow.function.mathfunction.simple._2D.trigonometric_function.Cos
@@ -18,7 +19,7 @@ fun main(args: Array<String>) {
         //            (coordinateSystem as CoordinateSystem2D).rotate(- R.001)
         //        }
 
-        setCoordinateSystem(CartesianCoordinateSystem2D()) {
+        setCoordinateSystem(CartesianCoordinateSystem3D()) {
 
             //            this.painter.paintParts[0].visible = false
 

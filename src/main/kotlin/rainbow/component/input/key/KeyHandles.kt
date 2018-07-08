@@ -4,11 +4,7 @@ package rainbow.component.input.key
  * 用于存贮所有的[KeyHandle]
  * @author Rainbow Yang
  */
-abstract class KeyHandles : KeyHandlesOwner {
-
-    companion object {
-        val Empty = object : KeyHandles() {}
-    }
+abstract class KeyHandles<Owner : KeyHandlesOwner>(val owner: Owner) : KeyHandlesOwner {
 
     val handles = mutableListOf<KeyHandle>()
 

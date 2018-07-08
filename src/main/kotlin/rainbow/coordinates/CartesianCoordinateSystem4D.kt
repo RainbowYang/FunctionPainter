@@ -28,7 +28,7 @@ class CartesianCoordinateSystem4D : CoordinateSystem() {
 
     override var painter: CoordinateSystem.Painter<out CoordinateSystem> = Painter(this)
 
-    override val keyHandles: rainbow.component.input.key.KeyHandles = KeyHandles()
+    override var keyHandles: CoordinateSystem.KeyHandles<out CoordinateSystem> = KeyHandles(this)
 
     override fun toScreenPoint(cp: CoordinatePoint): Point2D {
         var location = (cp - camera).asAxes
@@ -74,25 +74,27 @@ class CartesianCoordinateSystem4D : CoordinateSystem() {
 
     }
 
-    inner class KeyHandles : rainbow.component.input.key.KeyHandles() {
+    class KeyHandles(cs: CartesianCoordinateSystem4D) : CoordinateSystem.KeyHandles<CartesianCoordinateSystem4D>(cs) {
         init {
-            VK_Q { rotate(1 * it * 0.001) }
-            VK_E { rotate(-1 * it * 0.001) }
+            cs.apply {
+                VK_Q { rotate(1 * it * 0.001) }
+                VK_E { rotate(-1 * it * 0.001) }
 
-            VK_W { camera += (towards.asAxes.setAtAndNew(2, 0) * it * 0.001) }
-            VK_S { camera += (towards.asAxes.setAtAndNew(2, 0) * -it * 0.001) }
-            VK_A {
-                camera += (towards.asAxes.setAtAndNew(2, 0)
-                        .spinAtAndNew(0, 1, Math.PI / 2) * it * 0.001)
+                VK_W { camera += (towards.asAxes.setAtAndNew(2, 0) * it * 0.001) }
+                VK_S { camera += (towards.asAxes.setAtAndNew(2, 0) * -it * 0.001) }
+                VK_A {
+                    camera += (towards.asAxes.setAtAndNew(2, 0)
+                            .spinAtAndNew(0, 1, Math.PI / 2) * it * 0.001)
+                }
+                VK_D {
+                    camera += (towards.asAxes.setAtAndNew(2, 0)
+                            .spinAtAndNew(0, 1, Math.PI / 2) * -it * 0.001)
+                }
+
+                VK_SPACE { camera += Point3D(0, 0, 3) * it * 0.001 }
+                VK_Z { camera -= Point3D(0, 0, 3) * it * 0.001 }
+
             }
-            VK_D {
-                camera += (towards.asAxes.setAtAndNew(2, 0)
-                        .spinAtAndNew(0, 1, Math.PI / 2) * -it * 0.001)
-            }
-
-            VK_SPACE { camera += Point3D(0, 0, 3) * it * 0.001 }
-            VK_Z { camera -= Point3D(0, 0, 3) * it * 0.001 }
-
         }
     }
 }

@@ -23,7 +23,7 @@ abstract class CoordinateSystem : Paintable, KeyHandlesOwner {
     open lateinit var painter: Painter<out CoordinateSystem>
     override fun getPaintedImage(width: Int, height: Int) = painter.getPaintedImage(width, height)
 
-    open val keyHandles: KeyHandles = KeyHandles.Empty
+    open lateinit var keyHandles: KeyHandles<out CoordinateSystem>
     override fun registerTo(observable: KeyInputSender) = keyHandles.registerTo(observable)
 
 
@@ -65,5 +65,7 @@ abstract class CoordinateSystem : Paintable, KeyHandlesOwner {
         open fun paintNumber(cg: CoordinateGraphics) {}
 
     }
+
+    open class KeyHandles<CS : CoordinateSystem>(cs: CS) : rainbow.component.input.key.KeyHandles<CS>(cs)
 
 }

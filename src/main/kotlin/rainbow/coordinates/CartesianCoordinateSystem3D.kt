@@ -25,7 +25,7 @@ class CartesianCoordinateSystem3D : CoordinateSystem() {
     var centerOfSight = Point2D(0, 0)
 
     override var painter: CoordinateSystem.Painter<out CoordinateSystem> = Painter(this)
-    override val keyHandles: rainbow.component.input.key.KeyHandles = KeyHandles()
+    override var keyHandles: CoordinateSystem.KeyHandles<out CoordinateSystem> = KeyHandles(this)
 
     override fun toScreenPoint(cp: CoordinatePoint): Point2D {
         val (r, theta, phi) = towards.asPoint3DSpherical
@@ -69,13 +69,15 @@ class CartesianCoordinateSystem3D : CoordinateSystem() {
         towards = towards.asPoint3D.spinAtXY(angle).asPoint3DSpherical
     }
 
-    inner class KeyHandles : rainbow.component.input.key.KeyHandles() {
+    class KeyHandles(cs: CartesianCoordinateSystem3D) : CoordinateSystem.KeyHandles<CartesianCoordinateSystem3D>(cs) {
         init {
-            VK_Q {
-                rotate(1 * it * 0.001)
-            }
-            VK_E {
-                rotate(-1 * it * 0.001)
+            cs.apply {
+                VK_Q {
+                    rotate(1 * it * 0.001)
+                }
+                VK_E {
+                    rotate(-1 * it * 0.001)
+                }
             }
         }
     }

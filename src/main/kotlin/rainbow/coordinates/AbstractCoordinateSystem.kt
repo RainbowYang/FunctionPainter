@@ -1,5 +1,6 @@
 package rainbow.coordinates
 
+import rainbow.component.input.key.KeyHandles
 import rainbow.point.CoordinatePoint
 import rainbow.point.Point2D
 import rainbow.utils.asPoint2D
@@ -8,6 +9,7 @@ import rainbow.utils.screenWidth
 import java.awt.event.KeyEvent.*
 import java.lang.Math.toDegrees
 import java.lang.Math.toRadians
+import java.nio.file.Files.move
 
 /**
  * 默认实现平移，旋转，伸缩
@@ -20,7 +22,6 @@ abstract class AbstractCoordinateSystem(
         rotatedAngle: Number = 0.0
 ) : CoordinateSystem() {
 
-    override var keyHandles: rainbow.component.input.key.KeyHandles = KeyHandles()
 
     open var origin = Point2D(x, y)
 
@@ -82,18 +83,23 @@ abstract class AbstractCoordinateSystem(
         return result.asPoint2D
     }
 
-    inner class KeyHandles : rainbow.component.input.key.KeyHandles() {
+    override var keyHandles: CoordinateSystem.KeyHandles<out CoordinateSystem> = KeyHandles(this)
+
+    open class KeyHandles(cs: AbstractCoordinateSystem) :
+            CoordinateSystem.KeyHandles<AbstractCoordinateSystem>(cs) {
         init {
-            VK_W { move(0, -moveSpeed * it * 0.001) }
-            VK_S { move(0, moveSpeed * it * 0.001) }
-            VK_A { move(-moveSpeed * it * 0.001, 0) }
-            VK_D { move(moveSpeed * it * 0.001, 0) }
+            cs.apply {
+                VK_W { move(0, -moveSpeed * it * 0.001) }
+                VK_S { move(0, moveSpeed * it * 0.001) }
+                VK_A { move(-moveSpeed * it * 0.001, 0) }
+                VK_D { move(moveSpeed * it * 0.001, 0) }
 
-            VK_Q { rotate(rotateSpeed * it * 0.001) }
-            VK_E { rotate(-rotateSpeed * it * 0.001) }
+                VK_Q { rotate(rotateSpeed * it * 0.001) }
+                VK_E { rotate(-rotateSpeed * it * 0.001) }
 
-            VK_R { zoom(Math.pow(zoomSpeed, it * 0.001)) }
-            VK_F { zoom(Math.pow(zoomSpeed, -it * 0.001)) }
+                VK_R { zoom(Math.pow(zoomSpeed, it * 0.001)) }
+                VK_F { zoom(Math.pow(zoomSpeed, -it * 0.001)) }
+            }
         }
     }
 }

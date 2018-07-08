@@ -23,9 +23,9 @@ class KeyInputSender {
     private var isCtrlDown = false
     private var isShiftDown = false
 
-    val handlesList = mutableListOf<KeyHandles>()
+    val handlesList = mutableListOf<KeyHandles<out KeyHandlesOwner>>()
 
-    fun addHandles(handles: KeyHandles) = handlesList.add(handles)
+    fun addHandles(handles: KeyHandles<out KeyHandlesOwner>) = handlesList.add(handles)
 
     fun startToRunHandles() {
         Timer().schedule(0, period.toLong()) {
