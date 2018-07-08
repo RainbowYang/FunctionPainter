@@ -27,4 +27,4 @@ fun lengthOf(values: List<Number>) = Math.sqrt(values.sumByDouble { it.toDouble(
 
 fun checkValues(vararg values: Number) = checkValues(values.asList())
 
-fun checkValues(values: List<Number>) = values.any { it.toDouble().isNaN() || it.toDouble().isInfinite() }
+fun checkValues(values: List<Number>) = values.all { !it.toDouble().isNaN() || !it.toDouble().isInfinite() }
