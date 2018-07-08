@@ -1,8 +1,8 @@
 package rainbow.coordinates
 
 import rainbow.component.input.key.KeyHandles
-import rainbow.component.input.key.KeyObservable
-import rainbow.component.input.key.KeyObserver
+import rainbow.component.input.key.KeyInputSender
+import rainbow.component.input.key.KeyHandlesOwner
 import rainbow.component.paint.CoordinatePainter
 import rainbow.component.paint.Paintable
 import rainbow.point.CoordinatePoint
@@ -14,7 +14,7 @@ import rainbow.utils.CoordinateGraphics
  *
  * @author Rainbow Yang
  */
-abstract class CoordinateSystem : Paintable, KeyObserver {
+abstract class CoordinateSystem : Paintable, KeyHandlesOwner {
 
     companion object {
         val Empty = object : CoordinateSystem() {}
@@ -24,7 +24,7 @@ abstract class CoordinateSystem : Paintable, KeyObserver {
     override fun getPaintedImage(width: Int, height: Int) = painter.getPaintedImage(width, height)
 
     open val keyHandles: KeyHandles = KeyHandles.Empty
-    override fun registerTo(observable: KeyObservable) = keyHandles.registerTo(observable)
+    override fun registerTo(observable: KeyInputSender) = keyHandles.registerTo(observable)
 
 
     /**
@@ -43,8 +43,7 @@ abstract class CoordinateSystem : Paintable, KeyObserver {
         throw UnsupportedOperationException("toCoordinatePoint is not supported")
     }
 
-    fun toCoordinatePoint(points: List<Point2D>) =
-            List(points.size) { toCoordinatePoint(points[it]) }
+    fun toCoordinatePoint(points: List<Point2D>) = List(points.size) { toCoordinatePoint(points[it]) }
 
     open class Painter<CS : CoordinateSystem>(cs: CS) : CoordinatePainter<CS>(cs) {
 

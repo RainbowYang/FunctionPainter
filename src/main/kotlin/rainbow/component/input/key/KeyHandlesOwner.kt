@@ -5,9 +5,9 @@ package rainbow.component.input.key
  *
  * @author Rainbow Yang
  */
-interface KeyObserver {
+interface KeyHandlesOwner {
     /**
-     * 将[KeyHandle]注册到[KeyObservable]
+     * 将[KeyHandle]注册到[KeyInputSender]
      */
-    fun registerTo(observable: KeyObservable)
+    fun registerTo(observable: KeyInputSender)
 }

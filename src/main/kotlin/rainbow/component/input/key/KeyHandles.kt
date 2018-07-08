@@ -4,7 +4,7 @@ package rainbow.component.input.key
  * 用于存贮所有的[KeyHandle]
  * @author Rainbow Yang
  */
-abstract class KeyHandles : KeyObserver {
+abstract class KeyHandles : KeyHandlesOwner {
 
     companion object {
         val Empty = object : KeyHandles() {}
@@ -20,7 +20,7 @@ abstract class KeyHandles : KeyObserver {
         handles.add(keyHandle)
     }
 
-    override fun registerTo(observable: KeyObservable) {
+    override fun registerTo(observable: KeyInputSender) {
         observable.addHandles(this)
     }
 }

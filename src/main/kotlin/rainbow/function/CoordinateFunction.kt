@@ -24,7 +24,7 @@ abstract class CoordinateFunction : Paintable {
 
     open fun init() {}
 
-    abstract inner class Painter : CoordinatePainter(CoordinateSystem.Empty) {
+    open class Painter : CoordinatePainter<CoordinateSystem>(CoordinateSystem.Empty) {
 
         init {
             "before"{ paintBefore(it) }
