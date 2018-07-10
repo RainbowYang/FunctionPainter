@@ -2,15 +2,24 @@ package rainbow.component.input.key
 
 /**
  * 用于存贮一个对应于[Key]的事件操作
+ *
+ * 如需按键为执行一次的，可以将[minTime]设置为200ms左右，以防止被多次执行
  * @author Rainbow Yang
  */
 class KeyHandle(
         val description: String = "no description",
         var trigger: Key,
         /** 小于这个时间将无法被触发,单位:ms */
-        var minTime: Int = 0,
-        private val handle: (Int) -> Unit
+        var minTime: Int = HOLDING,
+        private val handle: (Double) -> Unit
 ) {
+
+    companion object {
+        /**表示持续执行*/
+        const val HOLDING = 0
+        /**表示单次执行，设置200ms防止多次执行*/
+        const val ONCE = 200
+    }
 
     private var lastRunTime = 0L
 
@@ -19,7 +28,7 @@ class KeyHandle(
      */
     fun runHandle(key: Key, time: Number) {
         if (checkTime() && checkKey(key)) {
-            handle(time.toInt())
+            handle(time.toInt() / 1000.0)
             lastRunTime = System.currentTimeMillis()
         }
     }

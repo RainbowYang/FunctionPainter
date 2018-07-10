@@ -73,10 +73,10 @@ class CartesianCoordinateSystem3D : CoordinateSystem() {
         init {
             cs.apply {
                 VK_Q {
-                    rotate(1 * it * 0.001)
+                    rotate(1 * it )
                 }
                 VK_E {
-                    rotate(-1 * it * 0.001)
+                    rotate(-1 * it )
                 }
             }
         }

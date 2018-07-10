@@ -77,22 +77,22 @@ class CartesianCoordinateSystem4D : CoordinateSystem() {
     class KeyHandles(cs: CartesianCoordinateSystem4D) : CoordinateSystem.KeyHandles<CartesianCoordinateSystem4D>(cs) {
         init {
             cs.apply {
-                VK_Q { rotate(1 * it * 0.001) }
-                VK_E { rotate(-1 * it * 0.001) }
+                VK_Q { rotate(1 * it ) }
+                VK_E { rotate(-1 * it ) }
 
-                VK_W { camera += (towards.asAxes.setAtAndNew(2, 0) * it * 0.001) }
-                VK_S { camera += (towards.asAxes.setAtAndNew(2, 0) * -it * 0.001) }
+                VK_W { camera += (towards.asAxes.setAtAndNew(2, 0) * it ) }
+                VK_S { camera += (towards.asAxes.setAtAndNew(2, 0) * -it ) }
                 VK_A {
                     camera += (towards.asAxes.setAtAndNew(2, 0)
-                            .spinAtAndNew(0, 1, Math.PI / 2) * it * 0.001)
+                            .spinAtAndNew(0, 1, Math.PI / 2) * it )
                 }
                 VK_D {
                     camera += (towards.asAxes.setAtAndNew(2, 0)
-                            .spinAtAndNew(0, 1, Math.PI / 2) * -it * 0.001)
+                            .spinAtAndNew(0, 1, Math.PI / 2) * -it )
                 }
 
-                VK_SPACE { camera += Point3D(0, 0, 3) * it * 0.001 }
-                VK_Z { camera -= Point3D(0, 0, 3) * it * 0.001 }
+                VK_SPACE { camera += Point3D(0, 0, 3) * it  }
+                VK_Z { camera -= Point3D(0, 0, 3) * it  }
 
             }
         }

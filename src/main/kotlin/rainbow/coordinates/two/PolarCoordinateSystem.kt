@@ -15,7 +15,6 @@ class PolarCoordinateSystem : CoordinateSystem2D() {
 
     override var painter: CoordinateSystem.Painter<out CoordinateSystem> =
             object : CoordinateSystem.Painter<PolarCoordinateSystem>(this) {
-
                 //todo 参数待动
                 var paintRange = 0..30
                 var axisNum = 12

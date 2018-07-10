@@ -4,14 +4,21 @@ import rainbow.coordinates.CoordinateSystem
 import rainbow.point.Point2D
 import rainbow.point.PointAxes
 import rainbow.utils.CoordinateGraphics
+import java.awt.image.BufferedImage
 
 /**
  * @author Rainbow Yang
  */
 class CartesianCoordinateSystem2D : CoordinateSystem2D() {
 
-    override var painter: Painter<out CoordinateSystem> =
+    override var painter: CoordinateSystem.Painter<out CoordinateSystem> =
             object : CoordinateSystem.Painter<CartesianCoordinateSystem2D>(this) {
+
+                override fun paintImage(width: Int, height: Int): BufferedImage {
+                    cs.width = width
+                    cs.height = height
+                    return super.paintImage(width, height)
+                }
 
                 //todo 参数待动
                 var paintRange = -30..30
