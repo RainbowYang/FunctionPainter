@@ -6,6 +6,7 @@ import rainbow.point.Point2D
 import rainbow.point.PointAxes
 import rainbow.utils.math.Line
 import rainbow.utils.math.until
+import java.awt.BasicStroke
 import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.Polygon
@@ -25,6 +26,7 @@ class CoordinateGraphics(val g: Graphics2D, val system: CoordinateSystem,
 
     init {
         g.antialias()
+//        g.stroke = BasicStroke(3.0f)
     }
 
     var color: Color

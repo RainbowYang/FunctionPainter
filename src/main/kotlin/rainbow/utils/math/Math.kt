@@ -18,6 +18,8 @@ fun CoordinateSystem2D.getDiffAngle(form: MouseEvent, to: MouseEvent): Double {
 
 fun until(end: Int) = 0 until end
 
+infix fun Number.power(mi: Number) = Math.pow(this.toDouble(), mi.toDouble())
+
 /**
  * 求各值平方和的算术平方根
  */
