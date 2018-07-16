@@ -42,10 +42,10 @@ class CartesianCoordinateSystem3D : CoordinateSystem() {
         override fun paintOrigin(cg: CoordinateGraphics) = cg.paintString("O")
 
         override fun paintGrid(cg: CoordinateGraphics) {
-            (-30..30).forEach {
-                cg.paintStraightLine(Point2D(it, 0), Point2D(it, 1))
-                cg.paintStraightLine(Point2D(0, it), Point2D(1, it))
-            }
+//            (-30..30).forEach {
+//                cg.paintStraightLine(Point2D(it, 0), Point2D(it, 1))
+//                cg.paintStraightLine(Point2D(0, it), Point2D(1, it))
+//            }
         }
 
         override fun paintAxes(cg: CoordinateGraphics) {
@@ -63,15 +63,17 @@ class CartesianCoordinateSystem3D : CoordinateSystem() {
     class KeyHandles(cs: CartesianCoordinateSystem3D) : CoordinateSystem.KeyHandles<CartesianCoordinateSystem3D>(cs) {
         init {
             cs.apply {
-                VK_W { lookingFrom += towards.asPoint2D * it }
-                VK_S { lookingFrom -= towards.asPoint2D * it }
-                VK_A { lookingFrom += towards.asPoint2D.spin(PI / 2) * it }
-                VK_D { lookingFrom -= towards.asPoint2D.spin(PI / 2) * it }
+                VK_W { lookingFrom += Point2DPolar(towards.length, towards.asPoint2D.angle) * it }
+                VK_S { lookingFrom -= Point2DPolar(towards.length, towards.asPoint2D.angle) * it }
+                VK_A { lookingFrom += Point2DPolar(towards.length, towards.asPoint2D.angle + PI / 2) * it }
+                VK_D { lookingFrom -= Point2DPolar(towards.length, towards.asPoint2D.angle + PI / 2) * it }
                 VK_2 { lookingFrom += Point3D(0, 0, towards.length) * it }
                 VK_X { lookingFrom -= Point3D(0, 0, towards.length) * it }
 
                 VK_Q { towards = towards.asPoint3D.spinAtXY(PI / 2 * it) }
                 VK_E { towards = towards.asPoint3D.spinAtXY(PI / 2 * -it) }
+                VK_3 { towards = towards.asPoint3DSpherical.spinAtTheta(PI / 4 * -it) }
+                VK_C { towards = towards.asPoint3DSpherical.spinAtTheta(PI / 4 * it) }
 
                 VK_R { towards *= 1.3 power it }
                 VK_F { towards /= 1.3 power it }

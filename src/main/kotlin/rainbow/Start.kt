@@ -2,7 +2,10 @@ package rainbow
 
 import rainbow.controller.SystemController
 import rainbow.coordinates.CartesianCoordinateSystem3D
-import rainbow.function.mathfunction.simple._2D.trigonometric_function.Cos
+import rainbow.function.space.body.Ball
+import rainbow.function.space.world.World
+import rainbow.point.Point3D
+import rainbow.utils.G
 
 /**
  * start
@@ -24,8 +27,17 @@ fun main(args: Array<String>) {
             //            painter.visible = false
         }
 
-        addFunction(Cos(5.0, 5.0, 0.0))
-//        addFunction(Hypercube(2,4.5))
+
+        val world = World()
+        val ball = Ball(3.0, location = Point3D(-10, 0, 0),
+                velocity = Point3D(0, 10, 0), mass = 4000 / G)
+        val ball2 = Ball(1.0, location = Point3D(10, 0, 0),
+                velocity = Point3D(0, -10, 0), mass = 4000 / G)
+
+        world.addBody(ball)
+        world.addBody(ball2)
+
+        addFunction(world)
 
     }
 }
