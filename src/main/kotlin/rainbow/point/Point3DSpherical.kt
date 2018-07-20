@@ -19,11 +19,14 @@ class Point3DSpherical(val r: Double, val theta: Double, val phi: Double) : Coor
 
             val r = form.length
             val theta = Math.acos(z / r)
-            val phi = Point2D(x, y).asPoint2DPolar.angle
+            val phi = Point2D(x, y).angle
 
             return Point3DSpherical(r, theta, phi)
         }
     }
+
+    fun spinAtTheta(angle: Double) = Point3DSpherical(r, theta + angle, phi)
+    fun spinAtPhi(angle: Double) = Point3DSpherical(r, theta, phi + angle)
 
     override val asAxes by lazy {
         PointAxes(r * Math.sin(theta) * Math.cos(phi), r * Math.sin(theta) * Math.sin(phi), r * Math.cos(theta))

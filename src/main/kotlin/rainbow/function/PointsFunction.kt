@@ -27,7 +27,9 @@ abstract class PointsFunction : CoordinateFunction() {
 
     inner class PointsFunctionPainter : CoordinateFunction.Painter() {
         override fun paintMain(cg: CoordinateGraphics) {
-            pointsList.forEach { cg.paintCoordinatePoints(it) }
+            pointsList.forEach {
+                cg.paintCoordinatePoints(it)
+            }
         }
     }
 

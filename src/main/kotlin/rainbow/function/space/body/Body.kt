@@ -1,6 +1,7 @@
 package rainbow.function.space.body
 
 import rainbow.point.Point3D
+import rainbow.utils.CoordinateGraphics
 import rainbow.utils.G
 import rainbow.utils.asPoint3D
 
@@ -30,6 +31,8 @@ abstract class Body(var location: Point3D = Point3D.ZERO,
         return ((relativeLocation / distance) * G * mass * from.mass / (distance * distance)).asPoint3D
 
     }
+
+    open fun selfPaint(cg: CoordinateGraphics) {}
 
     override fun toString(): String {
         return "Body(location=$location, velocity=$velocity, mass=$mass)"

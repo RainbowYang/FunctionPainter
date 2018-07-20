@@ -1,6 +1,8 @@
 package rainbow.function.space.body
 
+import rainbow.point.CoordinatePoint
 import rainbow.point.Point3D
+import rainbow.utils.CoordinateGraphics
 
 /**
  * 一个球，拥有[radius]
@@ -12,6 +14,10 @@ class Ball(var radius: Double = 0.0,
            velocity: Point3D = Point3D.ZERO,
            mass: Number = 0
 ) : Body(location, velocity, mass.toDouble()) {
+
+    override fun selfPaint(cg: CoordinateGraphics) {
+        cg.paintCircle(location, location.asAxes.plusAtAndNew(0, radius))
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

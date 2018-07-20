@@ -1,6 +1,6 @@
 //package rainbow.coordinates.cartesian
 //
-//import rainbow.coordinates.AbstractCoordinateSystem
+//import rainbow.coordinates.two.AbstractCoordinateSystem
 //import rainbow.coordinates.CoordinateSystem
 //import rainbow.input.KeyMap
 //import rainbow.point.CoordinatePoint

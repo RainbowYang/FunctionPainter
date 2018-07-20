@@ -8,7 +8,7 @@ import java.awt.Graphics2D
  * @author Rainbow Yang
  */
 
-open class CoordinatePainter(var cs: CoordinateSystem) : Painter() {
+open class CoordinatePainter<CS : CoordinateSystem>(var cs: CS) : Painter() {
     operator fun String.invoke(color: String = "#000000",
                                visible: Boolean = true,
                                cgPaint: (CoordinateGraphics) -> Unit = {}) {

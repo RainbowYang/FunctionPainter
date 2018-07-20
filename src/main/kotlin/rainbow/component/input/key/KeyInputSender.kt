@@ -10,7 +10,7 @@ import kotlin.concurrent.schedule
  * 存贮当前的按键状况，并对符合的执行操作
  * @author Rainbow Yang
  */
-class KeyObservable {
+class KeyInputSender {
 
     /**
      * 尝试执行handle的周期,以毫秒(ms)为单位
@@ -23,9 +23,9 @@ class KeyObservable {
     private var isCtrlDown = false
     private var isShiftDown = false
 
-    val handlesList = mutableListOf<KeyHandles>()
+    val handlesList = mutableListOf<KeyHandles<out KeyHandlesOwner>>()
 
-    fun addHandles(handles: KeyHandles) = handlesList.add(handles)
+    fun addHandles(handles: KeyHandles<out KeyHandlesOwner>) = handlesList.add(handles)
 
     fun startToRunHandles() {
         Timer().schedule(0, period.toLong()) {

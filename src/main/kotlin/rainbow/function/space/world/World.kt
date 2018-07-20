@@ -57,7 +57,7 @@ class World : CoordinateFunction() {
                     gravitySum = (gravitySum + (now gravityFrom it)).asPoint3D
                 }
             }
-            now.velocity = ((now.velocity + gravitySum / now.mass) * time).asPoint3D
+            now.velocity = (now.velocity + (gravitySum / now.mass) * time).asPoint3D
             now.move(time)
         }
     }
@@ -65,8 +65,7 @@ class World : CoordinateFunction() {
     inner class WorldPainter : CoordinateFunction.Painter() {
         override fun paintMain(cg: CoordinateGraphics) {
             bodies.forEach {
-                val location = cg.system.toScreenPoint(it.location)
-                cg.g.drawOval(location.x.toInt(), location.y.toInt(), 100, 100)
+                it.selfPaint(cg)
             }
         }
     }

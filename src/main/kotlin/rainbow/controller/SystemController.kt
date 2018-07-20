@@ -1,6 +1,6 @@
 package rainbow.controller
 
-import rainbow.component.input.key.KeyObservable
+import rainbow.component.input.key.KeyInputSender
 import rainbow.coordinates.CoordinateSystem
 import rainbow.function.CoordinateFunction
 import rainbow.utils.buildJFrame
@@ -27,14 +27,13 @@ class SystemController(extraInit: SystemController.() -> Unit) {
     var period: Int = 25
 
     var task: () -> Unit = {}
-
     var coordinateSystem: CoordinateSystem = CoordinateSystem.Empty
 
     var functionList = mutableListOf<CoordinateFunction>()
 
     private lateinit var frame: JFrame
 
-    val keyObservable = KeyObservable()
+    val keyObservable = KeyInputSender()
 
     init {
         extraInit()
