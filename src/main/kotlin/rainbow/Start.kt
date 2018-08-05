@@ -2,6 +2,7 @@ package rainbow
 
 import rainbow.controller.SystemController
 import rainbow.coordinates.CartesianCoordinateSystem3D
+import rainbow.function.mathfunction.special.Grid
 import rainbow.function.space.body.Ball
 import rainbow.function.space.world.World
 import rainbow.point.Point3D
@@ -38,6 +39,8 @@ fun main(args: Array<String>) {
         world.addBody(ball2)
 
         addFunction(world)
+
+        addFunction(world.getGrid())
 
     }
 }

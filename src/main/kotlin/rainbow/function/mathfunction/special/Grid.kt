@@ -11,12 +11,12 @@ import rainbow.function.mathfunction.MathFunction
 
  * @author Rainbow Yang
  */
-class Grid(function: (Double, Double) -> Double) : MathFunction() {
+open class Grid(function: (Double, Double) -> Double) : MathFunction() {
     init {
         setRange(-10.0, 10.0, 0.1)
 
         for (j in start.toInt()..end.toInt()) {
-            addFunctions(SELF, { j.toDouble() }, { function(it, j.toDouble()) })
+            setFunctions(SELF, { j.toDouble() }, { function(it, j.toDouble()) })
             addFunctions({ j.toDouble() }, SELF, { function(j.toDouble(), it) })
         }
     }

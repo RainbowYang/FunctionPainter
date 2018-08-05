@@ -19,7 +19,7 @@ open class MathFunction(initFunctions: List<DoubleUnaryOperator> = listOf()) : P
     }
 
     //每组Function的集合
-    private val functionsList = mutableListOf<
+    protected val functionsList = mutableListOf<
             List<DoubleUnaryOperator>
             >()
 

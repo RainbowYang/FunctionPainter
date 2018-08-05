@@ -17,6 +17,8 @@ class Ball(var radius: Double = 0.0,
 
     override fun selfPaint(cg: CoordinateGraphics) {
         cg.paintCircle(location, location.asAxes.plusAtAndNew(0, radius))
+
+
     }
 
     override fun equals(other: Any?): Boolean {
